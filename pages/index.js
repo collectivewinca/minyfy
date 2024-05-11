@@ -95,9 +95,9 @@ const Home = () => {
               >
                 Log in with Spotify
               </Link>
-              <button className="bg-gray-300 hover:opacity-80 text-black font-semibold py-2 px-6 rounded-full">
+              {/* <button className="bg-gray-300 hover:opacity-80 text-black font-semibold py-2 px-6 rounded-full">
                 Connect to Last.fm
-              </button>
+              </button> */}
             </>
           )}
         </div>
