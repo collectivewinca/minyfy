@@ -26,7 +26,7 @@ const Home = () => {
   useEffect(() => {
     // Apply filter when recently played tracks change
     applyFilter();
-  }, [recentlyPlayedTracks, filterOption]);
+  }, [recentlyPlayedTracks, filterOption]); // Added applyFilter to the dependency array
 
   const getRecentlyPlayedTracks = async (accessToken) => {
     try {
