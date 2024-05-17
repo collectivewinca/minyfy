@@ -12,7 +12,7 @@ const generateRandomString = (length) => {
 
 const stateKey = 'spotify_auth_state';
 
-export default async (req, res) => {
+const spotifyAuthHandler = async (req, res) => {
   if (req.method === 'GET') {
     if (req.query.action === 'login') {
       const state = generateRandomString(16);
@@ -104,3 +104,5 @@ export default async (req, res) => {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
+
+export default spotifyAuthHandler;
