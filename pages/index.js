@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Link from 'next/link';
 import axios from 'axios';
+import { FaSpotify } from "react-icons/fa";
 
 const Home = () => {
   const [recentlyPlayedTracks, setRecentlyPlayedTracks] = useState([]);
@@ -86,14 +87,14 @@ const Home = () => {
         <div className="text-center ">
           <h1 className="text-4xl font-semibold">MINYFY your MIXTAPE</h1>
         </div>
-        <div className="flex justify-center ">
+        <div className="flex justify-center mt-4 ">
           {/* Render login buttons only if not logged in */}
           {!isLoggedIn && (
             <>
               <Link href="/api/login"
-                className="bg-primary hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-4"
+                className="bg-[#1ad95c] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-4"
               >
-                Log in with Spotify
+                <FaSpotify className="mr-2 text-2xl"/> Log in with Spotify
               </Link>
               {/* <button className="bg-gray-300 hover:opacity-80 text-black font-semibold py-2 px-6 rounded-full">
                 Connect to Last.fm
