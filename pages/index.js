@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Header from '@/components/Header';
 import Link from 'next/link';
 import axios from 'axios';
@@ -6,9 +6,30 @@ import { FaSpotify } from "react-icons/fa";
 
 const Home = () => {
   const [recentlyPlayedTracks, setRecentlyPlayedTracks] = useState([]);
-  const [filteredTracks, setFilteredTracks] = useState([]); // State to hold filtered tracks
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
-  const [filterOption, setFilterOption] = useState('all'); // State to track selected filter option
+  const [filteredTracks, setFilteredTracks] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [filterOption, setFilterOption] = useState('all');
+
+  const applyFilter = useCallback(() => {
+    if (filterOption === 'all') {
+      setFilteredTracks(recentlyPlayedTracks);
+    } else {
+      const currentDate = new Date();
+      let startDate = new Date();
+      if (filterOption === 'lastWeek') {
+        startDate.setDate(currentDate.getDate() - 7);
+      } else if (filterOption === 'lastTwoWeeks') {
+        startDate.setDate(currentDate.getDate() - 14);
+      } else if (filterOption === 'lastMonth') {
+        startDate.setMonth(currentDate.getMonth() - 1);
+      }
+      const filtered = recentlyPlayedTracks.filter((track) => {
+        const playedDate = new Date(track.played_at);
+        return playedDate >= startDate && playedDate <= currentDate;
+      });
+      setFilteredTracks(filtered);
+    }
+  }, [filterOption, recentlyPlayedTracks]);
 
   useEffect(() => {
     const getAccessTokenFromUrl = () => {
@@ -19,14 +40,13 @@ const Home = () => {
     const accessToken = getAccessTokenFromUrl();
     if (accessToken) {
       getRecentlyPlayedTracks(accessToken);
-      setIsLoggedIn(true); // Set login status to true
+      setIsLoggedIn(true);
     }
   }, []);
 
   useEffect(() => {
-    // Apply filter when recently played tracks change
     applyFilter();
-  }, [recentlyPlayedTracks, filterOption]); // Added applyFilter to the dependency array
+  }, [recentlyPlayedTracks, filterOption, applyFilter]);
 
   const getRecentlyPlayedTracks = async (accessToken) => {
     try {
@@ -37,45 +57,16 @@ const Home = () => {
             'Authorization': `Bearer ${accessToken}`
           },
           params: {
-            limit: 50 
+            limit: 50
           }
         }
       );
-
-      setRecentlyPlayedTracks(response.data.items); // Store the recently played tracks
+      setRecentlyPlayedTracks(response.data.items);
     } catch (error) {
       console.error('Error fetching recently played tracks:', error);
     }
   };
 
-  const applyFilter = () => {
-    // Filter tracks based on the selected option
-    if (filterOption === 'all') {
-      setFilteredTracks(recentlyPlayedTracks);
-    } else {
-      const currentDate = new Date();
-      let startDate = new Date();
-
-      // Calculate start date based on the selected option
-      if (filterOption === 'lastWeek') {
-        startDate.setDate(currentDate.getDate() - 7);
-      } else if (filterOption === 'lastTwoWeeks') {
-        startDate.setDate(currentDate.getDate() - 14);
-      } else if (filterOption === 'lastMonth') {
-        startDate.setMonth(currentDate.getMonth() - 1);
-      }
-
-      // Filter tracks by played time
-      const filtered = recentlyPlayedTracks.filter((track) => {
-        const playedDate = new Date(track.played_at);
-        return playedDate >= startDate && playedDate <= currentDate;
-      });
-
-      setFilteredTracks(filtered);
-    }
-  };
-
-  // Function to handle filter option change
   const handleFilterChange = (option) => {
     setFilterOption(option);
   };
