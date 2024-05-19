@@ -136,6 +136,10 @@ const Home = () => {
                 ))}
               </tbody>
             </table>
+
+            <div className='bg-[#1ad95c] w-56 mx-auto text-center mt-4 flex hover:opacity-80 text-white font-semibold py-2 px-4 justify-center rounded-full m'>
+              Generate Mixtapes
+            </div>
           </div>
         )}
       </div>
