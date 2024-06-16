@@ -10,7 +10,7 @@ function Lastfm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [trackData, setTrackData] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
-  const [userExists, setUserExists] = useState(true); // Assume user exists by default
+  const [userExists, setUserExists] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const trackDataContainerRef = useRef(null);
 
