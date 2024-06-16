@@ -1,7 +1,8 @@
-import React from 'react'
-import Header from '@/components/Header'
-import Link from 'next/link'
-import { FaSpotify } from "react-icons/fa"
+import React from 'react';
+import Header from '@/components/Header';
+import Link from 'next/link';
+import { FaSpotify } from 'react-icons/fa';
+import ImageGallery from '@/components/Gallery';
 
 function Home() {
   return (
@@ -13,8 +14,8 @@ function Home() {
         </div>
         <div className="flex justify-center mt-4">
           <Link href="" passHref>
-            <button className="bg-[#1ad95c] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-4" disabled>
-              <FaSpotify className="mr-2 text-2xl" /> Log in with Spotify
+            <button className="bg-[#d92323] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-4" disabled>
+              <FaSpotify className="mr-2 text-2xl" /> Coming Soon...
             </button>
           </Link>
           <Link href="/lastfm" passHref>
@@ -23,9 +24,12 @@ function Home() {
             </div>
           </Link>
         </div>
+        <div className="mt-8">
+          <ImageGallery/>
+        </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
