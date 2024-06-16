@@ -13,9 +13,9 @@ function Home() {
         </div>
         <div className="flex justify-center mt-4">
           <Link href="" passHref>
-            <div className="bg-[#1ad95c] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-4" disabled>
+            <button className="bg-[#1ad95c] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-4" disabled>
               <FaSpotify className="mr-2 text-2xl" /> Log in with Spotify
-            </div>
+            </button>
           </Link>
           <Link href="/lastfm" passHref>
             <div className="bg-[#d92323] hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full">

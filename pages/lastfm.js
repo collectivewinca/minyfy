@@ -10,7 +10,10 @@ function Lastfm() {
   const [userProfile, setUserProfile] = useState(null);
   const [userExists, setUserExists] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState('');
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState("/img3.png");
+  const [backgroundImageDataUrl, setBackgroundImageDataUrl] = useState("/img3.png");
   const trackDataContainerRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -99,12 +102,58 @@ function Lastfm() {
     }
   };
 
-  console.log(trackData);
+  const generateImage = async () => {
+    setLoading(true);
+    const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    const response = await fetch('https://api.openai.com/v1/images/generations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'dall-e-3',
+        prompt: 'create a uniform background image for a list of music track, make it life like, be creative and simple',
+        n: 1,
+        size: '1024x1024',
+      }),
+    });
+  
+    const data = await response.json();
+    console.log('Generated image:', data);
+    if (data.data && data.data.length > 0) {
+      const imageUrl = data.data[0].url;
+  
+      try {
+        
+        const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
+        if (!apiResponse.ok) {
+          throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
+        }
+        const blob = await apiResponse.blob();
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          const base64data = reader.result;
+          setBackgroundImageUrl(base64data);
+          setLoading(false);
+        };
+      } catch (error) {
+        console.error('Error fetching image data:', error);
+        setLoading(false);
+      }
+    } else {
+      console.error('Error generating image:', data);
+      setLoading(false);
+    }
+  };
+  
+  
 
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 my-12 flex flex-col items-center">
+      <div className=" px-4 my-12 flex flex-col justify-center items-center">
         <h1 className="text-4xl font-semibold mb-8 text-black">Last.fm Track Generator</h1>
         <form onSubmit={handleSubmit} className="w-full max-w-sm">
           <div className="mb-4">
@@ -169,13 +218,23 @@ function Lastfm() {
             </button>
           </div>
         )}
-
+        {trackData.length > 0 && (
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={generateImage}
+            className="bg-black hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full"
+          >
+            {loading ? 'Generating...' : 'Generate Background Image'}
+          </button>
+        </div>
+        )}
+        <div className='md:ml-0 ml-[20rem]'>
         {trackData.length > 0 && (
           <div
-            className=" w-full uppercase max-w-4xl relative bg-white bg-opacity-90 shadow-md"
+            className=" uppercase w-[56rem] overflow-y-auto relative bg-white bg-opacity-90 shadow-md"
             ref={trackDataContainerRef}
             style={{
-              backgroundImage: `url('/img3.png')`, // Your background image
+              backgroundImage: `url('${backgroundImageUrl}')`,
               backgroundSize: 'cover',
               minHeight: '100vh',
               padding: '50px 50px',
@@ -185,7 +244,7 @@ function Lastfm() {
             <div className="relative p-6 shadow-2xl rounded-xl bg-black bg-opacity-50 text-white">
               <h2 className="text-3xl text-center font-semibold mb-4">MINYFY</h2>
               <h3 className="text-xl text-center mb-2">{selectedPeriod.toUpperCase()}</h3>
-              <p className="mb-2">Order #{userProfile ? userProfile.playcount : 'N/A'} FOR {username.toUpperCase()}</p>
+              <p className="mb-2">Order #{userProfile ? userProfile.playcount : '5394'} FOR {username.toUpperCase()}</p>
               <p className="mb-2">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
               <table className="w-full">
                 <thead>
@@ -211,16 +270,16 @@ function Lastfm() {
                   ))}
                 </tbody>
 
-                <tfoot className="border-dashed border-y-[0.6px] mb-14  border-white"> 
-                <tr >
-                  <td className=" px-4 py-1 text-left " colSpan="2">ITEM COUNT:</td>
-                  <td className=" px-4 py-1 text-right ">
+                <tfoot className="border-dashed border-y-[0.6px] mb-14 border-white"> 
+                <tr>
+                  <td className="px-4 py-1 text-left" colSpan="2">ITEM COUNT:</td>
+                  <td className="px-4 py-1 text-right">
                     {trackData.reduce((total, track) => total + parseInt(track.playcount), 0)}
                   </td>
                 </tr>
-                <tr className="">
-                  <td className=" px-4 py-1 text-left " colSpan="2">TOTAL:</td>
-                  <td className=" px-4 py-1  text-right ">
+                <tr>
+                  <td className="px-4 py-1 text-left" colSpan="2">TOTAL:</td>
+                  <td className="px-4 py-1 text-right">
                     {trackData.reduce((total, track) => total + parseInt(track.duration), 0)
                       .toString()
                       .toHHMMSS()}
@@ -235,6 +294,8 @@ function Lastfm() {
             </div>
           </div>
         )}
+        </div>
+        
         {trackData.length > 0 && (
             <div className="flex justify-center mt-4">
             <button
@@ -245,6 +306,7 @@ function Lastfm() {
             </button>
             </div>
         )}
+        
       </div>
     </>
   );
@@ -262,10 +324,10 @@ String.prototype.toHHMMSS = function () {
   if (minutes < 10) {
     minutes = '0' + minutes;
   }
-  if(seconds < 10) {
+  if (seconds < 10) {
     seconds = '0' + seconds;
-    }
-    return hours + ':' + minutes + ':' + seconds;
+  }
+  return hours + ':' + minutes + ':' + seconds;
 };
 
 export default Lastfm;
