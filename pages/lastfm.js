@@ -189,7 +189,7 @@ function Lastfm() {
               <p className="mb-2">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
               <table className="w-full">
                 <thead>
-                  <tr className="border-dashed border-y-[0.6px] border-black">
+                  <tr className="border-dashed border-y-[0.6px] border-white">
                     <th className="px-4 py-2 text-left font-normal">QTY</th>
                     <th className="px-4 py-2 text-left font-normal">ITEM</th>
                     <th className="px-4 py-2 text-right font-normal">AMT</th>
@@ -211,7 +211,7 @@ function Lastfm() {
                   ))}
                 </tbody>
 
-                <tfoot className="border-dashed border-y-[0.6px] mb-14  border-black"> 
+                <tfoot className="border-dashed border-y-[0.6px] mb-14  border-white"> 
                 <tr >
                   <td className=" px-4 py-1 text-left " colSpan="2">ITEM COUNT:</td>
                   <td className=" px-4 py-1 text-right ">
