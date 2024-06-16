@@ -182,7 +182,7 @@ function Lastfm() {
             }}
           >
             <div className="absolute inset-0 bg-gray-200 bg-opacity-30 blur-2xl"></div>
-            <div className="relative p-6 shadow-2xl rounded-lg bg-gray-900 bg-opacity-50 text-white">
+            <div className="relative p-6 shadow-2xl rounded-xl bg-black bg-opacity-50 text-white">
               <h2 className="text-3xl text-center font-semibold mb-4">MINYFY</h2>
               <h3 className="text-xl text-center mb-2">{selectedPeriod.toUpperCase()}</h3>
               <p className="mb-2">Order #{userProfile ? userProfile.playcount : 'N/A'} FOR {username.toUpperCase()}</p>
