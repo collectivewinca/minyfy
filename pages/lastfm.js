@@ -289,7 +289,7 @@ function Lastfm() {
             </table>
             <div>
               <p className="text-center mt-4">Thank you for your order!</p>
-              <img src="/Minylogo.png" alt="Minyfy Logo" className="mx-auto mt-4" width="100" height="100" />
+              <img src="/stamp.png" alt="Minyfy Logo" className="mx-auto mt-4" width="100" height="100" />
             </div>
             </div>
           </div>
