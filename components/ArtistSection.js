@@ -71,7 +71,7 @@ const ArtistSection = ({ onTracksChange }) => {
   return (
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
-        <h2 className="text-2xl font-semibold mb-4">Select from this Week's Top Artists</h2>
+        <h2 className="text-2xl font-semibold mb-4">Select from this Week&lsquo;s Top Artists</h2>
         <ul className=" grid grid-cols-4 gap-2">
           {topArtists.map((artist) => (
             <li key={artist.name}>
@@ -108,7 +108,7 @@ const ArtistSection = ({ onTracksChange }) => {
 
       {selectedArtist && (
         <div className="mt-5">
-          <h2 className="text-2xl font-semibold mb-4">{selectedArtist}'s Top Tracks</h2>
+          <h2 className="text-2xl font-semibold mb-4">{selectedArtist}&lsquo;s Top Tracks</h2>
           {error && <p className="text-red-600 mb-2">{error}</p>}
           <ul className="pl-5 list-disc text-lg">
             {topTracks.map((track) => (

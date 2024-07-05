@@ -47,7 +47,7 @@ const TracksList = ({ onTracksChange }) => {
           </button>
         ))}
       </div>
-      <h2 className="text-2xl font-semibold mb-4">This Week's Top Tracks</h2>
+      <h2 className="text-2xl font-semibold mb-4">This Week&lsquo;s Top Tracks</h2>
       <ul className="pl-5 list-disc text-lg uppercase">
         {tracks.map((track, index) => (
           <li key={index}>{track}</li>
