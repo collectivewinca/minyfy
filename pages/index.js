@@ -9,9 +9,9 @@ function Home() {
     <>
       <Header />
       <div className="flex justify-end mt-5 mx-3">
-          <Link href="" >
-            <button className="bg-[#d92323] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-2" disabled>
-              <FaSpotify className="mr-1 text-2xl" /> Coming Soon...
+          <Link href="/custom" >
+            <button className="bg-[#d92323] flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-2" >
+              <FaSpotify className="mr-1 text-2xl" /> Customize Miny
             </button>
           </Link>
           <Link href="/lastfm" >

@@ -143,6 +143,45 @@ const Home = () => {
           </div>
         )}
       </div>
+      <div ref={trackDataContainerRef} className='m'>
+        <div className="relative mt-10  cursor-pointer rounded-2xl" >
+            <div className="overlay"></div>
+            <img className="h-full w-full rounded-2xl" src='/gallery/img6.png' alt="" />
+            <div className="cardContent">
+                <p className="text-white font-medium text-lg tracking-wide absolute top-0 right-0 px-4 pb-4 py-1">
+                    <img src="/stamp.png" alt="Minyfy Logo" className="mx-auto mt-4" width="100" height="100" />
+                </p>
+                <div className=" absolute top-44 flex flex-col gap-6 items-end text-xl font-wittgenstein font-base px-4  right-0 text-neutral-300  mt-10 tracking-wider">
+                  
+                    <div>Be Like You - Taylor Acorn</div>
+                    <div>Survival In Motion - Taylor Acorn</div>
+                    <div>Applause - Taylor Acorn</div>
+                    <div>Final Nail - Taylor Acorn</div>
+                    <div>Greener - Taylor Acorn</div>
+                    <div>High Horse - Taylor Acorn</div>
+                    <div>Nervous System - Taylor Acorn</div>
+                    <div>People Watching - Taylor Acorn</div>
+                    <div>Kill Me Quickly - Thrice</div>
+                    <div>Wilder In The Heart - Butch Walker</div>
+
+                </div>
+                <div className="absolute bottom-8 flex flex-col  items-end text-xl font-wittgenstein font-base px-4  right-0 text-neutral-300  mt-10 tracking-wider">
+                    <h2 className="">Last Month</h2>
+                    <p>MINY Order for Jason Tate</p>
+                    <p>Thursday, July 4, 2024</p>
+                </div>
+            </div>
+        </div>
+        </div>
+
+            <div className="flex justify-center mt-4">
+            <button
+                onClick={handleDownloadImage}
+                className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full"
+            >
+                Download as Image
+            </button>
+            </div>
     </>
   );
 };
@@ -170,3 +209,6 @@ export default Home;
             Last Month
           </button>
         </div>
+
+
+
