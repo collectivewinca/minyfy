@@ -1,12 +1,12 @@
 import React from 'react';
 
 const images = [
-  '/gallery/track_data (27).jpg',
-  '/gallery/track_data (28).jpg',
-  '/gallery/track_data (29).jpg',
-  '/gallery/track_data (30).jpg',
-  '/gallery/track_data (31).jpg',
-  '/gallery/track_data (32).jpg'
+  '/gallery/miny (1).jpg',
+  '/gallery/miny (2).jpg',
+  '/gallery/miny (3).jpg',
+  '/gallery/miny (4).jpg',
+  '/gallery/miny (5).jpg',
+  '/gallery/miny (6).jpg'
 ];
 
 const ImageGallery = () => {

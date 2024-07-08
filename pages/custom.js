@@ -6,6 +6,7 @@ import TagSection from '@/components/TagSection';
 import MinySection from '@/components/MinySection';
 import CustomTrack from '@/components/CustomTrack';
 
+
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('user');
@@ -41,8 +42,22 @@ const Custom = () => {
   return (
     <>
       <Header />
+      
       <div className="container mx-auto px-4 my-12 flex flex-col justify-center items-center">
-        <h1 className="text-4xl font-bold underline mb-4 text-center text-black">Customize Your Miny</h1>
+        <h1 className="text-4xl font-bold underline mb-4 mt-10 md:mt-1 text-center text-neutral-800">Customize Your Miny</h1>
+        <div className='md:w-[73%] flex justify-center items-center md:mx-auto mx-4 '>
+          {tracks.length > 0 ? (
+              <MinySection 
+              name={inputValue}
+              backgroundImage={backgroundImage}
+              tracks={tracks}
+            />
+          ) : (
+            <img className=" rounded-2xl" src={backgroundImage} alt="Selected Background" />
+          
+          )}
+          
+        </div>
         <div className='flex flex-col justify-start w-full md:w-[70%]'>
           <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Category</div>
           <select
@@ -51,9 +66,9 @@ const Custom = () => {
             onChange={handleSelection}
           >
             <option value="">Select an option</option>
-            <option value="tracks">Top Tracks</option>
-            <option value="searchArtist">Search Artist</option>
-            <option value="genre">Top Genre</option>
+            <option value="tracks">Tracks</option>
+            <option value="searchArtist">Artists</option>
+            <option value="genre">Genres</option>
             <option value="customize">Customize Miny</option>
           </select>
         </div>
@@ -61,6 +76,8 @@ const Custom = () => {
         {/* <div>
           <img className="h-[120vh] rounded-2xl" src={backgroundImage} alt="Selected Background" />
         </div> */}
+
+
 
         
 
@@ -105,19 +122,7 @@ const Custom = () => {
           <CustomTrack onTracksChange={handleTracksChange} />
         )}
       </div>
-      <div className='md:w-[73%] flex justify-center items-center md:mx-auto mx-4 '>
-          {tracks.length > 0 ? (
-              <MinySection 
-              name={inputValue}
-              backgroundImage={backgroundImage}
-              tracks={tracks}
-            />
-          ) : (
-            <img className=" rounded-2xl" src={backgroundImage} alt="Selected Background" />
-          
-          )}
-          
-        </div>
+      
       
     </>
   );

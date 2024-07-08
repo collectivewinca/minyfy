@@ -72,7 +72,7 @@ const ArtistSection = ({ onTracksChange }) => {
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
         <h2 className="text-2xl font-semibold mb-4">Select from this Week&lsquo;s Top Artists</h2>
-        <ul className=" grid grid-cols-4 gap-2">
+        <ul className=" grid md:grid-cols-4 grid-cols-2  gap-2">
           {topArtists.map((artist) => (
             <li key={artist.name}>
               <button

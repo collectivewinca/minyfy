@@ -34,7 +34,7 @@ const TracksList = ({ onTracksChange }) => {
 
   return (
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
-      <div className="flex gap-4 justify-center mb-4">
+      <div className="flex flex-wrap gap-4 justify-center mb-4">
         {['Worldwide', 'United States', 'Canada', 'France', 'Germany'].map(country => (
           <button
             key={country}
