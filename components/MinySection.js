@@ -95,7 +95,6 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
 
   return (
     <div className='py-7'>
-      {loading && <div className="loading-spinner">Loading...</div>}
       <div ref={trackDataContainerRef} className='overflow-y-auto '>
         <div className="relative  cursor-pointer ">
           <div className="overlay"></div>
@@ -136,7 +135,7 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
           onClick={saveToFirestore}
           className="bg-[#f48531] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-6 rounded-full"
         >
-          {loading ? 'Loading...' : 'Create Playlist'}
+          {loading ? 'Creating...' : 'Create Playlist'}
         </button>
       </div>
     </div>

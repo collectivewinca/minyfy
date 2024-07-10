@@ -72,7 +72,7 @@ const TagSection = ({ onTracksChange }) => {
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
         <h2 className="text-2xl font-semibold mb-4">Select from This Week&lsquo;s Top Tags</h2>
-        <ul className="grid grid-cols-4 gap-2">
+        <ul className="grid grid-cols-2 md:grid-cols-4  gap-2">
           {topTags.map((tag) => (
             <li key={tag.name}>
               <button
