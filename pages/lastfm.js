@@ -56,6 +56,8 @@ function Lastfm() {
       });
   };
 
+  console.log('trackData:', trackData);
+
   const handleButtonClick = async (period) => {
     const apiKey = '913f1b2c2126b54f985407d31d49da12';
     const limit = 10;
@@ -172,7 +174,7 @@ function Lastfm() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-[#d92323] text-white hover:opacity-80 bg font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-[#f28532] shadow-custom text-white hover:opacity-80 bg font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Submit
             </button>

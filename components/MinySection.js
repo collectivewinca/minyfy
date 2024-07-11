@@ -7,7 +7,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { useRouter } from 'next/router';
 
 const MinySection = ({ name, backgroundImage, tracks }) => {
-  const [isFavorite, setIsFavorite] = useState(true); 
+  const [isFavorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
   const trackDataContainerRef = useRef(null);
   const router = useRouter();
@@ -41,7 +41,7 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
     setLoading(true);
     try {
       const tracksWithYouTube = await Promise.all(tracks.map(async (track) => {
-        const youtubeData = await searchYouTube(track);
+        const youtubeData = await fetchYouTubeData(track);
         return {
           track,
           youtubeData,
@@ -64,31 +64,26 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
     }
   };
 
-  const searchYouTube = async (track) => {
-    const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
-    const query = encodeURIComponent(track);
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=${apiKey}&maxResults=1`;
-
+  const fetchYouTubeData = async (track) => {
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log("YouTube data:", data);
-      if (data.items && data.items.length > 0) {
+      const response = await fetch('/api/youtube', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: track }),
+      });
 
-        const item = data.items[0];
-        return {
-          videoId: item.id.videoId,
-          title: item.snippet.title,
-          channelTitle: item.snippet.channelTitle,
-          thumbnails: item.snippet.thumbnails,
-          description: item.snippet.description,
-        };
+      const data = await response.json();
+
+      if (response.ok) {
+        return data[0]; // Assuming the first result is the most relevant one
       } else {
-        console.error("No results found for track:", track);
+        console.error(`Error fetching YouTube data for track: ${track}`, data);
         return null;
       }
     } catch (error) {
-      console.error("Error fetching YouTube data:", error);
+      console.error(`Error fetching YouTube data for track: ${track}`, error);
       return null;
     }
   };

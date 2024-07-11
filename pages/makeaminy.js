@@ -10,7 +10,7 @@ import CustomTrack from '@/components/CustomTrack';
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
-  const [inputValue, setInputValue] = useState('user');
+  const [inputValue, setInputValue] = useState('User');
   const [backgroundImage, setBackgroundImage] = useState('/gallery/img6.png'); // Default image
   const [tracks, setTracks] = useState([]);
 
@@ -44,9 +44,8 @@ const Custom = () => {
     <>
       <Header />
       
-      <div className="container mx-auto px-4 my-12 flex flex-col justify-center items-center">
-        <h1 className="text-4xl font-bold underline mb-4 mt-10 md:mt-1 text-center text-neutral-800">Customize Your Miny</h1>
-        <div className='md:w-[73%] flex justify-center items-center md:mx-auto mx-4 '>
+      <div className="container md:mx-auto md:px-4 flex flex-col justify-center items-center px-2 my-2 md:my-6">
+       <div className='md:w-[73%] flex justify-center items-center md:mx-auto '>
           {tracks.length > 0 ? (
               <MinySection 
               name={inputValue}
@@ -54,15 +53,22 @@ const Custom = () => {
               tracks={tracks}
             />
           ) : (
-            <img className=" rounded-2xl" src={backgroundImage} alt="Selected Background" />
+            <div  className="relative cursor-pointer" >
+                <div className="overlay1"></div>
+                <img className="h-auto max-w-full rounded-2xl" src="/top1.jpg" alt="" />
+                <div className="cardContent">
+                    <p className="text-white font-extrabold md:text-4xl text-xl tracking-wide absolute bottom-0 left-0 px-4   py-2">Customize Miny</p>
+                </div>
+            </div>
+            
           
           )}
           
         </div>
-        <div className='flex flex-col justify-start w-full md:w-[70%]'>
+        <div className='flex flex-col justify-start w-full md:w-[70%] '>
           <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Category</div>
           <select
-            className="mb-3 p-1 font-base font-mono bg-transparent text-lg border-neutral-800 border-[2.5px] text-neutral-500 rounded-xl"
+            className="mb-3 px-5 py-3 font-thin font-mono bg-neutral-200 text-lg text-neutral-500 rounded-xl"
             value={selectedOption}
             onChange={handleSelection}
           >
@@ -83,22 +89,22 @@ const Custom = () => {
         
 
         <div className='flex flex-col justify-start w-full md:w-[70%]'>
-        <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Enter Your Name</div>
+        <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Enter Brand Name </div>
           <input
-            className="mb-3 px-2 p-1 font-base font-mono bg-transparent text-lg text-neutral-500 border-neutral-800 border-[2.5px] rounded-xl"
+            className="mb-3 px-5 py-3 font-thin font-mono bg-neutral-200 text-lg text-neutral-500  rounded-xl"
             value={inputValue}
             onChange={handleInputChange}
-            placeholder='Enter your name here...'
+            placeholder='Name here...'
           />
         </div>
 
         <div className='flex flex-col justify-start w-full md:w-[70%]'>
           <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Background Image</div>
-          <div className="grid grid-cols-3 gap-4 ">
+          <div className="grid md:grid-cols-6 grid-cols-3  gap-4 ">
             {images.map((image, index) => (
               <img
                 key={index}
-                className={`cursor-pointer  w-full rounded-xl ${backgroundImage === image ? 'border-2 border-black p-1' : 'border-2 border-transparent'}`}
+                className={`cursor-pointer  w-full rounded-xl ${backgroundImage === image ? 'border-2 border-black p-1' : 'border-[2.8px] border-transparent'}`}
                 src={image}
                 alt={`Background ${index + 1}`}
                 onClick={() => handleImageSelection(image)}

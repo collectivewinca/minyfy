@@ -15,6 +15,7 @@
     "crypto": "^1.0.1",
     "downloadjs": "^1.4.7",
     "firebase": "^10.12.3",
+    "googleapis": "^140.0.1",
     "html-to-image": "^1.11.11",
     "icons": "^1.0.0",
     "next": "14.1.0",
