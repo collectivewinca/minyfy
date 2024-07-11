@@ -9,7 +9,7 @@ function Home() {
     <>
       <Header />
       <div className="flex md:justify-end justify-center md:mt-5 mt-24 mx-3">
-          <Link href="/custom" >
+          <Link href="/makeaminy" >
             <button className="bg-[#f28532] shadow-custom flex hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full mr-2" >
                Customize Miny
             </button>
