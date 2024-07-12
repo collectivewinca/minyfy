@@ -113,7 +113,7 @@ const TagSection = ({ onTracksChange }) => {
           {error && <p className="text-red-600 mb-2">{error}</p>}
           <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {topTracks.map((track) => (
-              <li  className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
+              <li key={track}  className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
               <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
               <div className='font-base font-jakarta md:text-xl text-lg'>{track}</div>
             </li>
