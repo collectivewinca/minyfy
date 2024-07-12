@@ -73,7 +73,7 @@ const Custom = () => {
               tracks={tracks}
             />
           ) : (
-            <div  className="relative cursor-pointer" >
+            <div  className="relative cursor-pointer mt-4" >
                 <div className="overlay1"></div>
                 <img className="h-auto max-w-full rounded-2xl" src="/top1.jpg" alt="" />
                 <div className="cardContent">

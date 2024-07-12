@@ -6,7 +6,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <header className="fixed md:top-[-30px] top-[-10px] md:left-[-30px] w-2/3  left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 z-10 ">
+    <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-2/3  left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
       <div className="flex items-center">
         <div className="cursor-pointer" onClick={() => router.push('/')}>
           <Image 

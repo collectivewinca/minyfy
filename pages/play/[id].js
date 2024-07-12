@@ -89,6 +89,9 @@ const PlaylistPage = ({ docData }) => {
     if (event.data === window.YT.PlayerState.ENDED) {
       if (currentTrackIndex < docData.tracks.length - 1) {
         setCurrentTrackIndex((prevIndex) => prevIndex + 1);
+      } else {
+        // If it's the last track, play from the start again
+        setCurrentTrackIndex(0);
       }
     }
   };
