@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import TracksList from '@/components/TrackList';
 import ArtistSection from '@/components/ArtistSection';
 import TagSection from '@/components/TagSection';
 import MinySection from '@/components/MinySection';
 import CustomTrack from '@/components/CustomTrack';
+import { FaArrowUp } from "react-icons/fa6";
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('User');
   const [backgroundImage, setBackgroundImage] = useState('/gallery/img6.png');
   const [tracks, setTracks] = useState([]);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const [showNotification, setShowNotification] = useState(false);
 
   const images = [
     'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg1.png?alt=media&token=6d4f5c4a-7855-43ef-83c7-c542e54d368d',
@@ -33,16 +36,36 @@ const Custom = () => {
     setBackgroundImage(imagePath);
   };
 
+  const handleScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    setIsAtTop(scrollTop === 0);
+    if (scrollTop === 0) {
+      setShowNotification(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleTracksChange = (newTracks) => {
     setTracks(newTracks);
+    if (!isAtTop) {
+      setShowNotification(true);
+    }
+  };
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
       <Header />
       
-      <div className="container md:mx-auto md:px-4 flex flex-col justify-center items-center px-2 my-2 md:my-6">
-       <div className='md:w-[73%] flex justify-center items-center md:mx-auto '>
+      <div className="container md:mx-auto md:px-4 flex flex-col justify-center  items-center px-2 my-2 md:my-6">
+       <div className='md:w-[73%] flex mt-7 justify-center items-center md:mx-auto '>
           {tracks.length > 0 ? (
               <MinySection 
               name={inputValue}
@@ -122,7 +145,17 @@ const Custom = () => {
           <CustomTrack onTracksChange={handleTracksChange} />
         )}
       </div>
-      
+        <div 
+          className={`p-2 rounded-lg fixed md:right-7 cursor-pointer right-4 md:bottom-4 bottom-4 bg-black shadow-custom ${!isAtTop && showNotification ? ' animate-bounce' : ''}`} 
+          onClick={handleScrollToTop}
+        >
+          {!isAtTop && showNotification && (
+            <div className="w-5 h-5 flex items-center justify-center rounded-full bg-[#f83d3d] text-white text-xs absolute top-[-0.5rem] right-[-0.5rem]">
+              1
+            </div>
+          )}
+          <FaArrowUp className='md:text-3xl text-xl text-white'/>
+        </div>
     </>
   );
 };

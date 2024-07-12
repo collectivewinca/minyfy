@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,3 +55,15 @@ body{
   height: 100%;
 }
 
+@keyframes bounce-up {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100%, 50%{
+    transform: translateY(-15px) scale(1.05);
+  }
+}
+
+.animate-bounce-up {
+  animation: bounce-up 2s ease-in-out infinite;
+}

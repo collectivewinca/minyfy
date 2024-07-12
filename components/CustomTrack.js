@@ -70,9 +70,9 @@ const CustomSection = ({ onTracksChange }) => {
   };
 
   return (
-    <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
+    <div className="my-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
-        <h2 className="text-2xl font-medium mb-4 font-jakarta">Search for Track</h2>
+        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Search for Track</h2>
         <div className="flex items-center">
           <input
             type="text"
@@ -91,8 +91,8 @@ const CustomSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="text-2xl font-medium mb-4 font-jakarta">Search Results</h2>
-        <ul className="pl-5 list-disc text-lg">
+        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Search Results</h2>
+        <ul className="md:pl-5 pl-1 list-disc text-lg">
           {searchResults.map((track, index) => (
             <li key={index} className="flex justify-between items-center font-jakarta mb-1">
               <div className='flex gap-2 items-center'>
@@ -112,8 +112,8 @@ const CustomSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="text-2xl font-medium mb-4 font-jakarta">Track List</h2>
-        <ul className="pl-5 list-disc text-lg">
+        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Track List</h2>
+        <ul className="md:pl-5 pl-1  list-disc text-lg">
           {trackList.map((track, index) => (
             <li key={`${track}-${index}`} className="flex font-jakarta justify-between items-center mb-1">
               <div className='flex gap-2 items-center'>

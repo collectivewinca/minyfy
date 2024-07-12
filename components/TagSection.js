@@ -70,9 +70,9 @@ const TagSection = ({ onTracksChange }) => {
   };
 
   return (
-    <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
+    <div className="my-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
-        <h2 className="text-2xl font-medium mb-4 font-jakarta">Select from This Week&lsquo;s Top Genres</h2>
+        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Select from This Week&rsquo;s Top Genres</h2>
         <ul className="grid md:grid-cols-5 grid-cols-2  gap-2">
           {topTags.map((tag) => (
             <li key={tag.name}>
@@ -88,7 +88,7 @@ const TagSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="text-2xl font-medium mb-4 font-jakarta">Search Genre</h2>
+        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Search Genre</h2>
         <div className="flex items-center">
           <input
             type="text"
@@ -111,11 +111,11 @@ const TagSection = ({ onTracksChange }) => {
         <div className="mt-5">
           <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">Top Tracks for {selectedTag}</h2>
           {error && <p className="text-red-600 mb-2">{error}</p>}
-          <ul className="pl-5 list-disc text-lg uppercase">
+          <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {topTracks.map((track) => (
-              <li  className=" flex gap-4 mb-2 w-full items-center">
-              <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='text-2xl'/></div>
-              <div className='font-base font-jakarta text-xl'>{track}</div>
+              <li  className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
+              <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
+              <div className='font-base font-jakarta md:text-xl text-lg'>{track}</div>
             </li>
             ))}
           </ul>

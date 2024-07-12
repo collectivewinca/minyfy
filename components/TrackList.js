@@ -34,7 +34,7 @@ const TracksList = ({ onTracksChange }) => {
   }, [selectedCountry]);
 
   return (
-    <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
+    <div className="my-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="flex flex-wrap md:flex-nowrap    justify-between mb-4 md:border-b-2 border-gray-300">
         {['Worldwide', 'United States', 'Canada', 'France', 'Germany'].map(country => (
           <button
@@ -48,12 +48,12 @@ const TracksList = ({ onTracksChange }) => {
           </button>
         ))}
       </div>
-      <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">This Week&lsquo;s Top Tracks</h2>
-      <ul className="pl-5 list-disc text-lg uppercase">
+      <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">This Week&rsquo;s Top Tracks</h2>
+      <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
         {tracks.map((track, index) => (
-          <li key={index} className=" flex gap-4 mb-2 w-full items-center">
-            <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='text-2xl'/></div>
-            <div className='font-base font-jakarta text-xl'>{track}</div>
+          <li key={index} className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
+            <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
+            <div className='font-base font-jakarta md:text-xl text-lg'>{track}</div>
           </li>
         ))}
       </ul>
