@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PiMusicNoteFill } from "react-icons/pi";
 
 const TracksList = ({ onTracksChange }) => {
   const [selectedCountry, setSelectedCountry] = useState('Worldwide');
@@ -34,12 +35,12 @@ const TracksList = ({ onTracksChange }) => {
 
   return (
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
-      <div className="flex flex-wrap gap-4 justify-center mb-4">
+      <div className="flex flex-wrap md:flex-nowrap    justify-between mb-4 md:border-b-2 border-gray-300">
         {['Worldwide', 'United States', 'Canada', 'France', 'Germany'].map(country => (
           <button
             key={country}
-            className={`bg-transparent border-[2.5px] border-black px-4 py-1 rounded-xl text-lg font-medium ${
-              selectedButton === country ? 'bg-[#78c144]' : 'hover:bg-[#78c144]'
+            className={`flex flex-col items-center justify-center w-full px-4 py-2 rounded-t-lg text-lg font-jakarta font-medium tracking-wide ${
+              selectedButton === country ? 'bg-[#f48531]  text-white border-l border-r border-t border-gray-300' : 'bg-transparent text-black hover:bg-[#f48531] hover:text-white'
             }`}
             onClick={() => handleCountrySelection(country)}
           >
@@ -47,10 +48,13 @@ const TracksList = ({ onTracksChange }) => {
           </button>
         ))}
       </div>
-      <h2 className="text-2xl font-semibold mb-4">This Week&lsquo;s Top Tracks</h2>
+      <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">This Week&lsquo;s Top Tracks</h2>
       <ul className="pl-5 list-disc text-lg uppercase">
         {tracks.map((track, index) => (
-          <li key={index}>{track}</li>
+          <li key={index} className=" flex gap-4 mb-2 w-full items-center">
+            <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='text-2xl'/></div>
+            <div className='font-base font-jakarta text-xl'>{track}</div>
+          </li>
         ))}
       </ul>
     </div>

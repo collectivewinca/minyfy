@@ -58,7 +58,7 @@ const PlaylistPage = ({ docData }) => {
   }, []);
 
   useEffect(() => {
-    if (isYouTubeApiReady && docData?.tracks[currentTrackIndex]?.youtubeData.videoId) {
+    if (isYouTubeApiReady && docData?.tracks[currentTrackIndex]?.youtubeData?.videoId) {
       if (!playerRef.current) {
         playerRef.current = new window.YT.Player('player', {
           height: '100%',
@@ -95,6 +95,7 @@ const PlaylistPage = ({ docData }) => {
 
   const handleTrackClick = (index) => {
     setCurrentTrackIndex(index);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!docData) {

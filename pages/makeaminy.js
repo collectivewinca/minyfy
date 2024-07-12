@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
-import TracksList from '@/components/TrackList'; // Import TracksList component
+import TracksList from '@/components/TrackList';
 import ArtistSection from '@/components/ArtistSection';
 import TagSection from '@/components/TagSection';
 import MinySection from '@/components/MinySection';
 import CustomTrack from '@/components/CustomTrack';
 
-
-
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('User');
-  const [backgroundImage, setBackgroundImage] = useState('/gallery/img6.png'); // Default image
+  const [backgroundImage, setBackgroundImage] = useState('/gallery/img6.png');
   const [tracks, setTracks] = useState([]);
 
-  // Define your images array
   const images = [
     'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg1.png?alt=media&token=6d4f5c4a-7855-43ef-83c7-c542e54d368d',
     'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg2.png?alt=media&token=95eb58bb-b11b-4b0d-97f1-7143f8a03cee',
@@ -66,7 +63,7 @@ const Custom = () => {
           
         </div>
         <div className='flex flex-col justify-start w-full md:w-[70%] '>
-          <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Category</div>
+          <div className='font-jakarta text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Category</div>
           <select
             className="mb-3 px-5 py-3 font-thin font-mono bg-neutral-200 text-lg text-neutral-500 rounded-xl"
             value={selectedOption}
@@ -84,12 +81,8 @@ const Custom = () => {
           <img className="h-[120vh] rounded-2xl" src={backgroundImage} alt="Selected Background" />
         </div> */}
 
-
-
-        
-
         <div className='flex flex-col justify-start w-full md:w-[70%]'>
-        <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Enter Brand Name </div>
+        <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Enter Brand Name </div>
           <input
             className="mb-3 px-5 py-3 font-thin font-mono bg-neutral-200 text-lg text-neutral-500  rounded-xl"
             value={inputValue}
@@ -99,7 +92,7 @@ const Custom = () => {
         </div>
 
         <div className='flex flex-col justify-start w-full md:w-[70%]'>
-          <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Background Image</div>
+          <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Select Background Image</div>
           <div className="grid md:grid-cols-6 grid-cols-3  gap-4 ">
             {images.map((image, index) => (
               <img
@@ -129,7 +122,6 @@ const Custom = () => {
           <CustomTrack onTracksChange={handleTracksChange} />
         )}
       </div>
-      
       
     </>
   );

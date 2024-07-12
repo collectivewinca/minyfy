@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PiMusicNoteFill } from "react-icons/pi";
 
 const TagSection = ({ onTracksChange }) => {
   const [topTags, setTopTags] = useState([]);
@@ -71,15 +72,15 @@ const TagSection = ({ onTracksChange }) => {
   return (
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
-        <h2 className="text-2xl font-semibold mb-4">Select from This Week&lsquo;s Top Tags</h2>
-        <ul className="grid grid-cols-2 md:grid-cols-4  gap-2">
+        <h2 className="text-2xl font-medium mb-4 font-jakarta">Select from This Week&lsquo;s Top Genres</h2>
+        <ul className="grid md:grid-cols-5 grid-cols-2  gap-2">
           {topTags.map((tag) => (
             <li key={tag.name}>
               <button
-                className="cursor-pointer uppercase rounded-xl text-sm border-2 bg-[#78c144] border-black px-2 font-semibold tracking-wide py-1 w-full text-left hover:bg-gray-200"
+                className="cursor-pointer rounded-full text-sm font-jakarta  bg-[#f9d6bb] px-4 text-neutral-700   font-medium tracking-wide py-2 w-full text-center hover:bg-[#f48531] hover:text-black"
                 onClick={() => handleTagSelection(tag.name)}
               >
-                {tag.name}
+                {capitalizeWords(tag.name)}
               </button>
             </li>
           ))}
@@ -87,17 +88,17 @@ const TagSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="text-2xl font-semibold mb-4">Search for Tag</h2>
-        <div className="flex gap-1 items-center">
+        <h2 className="text-2xl font-medium mb-4 font-jakarta">Search Genre</h2>
+        <div className="flex items-center">
           <input
             type="text"
-            className="border-[2.5px] border-black px-4 py-1 rounded-xl text-lg font-medium w-full"
+            className="px-5 py-3 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-500  rounded-l-xl"
             placeholder="Enter tag name..."
             value={searchedTag}
             onChange={handleInputChange}
           />
           <button
-            className="bg-[#78c144] border-2 border-[#78c144] px-4 py-1 rounded-xl text-lg font-medium text-white hover:bg-[#5b9e44]"
+            className="bg-[#f48531] px-5 py-3 rounded-r-xl text-lg font-medium text-white hover:bg-[#fc9648]"
             onClick={handleSearch}
           >
             Search
@@ -108,13 +109,14 @@ const TagSection = ({ onTracksChange }) => {
 
       {selectedTag && (
         <div className="mt-5">
-          <h2 className="text-2xl font-semibold mb-4">Top Tracks for {selectedTag}</h2>
+          <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">Top Tracks for {selectedTag}</h2>
           {error && <p className="text-red-600 mb-2">{error}</p>}
-          <ul className="pl-5 list-disc text-lg">
+          <ul className="pl-5 list-disc text-lg uppercase">
             {topTracks.map((track) => (
-              <li key={track}>
-                {track}
-              </li>
+              <li  className=" flex gap-4 mb-2 w-full items-center">
+              <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='text-2xl'/></div>
+              <div className='font-base font-jakarta text-xl'>{track}</div>
+            </li>
             ))}
           </ul>
         </div>

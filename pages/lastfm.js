@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Header from '@/components/Header';
 import { toPng, toJpeg, toBlob } from 'html-to-image';
 import download from 'downloadjs';
+import MinySection from '@/components/MinySection';
 
 function Lastfm() {
   const [username, setUsername] = useState('');
@@ -11,8 +12,6 @@ function Lastfm() {
   const [userExists, setUserExists] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("/img3.png");
-  const [backgroundImageDataUrl, setBackgroundImageDataUrl] = useState("/img3.png");
-  const trackDataContainerRef = useRef(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -40,23 +39,6 @@ function Lastfm() {
       setUserProfile(null);
     }
   };
-
-  const handleDownloadImage = async () => {
-    if (!trackDataContainerRef.current) {
-      console.error('Error: trackDataContainerRef is not defined.');
-      return;
-    }
-
-    toBlob(trackDataContainerRef.current)
-      .then(function (blob) {
-        download(blob, 'track_data.jpg');
-      })
-      .catch(function (error) {
-        console.error('Error converting to image:', error);
-      });
-  };
-
-  console.log('trackData:', trackData);
 
   const handleButtonClick = async (period) => {
     const apiKey = '913f1b2c2126b54f985407d31d49da12';
@@ -94,7 +76,7 @@ function Lastfm() {
       const data = await response.json();
 
       if (data.toptracks && data.toptracks.track) {
-        setTrackData(data.toptracks.track);
+        setTrackData(data.toptracks.track.map(track => `${track.name} - ${track.artist.name}`));
       } else {
         setTrackData([]);
       }
@@ -137,7 +119,7 @@ function Lastfm() {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
           const base64data = reader.result;
-          setBackgroundImageUrl(base64data);
+          setBackgroundImageUrl("/img3.png");
           setLoading(false);
         };
       } catch (error) {
@@ -149,17 +131,15 @@ function Lastfm() {
       setLoading(false);
     }
   };
-  
-  
 
   return (
     <>
       <Header />
       <div className=" px-4 my-12 flex flex-col justify-center items-center">
-        <h1 className="text-4xl font-semibold mb-8 text-black">Last.fm Track Generator</h1>
-        <form onSubmit={handleSubmit} className="w-full max-w-sm">
+        <h1 className="md:text-4xl text-2xl font-extrabold mb-8 text-black">Last.fm Track Generator</h1>
+        <form onSubmit={handleSubmit} className="w-full max-w-2xl">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2 bg" htmlFor="username">
+            <label className="block text-gray-700 md:text-xl text-lg font-bold mb-2 bg" htmlFor="username">
               Enter your username
             </label>
             <input
@@ -167,14 +147,14 @@ function Lastfm() {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="mb-3 px-5 py-3 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-500 rounded-xl"
               placeholder="Username"
             />
           </div>
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-[#f28532] shadow-custom text-white hover:opacity-80 bg font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-[#f28532] shadow-custom text-xl text-white hover:opacity-80 bg font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Submit
             </button>
@@ -187,128 +167,58 @@ function Lastfm() {
         )}
 
         {isSubmitted && userProfile && (
-          <div className="flex justify-center mt-4 mb-8">
+          <div className="flex justify-center flex-wrap gap-2 mt-7 mb-8">
             <button
               onClick={() => handleButtonClick('Last Week')}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
+              className="bg-gray-300 shadow-custom hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
             >
               Last Week
             </button>
             <button
               onClick={() => handleButtonClick('Last Month')}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
+              className="bg-gray-300 shadow-custom hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
             >
               Last Month
             </button>
             <button
               onClick={() => handleButtonClick('Last 3 Months')}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
+              className="bg-gray-300 shadow-custom hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
             >
               Last 3 Months
             </button>
             <button
               onClick={() => handleButtonClick('Last Half Year')}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
+              className="bg-gray-300 shadow-custom hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full mr-4"
             >
               Last Half Year
             </button>
             <button
               onClick={() => handleButtonClick('Last Year')}
-              className="bg-gray-300  hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full"
+              className="bg-gray-300 shadow-custom hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full"
             >
               Last Year
             </button>
           </div>
         )}
-        {trackData.length > 0 && (
-        <div className="flex justify-center mb-4">
-          <button
-            onClick={generateImage}
-            className="bg-black hover:opacity-80 text-white font-semibold py-2 px-6 rounded-full"
-          >
-            {loading ? 'Generating...' : 'Generate Background Image'}
-          </button>
-        </div>
-        )}
-        <div className='md:ml-0 ml-[20rem]'>
-        {trackData.length > 0 && (
-          <div
-            className=" uppercase w-[56rem] overflow-y-auto relative bg-white bg-opacity-90 shadow-md"
-            ref={trackDataContainerRef}
-            style={{
-              backgroundImage: `url('${backgroundImageUrl}')`,
-              backgroundSize: 'cover',
-              minHeight: '100vh',
-              padding: '50px 50px',
-            }}
-          >
-            <div className="absolute inset-0 bg-gray-200 bg-opacity-30 blur-2xl"></div>
-            <div className="relative p-6 shadow-2xl rounded-xl bg-black bg-opacity-50 text-white">
-              <h2 className="text-3xl text-center font-semibold mb-4">MINYFY</h2>
-              <h3 className="text-xl text-center mb-2">{selectedPeriod.toUpperCase()}</h3>
-              <p className="mb-2">Order #{userProfile ? userProfile.playcount : '5394'} FOR {username.toUpperCase()}</p>
-              <p className="mb-2">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
-              <table className="w-full">
-                <thead>
-                  <tr className="border-dashed border-y-[0.6px] border-white">
-                    <th className="px-4 py-2 text-left font-normal">QTY</th>
-                    <th className="px-4 py-2 text-left font-normal">ITEM</th>
-                    <th className="px-4 py-2 text-right font-normal">AMT</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {trackData.map((track, index) => (
-                    <tr key={index}>
-                      <td className="px-4 py-1">{track.playcount}</td>
-                      <td className="px-4 py-1">{track.name} - {track.artist.name}</td>
-                      <td className="px-4 py-1 text-right">
-                        {track.duration
-                          ? `${Math.floor(track.duration / 60)}:${(track.duration % 60)
-                              .toString()
-                              .padStart(2, '0')}`
-                          : '0:00'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
 
-                <tfoot className="border-dashed border-y-[0.6px] mb-14 border-white"> 
-                <tr>
-                  <td className="px-4 py-1 text-left" colSpan="2">ITEM COUNT:</td>
-                  <td className="px-4 py-1 text-right">
-                    {trackData.reduce((total, track) => total + parseInt(track.playcount), 0)}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-1 text-left" colSpan="2">TOTAL:</td>
-                  <td className="px-4 py-1 text-right">
-                    {trackData.reduce((total, track) => total + parseInt(track.duration), 0)
-                      .toString()
-                      .toHHMMSS()}
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-            <div>
-              <p className="text-center mt-4">Thank you for your order!</p>
-              <img src="/stamp.png" alt="Minyfy Logo" className="mx-auto mt-4" width="100" height="100" />
-            </div>
-            </div>
+        {trackData.length > 0 && (
+          <div className="flex justify-center mb-4">
+            <button
+              onClick={generateImage}
+              className="bg-black hover:opacity-80 shadow-custom text-white font-semibold py-2 px-6 rounded-full"
+            >
+              {loading ? 'Generating...' : 'Generate Background Image'}
+            </button>
           </div>
         )}
-        </div>
         
         {trackData.length > 0 && (
-            <div className="flex justify-center mt-4">
-            <button
-                onClick={handleDownloadImage}
-                className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-6 rounded-full"
-            >
-                Download as Image
-            </button>
-            </div>
+          <MinySection 
+            name={username} 
+            backgroundImage={backgroundImageUrl} 
+            tracks={trackData} 
+          />
         )}
-        
       </div>
     </>
   );

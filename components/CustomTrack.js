@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { BsPlusLg } from "react-icons/bs";
+import { PiMusicNoteFill } from "react-icons/pi";
+import { IoRemoveOutline } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 
 const CustomSection = ({ onTracksChange }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [trackList, setTrackList] = useState([]);
   const [error, setError] = useState('');
+  
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -54,7 +59,7 @@ const CustomSection = ({ onTracksChange }) => {
     } else if (trackList.includes(formattedTrack)) {
       alert('This track is already in your list.');
     } else {
-      alert('You can add up to 10 unique tracks.');
+      alert('You can only add upto 10 unique tracks.');
     }
   };
 
@@ -67,17 +72,17 @@ const CustomSection = ({ onTracksChange }) => {
   return (
     <div className="mt-5 flex flex-col justify-start w-full md:w-[70%]">
       <div className="mt-5">
-        <h2 className="text-2xl font-semibold mb-4">Search for Track</h2>
-        <div className="flex gap-1 items-center">
+        <h2 className="text-2xl font-medium mb-4 font-jakarta">Search for Track</h2>
+        <div className="flex items-center">
           <input
             type="text"
-            className="border-[2.5px] border-black px-4 py-1 rounded-xl text-lg font-medium w-full"
+            className="px-5 py-3 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-500  rounded-l-xl"
             placeholder="Enter track name..."
             value={searchQuery}
             onChange={handleInputChange}
           />
           <button
-            className="bg-[#78c144] border-2 border-[#78c144] px-4 py-1 rounded-xl text-lg font-medium text-white hover:bg-[#5b9e44]"
+            className="bg-[#f48531] px-5 py-3 rounded-r-xl text-lg font-medium text-white hover:bg-[#fc9648]"
             onClick={handleSearch}
           >
             Search
@@ -86,16 +91,20 @@ const CustomSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="text-2xl font-semibold mb-4">Search Results</h2>
+        <h2 className="text-2xl font-medium mb-4 font-jakarta">Search Results</h2>
         <ul className="pl-5 list-disc text-lg">
           {searchResults.map((track, index) => (
-            <li key={index} className="flex justify-between items-center mb-1">
-              <span><strong>{track.name}</strong> by {track.artist}</span>
+            <li key={index} className="flex justify-between items-center font-jakarta mb-1">
+              <div className='flex gap-2 items-center'>
+                <PiMusicNoteFill className="text-[#f48531] text-2xl" />
+              <span><strong className='font-semibold'>{track.name}</strong> by {track.artist}</span>
+              </div>
+              
               <button
-                className="bg-[#78c144] border-2 border-[#78c144] px-4 py-1 rounded-xl text-sm font-medium text-white hover:bg-[#5b9e44]"
+                className=" p-1 rounded-md text-sm font-medium text-black hover:bg-[#f48531]"
                 onClick={() => addToTrackList(track)}
               >
-                Add
+                <BsPlusLg className='text-2xl' />
               </button>
             </li>
           ))}
@@ -103,16 +112,19 @@ const CustomSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="text-2xl font-semibold mb-4">Track List</h2>
+        <h2 className="text-2xl font-medium mb-4 font-jakarta">Track List</h2>
         <ul className="pl-5 list-disc text-lg">
           {trackList.map((track, index) => (
-            <li key={`${track}-${index}`} className="flex justify-between items-center mb-1">
+            <li key={`${track}-${index}`} className="flex font-jakarta justify-between items-center mb-1">
+              <div className='flex gap-2 items-center'>
+                <PiMusicNoteFill className="text-[#f48531] text-2xl" />
               <span>{track}</span>
+              </div>
               <button
-                className="bg-red-600 border-2 border-red-600 px-2 py-1 rounded-xl text-sm font-medium text-white hover:bg-red-400"
+                className="p-1 rounded-md text-sm font-medium text-black hover:bg-[#f48531]"
                 onClick={() => removeFromTrackList(track)}
               >
-                Remove
+                <MdDelete className='text-2xl' />
               </button>
             </li>
           ))}
