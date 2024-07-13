@@ -65,7 +65,7 @@ const Custom = () => {
       <Header />
       
       <div className="container md:mx-auto md:px-4 flex flex-col justify-center  items-center px-2 my-2 md:my-6">
-       <div className='md:w-[73%] flex mt-7 justify-center items-center md:mx-auto '>
+       <div className='md:w-[45%] flex mt-7 justify-center items-center md:mx-auto '>
           {tracks.length > 0 ? (
               <MinySection 
               name={inputValue}
@@ -116,7 +116,7 @@ const Custom = () => {
 
         <div className='flex flex-col justify-start w-full md:w-[70%]'>
           <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Select Background Image</div>
-          <div className="grid md:grid-cols-6 grid-cols-3  gap-4 ">
+          <div className="grid md:grid-cols-6 grid-cols-3  gap-1 md:gap-2 ">
             {images.map((image, index) => (
               <img
                 key={index}

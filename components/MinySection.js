@@ -112,16 +112,16 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
           <img className="h-full w-full" src={backgroundImage} alt="Background" />
           <div className="flex flex-col justify-between items-end md:pr-5 pr-2 absolute right-0 top-0 h-full pb-4">
             <p className="text-white font-medium text-lg tracking-wide">
-              <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[11vh] h-[4vh] md:px-2 px-2 mt-4" />
+              <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[8vh] h-[4vh] md:px-2 px-2 mt-4" />
             </p>
-            <div className="flex flex-col md:gap-4 gap-1 items-end md:text-xl text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+            <div className="flex flex-col md:gap-2 gap-1 items-end md:text-lg text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
               {tracks.map((track, index) => (
                 <div key={index}>
                   {toSentenceCase(track.length > 39 ? `${track.slice(0, 39)}..` : track)}
                 </div>
               ))}
             </div>
-            <div className="flex flex-col md:gap-4 gap-1 items-end md:text-xl text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+            <div className="flex flex-col md:gap-2 gap-1 items-end md:text-lg text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
               <p>MINY Order for <strong className='text-[#f48531]'>{name}</strong></p>
               <p>{formattedDate}</p>
             </div>
