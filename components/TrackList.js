@@ -53,7 +53,7 @@ const TracksList = ({ onTracksChange }) => {
         {tracks.map((track, index) => (
           <li key={index} className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
             <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-clack'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
-            <div className='font-base font-jakarta md:text-xl text-lg'>{track}</div>
+            <div className='font-base font-jakarta md:text-xl text-base'>{track}</div>
           </li>
         ))}
       </ul>

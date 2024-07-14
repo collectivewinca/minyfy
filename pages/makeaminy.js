@@ -64,7 +64,7 @@ const Custom = () => {
     <>
       <Header />
       
-      <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-2  ">
+      <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-3  ">
        <div className='md:w-full flex justify-center items-center  '>
           {tracks.length > 0 ? (
             <div className="md:w-[45%] ">
@@ -78,10 +78,10 @@ const Custom = () => {
               
           ) : (
             <div  className="relative cursor-pointer mt-4 w-full" >
-                <div className="overlay1"></div>
-                <img className="h-auto w-full rounded-2xl" src="/loog.jpg" alt="" />
-                <div className="cardContent">
-                    <p className="text-white font-bold md:text-4xl text-xl tracking-wide pb-6 font-jakarta absolute bottom-0 left-0 px-4   py-2">Customize Your Miny</p>
+                <div className="overlay1 hidden md:block"></div>
+                <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
+                <div className="cardContent shadow-md">
+                    <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4   py-2">Customize Your Miny</p>
                 </div>
             </div>
             
