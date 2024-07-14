@@ -1,12 +1,12 @@
 import React from 'react';
 
 const images = [
-  '/gallery/miny (1).jpg',
-  '/gallery/miny (2).jpg',
-  '/gallery/miny (3).jpg',
-  '/gallery/miny (4).jpg',
-  '/gallery/miny (5).jpg',
-  '/gallery/miny (6).jpg'
+  '/gallery/miny1.jpg',
+  '/gallery/miny2.jpg',
+  '/gallery/miny3.jpg',
+  '/gallery/miny4.jpg',
+  '/gallery/miny5.jpg',
+  '/gallery/miny6.jpg'
 ];
 
 const ImageGallery = () => {

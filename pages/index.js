@@ -8,12 +8,12 @@ function Home() {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 my-12">
+      <div className="container mx-auto px-4 my-6">
         {/* <div className="text-center">
           <h1 className="text-4xl font-semibold">MINYFY your MIXTAPE</h1>
         </div> */}
         
-        <div className="mt-8 md:mx-24">
+        <div className="mt-8">
           <ImageGallery/>
         </div>
       </div>

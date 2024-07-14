@@ -6,7 +6,21 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href="/vinyl.png" type="image/png" />
+          <link rel="icon" href="/vinyl.png" type="image/png" />        
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-CQSPN22TTV"
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-CQSPN22TTV');
+                `,
+              }}
+            />
         </Head>
         <body>
           <Main />

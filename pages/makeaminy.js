@@ -24,6 +24,15 @@ const Custom = () => {
     'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg6.png?alt=media&token=f5d3b27a-2282-40d9-b22a-8796b89ffbb8'
   ];
 
+  // const images = [
+  //   "/gallery/img1.png",
+  //   "/gallery/img2.png",
+  //   "/gallery/img3.png",
+  //   "/gallery/img4.png",
+  //   "/gallery/img5.png",
+  //   "/gallery/img6.png",
+  // ]
+
   const handleSelection = (event) => {
     setSelectedOption(event.target.value);
   };
