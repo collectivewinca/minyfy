@@ -34,13 +34,13 @@ const TracksList = ({ onTracksChange }) => {
   }, [selectedCountry]);
 
   return (
-    <div className="my-5 flex flex-col justify-start w-full md:w-[70%]">
-      <div className="flex flex-wrap md:flex-nowrap    justify-between mb-4 md:border-b-2 border-gray-300">
+    <div className="my-5 flex flex-col justify-start w-full">
+      <div className="flex flex-wrap md:flex-nowrap    justify-between mb-4 md:border-b-[1.5px] border-[#F4EFE6]">
         {['Worldwide', 'United States', 'Canada', 'France', 'Germany'].map(country => (
           <button
             key={country}
             className={`flex flex-col items-center justify-center w-full px-4 py-2 rounded-t-lg text-lg font-jakarta font-medium tracking-wide ${
-              selectedButton === country ? 'bg-[#f48531]  text-white border-l border-r border-t border-gray-300' : 'bg-transparent text-black hover:bg-[#f48531] hover:text-white'
+              selectedButton === country ? 'text-black bg-[#F4EFE6] border-b-[3px] border-[#A18249]' : 'bg-transparent text-[#A18249] hover:bg-[#F4EFE6]  hover:text-black'
             }`}
             onClick={() => handleCountrySelection(country)}
           >
@@ -52,7 +52,7 @@ const TracksList = ({ onTracksChange }) => {
       <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
         {tracks.map((track, index) => (
           <li key={index} className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
-            <div className='p-2 rounded-md bg-[#f48531] font-extrabold text-white'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
+            <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-clack'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
             <div className='font-base font-jakarta md:text-xl text-lg'>{track}</div>
           </li>
         ))}

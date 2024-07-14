@@ -64,20 +64,24 @@ const Custom = () => {
     <>
       <Header />
       
-      <div className="container md:mx-auto md:px-4 flex flex-col justify-center  items-center px-2 my-2 md:my-6">
-       <div className='md:w-[45%] flex mt-7 justify-center items-center md:mx-auto '>
+      <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-2  ">
+       <div className='md:w-full flex justify-center items-center  '>
           {tracks.length > 0 ? (
+            <div className="md:w-[45%] ">
               <MinySection 
               name={inputValue}
               backgroundImage={backgroundImage}
               tracks={tracks}
+              
             />
+            </div>
+              
           ) : (
-            <div  className="relative cursor-pointer mt-4" >
+            <div  className="relative cursor-pointer mt-4 w-full" >
                 <div className="overlay1"></div>
-                <img className="h-auto max-w-full rounded-2xl" src="/top1.jpg" alt="" />
+                <img className="h-auto w-full rounded-2xl" src="/loog.jpg" alt="" />
                 <div className="cardContent">
-                    <p className="text-white font-extrabold md:text-4xl text-xl tracking-wide absolute bottom-0 left-0 px-4   py-2">Customize Miny</p>
+                    <p className="text-white font-bold md:text-4xl text-xl tracking-wide pb-6 font-jakarta absolute bottom-0 left-0 px-4   py-2">Customize Your Miny</p>
                 </div>
             </div>
             
@@ -85,10 +89,11 @@ const Custom = () => {
           )}
           
         </div>
-        <div className='flex flex-col justify-start w-full md:w-[70%] '>
-          <div className='font-jakarta text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium'>Select Category</div>
+        <div className='flex flex-col md:flex-row gap-2 w-full mt-3'>
+        <div className='flex flex-col justify-start w-full  '>
+          <div className='font-jakarta md:text-lg text-base mb-1  justify-start text-neutral-800 font-medium'>Select Category</div>
           <select
-            className="mb-3 px-5 py-3 font-thin font-mono bg-neutral-200 text-lg text-neutral-500 rounded-xl"
+            className=" px-5 py-3 font-thin font-mono bg-[#F4EFE6] md:text-lg text-base text-neutral-500 rounded-xl"
             value={selectedOption}
             onChange={handleSelection}
           >
@@ -104,18 +109,19 @@ const Custom = () => {
           <img className="h-[120vh] rounded-2xl" src={backgroundImage} alt="Selected Background" />
         </div> */}
 
-        <div className='flex flex-col justify-start w-full md:w-[70%]'>
-        <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Enter Brand Name </div>
+        <div className='flex flex-col justify-start w-full '>
+        <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Enter Brand Name </div>
           <input
-            className="mb-3 px-5 py-3 font-thin font-mono bg-neutral-200 text-lg text-neutral-500  rounded-xl"
+            className=" px-5 py-2 pb-[10px] md:text-lg text-base font-mono text-neutral-500  bg-[#F4EFE6] rounded-xl"
             value={inputValue}
             onChange={handleInputChange}
             placeholder='Name here...'
           />
         </div>
+        </div>
 
-        <div className='flex flex-col justify-start w-full md:w-[70%]'>
-          <div className='text-lg mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Select Background Image</div>
+        <div className='flex flex-col justify-start w-full '>
+          <div className='md:text-lg text-base  mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Select Background Image</div>
           <div className="grid md:grid-cols-6 grid-cols-3  gap-1 md:gap-2 ">
             {images.map((image, index) => (
               <img

@@ -70,19 +70,19 @@ const CustomSection = ({ onTracksChange }) => {
   };
 
   return (
-    <div className="my-5 flex flex-col justify-start w-full md:w-[70%]">
+    <div className="my-5 flex flex-col justify-start w-full">
       <div className="mt-5">
         <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Search for Track</h2>
         <div className="flex items-center">
           <input
             type="text"
-            className="px-5 py-3 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-500  rounded-l-xl"
+            className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] text-lg text-neutral-500  rounded-l-xl"
             placeholder="Enter track name..."
             value={searchQuery}
             onChange={handleInputChange}
           />
           <button
-            className="bg-[#f48531] px-5 py-3 rounded-r-xl text-lg font-medium text-white hover:bg-[#fc9648]"
+            className="bg-[#A18249] px-5 py-3 rounded-r-xl text-lg font-medium text-white hover:opacity-80"
             onClick={handleSearch}
           >
             Search
@@ -96,12 +96,12 @@ const CustomSection = ({ onTracksChange }) => {
           {searchResults.map((track, index) => (
             <li key={index} className="flex justify-between items-center font-jakarta mb-1">
               <div className='flex gap-2 items-center'>
-                <PiMusicNoteFill className="text-[#f48531] text-2xl" />
+                <PiMusicNoteFill className="text-[#A18249] text-2xl" />
               <span><strong className='font-semibold'>{track.name}</strong> by {track.artist}</span>
               </div>
               
               <button
-                className=" p-1 rounded-md text-sm font-medium text-black hover:bg-[#f48531]"
+                className=" p-1 rounded-md text-sm font-medium text-black hover:bg-[#A18249]"
                 onClick={() => addToTrackList(track)}
               >
                 <BsPlusLg className='text-2xl' />
@@ -117,11 +117,11 @@ const CustomSection = ({ onTracksChange }) => {
           {trackList.map((track, index) => (
             <li key={`${track}-${index}`} className="flex font-jakarta justify-between items-center mb-1">
               <div className='flex gap-2 items-center'>
-                <PiMusicNoteFill className="text-[#f48531] text-2xl" />
+                <PiMusicNoteFill className="text-[#A18249] text-2xl" />
               <span>{track}</span>
               </div>
               <button
-                className="p-1 rounded-md text-sm font-medium text-black hover:bg-[#f48531]"
+                className="p-1 rounded-md text-sm font-medium text-black hover:bg-[#A18249]"
                 onClick={() => removeFromTrackList(track)}
               >
                 <MdDelete className='text-2xl' />

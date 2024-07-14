@@ -132,7 +132,7 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
       <div className="flex md:flex-row gap-3 flex-col justify-between items-center mt-4">
         <button
           onClick={() => { setIsFavorite(!isFavorite) }}
-          className="bg-[#f48531] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-6 rounded-full"
+          className="bg-[#F4EFE6] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-6 rounded-full"
         >
           {isFavorite ? (<FaRegHeart className='text-xl' />) : (<FaHeart className='text-xl' />)} Add to Favorites
         </button>

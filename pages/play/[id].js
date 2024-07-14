@@ -3,6 +3,8 @@ import { db } from '@/firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
 import Header from '@/components/Header';
 import { FaShoppingCart } from "react-icons/fa";
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -32,6 +34,7 @@ const PlaylistPage = ({ docData }) => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
   const playerRef = useRef(null);
+  const router = useRouter();
 
   const resizePlayer = () => {
     if (playerRef.current) {
@@ -109,7 +112,19 @@ const PlaylistPage = ({ docData }) => {
 
   return (
     <>
-      <Header />
+       <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-2/3  left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
+      <div className="flex items-center">
+        <div className="cursor-pointer" onClick={() => router.push('/')}>
+          <Image 
+            src="/Logo.png" 
+            alt="Icon" 
+            width={140} 
+            height={100} 
+            className="w-20 sm:w-24 md:w-28 lg:w-32 "
+          />
+        </div>
+      </div>
+      </header>
       <div className='py-14 px-2 bg-black text-white min-h-screen flex flex-col justify-center relative items-center'>
         <button className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
           <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
