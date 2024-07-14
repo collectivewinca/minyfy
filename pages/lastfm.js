@@ -154,7 +154,7 @@ function Lastfm() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-[#f28532] shadow-custom text-xl text-white hover:opacity-80 bg font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-[#73c33e] shadow-custom text-xl text-white hover:opacity-80 bg font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Submit
             </button>
