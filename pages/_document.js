@@ -5,7 +5,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link rel="icon" href="/vinyl.png" type="image/png" />
+        </Head>
         <body>
           <Main />
           <NextScript />
