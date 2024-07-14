@@ -142,11 +142,11 @@ const PlaylistPage = ({ docData }) => {
               <p className="text-white font-medium text-lg tracking-wide">
                 <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[11vh] h-[4vh] md:px-2 px-2 mt-4" />
               </p>
-              <div className="flex flex-col md:gap-4 gap-1 items-end md:text-xl text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+              <div className="flex flex-col md:gap-3 gap-1 items-end md:text-lg text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
                 {tracks.map((track, index) => (
                   <div
                     key={index}
-                    className={`mb-2 cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
+                    className={` cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
                     onClick={() => handleTrackClick(index)}
                   >
                     {track.track.length > 39 ? `${track.track.slice(0, 39)}..` : track.track}
