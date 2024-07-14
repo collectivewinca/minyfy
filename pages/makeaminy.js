@@ -15,23 +15,23 @@ const Custom = () => {
   const [isAtTop, setIsAtTop] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
 
-  const images = [
-    'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg1.png?alt=media&token=6d4f5c4a-7855-43ef-83c7-c542e54d368d',
-    'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg2.png?alt=media&token=95eb58bb-b11b-4b0d-97f1-7143f8a03cee',
-    'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg3.png?alt=media&token=b053aec5-aade-4a21-a870-58c1562b0e89',
-    'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg4.png?alt=media&token=b5ad8ac4-8e5b-40e1-b1c1-5b3bf97ea24d',
-    'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg5.png?alt=media&token=d9db2edb-216e-441b-b3b2-ce8c942378e7',
-    'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg6.png?alt=media&token=f5d3b27a-2282-40d9-b22a-8796b89ffbb8'
-  ];
-
   // const images = [
-  //   "/gallery/img1.png",
-  //   "/gallery/img2.png",
-  //   "/gallery/img3.png",
-  //   "/gallery/img4.png",
-  //   "/gallery/img5.png",
-  //   "/gallery/img6.png",
-  // ]
+  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg1.png?alt=media&token=6d4f5c4a-7855-43ef-83c7-c542e54d368d',
+  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg2.png?alt=media&token=95eb58bb-b11b-4b0d-97f1-7143f8a03cee',
+  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg3.png?alt=media&token=b053aec5-aade-4a21-a870-58c1562b0e89',
+  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg4.png?alt=media&token=b5ad8ac4-8e5b-40e1-b1c1-5b3bf97ea24d',
+  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg5.png?alt=media&token=d9db2edb-216e-441b-b3b2-ce8c942378e7',
+  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg6.png?alt=media&token=f5d3b27a-2282-40d9-b22a-8796b89ffbb8'
+  // ];
+
+  const images = [
+    "/gallery/img1.png",
+    "/gallery/img2.png",
+    "/gallery/img3.png",
+    "/gallery/img4.png",
+    "/gallery/img5.png",
+    "/gallery/img6.png",
+  ]
 
   const handleSelection = (event) => {
     setSelectedOption(event.target.value);

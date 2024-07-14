@@ -1,17 +1,39 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { toBlob } from 'html-to-image';
 import download from 'downloadjs';
 import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
-import { db } from "@/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
-import { useRouter } from 'next/router';
 import { MdRocketLaunch } from "react-icons/md";
+import { useRouter } from 'next/router';
+import { db, auth, storage } from "@/firebase/config";
+import { collection, addDoc } from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const MinySection = ({ name, backgroundImage, tracks }) => {
   const [isFavorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
   const trackDataContainerRef = useRef(null);
   const router = useRouter();
+
+  const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+    }
+  };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleDownloadImage = async () => {
     if (!trackDataContainerRef.current) {
@@ -32,13 +54,12 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
     }
   };
 
-  // Get today's date
-  const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-US', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  });
-
   const saveToFirestore = async () => {
+    if (!user) {
+      await handleLogin();
+      return;
+    }
+
     setLoading(true);
     try {
       const tracksWithYouTube = await Promise.all(tracks.map(async (track) => {
@@ -49,12 +70,26 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
         };
       }));
 
+      // Upload image to Firebase Storage
+      const blob = await toBlob(trackDataContainerRef.current);
+      if (!blob) {
+        throw new Error('Error: Blob is null.');
+      }
+      
+      const imageRef = ref(storage, `images/miny-${Date.now()}.jpg`);
+      await uploadBytes(imageRef, blob);
+      const imageUrl = await getDownloadURL(imageRef);
+
+      // Save the document in Firestore with the image URL
       const docRef = await addDoc(collection(db, "mixtapes"), {
         name,
         backgroundImage,
         tracks: tracksWithYouTube,
         date: formattedDate,
         isFavorite,
+        userDisplayName: user.displayName || 'Anonymous',
+        userEmail: user.email,
+        imageUrl,  // Add image URL to the document
       });
 
       router.push(`/play/${docRef.id}`);
@@ -105,6 +140,12 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
+  // Get today's date
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
   return (
     <div className='py-7'>
       <div ref={trackDataContainerRef} className='overflow-y-auto'>
@@ -137,12 +178,6 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
         >
           {isFavorite ? (<FaRegHeart className='text-xl' />) : (<FaHeart className='text-xl' />)} Add to Favorites
         </button>
-        {/* <button
-          onClick={handleDownloadImage}
-          className="bg-[#f48531] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-6 rounded-full"
-        >
-          <FaDownload /> Download & share
-        </button> */}
         <button
           onClick={saveToFirestore}
           className="bg-[#f48531] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-7 rounded-full"
