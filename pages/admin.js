@@ -32,11 +32,16 @@ function Admin() {
         id: doc.id,
         ...doc.data()
       }));
+  
+      // Sort mixtapesData by date
+      mixtapesData.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
       setMixtapes(mixtapesData);
     } catch (error) {
       console.error("Error fetching mixtapes: ", error);
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
