@@ -134,15 +134,15 @@ const PlaylistPage = ({ docData }) => {
         <div id="player" className='w-full max-w-4xl mx-auto aspect-video my-6 shadow shadow-neutral-600'>
           {!isYouTubeApiReady && <div>Loading player...</div>}
         </div>
-        <div className='overflow-y-auto w-full max-w-4xl shadow shadow-neutral-600'>
+        <div className='overflow-y-auto w-full md:w-[60%] shadow shadow-neutral-600'>
           <div className="relative cursor-pointer">
             <div className="overlay"></div>
             <img className="h-full w-full" src={backgroundImage} alt="Background" />
-            <div className="flex flex-col justify-between items-end md:pr-5 pr-2 absolute right-0 top-0 h-full pb-4">
+            <div className="flex flex-col justify-between items-end md:pr-2 pr-2 absolute right-0 top-0 h-full pb-4">
               <p className="text-white font-medium text-lg tracking-wide">
-                <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[11vh] h-[4vh] md:px-2 px-2 mt-4" />
+                <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[8vh] h-[4vh] md:px-2 px-2 mt-4" />
               </p>
-              <div className="flex flex-col md:gap-3 gap-1 items-end md:text-lg text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+              <div className="flex flex-col md:gap-2 gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
                 {tracks.map((track, index) => (
                   <div
                     key={index}
@@ -153,7 +153,7 @@ const PlaylistPage = ({ docData }) => {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col md:gap-4 gap-1 items-end md:text-xl text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+              <div className="flex flex-col md:gap-2 gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
                 <p>MINY Order for <strong className='text-[#f48531]'>{name}</strong></p>
                 <p>{date}</p>
               </div>

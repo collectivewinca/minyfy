@@ -4,12 +4,12 @@ import { MdEmail } from 'react-icons/md';
 
 function Footer() {
   return (
-    <footer className="bg-black">
+    <footer className="bg-black border-t border-gray-600">
       <div className="mx-auto w-full px-4 pb-4 font-jakarta">
         <div className="flex flex-col items-center md:flex-row md:justify-between">
           <div className="mb-6 md:mb-0 text-center md:text-left">
-            <a href="https://flowbite.com/" className="flex justify-center md:justify-start">
-              <img src="Logo.png" className="h-[18vh] me-3" alt="Miny Vinyl Logo" />
+            <a href="" className="flex justify-center md:justify-start">
+              <img src="/Logo.png" className="md:h-[18vh] h-[12vh] me-3" alt="Miny Vinyl Logo" />
             </a>
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-3 gap-8 md:pt-6 md:pr-5 text-center md:text-left">

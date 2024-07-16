@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { db, auth } from '@/firebase/config';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
+import SocialShareButtons from '@/components/SocialShareButtons';
 
 function Collections() {
   const [user, setUser] = useState(null);
@@ -62,6 +63,7 @@ function Collections() {
           </div>
         )}
       </div>
+      <SocialShareButtons imageUrl="https://minyfy.subwaymusician.xyz/gallery/miny3.jpg" title="Check out my collections on Miny Vinyl" />
     </>
   );
 }

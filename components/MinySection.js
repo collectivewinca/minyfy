@@ -152,7 +152,7 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
         <div className="relative cursor-pointer">
           <div className="overlay"></div>
           <img className="h-full w-full" src={backgroundImage} alt="Background" />
-          <div className="flex flex-col justify-between items-end md:pr-3 pr-2 absolute right-0 top-0 h-full pb-4">
+          <div className="flex flex-col justify-between items-end md:pr-2 pr-2 absolute right-0 top-0 h-full pb-4">
             <p className="text-white font-medium text-lg tracking-wide">
               <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[8vh] h-[4vh] md:px-2 px-2 mt-4" />
             </p>
