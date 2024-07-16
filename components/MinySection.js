@@ -156,14 +156,14 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
             <p className="text-white font-medium text-lg tracking-wide">
               <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[8vh] h-[4vh] md:px-2 px-2 mt-4" />
             </p>
-            <div className="flex flex-col md:gap-2 gap-1 items-end md:text-sm text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+            <div className="flex flex-col md:gap-[6px] gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
               {tracks.map((track, index) => (
                 <div key={index}>
                   {toSentenceCase(track.length > 39 ? `${track.slice(0, 39)}..` : track)}
                 </div>
               ))}
             </div>
-            <div className="flex flex-col  gap-1 items-end md:text-sm text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
+            <div className="flex flex-col  gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
               <p>MINY Order for <strong className='text-[#f48531]'>{name}</strong></p>
               <p>{formattedDate}</p>
             </div>
@@ -174,15 +174,15 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
       <div className="flex md:flex-row gap-3 flex-col justify-between items-center mt-4">
         <button
           onClick={() => { setIsFavorite(!isFavorite) }}
-          className="bg-[#F4EFE6] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-4 rounded-full"
+          className="bg-[#F4EFE6] hover:opacity-80 text-sm shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-4 rounded-full"
         >
-          {isFavorite ? (<FaRegHeart className='text-xl' />) : (<FaHeart className='text-xl' />)} Add to Favorites
+          {isFavorite ? (<FaRegHeart className='text-lg' />) : (<FaHeart className='text-xl' />)} Add to Favorites
         </button>
         <button
           onClick={saveToFirestore}
-          className="bg-[#f48531] hover:opacity-80 shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-7 rounded-full"
+          className="bg-[#f48531] hover:opacity-80 text-sm shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-7 rounded-full"
         >
-          <MdRocketLaunch className='text-xl' />{loading ? 'Creating...' : 'Create Playlist'}
+          <MdRocketLaunch className='text-lg' />{loading ? 'Creating...' : 'Create Playlist'}
         </button>
       </div>
     </div>

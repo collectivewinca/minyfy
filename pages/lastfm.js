@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import { toPng, toJpeg, toBlob } from 'html-to-image';
 import download from 'downloadjs';
 import MinySection from '@/components/MinySection';
+import { FaLastfm } from "react-icons/fa";
 
 function Lastfm() {
   const [username, setUsername] = useState('');
@@ -136,7 +137,7 @@ function Lastfm() {
     <>
       <Header />
       <div className=" px-4 my-12 flex flex-col justify-center items-center">
-        <h1 className="md:text-4xl text-2xl font-extrabold mb-8 text-black">Last.fm Track Generator</h1>
+        <h1 className="md:text-4xl text-2xl font-extrabold mb-8 text-black flex gap-2 items-center"> <FaLastfm className="text-5xl pt-1"/> Last.fm Track Generator</h1>
         <form onSubmit={handleSubmit} className="w-full max-w-2xl">
           <div className="mb-4">
             <label className="block text-gray-700 md:text-xl text-lg font-bold mb-2 bg" htmlFor="username">
@@ -213,11 +214,13 @@ function Lastfm() {
         )}
         
         {trackData.length > 0 && (
+          <div className="md:w-[40%] ">
           <MinySection 
             name={username} 
             backgroundImage={backgroundImageUrl} 
             tracks={trackData} 
           />
+          </div>
         )}
       </div>
     </>

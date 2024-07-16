@@ -76,7 +76,7 @@ const Custom = () => {
       <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-3  ">
        <div className='md:w-full flex justify-center items-center  '>
           {tracks.length > 0 ? (
-            <div className="md:w-[45%] ">
+            <div className="md:w-[35%] ">
               <MinySection 
               name={inputValue}
               backgroundImage={backgroundImage}

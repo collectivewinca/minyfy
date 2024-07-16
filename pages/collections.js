@@ -48,7 +48,7 @@ function Collections() {
   return (
     <>
       <Header />
-      <div className='flex mt-6 flex-col min-h-screen px-4'>
+      <div className='flex mt-6 flex-col min-h-screen px-4 mb-10'>
         <h1 className='text-4xl text-center font-bold font-jakarta'>Collections</h1>
         {!user ? (
           <p className='mt-4 text-center text-3xl font-bold font-jakarta text-neutral-600'>User not Logged In!</p>
