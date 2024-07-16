@@ -21,7 +21,8 @@ const SocialShareButtons = ({ imageUrl, title }) => {
 
   const handleInstagramShare = () => {
     // This opens Instagram app or website
-    window.open('https://www.instagram.com', '_blank');
+    window.open(`instagram://library?AssetPath=${encodeURIComponent(shareUrl)}`, '_blank');
+  
   };
 
   const emailBody = `
