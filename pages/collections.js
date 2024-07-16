@@ -63,7 +63,7 @@ function Collections() {
           </div>
         )}
       </div>
-      <SocialShareButtons imageUrl="https://miny.subwaymusician.xyz/artists/6556-magdalena-bay" title="Check out my collections on Miny Vinyl" />
+      {/* <SocialShareButtons imageUrl="https://minyfy.subwaymusician.xyz/gallery/miny2.jpg" title="Check out my collections on Miny Vinyl" /> */}
     </>
   );
 }

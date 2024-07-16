@@ -9,7 +9,7 @@ import {
   WhatsappIcon,
   EmailIcon
 } from 'react-share';
-import { FaSms, FaInstagram } from 'react-icons/fa';
+import { FaSms } from 'react-icons/fa';
 
 const SocialShareButtons = ({ imageUrl, title }) => {
   const shareUrl = `${imageUrl}`;
@@ -19,18 +19,12 @@ const SocialShareButtons = ({ imageUrl, title }) => {
     window.open(`sms:?body=${encodeURIComponent(title + ': ' + shareUrl)}`, '_blank');
   };
 
-  const handleInstagramShare = () => {
-    // This opens Instagram app or website
-    window.open(`instagram://library?AssetPath=${encodeURIComponent(shareUrl)}`, '_blank');
-  
-  };
-
   const emailBody = `
-    Check this out: ${title}
+    Check this out: Check out my collections on Miny Vinyl
     
-    Image: ${shareUrl}
+    Image: https://minyfy.subwaymusician.xyz/gallery/miny2.jpg
     
-    You can view the image directly here: <img src="${shareUrl}" alt="${title}">
+    You can view the image directly here: https://minyfy.subwaymusician.xyz/gallery/miny2.jpg
   `;
 
   return (
@@ -58,10 +52,6 @@ const SocialShareButtons = ({ imageUrl, title }) => {
 
       <button onClick={handleSmsShare} className="bg-green-500 p-2 rounded-full">
         <FaSms size={18} color="white" />
-      </button>
-
-      <button onClick={handleInstagramShare} className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 p-2 rounded-full">
-        <FaInstagram size={18} color="white" />
       </button>
     </div>
   );
