@@ -10,7 +10,9 @@ function Admin() {
   const [user, setUser] = useState(null);
   const [mixtapes, setMixtapes] = useState([]);
   const router = useRouter();
-  const adminEmails = ['labh@collectivewin.ca', 'hello@collectivewin.ca'];
+  const adminEmails = ['labh@collectivewin.ca', 'hello@collectivewin.ca',"alet@myblackbean.ca",
+  "subwaymusicianxyz@gmail.com",
+  "divya@collectivewin.ca"];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
