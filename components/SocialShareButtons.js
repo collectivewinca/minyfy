@@ -28,7 +28,7 @@ const SocialShareButtons = ({ shareUrl, title }) => {
   const emailBody = `
     Check out my Mixtape on Miny Vinyl
         
-    You can listen directly from here: ${shareUrl}
+    You can listen directly from here: 
   `;
 
   return (
