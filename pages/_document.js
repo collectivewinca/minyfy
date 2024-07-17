@@ -7,7 +7,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-             
+            <link rel="icon" href="/vinyl.png" type="image/png" /> 
             <script
               async
               src="https://www.googletagmanager.com/gtag/js?id=G-CQSPN22TTV"

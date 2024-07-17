@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { db } from '@/firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
-import Header from '@/components/Header';
 import { FaShoppingCart } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Head from 'next/head';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -109,23 +109,35 @@ const PlaylistPage = ({ docData }) => {
   }
 
   const { name, tracks, date, backgroundImage } = docData;
+  const description = `Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
 
   return (
-    <div className=' bg-black text-white w-full  min-h-screen flex flex-col justify-center  items-center'>
-       <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-2/3  left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
-      <div className="flex items-center">
-        <div className="cursor-pointer" onClick={() => router.push('/')}>
-          <Image 
-            src="/Logo.png" 
-            alt="Icon" 
-            width={140} 
-            height={100} 
-            className="w-20 sm:w-24 md:w-28 lg:w-32 "
-          />
+    <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
+      <Head>
+        <title>{`${name}'s Mixtape`}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={`${name}'s Mixtape`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={backgroundImage} />
+        <meta property="og:type" content="music.playlist" />
+        <link rel="icon" href={backgroundImage} />
+      </Head>
+
+      <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-2/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
+        <div className="flex items-center">
+          <div className="cursor-pointer" onClick={() => router.push('/')}>
+            <Image 
+              src="/Logo.png" 
+              alt="Icon" 
+              width={140} 
+              height={100} 
+              className="w-20 sm:w-24 md:w-28 lg:w-32 "
+            />
+          </div>
         </div>
-      </div>
       </header>
-      <div className='py-14 px-2 bg-black text-white md:w-2/3  min-h-screen flex flex-col justify-center relative items-center'>
+
+      <div className='py-14 px-2 bg-black text-white md:w-2/3 min-h-screen flex flex-col justify-center relative items-center'>
         <button className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
           <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
           <FaShoppingCart className='md:text-3xl text-xl' /> Buy Now
@@ -134,6 +146,7 @@ const PlaylistPage = ({ docData }) => {
         <div id="player" className='w-full max-w-4xl mx-auto aspect-video my-6 shadow shadow-neutral-600'>
           {!isYouTubeApiReady && <div>Loading player...</div>}
         </div>
+        
         <div className='overflow-y-auto w-full md:w-[60%] shadow shadow-neutral-600'>
           <div className="relative cursor-pointer">
             <div className="overlay"></div>
@@ -146,7 +159,7 @@ const PlaylistPage = ({ docData }) => {
                 {tracks.map((track, index) => (
                   <div
                     key={index}
-                    className={` cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
+                    className={`cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
                     onClick={() => handleTrackClick(index)}
                   >
                     {track.track.length > 39 ? `${track.track.slice(0, 39)}..` : track.track}
