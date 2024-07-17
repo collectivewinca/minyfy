@@ -68,38 +68,28 @@ const Custom = () => {
   };
 
   const createShortUrl = async () => {
-    const url = 'https://api.short.io/links';
-    const options = {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'content-type': 'application/json',
-        Authorization: process.env.NEXT_PUBLIC_SHORT_IO_KEY
-      },
-      body: JSON.stringify({
-        domain: 'go.minyvinyl.com',
-        originalURL: `https://minyfy.subwaymusician.xyz/play/${docId}`,
-        title: 'Minyfy',
-        ...(customUrl && { path: customUrl })
-      })
-    };
-
     try {
-      const response = await fetch(url, options);
+      const response = await fetch('/api/shorten-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ docId, customUrl }),
+      });
       const json = await response.json();
       
       if (json.error === "Link already exists") {
         setErrorMessage("Link already exists. Please choose a different custom URL.");
         return;
       }
-
+  
       console.log(json);
-
+  
       // Update Firestore document with shortened link
       await updateDoc(doc(db, "mixtapes", docId), {
         shortenedLink: json.shortURL
       });
-
+  
       // Redirect to the shortened URL
       window.location.href = json.shortURL;
     } catch (err) {
@@ -201,9 +191,9 @@ const Custom = () => {
 
       {showUrlInput && (
         <div className="fixed inset-0 flex z-50 items-center justify-center font-jakarta bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white mx-3 p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-bold mb-4 text-center">🥳 Your Playlist Created Successfully 🥳</h2>
-            <h2 className="text-xl font-bold mb-4 text-center">Customize Brand URL</h2>
+            <h2 className="text-lg font-bold mb-4 text-center">Customize Brand URL</h2>
             <div className="text-base">
               <div className="flex items-center border rounded-md">
                 <span className="bg-neutral-300 px-2 text-lg py-2 rounded-l-md"><MdModeEdit /></span>
@@ -231,7 +221,7 @@ const Custom = () => {
                 onClick={createShortUrl}
                 className="bg-gray-700 text-white shadow-custom px-4 py-2 rounded hover:bg-gray-600"
               >
-                Confirm
+                Let&rsquo;s Go!
               </button>
             </div>
           </div>
