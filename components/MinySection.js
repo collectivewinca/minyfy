@@ -100,6 +100,7 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
     }
   };
 
+
   const fetchYouTubeData = async (track) => {
     try {
       const response = await fetch('/api/youtube', {
@@ -109,12 +110,9 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
         },
         body: JSON.stringify({ query: track }),
       });
-  
-      // Adding a 0.5 second delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-  
+
       const data = await response.json();
-  
+
       if (response.ok && data && data.length > 0) {
         return data[0]; // Assuming the first result is the most relevant one
       } else {
@@ -126,7 +124,6 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
       return null;
     }
   };
-  
 
   const fetchYouTubeDataWithRetry = async (track, retries = 3) => {
     for (let attempt = 1; attempt <= retries; attempt++) {

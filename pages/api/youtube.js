@@ -1,18 +1,19 @@
 import { google } from 'googleapis';
 import fetch from 'node-fetch';
 
-const getVideoIds = async (query) => {
+const getFirstVideoId = async (query) => {
   const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
   try {
     const response = await fetch(searchUrl);
     const html = await response.text();
 
-    const videoIdMatches = html.match(/"contents":\[{"videoRenderer":{[^}]*?"videoId":"([^"]+)"/g);
-    const videoIds = videoIdMatches ? videoIdMatches.map(match => match.match(/"videoId":"([^"]+)"/)[1]) : [];
-    return videoIds;
+    const videoIdMatch = html.match(/"videoRenderer":{[^}]*?"videoId":"([^"]+)"/);
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
+    console.log('First Video ID of', query, ':', videoId);
+    return videoId;
   } catch (error) {
     console.error('Error fetching the URL:', error);
-    return [];
+    return null;
   }
 };
 
@@ -28,9 +29,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const videoIds = await getVideoIds(query);
+    const videoId = await getFirstVideoId(query);
 
-    if (videoIds.length === 0) {
+    if (!videoId) {
       return res.status(404).json({ error: 'No videos found' });
     }
 
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
 
     const videoResponse = await youtube.videos.list({
       part: 'snippet',
-      id: videoIds.join(','),
+      id: videoId,
     });
 
     if (videoResponse.data.items.length === 0) {
