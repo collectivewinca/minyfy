@@ -5,6 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
+import SocialShareButtons from '@/components/SocialShareButtons';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -16,6 +17,7 @@ export async function getServerSideProps(context) {
 
     if (docSnap.exists()) {
       docData = docSnap.data();
+      console.log(docData);
     } else {
       console.error("No such document!");
     }
@@ -108,8 +110,10 @@ const PlaylistPage = ({ docData }) => {
     return <div>Loading...</div>;
   }
 
-  const { name, tracks, date, backgroundImage } = docData;
+  const { name, tracks, date, backgroundImage, shortenedLink} = docData;
   const description = `Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
+
+  console.log(router.asPath)
 
   return (
     <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
@@ -143,7 +147,12 @@ const PlaylistPage = ({ docData }) => {
           <FaShoppingCart className='md:text-3xl text-xl' /> Buy Now
         </button>
 
-        <div id="player" className='w-full max-w-4xl mx-auto aspect-video my-6 shadow shadow-neutral-600'>
+        <SocialShareButtons 
+          shareUrl={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+          title="Check out my Latest Mixtape on Miny Vinyl"
+        />
+
+        <div id="player" className='w-full max-w-4xl mx-auto aspect-video mb-6 mt-2 shadow shadow-neutral-600'>
           {!isYouTubeApiReady && <div>Loading player...</div>}
         </div>
         

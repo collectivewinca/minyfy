@@ -5,11 +5,11 @@ import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
 import { MdRocketLaunch } from "react-icons/md";
 import { useRouter } from 'next/router';
 import { db, auth, storage } from "@/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const MinySection = ({ name, backgroundImage, tracks }) => {
+const MinySection = ({ name, backgroundImage, tracks, onDocIdChange }) => {
   const [isFavorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -89,10 +89,10 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
         isFavorite,
         userDisplayName: user.displayName || 'Anonymous',
         userEmail: user.email,
-        imageUrl,  // Add image URL to the document
+        imageUrl,
       });
 
-      router.push(`/play/${docRef.id}`);
+      onDocIdChange(docRef.id);
     } catch (error) {
       console.error("Error adding document: ", error);
     } finally {
@@ -148,9 +148,10 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
   });
 
   return (
+    <>
     <div className='py-7'>
       <div ref={trackDataContainerRef} className='overflow-y-auto'>
-        <div className="relative cursor-pointer">
+        <div className="relative z-10 cursor-pointer">
           <div className="overlay"></div>
           <img className="h-full w-full" src={backgroundImage} alt="Background" />
           <div className="flex flex-col justify-between items-end md:pr-2 pr-2 absolute right-0 top-0 h-full pb-4">
@@ -187,6 +188,7 @@ const MinySection = ({ name, backgroundImage, tracks }) => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

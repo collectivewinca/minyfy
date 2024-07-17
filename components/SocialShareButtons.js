@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -9,26 +9,38 @@ import {
   WhatsappIcon,
   EmailIcon
 } from 'react-share';
-import { FaSms } from 'react-icons/fa';
+import { FaSms, FaCopy } from 'react-icons/fa';
 
-const SocialShareButtons = ({ imageUrl, title }) => {
-  const shareUrl = `${imageUrl}`;
+const SocialShareButtons = ({ shareUrl, title }) => {
+  const [copied, setCopied] = useState(false);
 
   const handleSmsShare = () => {
-    // This opens the default SMS app on mobile devices
     window.open(`sms:?body=${encodeURIComponent(title + ': ' + shareUrl)}`, '_blank');
   };
 
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
+    });
+  };
+
   const emailBody = `
-    Check this out: Check out my collections on Miny Vinyl
-    
-    Image: https://minyfy.subwaymusician.xyz/gallery/miny2.jpg
-    
-    You can view the image directly here: https://minyfy.subwaymusician.xyz/gallery/miny2.jpg
+    Check out my Mixtape on Miny Vinyl
+        
+    You can listen directly from here: ${shareUrl}
   `;
 
   return (
     <div className='flex gap-3 items-center p-5'>
+      <button 
+        onClick={handleCopyLink} 
+        className={`bg-gray-500 p-2 rounded-full transition-colors duration-200 ${copied ? 'bg-green-500' : ''}`}
+        title={copied ? 'Copied!' : 'Copy link'}
+      >
+        <FaCopy size={18} color={copied ? 'white' : 'black'} />
+      </button>
+
       <FacebookShareButton url={shareUrl} quote={title}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>

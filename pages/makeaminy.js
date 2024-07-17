@@ -6,6 +6,9 @@ import TagSection from '@/components/TagSection';
 import MinySection from '@/components/MinySection';
 import CustomTrack from '@/components/CustomTrack';
 import { FaArrowUp } from "react-icons/fa6";
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "@/firebase/config";
+import { MdModeEdit } from "react-icons/md";
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -14,15 +17,10 @@ const Custom = () => {
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
-
-  // const images = [
-  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg1.png?alt=media&token=6d4f5c4a-7855-43ef-83c7-c542e54d368d',
-  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg2.png?alt=media&token=95eb58bb-b11b-4b0d-97f1-7143f8a03cee',
-  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg3.png?alt=media&token=b053aec5-aade-4a21-a870-58c1562b0e89',
-  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg4.png?alt=media&token=b5ad8ac4-8e5b-40e1-b1c1-5b3bf97ea24d',
-  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg5.png?alt=media&token=d9db2edb-216e-441b-b3b2-ce8c942378e7',
-  //   'https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/assets%2Fimg6.png?alt=media&token=f5d3b27a-2282-40d9-b22a-8796b89ffbb8'
-  // ];
+  const [docId, setDocId] = useState(null);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+  const [customUrl, setCustomUrl] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const images = [
     "/gallery/img1.png",
@@ -31,7 +29,7 @@ const Custom = () => {
     "/gallery/img4.png",
     "/gallery/img5.png",
     "/gallery/img6.png",
-  ]
+  ];
 
   const handleSelection = (event) => {
     setSelectedOption(event.target.value);
@@ -69,73 +67,113 @@ const Custom = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const createShortUrl = async () => {
+    const url = 'https://api.short.io/links';
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        Authorization: process.env.NEXT_PUBLIC_SHORT_IO_KEY
+      },
+      body: JSON.stringify({
+        domain: 'go.minyvinyl.com',
+        originalURL: `https://minyfy.subwaymusician.xyz/play/${docId}`,
+        title: 'Minyfy',
+        ...(customUrl && { path: customUrl })
+      })
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const json = await response.json();
+      
+      if (json.error === "Link already exists") {
+        setErrorMessage("Link already exists. Please choose a different custom URL.");
+        return;
+      }
+
+      console.log(json);
+
+      // Update Firestore document with shortened link
+      await updateDoc(doc(db, "mixtapes", docId), {
+        shortenedLink: json.shortURL
+      });
+
+      // Redirect to the shortened URL
+      window.location.href = json.shortURL;
+    } catch (err) {
+      console.error('error:' + err);
+    }
+  };
+
+  const handleDocIdChange = (id) => {
+    console.log("handleDocIdChange called with ID:", id);
+    setDocId(id);
+    setShowUrlInput(true);
+  };
+
   return (
     <>
       <Header />
-      
-      <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-3  ">
-       <div className='md:w-full flex justify-center items-center  '>
+
+      <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-3">
+        <div className='md:w-full flex justify-center items-center'>
           {tracks.length > 0 ? (
-            <div className="md:w-[35%] ">
-              <MinySection 
-              name={inputValue}
-              backgroundImage={backgroundImage}
-              tracks={tracks}
-              
-            />
+            <div className="md:w-[35%]">
+              <MinySection
+                name={inputValue}
+                backgroundImage={backgroundImage}
+                tracks={tracks}
+                onDocIdChange={handleDocIdChange}
+              />
             </div>
-              
           ) : (
-            <div  className="relative cursor-pointer mt-4 w-full" >
-                <div className="overlay1 hidden md:block"></div>
-                <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
-                <div className="cardContent shadow-md">
-                    <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4   py-2">Customize Your Miny</p>
-                </div>
+            <div className="relative cursor-pointer mt-4 w-full">
+              <div className="overlay1 hidden md:block"></div>
+              <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
+              <div className="cardContent shadow-md">
+                <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4 py-2">
+                  Customize Your Miny
+                </p>
+              </div>
             </div>
-            
-          
           )}
-          
         </div>
         <div className='flex flex-col md:flex-row gap-2 w-full mt-3'>
-        <div className='flex flex-col justify-start w-full  '>
-          <div className='font-jakarta md:text-lg text-base mb-1  justify-start text-neutral-800 font-medium'>Select Category</div>
-          <select
-            className=" px-5 py-3 font-thin font-mono bg-[#F4EFE6] md:text-lg text-base text-neutral-500 rounded-xl"
-            value={selectedOption}
-            onChange={handleSelection}
-          >
-            <option value="">Select an option</option>
-            <option value="tracks">Tracks</option>
-            <option value="searchArtist">Artists</option>
-            <option value="genre">Genres</option>
-            <option value="customize">Customize Miny</option>
-          </select>
-        </div>
-        
-        {/* <div>
-          <img className="h-[120vh] rounded-2xl" src={backgroundImage} alt="Selected Background" />
-        </div> */}
+          <div className='flex flex-col justify-start w-full'>
+            <div className='font-jakarta md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium'>Approach for Building Playlist</div>
+            <select
+              className="px-5 py-3 font-thin font-mono bg-[#F4EFE6] md:text-lg text-base text-neutral-500 rounded-xl"
+              value={selectedOption}
+              onChange={handleSelection}
+            >
+              <option value="">Build Your Playlist</option>
+              <option value="tracks">Tracks</option>
+              <option value="searchArtist">Artists</option>
+              <option value="genre">Genres</option>
+              <option value="customize">Customize Miny</option>
+            </select>
+          </div>
 
-        <div className='flex flex-col justify-start w-full '>
-        <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Enter Brand Name </div>
-          <input
-            className=" px-5 py-2 pb-[10px] md:text-lg text-base font-mono text-neutral-500  bg-[#F4EFE6] rounded-xl"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder='Name here...'
-          />
-        </div>
+          <div className='flex flex-col justify-start w-full'>
+            <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Showcase Your Identity</div>
+            <input
+              className="px-5 py-2 pb-[10px] md:text-lg text-base font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder='Name here...'
+            />
+          </div>
         </div>
 
-        <div className='flex flex-col justify-start w-full '>
-          <div className='md:text-lg text-base  mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Select Background Image</div>
-          <div className="grid md:grid-cols-6 grid-cols-3  gap-1 md:gap-2 ">
+        <div className='flex flex-col justify-start w-full'>
+          <div className='md:text-lg text-base mb-1 mt-3 justify-start text-neutral-800 font-medium font-jakarta'>Set the Scene</div>
+          <div className="grid md:grid-cols-6 grid-cols-3 gap-1 md:gap-2">
             {images.map((image, index) => (
               <img
                 key={index}
-                className={`cursor-pointer  w-full rounded-xl ${backgroundImage === image ? 'border-2 border-black p-1' : 'border-[2.8px] border-transparent'}`}
+                className={`cursor-pointer w-full rounded-xl ${backgroundImage === image ? 'border-2 border-black p-1' : 'border-[2.8px] border-transparent'}`}
                 src={image}
                 alt={`Background ${index + 1}`}
                 onClick={() => handleImageSelection(image)}
@@ -160,17 +198,57 @@ const Custom = () => {
           <CustomTrack onTracksChange={handleTracksChange} />
         )}
       </div>
-        <div 
-          className={`p-2 rounded-lg fixed md:right-7 cursor-pointer right-4 md:bottom-4 bottom-4 bg-black shadow-custom ${!isAtTop && showNotification ? ' animate-bounce' : ''}`} 
-          onClick={handleScrollToTop}
-        >
-          {!isAtTop && showNotification && (
-            <div className="w-5 h-5 flex items-center justify-center rounded-full bg-[#f83d3d] text-white text-xs absolute top-[-0.5rem] right-[-0.5rem]">
-              1
+
+      {showUrlInput && (
+        <div className="fixed inset-0 flex z-50 items-center justify-center font-jakarta bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4 text-center">🥳 Your Playlist Created Successfully 🥳</h2>
+            <h2 className="text-xl font-bold mb-4 text-center">Customize Brand URL</h2>
+            <div className="text-base">
+              <div className="flex items-center border rounded-md">
+                <span className="bg-neutral-300 px-2 text-lg py-2 rounded-l-md"><MdModeEdit /></span>
+                <input
+                  type="text"
+                  value={customUrl}
+                  onChange={(e) => setCustomUrl(e.target.value)}
+                  className="px-2 py-1 flex-grow"
+                  placeholder="(Optional)"
+                />
+              </div>
             </div>
-          )}
-          <FaArrowUp className='md:text-3xl text-xl text-white'/>
+            <div className="text-xs mt-1 mb-4">
+              <p className="font-bold">
+                https://go.minyvinyl.com/{customUrl || '*random*'}
+              </p>
+            </div>
+            {errorMessage && (
+              <div className="text-red-500 text-sm mb-4">
+                {errorMessage}
+              </div>
+            )}
+            <div className="flex justify-center">
+              <button
+                onClick={createShortUrl}
+                className="bg-gray-700 text-white shadow-custom px-4 py-2 rounded hover:bg-gray-600"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
         </div>
+      )}
+
+      <div
+        className={`p-2 rounded-lg fixed md:right-7 cursor-pointer right-4 md:bottom-4 bottom-4 bg-black shadow-custom ${!isAtTop && showNotification ? 'animate-bounce' : ''}`}
+        onClick={handleScrollToTop}
+      >
+        {!isAtTop && showNotification && (
+          <div className="w-5 h-5 flex items-center justify-center rounded-full bg-[#f83d3d] text-white text-xs absolute top-[-0.5rem] right-[-0.5rem]">
+            1
+          </div>
+        )}
+        <FaArrowUp className='md:text-3xl text-xl text-white' />
+      </div>
     </>
   );
 };
