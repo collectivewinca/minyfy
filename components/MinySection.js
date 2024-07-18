@@ -23,6 +23,7 @@ const MinySection = ({ name, backgroundImage, tracks, onDocIdChange }) => {
       const user = result.user;
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
+      saveToFirestore();
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
@@ -57,6 +58,11 @@ const MinySection = ({ name, backgroundImage, tracks, onDocIdChange }) => {
   const saveToFirestore = async () => {
     if (!user) {
       await handleLogin();
+      return;
+    }
+
+    if (!name) {
+      alert('Please enter your name to watermark a MINY!');
       return;
     }
 

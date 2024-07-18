@@ -12,7 +12,7 @@ import { MdModeEdit } from "react-icons/md";
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
-  const [inputValue, setInputValue] = useState('User');
+  const [inputValue, setInputValue] = useState('');
   const [backgroundImage, setBackgroundImage] = useState('/gallery/img6.png');
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -138,7 +138,7 @@ const Custom = () => {
               value={selectedOption}
               onChange={handleSelection}
             >
-              <option value="">Build Your Playlist</option>
+              <option value="">Build Your Playlist...</option>
               <option value="tracks">Tracks</option>
               <option value="searchArtist">Artists</option>
               <option value="genre">Genres</option>
@@ -149,10 +149,10 @@ const Custom = () => {
           <div className='flex flex-col justify-start w-full'>
             <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Showcase Your Identity</div>
             <input
-              className="px-5 py-2 pb-[10px] md:text-lg text-base font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
+              className="px-5 placeholder:text-neutral-500 py-2 pb-[10px] md:text-lg text-base font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
               value={inputValue}
               onChange={handleInputChange}
-              placeholder='Name here...'
+              placeholder='Add your name to watermark a MINY...'
             />
           </div>
         </div>

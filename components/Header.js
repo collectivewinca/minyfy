@@ -61,7 +61,7 @@ const Header = () => {
             {user ? (
               <button 
                 onClick={handleLogout} 
-                className="text-black border-r-[4px] border-b-[4px] border-black bg-[#73c33e] hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
+                className="text-black border-r-[4px] border-b-[4px] border-black bg-[#d6d6d6] hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
               >
                 <TbLogin className='text-xl'/> Log out
               </button>
