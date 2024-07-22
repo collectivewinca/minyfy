@@ -58,7 +58,7 @@ function Footer() {
               <FaPhoneAlt className='text-base mt-[2px] mr-1' /> +1 (415) 936-7377
             </div>
             <div className="text-gray-400 flex gap-1 text-sm hover:text-white">
-              <MdEmail className='text-base mt-[2px] ' /> minyfy@subwaymusician.xyz
+              <MdEmail className='text-base mt-[2px] ' /> hello@minyvinyl.com
             </div>
           </div>
         </div>

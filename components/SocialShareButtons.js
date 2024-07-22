@@ -19,9 +19,9 @@ const SocialShareButtons = ({ shareUrl, title }) => {
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(shareUrl).then(() => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
+      setTimeout(() => setCopied(false), 2000);
     });
   };
 
