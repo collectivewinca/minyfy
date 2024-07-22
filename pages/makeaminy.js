@@ -128,7 +128,7 @@ const Custom = () => {
       },
       body: JSON.stringify({
         model: 'dall-e-3',
-        prompt: 'create a uniform background image for a list of music track, make it life like, be creative and simple',
+        prompt: 'Create a uniform background image. Generate an image focused on a random music-related theme, incorporating elements that evoke the essence of different music genres, artists, and tracks. Apply a random artistic style that blends various visual influences, creating a unique and visually striking image. The overall mood should capture a random feeling, creating an immersive and engaging atmosphere. Use a color scheme that includes random bright colors, pastel colors, and neutral colors to create a balanced and vibrant look. Arrange the elements to depict a scene that includes random activities or scenes related to music, ensuring a dynamic and interesting composition. Use random lighting types to enhance the visual appeal and depth of the image. Incorporate specific details such as random musical instruments, symbols, and settings to add richness and context to the scene.',
         n: 1,
         size: '1024x1024',
       }),
