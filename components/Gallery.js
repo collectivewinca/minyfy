@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const images = [
   {
@@ -36,8 +37,11 @@ const ImageGallery = () => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
       {images.map((image, index) => (
         <div key={index} className="cursor-pointer  " onClick={() => openImageInNewTab(image.link)}>
-          <img 
+          <Image 
+            width={100}
+            height={100}
             src={image.imageUrl} 
+            unoptimized={true}
             alt={`Image ${index + 1}`} 
             className="w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360"
           />
