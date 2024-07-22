@@ -4,6 +4,9 @@ import { toPng, toJpeg, toBlob } from 'html-to-image';
 import download from 'downloadjs';
 import MinySection from '@/components/MinySection';
 import { FaLastfm } from "react-icons/fa";
+import { MdModeEdit } from "react-icons/md";
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 function Lastfm() {
   const [username, setUsername] = useState('');
@@ -13,7 +16,18 @@ function Lastfm() {
   const [userExists, setUserExists] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("/img3.png");
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/img3.png");
   const [loading, setLoading] = useState(false);
+  const [docId, setDocId] = useState(null);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+  const [customUrl, setCustomUrl] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleDocIdChange = (id) => {
+    console.log("handleDocIdChange called with ID:", id);
+    setDocId(id);
+    setShowUrlInput(true);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -88,6 +102,7 @@ function Lastfm() {
   };
 
   const generateImage = async () => {
+    console.log('Starting image generation');
     setLoading(true);
     const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
     const response = await fetch('https://api.openai.com/v1/images/generations', {
@@ -103,14 +118,13 @@ function Lastfm() {
         size: '1024x1024',
       }),
     });
-  
+
     const data = await response.json();
-    console.log('Generated image:', data);
+    console.log('Generated image data:', data);
     if (data.data && data.data.length > 0) {
       const imageUrl = data.data[0].url;
-  
+      setBackgroundImageUrl(imageUrl);
       try {
-        
         const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
         if (!apiResponse.ok) {
           throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
@@ -120,7 +134,7 @@ function Lastfm() {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
           const base64data = reader.result;
-          setBackgroundImageUrl("/img3.png");
+          setBackgroundImageSrc(base64data);
           setLoading(false);
         };
       } catch (error) {
@@ -130,6 +144,48 @@ function Lastfm() {
     } else {
       console.error('Error generating image:', data);
       setLoading(false);
+    }
+  };
+
+  const isValidUrl = (url) => {
+    const urlPattern = /^[a-zA-Z0-9-_]+$/; // Adjust pattern as needed
+    return urlPattern.test(url);
+  };
+
+  const createShortUrl = async () => {
+    const trimmedCustomUrl = customUrl.trim();
+    
+    if (trimmedCustomUrl && !isValidUrl(trimmedCustomUrl)) {
+      setErrorMessage("Invalid URL. Only alphanumeric characters, dashes, and underscores are allowed.");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/shorten-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ docId, customUrl: trimmedCustomUrl }),
+      });
+      const json = await response.json();
+
+      if (json.error === "Link already exists") {
+        setErrorMessage("Link already exists. Please choose a different custom URL.");
+        return;
+      }
+
+      console.log(json);
+
+      // Update Firestore document with shortened link
+      await updateDoc(doc(db, "mixtapes", docId), {
+        shortenedLink: json.shortURL
+      });
+
+      // Redirect to the shortened URL
+      window.location.href = json.shortURL;
+    } catch (err) {
+      console.error('error:' + err);
     }
   };
 
@@ -219,10 +275,50 @@ function Lastfm() {
             name={username} 
             backgroundImage={backgroundImageUrl} 
             tracks={trackData} 
+            backgroundImageSrc={backgroundImageSrc}
+            onDocIdChange={handleDocIdChange}
           />
           </div>
         )}
       </div>
+      {showUrlInput && (
+        <div className="fixed inset-0 flex z-50 items-center justify-center font-jakarta bg-black bg-opacity-50">
+          <div className="bg-white mx-3 p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4 text-center">🥳 Your Playlist Created Successfully 🥳</h2>
+            <h2 className="text-lg font-bold mb-4 text-center">Customize Brand URL</h2>
+            <div className="text-base">
+              <div className="flex items-center border rounded-md">
+                <span className="bg-neutral-300 px-2 text-lg py-2 rounded-l-md"><MdModeEdit /></span>
+                <input
+                  type="text"
+                  value={customUrl}
+                  onChange={(e) => setCustomUrl(e.target.value)}
+                  className="px-2 py-1 flex-grow"
+                  placeholder="(Optional)"
+                />
+              </div>
+            </div>
+            <div className="text-xs mt-1 mb-4">
+              <p className="font-bold">
+                https://go.minyvinyl.com/{customUrl.trim() || '*random*'}
+              </p>
+            </div>
+            {errorMessage && (
+              <div className="text-red-500 text-sm mb-4">
+                {errorMessage}
+              </div>
+            )}
+            <div className="flex justify-center">
+              <button
+                onClick={createShortUrl}
+                className="bg-gray-700 text-white shadow-custom px-4 py-2 rounded hover:bg-gray-600"
+              >
+                Let&rsquo;s Go!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
@@ -232,17 +328,10 @@ String.prototype.toHHMMSS = function () {
   var hours = Math.floor(sec_num / 3600);
   var minutes = Math.floor((sec_num - hours * 3600) / 60);
   var seconds = sec_num - hours * 3600 - minutes * 60;
-
-  if (hours < 10) {
-    hours = '0' + hours;
-  }
-  if (minutes < 10) {
-    minutes = '0' + minutes;
-  }
-  if (seconds < 10) {
-    seconds = '0' + seconds;
-  }
-  return hours + ':' + minutes + ':' + seconds;
+  return [hours, minutes, seconds]
+    .map((v) => (v < 10 ? '0' + v : v))
+    .filter((v, i) => v !== '00' || i > 0)
+    .join(':');
 };
 
 export default Lastfm;

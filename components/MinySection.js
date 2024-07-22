@@ -9,7 +9,7 @@ import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const MinySection = ({ name, backgroundImage, tracks, onDocIdChange }) => {
+const MinySection = ({ name, backgroundImage, tracks, onDocIdChange, backgroundImageSrc }) => {
   const [isFavorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -159,7 +159,7 @@ const MinySection = ({ name, backgroundImage, tracks, onDocIdChange }) => {
       <div ref={trackDataContainerRef} className='overflow-y-auto'>
         <div className="relative z-10 cursor-pointer">
           <div className="overlay"></div>
-          <img className="h-full w-full" src={backgroundImage} alt="Background" />
+          <img className="h-full w-full" src={backgroundImageSrc} alt="Background" />
           <div className="flex flex-col justify-between items-end md:pr-2 pr-2 absolute right-0 top-0 h-full pb-4">
             <p className="text-white font-medium text-lg tracking-wide">
               <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[8vh] h-[4vh] md:px-2 px-2 mt-4" />
