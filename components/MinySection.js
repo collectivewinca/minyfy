@@ -23,7 +23,6 @@ const MinySection = ({ name, backgroundImage, tracks, onDocIdChange, backgroundI
       const user = result.user;
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
-      saveToFirestore();
     } catch (error) {
       console.error("Error during sign-in:", error);
     }

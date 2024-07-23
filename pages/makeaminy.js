@@ -7,7 +7,8 @@ import MinySection from '@/components/MinySection';
 import CustomTrack from '@/components/CustomTrack';
 import { FaArrowUp } from "react-icons/fa6";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import { db, auth, storage } from "@/firebase/config";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { MdModeEdit } from "react-icons/md";
 
 const Custom = () => {
@@ -124,7 +125,23 @@ const Custom = () => {
     setShowUrlInput(true);
   };
 
+  const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+    }
+  };
+
   const generateImage = async () => {
+    if (!user) {
+      await handleLogin();
+      return;
+    }
     console.log('Starting image generation');
     setLoading(true);
     const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
