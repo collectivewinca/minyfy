@@ -139,55 +139,63 @@ const Custom = () => {
 
   const generateImage = async () => {
     if (!user) {
+      console.log('User not logged in. Redirecting to login');
       await handleLogin();
       return;
     }
+    
     console.log('Starting image generation');
     setLoading(true);
     const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-    const response = await fetch('https://api.openai.com/v1/images/generations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'dall-e-3',
-        prompt: 'Create a uniform background image. Generate an image focused on a random music-related theme, incorporating elements that evoke the essence of different music genres, artists, and tracks. Apply a random artistic style that blends various visual influences, creating a unique and visually striking image. The overall mood should capture a random feeling, creating an immersive and engaging atmosphere. Use a color scheme that includes random bright colors, pastel colors, and neutral colors to create a balanced and vibrant look. Arrange the elements to depict a scene that includes random activities or scenes related to music, ensuring a dynamic and interesting composition. Use random lighting types to enhance the visual appeal and depth of the image. Incorporate specific details such as random musical instruments, symbols, and settings to add richness and context to the scene.',
-        n: 1,
-        size: '1024x1024',
-      }),
-    });
+    try {
+      const response = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: 'dall-e-3',
+          prompt: 'Create a uniform background image. Generate an image focused on a random music-related theme, incorporating elements that evoke the essence of different music genres, artists, and tracks. Apply a random artistic style that blends various visual influences, creating a unique and visually striking image. Keep it simple and music related',
+          n: 1,
+          size: '1024x1024',
+        }),
+      });
 
-    const data = await response.json();
-    console.log('Generated image data:', data);
-    if (data.data && data.data.length > 0) {
-      const imageUrl = data.data[0].url;
-      const updatedImages = [imageUrl, ...images.slice(1)];
-      setImages(updatedImages);
-      setBackgroundImage(imageUrl);
-      try {
-        const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
-        if (!apiResponse.ok) {
-          throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
-        }
-        const blob = await apiResponse.blob();
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-          const base64data = reader.result;
-          setBackgroundImageSrc(base64data);
+      const data = await response.json();
+      console.log('Generated image data:', data);
+      if (data.data && data.data.length > 0) {
+        const imageUrl = data.data[0].url;
+        const updatedImages = [imageUrl, ...images.slice(1)];
+        setImages(updatedImages);
+        setBackgroundImage(imageUrl);
+        try {
+          const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
+          if (!apiResponse.ok) {
+            throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
+          }
+          const blob = await apiResponse.blob();
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            const base64data = reader.result;
+            setBackgroundImageSrc(base64data);
+            setLoading(false);
+          };
+        } catch (error) {
+          console.error('Error fetching image data:', error);
           setLoading(false);
-        };
-      } catch (error) {
-        console.error('Error fetching image data:', error);
+        }
+      } else {
+        console.error('Error generating image:', data);
         setLoading(false);
       }
-    } else {
-      console.error('Error generating image:', data);
+    } catch (error) {
+      console.error('Error generating image:', error);
       setLoading(false);
     }
-  };
+};
+
 
   return (
     <>
