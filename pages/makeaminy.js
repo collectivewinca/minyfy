@@ -23,6 +23,7 @@ const Custom = () => {
   const [customUrl, setCustomUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
   const [images, setImages] = useState([
     "/gallery/img1.png",
     "/gallery/img3.png",
@@ -34,6 +35,13 @@ const Custom = () => {
   const handleSelection = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -170,28 +178,16 @@ const Custom = () => {
 
       <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-3">
         <div className='md:w-full flex justify-center items-center'>
-        {tracks.length > 0 ? (
-          <>
-          <div className="md:w-[35%]">
-              <MinySection
-                name={inputValue}
-                backgroundImage={backgroundImage}
-                tracks={tracks}
-                backgroundImageSrc={backgroundImageSrc}
-                onDocIdChange={handleDocIdChange}
-              />
-            </div>
-          </>
-        ) : (
-        <div className="relative cursor-pointer mt-4 w-full">
-              <div className="overlay1 hidden md:block"></div>
-              <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
-              <div className="cardContent shadow-md">
-                <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4 py-2">
-                  Customize Your Miny
-                </p>
-              </div>
+        {!(tracks.length) > 0 && (
+          <div className="relative cursor-pointer mt-4 w-full">
+          <div className="overlay1 hidden md:block"></div>
+          <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
+          <div className="cardContent shadow-md">
+            <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4 py-2">
+              Customize Your Miny
+            </p>
           </div>
+      </div>
         )}
         </div>
         <div className='flex flex-col md:flex-row gap-2 w-full mt-3'>
@@ -257,6 +253,20 @@ const Custom = () => {
             ))}
           </div>
         </div>
+
+        {tracks.length > 0 && (
+          <>
+          <div className="md:w-[35%]">
+              <MinySection
+                name={inputValue}
+                backgroundImage={backgroundImage}
+                tracks={tracks}
+                backgroundImageSrc={backgroundImageSrc}
+                onDocIdChange={handleDocIdChange}
+              />
+            </div>
+          </>
+        )}
 
         {selectedOption === 'tracks' && (
           <TracksList onTracksChange={handleTracksChange} />
