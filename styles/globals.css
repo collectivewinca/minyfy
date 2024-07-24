@@ -173,3 +173,49 @@ body{
   animation: rotBGimg 3.5s linear infinite;
 } */
 
+
+.price-container {
+  background: linear-gradient(to left, #000000, #5b5b5b);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.price-container::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background-image: linear-gradient(
+    180deg, 
+    rgb(237, 107, 0), 
+    rgb(0, 220, 4)
+  );
+  animation: rotBGimg 3s linear infinite;
+  transition: all 0.2s linear;
+}
+
+@keyframes rotBGimg {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.discount {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to right, #000000, #5b5b5b);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 18px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}

@@ -10,12 +10,13 @@ import { updateDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "@/firebase/config";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { MdModeEdit } from "react-icons/md";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [backgroundImage, setBackgroundImage] = useState('/gallery/img6.png');
-  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/gallery/img6.png");
+  const [backgroundImage, setBackgroundImage] = useState('/6.png');
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/6.png");
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
@@ -26,11 +27,15 @@ const Custom = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [images, setImages] = useState([
-    "/gallery/img1.png",
-    "/gallery/img3.png",
-    "/gallery/img4.png",
-    "/gallery/img5.png",
-    "/gallery/img6.png",
+    "/5.png",
+    "/6.png",
+    "/4.png",
+    "/8.png",
+    "/9.png",
+    "/7.png",
+    "/1.png",
+    "/2.png",
+    "/3.png",
   ]);
 
   const handleSelection = (event) => {
@@ -156,7 +161,7 @@ const Custom = () => {
         },
         body: JSON.stringify({
           model: 'dall-e-3',
-          prompt: 'Create a uniform background image. Generate an image focused on a random music-related theme, incorporating elements that evoke the essence of different music genres, artists, and tracks. Apply a random artistic style that blends various visual influences, creating a unique and visually striking image. Keep it simple and music related',
+          prompt: 'create a uniform background image featuring music vinyls, make it vibrant and retro, and ensure it relates to music tracks',
           n: 1,
           size: '1024x1024',
         }),
@@ -169,12 +174,27 @@ const Custom = () => {
         const updatedImages = [imageUrl, ...images.slice(1)];
         setImages(updatedImages);
         setBackgroundImage(imageUrl);
+        setBackgroundImageSrc(imageUrl);
         try {
           const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
           if (!apiResponse.ok) {
             throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
           }
           const blob = await apiResponse.blob();
+          
+          // Save image to Firebase Storage
+          const storage = getStorage();
+          const storageRef = ref(storage, `generated-images/${Date.now()}.jpg`);
+          
+          // Upload to Firebase Storage
+          await uploadBytes(storageRef, blob);
+          
+          // Get the Firebase Storage URL
+          const firebaseUrl = await getDownloadURL(storageRef);
+          
+          // You can use firebaseUrl here if needed, or store it somewhere
+
+          setBackgroundImage(firebaseUrl);
           const reader = new FileReader();
           reader.readAsDataURL(blob);
           reader.onloadend = () => {
@@ -183,7 +203,7 @@ const Custom = () => {
             setLoading(false);
           };
         } catch (error) {
-          console.error('Error fetching image data:', error);
+          console.error('Error fetching image data or saving to Firebase:', error);
           setLoading(false);
         }
       } else {
@@ -224,10 +244,10 @@ const Custom = () => {
               onChange={handleSelection}
             >
               <option value="">Build Your Playlist...</option>
-              <option value="tracks">Tracks</option>
               <option value="searchArtist">Artists</option>
               <option value="genre">Genres</option>
               <option value="customize">Customize Miny</option>
+              <option value="tracks">Tracks</option>
             </select>
           </div>
 
@@ -267,7 +287,7 @@ const Custom = () => {
                 </>
               )}
             </div>
-            {images.map((image, index) => (
+            {images.slice(0,5).map((image, index) => (
               <img
                 key={index}
                 className={`cursor-pointer w-full rounded-xl ${backgroundImage === image ? 'border-2 border-black p-1' : 'border-[2.8px] border-transparent'}`}
