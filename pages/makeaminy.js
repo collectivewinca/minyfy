@@ -174,7 +174,6 @@ const Custom = () => {
         const updatedImages = [imageUrl, ...images.slice(1)];
         setImages(updatedImages);
         setBackgroundImage(imageUrl);
-        setBackgroundImageSrc(imageUrl);
         try {
           const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
           if (!apiResponse.ok) {
@@ -369,7 +368,7 @@ const Custom = () => {
         </div>
       )}
 
-      <div
+      {/* <div
         className={`p-2 rounded-lg fixed md:right-7 cursor-pointer right-4 md:bottom-4 bottom-4 bg-black shadow-custom ${!isAtTop && showNotification ? 'animate-bounce' : ''}`}
         onClick={handleScrollToTop}
       >
@@ -379,7 +378,7 @@ const Custom = () => {
           </div>
         )}
         <FaArrowUp className='md:text-3xl text-xl text-white' />
-      </div>
+      </div> */}
     </>
   );
 };
