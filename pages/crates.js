@@ -81,6 +81,8 @@ function Collections() {
     }
   };
 
+  console.log("crates:", crates);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -109,7 +111,7 @@ function Collections() {
                 <img 
                   src={crate.backgroundImage} 
                   alt={`${crate.name}'s artwork`} 
-                  className="w-full h-48 object-cover rounded-t-lg mb-4"
+                  className="w-full h-48 object-cover rounded-lg "
                 />
                 <div className="p-4">
                   <h2 className="text-xl font-semibold">{crate.name}'s Mixtape</h2>

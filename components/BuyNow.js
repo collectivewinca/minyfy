@@ -111,7 +111,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
 
              {!isProcessing && (
               <>
-                <div className="md:flex md:space-x-4 space-y-4">
+                <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Name:</label>
                   <input 
@@ -139,7 +139,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
               </div>
-              <div className="md:flex md:space-x-4 space-y-4">
+              <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Phone Number:</label>
                   <input 
@@ -167,7 +167,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   {errors.street && <p className="text-red-500 text-xs mt-1">{errors.street}</p>}
                 </div>
               </div>
-              <div className="md:flex md:space-x-4 space-y-4">
+              <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">City:</label>
                   <input 
@@ -195,7 +195,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
                 </div>
               </div>
-              <div className="md:flex md:space-x-4 space-y-4">
+              <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Postal/Zip Code:</label>
                   <input 
