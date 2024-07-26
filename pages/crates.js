@@ -17,9 +17,11 @@ function Collections() {
       setLoading(true);
       if (user) {
         setUser(user);
+        console.log("Fetching crates for user:", user.email);
         fetchCrates(user.email);
       } else {
         setUser(null);
+        console.log("Fetching public crates");
         fetchPublicCrates();
       }
       setLoading(false);
@@ -30,6 +32,7 @@ function Collections() {
 
   useEffect(() => {
     if (crateId && status === 'success') {
+      console.log("Updating crate status for ID:", crateId);
       updateCrateStatus(crateId);
     }
   }, [crateId, status]);
@@ -40,6 +43,7 @@ function Collections() {
       const querySnapshot = await getDocs(q);
       const cratesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       cratesData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); // Sort by dateTime descending
+      console.log("Fetched crates:", cratesData);
       setCrates(cratesData);
     } catch (error) {
       console.error("Error fetching crates:", error);
@@ -52,6 +56,7 @@ function Collections() {
       const querySnapshot = await getDocs(q);
       const cratesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       cratesData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); // Sort by dateTime descending
+      console.log("Fetched public crates:", cratesData);
       setCrates(cratesData);
     } catch (error) {
       console.error("Error fetching public crates:", error);
@@ -64,6 +69,7 @@ function Collections() {
       await updateDoc(crateRef, {
         paymentStatus: "success"
       });
+      console.log("Crate status updated. Re-fetching crates.");
       // After updating, re-fetch crates based on the current user or public state
       if (user) {
         fetchCrates(user.email);

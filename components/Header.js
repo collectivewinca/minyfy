@@ -116,6 +116,14 @@ const Header = () => {
                   Your Collections
                 </div>
               </li>
+              <li>
+                <div 
+                  className="block py-2 pr-4 pl-3 text-neutral-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-[#73c33e] lg:p-0 cursor-pointer"
+                  onClick={() => router.push('/crates')}
+                >
+                  Crates
+                </div>
+              </li>
             </ul>
           </div>
         </div>
