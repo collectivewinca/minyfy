@@ -28,6 +28,8 @@
     "react-share": "^5.1.0",
     "request": "^2.88.2",
     "spotify-web-api-node": "^5.0.2",
+    "strip": "^3.0.0",
+    "stripe": "^16.5.0",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
