@@ -5,7 +5,7 @@ import { db, auth } from '@/firebase/config';
 import { collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 
-function Collections() {
+function Crates() {
   const [user, setUser] = useState(null);
   const [crates, setCrates] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,16 +13,16 @@ function Collections() {
   const { crateId, status } = router.query;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
         setUser(user);
         console.log("Fetching crates for user:", user.email);
-        fetchCrates(user.email);
+        await fetchCrates(user.email);
       } else {
         setUser(null);
         console.log("Fetching public crates");
-        fetchPublicCrates();
+        await fetchPublicCrates();
       }
       setLoading(false);
     });
@@ -31,10 +31,20 @@ function Collections() {
   }, []);
 
   useEffect(() => {
-    if (crateId && status === 'success') {
-      console.log("Updating crate status for ID:", crateId);
-      updateCrateStatus(crateId);
-    }
+    const updateStatusAndFetch = async () => {
+      if (crateId && status === 'success') {
+        console.log("Updating crate status for ID:", crateId);
+        await updateCrateStatus(crateId);
+        // Fetch crates again after updating status
+        if (user) {
+          await fetchCrates(user.email);
+        } else {
+          await fetchPublicCrates();
+        }
+      }
+    };
+
+    updateStatusAndFetch();
   }, [crateId, status]);
 
   const fetchCrates = async (email) => {
@@ -66,16 +76,8 @@ function Collections() {
   const updateCrateStatus = async (id) => {
     try {
       const crateRef = doc(db, "crates", id);
-      await updateDoc(crateRef, {
-        paymentStatus: "success"
-      });
-      console.log("Crate status updated. Re-fetching crates.");
-      // After updating, re-fetch crates based on the current user or public state
-      if (user) {
-        fetchCrates(user.email);
-      } else {
-        fetchPublicCrates();
-      }
+      await updateDoc(crateRef, { paymentStatus: "success" });
+      console.log("Crate status updated for ID:", id);
     } catch (error) {
       console.error("Error updating crate status:", error);
     }
@@ -130,4 +132,4 @@ function Collections() {
   );
 }
 
-export default Collections;
+export default Crates;
