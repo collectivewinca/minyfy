@@ -90,7 +90,7 @@ function Collections() {
             ))}
           </ul>
         ) : (
-          <p className="mt-6 text-center">No crates found.</p>
+          <p className="mt-6 font-extrabold text-3xl text-center">No crates found.</p>
         )}
       </div>
     </>
