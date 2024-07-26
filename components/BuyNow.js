@@ -44,7 +44,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
       <style>
         {`
           .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
           }
           .custom-scrollbar::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
@@ -63,8 +63,8 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
         `}
       </style>
 
-      <div className="fixed font-jakarta inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center py-10 ">
-        <div className="relative my-3 md:w-2/3 rounded-lg backdrop-filter backdrop-blur-xl bg-neutral-200 bg-opacity-10 border border-white border-opacity-20 text-white max-h-[calc(100vh-3rem)] overflow-y-auto p-4 custom-scrollbar">
+      <div className="fixed font-jakarta inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center py-10 ">
+        <div className="relative my-3 w-full md:w-2/3 rounded-lg backdrop-filter backdrop-blur-xl bg-neutral-200 bg-opacity-10 border border-white border-opacity-20 text-white max-h-[calc(100vh-3rem)] overflow-y-auto p-4 custom-scrollbar">
           
           <button
             className="absolute top-4 right-4 p-1 rounded-full hover:bg-red-500 transition"
@@ -74,14 +74,14 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           </button>
 
           <div className="text-center font-bold tracking-wide text-2xl mb-4">MINY Pre-Order Form</div>
-          <div className="flex flex-col items-center md:justify-between w-full md:flex-row gap-3 pb-3">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>
-                <img src={backgroundImage} alt="Artwork" className="w-14 rounded-full md:w-[4rem]" />
+                <img src={backgroundImage} alt="Artwork" className="w-[7rem] rounded-full md:w-[5rem]" />
               </div>
-              <div className="flex flex-col">
-                <div className="text-lg">{formData.title}'s Mixtape</div>
-                <div className="text-base font-base cursor-pointer underline text-[#00dc04]">{shortenedLink.replace(/^https?:\/\//, '')}</div>
+              <div className="flex flex-col text-center md:text-start">
+                <div className="text-xl">{formData.title}'s Mixtape</div>
+                <div className="text-lg font-base cursor-pointer underline text-[#00dc04]">{shortenedLink.replace(/^https?:\/\//, '')}</div>
               </div>
             </div>
             <div className="text-5xl font-semibold" onClick={handleSubmit}>
@@ -111,7 +111,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
 
              {!isProcessing && (
               <>
-                <div className="md:flex md:space-x-4">
+                <div className="md:flex md:space-x-4 space-y-4">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Name:</label>
                   <input 
@@ -119,7 +119,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                     name="name"
                     value={formData.userName}
                     onChange={handleFormChange}
-                    className="mt-1 block w-full p-2  rounded-lg bg-transparent border border-white border-opacity-20 bg-opacity-80 text-neutral-300" 
+                    className="mt-3 md:mt-1 block w-full p-2  rounded-lg bg-transparent border border-white border-opacity-20 bg-opacity-80 text-neutral-300" 
                     autoComplete="name"
                     placeholder="recipient name"
                   />
@@ -139,7 +139,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
               </div>
-              <div className="md:flex md:space-x-4">
+              <div className="md:flex md:space-x-4 space-y-4">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Phone Number:</label>
                   <input 
@@ -167,7 +167,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   {errors.street && <p className="text-red-500 text-xs mt-1">{errors.street}</p>}
                 </div>
               </div>
-              <div className="md:flex md:space-x-4">
+              <div className="md:flex md:space-x-4 space-y-4">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">City:</label>
                   <input 
@@ -195,7 +195,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
                 </div>
               </div>
-              <div className="md:flex md:space-x-4">
+              <div className="md:flex md:space-x-4 space-y-4">
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Postal/Zip Code:</label>
                   <input 
@@ -229,7 +229,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleFormChange}
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  className="md:h-4 h-6 md:w-4 w-6 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
                 <label className="block text-sm font-medium">I understand that this is a limited edition drop, and there are no refunds or replacements. </label>
               </div>
@@ -239,12 +239,12 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
               </>
              )} 
 
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-center mt-5 md:mt-0 ">
               <button className="bg-lime-950  relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer" disabled={isProcessing}>
                 <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
                 {isProcessing ? (<div>Processing{dots}</div>) : (
                   <>
-                  {isPledgeTaken ? (<div>Pay $4.99</div>) : (<div>Pay $49.99</div>)}
+                  Place Order
                   </>
                 )}
                               

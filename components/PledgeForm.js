@@ -68,7 +68,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
 
   return (
     <div className="fixed font-jakarta flex-col inset-0 bg-white z-40 flex justify-center items-center overflow-y-auto">
-      <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-dull left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
+      <header className="fixed md:top-[-30px] top-[-1px] md:left-[-30px] w-dull left-[-10px] right-0 z-50 flex items-center justify-between py-3 md:py-2 px-8 sm:px-6 lg:px-8 ">
         <div className="flex items-center">
           <div className="cursor-pointer" onClick={() => router.push('/')}>
             <img 
@@ -78,7 +78,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
             />
           </div>
         </div>
-        <div onClick={handleBack} className='p-2 border-2 mb-4 border-black hover:bg-black rounded cursor-pointer hover:text-white'>
+        <div onClick={handleBack} className='p-2 border-2 md:mb-4 border-black bg-black text-white hover:bg-white rounded cursor-pointer hover:text-black'>
           <FaArrowRightFromBracket className='text-xl'/>
         </div>
       </header>
@@ -95,10 +95,10 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
                   }}
                 >
                   <div className="flex flex-col gap-2 text-left">
-                    <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
+                    <h1 className="text-white text-2xl md:text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
                       The future of music starts with MINY
                     </h1>
-                    <h2 className="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
+                    <h2 className="text-white text-xs md:text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
                       We're on a mission to make music more sustainable and accessible. We believe that everyone should have the opportunity to participate in the music revolution,
                       and that's why we're giving you the chance to secure a limited edition Alpha MINY
                     </h2>
@@ -109,7 +109,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
             <h2 className="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
               MINY Pledge Form
             </h2>
-            <p className="text-[#111418] text-base font-normal leading-normal pb-3 pt-1 px-4">
+            <p className="text-[#111418] text-sm md:text-base font-normal leading-normal pb-3 pt-1 px-4">
               Welcome to the MINY community! By joining our waitlist or pre-ordering a MINY, you're not just getting an innovative music experience—you're also committing to help us build a vibrant, engaged community.
               Please review and agree to the following pledges that align with our core principles of fostering strong, direct relationships between artists and fans.
             </p>
@@ -213,13 +213,13 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
               <h3 className="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] pt-5">
                  Terms and Conditions
               </h3>
-              <p className="text-[#111418] text-base font-normal leading-normal  ">
+              <p className="text-[#111418] text-sm md:text-base font-normal leading-normal  ">
                 By signing this pledge form, I agree to actively participate in the MINY community as outlined above. I understand that my participation helps to foster strong, direct relationships between artists and fans and contributes to the growth and development of the MINY platform.
               </p>
               <h3 className="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]  pt-5">
                 Confirmation
               </h3>
-              <p className="text-[#111418] text-base font-normal leading-normal pb-3 ">
+              <p className="text-[#111418] text-sm md:text-base font-normal leading-normal pb-3 ">
                 Upon submission, you will receive a confirmation email with further instructions on how to engage with the MINY platform and fulfill your pledge commitments.
               </p>
               <div className="flex justify-center mt-6">
