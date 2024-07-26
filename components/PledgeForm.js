@@ -46,7 +46,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
 
   const validateForm = () => {
     let newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.userName.trim()) newErrors.userName = "Name is required";
     if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = "Valid email is required";
     if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = "Valid 10-digit phone number is required";
     if (!formData.category) newErrors.category = "Category selection is required";
@@ -119,11 +119,11 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
                 <input 
                   type="text" 
                   name="name"
-                  value={formData.name}
+                  value={formData.userName}
                   onChange={handleFormChange}
                   className="mt-1 block w-full p-2 rounded-lg bg-transparent border border-gray-300 bg-opacity-80 text-[#111418]" 
                 />
-                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                {errors.userName && <p className="text-red-500 text-xs mt-1">{errors.userName}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#111418]">Email Address:</label>

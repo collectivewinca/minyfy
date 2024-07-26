@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { db } from '@/firebase/config';
+import { db, auth } from '@/firebase/config';
+import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { FaShoppingCart } from "react-icons/fa";
 import { useRouter } from 'next/router';
@@ -42,11 +43,13 @@ const PlaylistPage = ({ docData, docId }) => {
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
   const [showBuyNow, setShowBuyNow] = useState(false);
   const [showPledgeForm, setShowPledgeForm] = useState(false);
+  const [user, setUser] = useState(null);
   const playerRef = useRef(null);
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: docData?.name || '',
-    email: docData?.userEmail || '',
+    title: docData?.name || '',
+    userName: '',
+    email: '',
     phone: '',
     street: '',
     city: '',
@@ -59,12 +62,50 @@ const PlaylistPage = ({ docData, docId }) => {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [isPledgeTaken, setIsPledgeTaken] = useState(false);
+  
+
+  const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      
+      // Update formData with user's name and email
+      setFormData(prevData => ({
+        ...prevData,
+        userName: user.displayName || '',
+        email: user.email || ''
+      }));
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        // Update formData with user's name and email
+        setFormData(prevData => ({
+          ...prevData,
+          userName: currentUser.displayName || '',
+          email: currentUser.email || ''
+        }));
+      }
+    });
+  
+    return () => unsubscribe();
+  }, []);
+
+  
 
   const areFieldsFilled = () => {
     return (
       formData.street.trim() &&
       formData.phone.trim() &&
-      formData.name.trim() &&
+      formData.userName.trim() &&
       formData.email.trim() &&
       formData.city.trim() &&
       formData.state.trim() &&
@@ -119,7 +160,7 @@ const handlePledgeSubmit = async (pledgeData) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: updatedFormData.name,
+        name: updatedFormData.userName,
         email: updatedFormData.email,
         signed: updatedFormData.signed,
         docId: docId,
@@ -211,8 +252,18 @@ const handlePledgeSubmit = async (pledgeData) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleBuyNowClick = () => {
-    setShowBuyNow(!showBuyNow);
+  const handleBuyNowClick = async () => {
+    if (user) {
+      console.log("user logged in")
+      setShowBuyNow(!showBuyNow);
+    } else {
+      console.log("user not logged in")
+      await handleLogin();
+      // After successful login, show the Buy Now component
+      if (auth.currentUser) {
+        setShowBuyNow(true);
+      }
+    }
   }
 
   console.log(formData);
@@ -276,7 +327,7 @@ const handlePledgeSubmit = async (pledgeData) => {
         </header>
 
         <div className='py-14 px-2 bg-black text-white md:w-2/3 min-h-screen flex flex-col justify-center relative items-center'>
-          <button onClick={() => {setShowBuyNow(true)}} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
+          <button onClick={handleBuyNowClick} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
             <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
             <FaShoppingCart className='md:text-3xl text-xl' /> Buy Now
           </button>

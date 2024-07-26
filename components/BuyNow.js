@@ -6,7 +6,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
       const [errors, setErrors] = useState({});
       const validateForm = () => {
         let newErrors = {};
-        if (!formData.name.trim()) newErrors.name = "Name is required";
+        if (!formData.userName.trim()) newErrors.userName = "Name is required";
         if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = "Valid email is required";
         if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = "Valid 10-digit phone number is required";
         if (!formData.street.trim()) newErrors.street = "Street address is required";
@@ -80,7 +80,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                 <img src={backgroundImage} alt="Artwork" className="w-14 rounded-full md:w-[4rem]" />
               </div>
               <div className="flex flex-col">
-                <div className="text-lg">{formData.name}'s Mixtape</div>
+                <div className="text-lg">{formData.title}'s Mixtape</div>
                 <div className="text-base font-base cursor-pointer underline text-[#00dc04]">{shortenedLink.replace(/^https?:\/\//, '')}</div>
               </div>
             </div>
@@ -117,13 +117,13 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   <input 
                     type="text" 
                     name="name"
-                    value={formData.name}
+                    value={formData.userName}
                     onChange={handleFormChange}
                     className="mt-1 block w-full p-2  rounded-lg bg-transparent border border-white border-opacity-20 bg-opacity-80 text-neutral-300" 
                     autoComplete="name"
                     placeholder="recipient name"
                   />
-                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                  {errors.userName && <p className="text-red-500 text-xs mt-1">{errors.userName}</p>}
                 </div>
                 <div className="md:w-1/2">
                   <label className="block text-sm font-medium">Email Address:</label>
