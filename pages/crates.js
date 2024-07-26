@@ -20,7 +20,7 @@ function Collections() {
         fetchCrates(user.email);
       } else {
         setUser(null);
-        setCrates([]);
+        fetchPublicCrates();
       }
       setLoading(false);
     });
@@ -29,19 +29,32 @@ function Collections() {
   }, []);
 
   useEffect(() => {
-    if (crateId && status === 'success' && user) {
+    if (crateId && status === 'success') {
       updateCrateStatus(crateId);
     }
-  }, [crateId, status, user]);
+  }, [crateId, status]);
 
   const fetchCrates = async (email) => {
     try {
       const q = query(collection(db, "crates"), where("email", "==", email));
       const querySnapshot = await getDocs(q);
       const cratesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      cratesData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); // Sort by dateTime descending
       setCrates(cratesData);
     } catch (error) {
       console.error("Error fetching crates:", error);
+    }
+  };
+
+  const fetchPublicCrates = async () => {
+    try {
+      const q = query(collection(db, "crates"), where("public", "==", true));
+      const querySnapshot = await getDocs(q);
+      const cratesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      cratesData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime)); // Sort by dateTime descending
+      setCrates(cratesData);
+    } catch (error) {
+      console.error("Error fetching public crates:", error);
     }
   };
 
@@ -51,7 +64,12 @@ function Collections() {
       await updateDoc(crateRef, {
         paymentStatus: "success"
       });
-      fetchCrates(user.email);
+      // After updating, re-fetch crates based on the current user or public state
+      if (user) {
+        fetchCrates(user.email);
+      } else {
+        fetchPublicCrates();
+      }
     } catch (error) {
       console.error("Error updating crate status:", error);
     }
@@ -81,11 +99,18 @@ function Collections() {
         {crates.length > 0 ? (
           <ul className="mt-6 space-y-4">
             {crates.map((crate) => (
-              <li key={crate.id} className="bg-white shadow rounded-lg p-4">
-                <h2 className="text-xl font-semibold">{crate.name}'s Mixtape</h2>
-                <p>Email: {crate.email}</p>
-                <p>Payment Status: {crate.paymentStatus}</p>
-                <p>Date: {new Date(crate.dateTime).toLocaleString()}</p>
+              <li key={crate.id} className="bg-white shadow flex rounded-lg p-4 relative">
+                <img 
+                  src={crate.backgroundImage} 
+                  alt={`${crate.name}'s artwork`} 
+                  className="w-full h-48 object-cover rounded-t-lg mb-4"
+                />
+                <div className="p-4">
+                  <h2 className="text-xl font-semibold">{crate.name}'s Mixtape</h2>
+                  <p>Email: {crate.email}</p>
+                  <p>Payment Status: {crate.paymentStatus}</p>
+                  <p>Date: {new Date(crate.dateTime).toLocaleString()}</p>
+                </div>
               </li>
             ))}
           </ul>
