@@ -96,7 +96,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
             <div className="cta text-base text-center font-medium ">
               {!isPledgeTaken ? (
                   <button >
-                      Take a Pledge now for instant savings!
+                      Take a Pledge for instant savings!
                   </button>
               ) : (
                   <span >Offer Claimed</span>
