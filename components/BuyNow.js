@@ -116,7 +116,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                   <label className="block text-sm font-medium">Name:</label>
                   <input 
                     type="text" 
-                    name="name"
+                    name="userName"
                     value={formData.userName}
                     onChange={handleFormChange}
                     className="mt-3 md:mt-1 block w-full p-2  rounded-lg bg-transparent border border-white border-opacity-20 bg-opacity-80 text-neutral-300" 
