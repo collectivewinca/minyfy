@@ -24,11 +24,24 @@ function Crates() {
         console.log("Fetching public crates");
         await fetchPublicCrates();
       }
+  
+      // Move the status update logic here
+      if (crateId && status === 'success') {
+        console.log("Updating crate status for ID:", crateId);
+        await updateCrateStatus(crateId);
+        // Fetch crates again after updating status
+        if (user) {
+          await fetchCrates(user.email);
+        } else {
+          await fetchPublicCrates();
+        }
+      }
+  
       setLoading(false);
     });
-
+  
     return () => unsubscribe();
-  }, []);
+  }, [crateId, status]); // Include crateId and status in the dependency array
 
   useEffect(() => {
     const updateStatusAndFetch = async () => {
