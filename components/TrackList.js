@@ -48,12 +48,12 @@ const TracksList = ({ onTracksChange }) => {
           </button>
         ))}
       </div>
-      <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">This Week&rsquo;s Top Tracks</h2>
+      <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">This Week&rsquo;s Top Tracks</h2>
       <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
         {tracks.map((track, index) => (
           <li key={index} className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
             <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-clack'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
-            <div className='font-base font-jakarta md:text-xl text-base'>{track}</div>
+            <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
           </li>
         ))}
       </ul>

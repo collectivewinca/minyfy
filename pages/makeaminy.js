@@ -238,7 +238,7 @@ const Custom = () => {
           <div className='flex flex-col justify-start w-full'>
             <div className='font-jakarta md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium'>Approach for Building Playlist</div>
             <select
-              className="px-5 py-3 font-thin font-mono bg-[#F4EFE6] md:text-lg text-base text-neutral-500 rounded-xl"
+              className="px-5 py-3 font-thin font-mono bg-[#F4EFE6] md:text-lg text-sm text-neutral-500 rounded-xl"
               value={selectedOption}
               onChange={handleSelection}
             >
@@ -253,7 +253,7 @@ const Custom = () => {
           <div className='flex flex-col justify-start w-full'>
             <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Showcase Your Identity</div>
             <input
-              className="px-5 placeholder:text-neutral-500 py-2 pb-[10px] md:text-lg text-base font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
+              className="px-5 placeholder:text-neutral-500 py-2 pb-[10px] md:text-lg text-sm font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
               value={inputValue}
               onChange={handleInputChange}
               placeholder='Add your name to watermark a MINY...'

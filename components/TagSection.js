@@ -72,7 +72,7 @@ const TagSection = ({ onTracksChange }) => {
   return (
     <div className="my-5 flex flex-col justify-start w-full ">
       <div className="mt-5">
-        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Select from This Week&rsquo;s Top Genres</h2>
+        <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Select from This Week&rsquo;s Top Genres</h2>
         <ul className="grid md:grid-cols-5 grid-cols-2  gap-2">
           {topTags.map((tag) => (
             <li key={tag.name}>
@@ -88,17 +88,17 @@ const TagSection = ({ onTracksChange }) => {
       </div>
 
       <div className="mt-5">
-        <h2 className="md:text-2xl text-xl font-medium mb-4 font-jakarta">Search Genre</h2>
+        <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Search Genre</h2>
         <div className="flex items-center">
           <input
             type="text"
-            className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] text-lg text-neutral-500  rounded-l-xl"
+            className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] md:text-lg text-sm text-neutral-500  rounded-l-xl"
             placeholder="Enter tag name..."
             value={searchedTag}
             onChange={handleInputChange}
           />
           <button
-            className="bg-[#A18249] px-5 py-3 rounded-r-xl text-lg font-medium text-white hover:opacity-80"
+            className="bg-[#A18249] px-5 py-3 rounded-r-xl md:text-lg text-sm font-medium text-white hover:opacity-80"
             onClick={handleSearch}
           >
             Search
@@ -109,13 +109,13 @@ const TagSection = ({ onTracksChange }) => {
 
       {selectedTag && (
         <div className="mt-5">
-          <h2 className="text-xl font-medium tracking-wider mb-4 font-jakarta">Top Tracks for {selectedTag}</h2>
+          <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Top Tracks for {selectedTag}</h2>
           {error && <p className="text-red-600 mb-2">{error}</p>}
           <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {topTracks.map((track) => (
               <li key={track}  className=" flex md:gap-4 gap-2 mb-2 w-full items-center">
               <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-black'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
-              <div className='font-base font-jakarta md:text-xl text-lg'>{track}</div>
+              <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
             </li>
             ))}
           </ul>

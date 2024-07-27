@@ -151,6 +151,7 @@ function Crates() {
                 <button 
                   onClick={() => setShowCongrats(false)}
                   className="bg-black shadow-custom text-white px-4 py-2 rounded hover:bg-gray-800"
+                  disabled={isProcessing}
                 >
                   {isProcessing ? 'Finalizing...' : 'View Crates'}
                 </button>
