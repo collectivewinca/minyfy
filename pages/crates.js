@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header';
 import { db, auth } from '@/firebase/config';
-import { collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
+import { collection, query, getDoc,where, getDocs, doc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import Confetti from 'react-confetti';
 
@@ -10,6 +10,7 @@ function Crates() {
   const [user, setUser] = useState(null);
   const [crates, setCrates] = useState([]);
   const [showCongrats, setShowCongrats] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(true);
   const router = useRouter();
   const { crateId, status } = router.query;
 
@@ -27,8 +28,10 @@ function Crates() {
 
       if (crateId && status === 'success') {
         console.log("Updating crate status for ID:", crateId);
-        await updateCrateStatus(crateId);
         setShowCongrats(true);
+        await updateCrateStatus(crateId);
+        setIsProcessing(false);
+        
         if (user) {
           await fetchCrates(user.email);
         } else {
@@ -68,13 +71,50 @@ function Crates() {
   };
 
   const updateCrateStatus = async (id) => {
-    try {
-      const crateRef = doc(db, "crates", id);
-      await updateDoc(crateRef, { paymentStatus: "success" });
-      console.log("Crate status updated for ID:", id);
-    } catch (error) {
-      console.error("Error updating crate status:", error);
-    }
+      try {
+        // Fetch the crate document to get email and other details
+        const crateRef = doc(db, "crates", id);
+        const crateDoc = await getDoc(crateRef);
+    
+        if (!crateDoc.exists()) {
+          console.error("Crate not found:", id);
+          return;
+        }
+    
+        const crateData = crateDoc.data();
+    
+        // Update the payment status
+        await updateDoc(crateRef, { paymentStatus: "success" });
+        console.log("Crate status updated for ID:", id);
+    
+        // Prepare data for the email API
+        const emailData = {
+          name: crateData.userName,
+          title: crateData.name,
+          shortenedLink: crateData.shortenedLink || '',
+          email: crateData.email
+        };
+    
+        console.log(`Sending email to: ${emailData.email}`);
+    
+        // Send email using your Next.js API
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData),
+        });
+    
+        if (!response.ok) {
+          throw new Error('Failed to send email');
+        }
+    
+        const result = await response.json();
+        console.log('Email sent successfully:', result.message);
+      } catch (error) {
+        console.error("Error updating crate status and sending email:", error);
+      }
   };
 
   console.log("crates:", crates);
@@ -112,7 +152,7 @@ function Crates() {
                   onClick={() => setShowCongrats(false)}
                   className="bg-black shadow-custom text-white px-4 py-2 rounded hover:bg-gray-800"
                 >
-                  View Crates
+                  {isProcessing ? 'Finalizing...' : 'View Crates'}
                 </button>
               </div>
             </div>

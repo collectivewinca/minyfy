@@ -125,64 +125,83 @@ const PlaylistPage = ({ docData, docId }) => {
 
 
   
-const handlePledgeSubmit = async (pledgeData) => {
-  try {
-    // Update form data
-    const updatedFormData = { ...formData, ...pledgeData };
-    setFormData(updatedFormData);
-    setIsPledgeTaken(true);
-    setShowPledgeForm(false);
-    setShowBuyNow(true);
-    setIsProcessing(true);
-
-    // Get current date and time
-    const now = new Date();
-    const dateTime = now.toISOString();
-
-    // Prepare data for Firestore
-    const crateData = {
-      ...updatedFormData,
-      ...docData,
-      docId,
-      paymentStatus: "initiated",
-      dateTime,
-      createdAt: serverTimestamp()
-    };
-
-    // Save to Firestore
-    const docRef = await addDoc(collection(db, 'crates'), crateData);
-    console.log("Document written with ID: ", docRef.id);
-
-    // Call create-checkout-session API
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: updatedFormData.userName,
-        email: updatedFormData.email,
-        signed: updatedFormData.signed,
-        docId: docId,
-        crateId: docRef.id  
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+  const handlePledgeSubmit = async (pledgeData) => {
+    try {
+      // Update form data
+      const updatedFormData = { ...formData, ...pledgeData };
+      setFormData(updatedFormData);
+      setIsPledgeTaken(true);
+      setShowPledgeForm(false);
+      setShowBuyNow(true);
+      setIsProcessing(true);
+  
+      // Get current date and time
+      const now = new Date();
+      const dateTime = now.toISOString();
+  
+      // Prepare data for Firestore
+      const crateData = {
+        ...updatedFormData,
+        ...docData,
+        docId,
+        paymentStatus: "initiated",
+        dateTime,
+        createdAt: serverTimestamp()
+      };
+  
+      // Save to Firestore
+      const docRef = await addDoc(collection(db, 'crates'), crateData);
+      console.log("Document written with ID: ", docRef.id);
+  
+      // Call pledge email API
+      const emailResponse = await fetch('/api/send-pledge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: updatedFormData.userName,
+          category: updatedFormData.category,
+          shortenedLink: docData.shortenedLink, 
+          email: updatedFormData.email
+        }),
+      });
+  
+      if (!emailResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      // Call create-checkout-session API
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: updatedFormData.userName,
+          email: updatedFormData.email,
+          signed: updatedFormData.signed,
+          docId: docId,
+          crateId: docRef.id  
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const { url } = await response.json();
+      
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+  
+    } catch (error) {
+      console.error("Error in handlePledgeSubmit:", error);
+      setIsProcessing(false);
+      // Handle error (e.g., show error message to user)
     }
-
-    const { url } = await response.json();
-    
-    // Redirect to Stripe Checkout
-    window.location.href = url;
-
-  } catch (error) {
-    console.error("Error in handlePledgeSubmit:", error);
-    setIsProcessing(false);
-    // Handle error (e.g., show error message to user)
-  }
-};
+  };
+  
 
   const resizePlayer = () => {
     if (playerRef.current) {
