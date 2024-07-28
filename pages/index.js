@@ -14,9 +14,9 @@ function Home() {
       <div className="container mx-auto px-4 my-6">
         <div className="w-full flex justify-center">
           <div>
-              <button class="btn" onClick={() => {router.push("/makeaminy")}}><i class="animation"></i>
+              <button className="btn" onClick={() => {router.push("/makeaminy")}}><i className="animation"></i>
              <IoRocketSharp className="text-xl" />
-             Create A Miny<i class="animation"></i>
+             Create A Miny<i className="animation"></i>
               </button>
           </div>
         </div>

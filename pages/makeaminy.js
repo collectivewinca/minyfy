@@ -268,10 +268,10 @@ const Custom = () => {
               {loading ? (
                 <>
                   <h2>
-                  <div class="flex justify-center items-center mb-2">
-                  <div class="relative">
-                      <div class="h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-gray-400"></div>
-                      <div class="absolute top-0 left-0 h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-[white] animate-spin">
+                  <div className="flex justify-center items-center mb-2">
+                  <div className="relative">
+                      <div className="h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-gray-400"></div>
+                      <div className="absolute top-0 left-0 h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-[white] animate-spin">
                       </div>
                   </div>
                   </div>

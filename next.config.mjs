@@ -2,7 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    remotePatterns: [
+      {
+        hostname: 'firebasestorage.googleapis.com'
+      },
+    ],
   },
 };
 
