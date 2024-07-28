@@ -40,6 +40,7 @@ function Admin() {
         id: doc.id,
         ...doc.data()
       }));
+      console.log(mixtapesData);
       // Sort mixtapesData by date
       mixtapesData.sort((a, b) => new Date(b.date) - new Date(a.date));
       setMixtapes(mixtapesData);

@@ -81,7 +81,7 @@ const MinySection = ({ name, backgroundImage, tracks, onDocIdChange, backgroundI
         throw new Error('Error: Blob is null.');
       }
       
-      const imageRef = ref(storage, `images/miny-${Date.now()}.jpg`);
+      const imageRef = ref(storage, `aminy-generation/miny-${Date.now()}.jpg`);
       await uploadBytes(imageRef, blob);
       const imageUrl = await getDownloadURL(imageRef);
 
