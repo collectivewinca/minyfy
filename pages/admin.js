@@ -31,7 +31,7 @@ function Admin() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [adminEmails, router]);
 
   const fetchMixtapes = async () => {
     try {
