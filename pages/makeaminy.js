@@ -4,6 +4,7 @@ import TracksList from '@/components/TrackList';
 import ArtistSection from '@/components/ArtistSection';
 import TagSection from '@/components/TagSection';
 import MinySection from '@/components/MinySection';
+import ImportPlaylist from '@/components/ImportPlaylist';
 import CustomTrack from '@/components/CustomTrack';
 import { FaArrowUp } from "react-icons/fa6";
 import { updateDoc, doc } from "firebase/firestore";
@@ -189,7 +190,7 @@ const Custom = () => {
         },
         body: JSON.stringify({
           model: 'dall-e-3',
-          prompt: 'create a uniform background image featuring music vinyls, make it vibrant and retro, and ensure it relates to music tracks',
+          prompt: 'create a uniform background image featuring music vinyls, make it vibrant and retro, and ensure it relates to music tracks and it should have real life feel',
           n: 1,
           size: '1024x1024',
         }),
@@ -272,6 +273,7 @@ const Custom = () => {
             >
               <option value="">Build Your Playlist...</option>
               <option value="searchArtist">Artists</option>
+              <option value="import">Import Playlist from Spotify</option>
               <option value="genre">Genres</option>
               <option value="customize">Customize Miny</option>
               <option value="tracks">Tracks</option>
@@ -355,6 +357,10 @@ const Custom = () => {
 
         {selectedOption === 'customize' && (
           <CustomTrack onTracksChange={handleTracksChange} />
+        )}
+
+        {selectedOption === 'import' && (
+          <ImportPlaylist onTracksChange={handleTracksChange} />
         )}
       </div>
 
