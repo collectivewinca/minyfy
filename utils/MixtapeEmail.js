@@ -32,18 +32,6 @@ import {
         <Preview>{previewText}</Preview>
         <Body style={main}>
           <Container style={container}>
-            <Section style={header}>
-              <Img
-                src="https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/stamp.png?alt=media&token=c7c325ef-53fb-4381-b7b0-b3607d19d261"
-                width={100}
-                height={60}
-                alt="MINY Logo"
-                style={logo}
-              />
-              <Text style={headerText}>
-                Your MINY Mixtape is Ready!
-              </Text>
-            </Section>
             <Section>
               <Row>
                 <Text style={paragraph}>
