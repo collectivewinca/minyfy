@@ -9,7 +9,7 @@ import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const MinySection = ({ name, backgroundImage, tracks, onDocIdChange, backgroundImageSrc }) => {
+const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChange, backgroundImageSrc }) => {
   const [isFavorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -84,6 +84,7 @@ const MinySection = ({ name, backgroundImage, tracks, onDocIdChange, backgroundI
       const imageRef = ref(storage, `aminy-generation/miny-${Date.now()}.jpg`);
       await uploadBytes(imageRef, blob);
       const imageUrl = await getDownloadURL(imageRef);
+      setFinalImage(imageUrl);
 
       // Save the document in Firestore with the image URL
       const docRef = await addDoc(collection(db, "mixtapes"), {

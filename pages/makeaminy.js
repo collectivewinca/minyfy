@@ -17,6 +17,7 @@ const Custom = () => {
   const [inputValue, setInputValue] = useState('');
   const [backgroundImage, setBackgroundImage] = useState('/6.png');
   const [backgroundImageSrc, setBackgroundImageSrc] = useState("/6.png");
+  const [finalImage, setFinalImage] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
@@ -32,10 +33,7 @@ const Custom = () => {
     "/4.png",
     "/8.png",
     "/9.png",
-    "/7.png",
-    "/1.png",
-    "/2.png",
-    "/3.png",
+    "/7.png"
   ]);
 
   const handleSelection = (event) => {
@@ -116,7 +114,37 @@ const Custom = () => {
       await updateDoc(doc(db, "mixtapes", docId), {
         shortenedLink: json.shortURL
       });
-
+      
+      // Send email with the shortened link
+      try {
+        
+        const emailResponse = await fetch('/api/send-mixtape', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: inputValue,
+            imageUrl: finalImage,
+            shortenedLink: json.shortURL,
+            email: user.email,
+          }),
+        });
+  
+        const emailJson = await emailResponse.json();
+        if (emailJson.error) {
+          console.error('Error sending email:', emailJson.error);
+          setErrorMessage('Error sending email. Please try again.');
+          return;
+        }
+  
+        // Redirect to the shortened URL
+        window.location.href = json.shortURL;
+      } catch (emailError) {
+        console.error('Error sending email:', emailError);
+        setErrorMessage('Error sending email. Please try again.');
+      }
+      
       // Redirect to the shortened URL
       window.location.href = json.shortURL;
     } catch (err) {
@@ -307,6 +335,7 @@ const Custom = () => {
                 tracks={tracks}
                 backgroundImageSrc={backgroundImageSrc}
                 onDocIdChange={handleDocIdChange}
+                setFinalImage={setFinalImage}
               />
             </div>
           </>
