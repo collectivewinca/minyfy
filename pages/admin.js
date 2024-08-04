@@ -16,22 +16,26 @@ function Admin() {
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
   const router = useRouter();
-  const adminEmails = ['labh@collectivewin.ca', 'hello@collectivewin.ca', "alet@myblackbean.ca",
+  const adminEmails = [
+    'labh@collectivewin.ca',
+    'hello@collectivewin.ca',
+    "alet@myblackbean.ca",
     "subwaymusicianxyz@gmail.com",
-    "divya@collectivewin.ca"];
+    "divya@collectivewin.ca"
+  ];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user && adminEmails.includes(user.email)) {
         setUser(user);
-        fetchMixtapes();
+        fetchMixtapes(); // Fetch mixtapes once when the user is authenticated
       } else {
         router.push('/');
       }
     });
 
     return () => unsubscribe();
-  }, [adminEmails, router]);
+  }, []);
 
   const fetchMixtapes = async () => {
     try {
@@ -40,7 +44,6 @@ function Admin() {
         id: doc.id,
         ...doc.data()
       }));
-      console.log(mixtapesData);
       // Sort mixtapesData by date
       mixtapesData.sort((a, b) => new Date(b.date) - new Date(a.date));
       setMixtapes(mixtapesData);
