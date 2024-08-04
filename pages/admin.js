@@ -46,6 +46,7 @@ function Admin() {
       }));
       // Sort mixtapesData by date
       mixtapesData.sort((a, b) => new Date(b.date) - new Date(a.date));
+      console.log(mixtapesData);
       setMixtapes(mixtapesData);
     } catch (error) {
       console.error("Error fetching mixtapes: ", error);
