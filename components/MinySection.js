@@ -9,17 +9,7 @@ import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const useLoadingDots = () => {
-  const [dots, setDots] = useState('');
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDots(d => d.length < 4 ? d + '.' : '');
-    }, 500);
-    return () => clearInterval(timer);
-  }, []);
-  return dots;
-};
-const dots = useLoadingDots();
+
 
 const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChange, backgroundImageSrc }) => {
   const [isFavorite, setIsFavorite] = useState(true);
@@ -27,6 +17,18 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
   const [user, setUser] = useState(null);
   const trackDataContainerRef = useRef(null);
   const router = useRouter();
+
+  const useLoadingDots = () => {
+    const [dots, setDots] = useState('');
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setDots(d => d.length < 4 ? d + '.' : '');
+      }, 500);
+      return () => clearInterval(timer);
+    }, []);
+    return dots;
+  };
+  const dots = useLoadingDots();
 
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
