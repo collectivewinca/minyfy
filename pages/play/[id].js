@@ -9,6 +9,9 @@ import Head from 'next/head';
 import SocialShareButtons from '@/components/SocialShareButtons';
 import BuyNow from '@/components/BuyNow';
 import PledgeForm from '@/components/PledgeForm';
+import { MdFileDownload } from "react-icons/md";
+import { toBlob } from 'html-to-image';
+import download from 'downloadjs';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -46,6 +49,7 @@ const PlaylistPage = ({ docData, docId }) => {
   const [user, setUser] = useState(null);
   const playerRef = useRef(null);
   const router = useRouter();
+  const trackDataContainerRef = useRef(null);
   const [formData, setFormData] = useState({
     title: docData?.name || '',
     userName: '',
@@ -298,13 +302,32 @@ const PlaylistPage = ({ docData, docId }) => {
     
   };
 
+  const handleDownloadImage = async () => {
+    if (!trackDataContainerRef.current) {
+      console.error('Error: trackDataContainerRef is not defined.');
+      return;
+    }
+
+    try {
+      const blob = await toBlob(trackDataContainerRef.current);
+      if (blob) {
+        const random = Math.floor(Math.random() * 1000);
+        download(blob, `miny${random}.jpg`);
+      } else {
+        console.error('Error: Blob is null.');
+      }
+    } catch (error) {
+      console.error('Error converting to image:', error);
+    }
+  };
+
   if (!docData) {
     return <div>Loading...</div>;
   }
 
   
 
-  const { name, tracks, date, backgroundImage, userEmail, shortenedLink} = docData;
+  const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink} = docData;
   const description = `Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
 
 
@@ -348,7 +371,7 @@ const PlaylistPage = ({ docData, docId }) => {
         <div className='py-14 px-2 bg-black text-white md:w-2/3 min-h-screen flex flex-col justify-center relative items-center'>
           <button onClick={handleBuyNowClick} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
             <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
-            <FaShoppingCart className='md:text-3xl text-xl' /> Buy Now
+            <FaShoppingCart className='md:text-3xl text-xl' /> Buy Your Miny
           </button>
 
           <SocialShareButtons 
@@ -359,8 +382,10 @@ const PlaylistPage = ({ docData, docId }) => {
           <div id="player" className='w-full max-w-4xl mx-auto aspect-video mb-6 mt-2 shadow shadow-neutral-600'>
             {!isYouTubeApiReady && <div>Loading player...</div>}
           </div>
+
           
-          <div className='overflow-y-auto w-full md:w-[60%] shadow shadow-neutral-600'>
+          
+          <div ref={trackDataContainerRef} className='overflow-y-auto w-full md:w-[60%] shadow shadow-neutral-600'>
             <div className="relative cursor-pointer">
               <div className="overlay"></div>
               <img className="h-full w-full" src={backgroundImage} alt="Background" />
@@ -385,7 +410,17 @@ const PlaylistPage = ({ docData, docId }) => {
                 </div>
               </div>
             </div>
+            
           </div>
+          <div className='flex items-center gap-2 mt-3 mb-3'>
+            <button onClick={handleDownloadImage} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
+              <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
+              <MdFileDownload className='md:text-2xl text-base' /> Download Image
+            </button>
+            
+            
+          </div>
+
         </div>
       </div>
       {showBuyNow && (

@@ -16,7 +16,7 @@ function Home() {
           <div>
               <button className="btn" onClick={() => {router.push("/makeaminy")}}><i className="animation"></i>
              <IoRocketSharp className="text-xl" />
-             Create A Miny<i className="animation"></i>
+             Create A Mixtape<i className="animation"></i>
               </button>
           </div>
         </div>

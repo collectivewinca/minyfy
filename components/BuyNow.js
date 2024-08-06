@@ -73,7 +73,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
             <MdClose className="text-2xl text-white" />
           </button>
 
-          <div className="text-center font-bold tracking-wide text-2xl mb-4">MINY Pre-Order Form</div>
+          <div className="text-center font-bold tracking-wide text-2xl mb-4">Pre Order Your Miny</div>
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>

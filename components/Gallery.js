@@ -33,21 +33,32 @@ const ImageGallery = () => {
     window.open(link, '_blank');
   };
 
+  const renderImageSection = (title, subtitle, startIndex, endIndex) => (
+    <div className="mb-8 font-jakarta">
+      <h2 className="text-2xl font-bold">{title}</h2>
+      <p className="text-gray-600 mb-4">{subtitle}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {images.slice(startIndex, endIndex).map((image, index) => (
+          <div key={index} className="cursor-pointer" onClick={() => openImageInNewTab(image.link)}>
+            <Image 
+              width={100}
+              height={100}
+              src={image.imageUrl} 
+              unoptimized={true}
+              loading={index === 0 ? "eager" : "lazy"}
+              alt={`Image ${startIndex + index + 1}`} 
+              className="w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-      {images.map((image, index) => (
-        <div key={index} className="cursor-pointer  " onClick={() => openImageInNewTab(image.link)}>
-          <Image 
-            width={100}
-            height={100}
-            src={image.imageUrl} 
-            unoptimized={true}
-            loading={index === 0 ? "eager" : "lazy"}
-            alt={`Image ${index + 1}`} 
-            className="w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360"
-          />
-        </div>
-      ))}
+    <div className="container mx-auto px-4">
+      {renderImageSection("Top This Week", "Most popular artworks of the week", 0, 3)}
+      {renderImageSection("Featured Artists", "Discover our talented featured artists", 3, 6)}
     </div>
   );
 };
