@@ -14,6 +14,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         domain: 'go.minyvinyl.com',
+        cloaking: true,
         originalURL: `https://minyfy.subwaymusician.xyz/play/${docId}`,
         title: 'Minyfy',
         ...(customUrl && { path: customUrl })
