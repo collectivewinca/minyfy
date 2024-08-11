@@ -50,13 +50,13 @@ const ImageSlider = ({ interval = 8000 }) => {
 
       <button 
         onClick={prevSlide}
-        className="absolute top-1/2 left-[1px] md:left-4 transform -translate-y-1/2 text-2xl  hover:text-[#00dc04c1]  text-[#00dc04] p-2 rounded-full"
+        className="absolute top-1/2 left-[1px] md:left-4 transform -translate-y-1/2 text-2xl  hover:text-[#00dc04c1]  text-[#00dc04] md:p-2 rounded-full"
       >
         ◀
       </button>
       <button 
         onClick={nextSlide}
-        className="absolute top-1/2 right-[1px] md:right-4 transform -translate-y-1/2 text-2xl  hover:text-[#00dc04c1]  text-[#00dc04] p-2 rounded-full"
+        className="absolute top-1/2 right-[1px] md:right-4 transform -translate-y-1/2 text-2xl  hover:text-[#00dc04c1]  text-[#00dc04] md:p-2 rounded-full"
       >
         ▶
       </button>
