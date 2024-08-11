@@ -81,7 +81,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>
-                <img src={backgroundImage} alt="Artwork" className="w-[7rem] rounded-full md:w-[5rem]" />
+                <img src={backgroundImage} alt="Artwork" className="w-[7rem] rounded-2xl md:w-[5rem]" />
               </div>
               <div className="flex flex-col text-center md:text-start">
                 <div className="text-xl">{formData.title}'s Mixtape</div>
