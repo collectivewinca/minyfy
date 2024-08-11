@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MdClose } from "react-icons/md";
 import { FaArrowLeft,FaShoppingCart } from "react-icons/fa";
+import ImageSlider from '@/components/ImageSlider';
 
 function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProcessing, handlePledgeFormClick, backgroundImage, shortenedLink }) {
       const [errors, setErrors] = useState({});
@@ -23,7 +24,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
         e.preventDefault();
         if (validateForm()) {
           handlePledgeFormClick();
-          console.log("Form submitted:", formData);
+          // console.log("Form submitted:", formData);
         }
       };
 
@@ -74,6 +75,9 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           </button>
 
           <div className="text-center font-bold tracking-wide text-2xl mb-4">Pre Order Your Miny</div>
+          <div className="flex w-full justify-center items-center">
+          <ImageSlider />
+          </div>
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>
@@ -84,6 +88,9 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
                 <div className="text-lg font-base cursor-pointer underline text-[#00dc04]">{shortenedLink.replace(/^https?:\/\//, '')}</div>
               </div>
             </div>
+
+            {/* <ImageSlider /> */}
+
             <div className="text-5xl font-semibold" onClick={handleSubmit}>
             <div className="price-container">
           <div className="rotating-border"></div>

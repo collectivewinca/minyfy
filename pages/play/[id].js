@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
     if (docSnap.exists()) {
       docData = docSnap.data();
       docId = id;
-      console.log('Document id:', docId);
+      // console.log('Document id:', docId);
     } else {
       console.error("No such document!");
     }
@@ -155,7 +155,7 @@ const PlaylistPage = ({ docData, docId }) => {
   
       // Save to Firestore
       const docRef = await addDoc(collection(db, 'crates'), crateData);
-      console.log("Document written with ID: ", docRef.id);
+      // console.log("Document written with ID: ", docRef.id);
   
       // Call pledge email API
       const emailResponse = await fetch('/api/send-pledge', {
@@ -277,10 +277,10 @@ const PlaylistPage = ({ docData, docId }) => {
 
   const handleBuyNowClick = async () => {
     if (user) {
-      console.log("user logged in")
+      // console.log("user logged in")
       setShowBuyNow(!showBuyNow);
     } else {
-      console.log("user not logged in")
+      // console.log("user not logged in")
       await handleLogin();
       // After successful login, show the Buy Now component
       if (auth.currentUser) {
@@ -289,7 +289,7 @@ const PlaylistPage = ({ docData, docId }) => {
     }
   }
 
-  console.log(formData);
+  // console.log(formData);
 
   const handlePledgeFormClick = () => {
     if (!isPledgeTaken) {
