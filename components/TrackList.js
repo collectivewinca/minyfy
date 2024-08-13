@@ -109,8 +109,9 @@ const TracksList = ({ onTracksChange }) => {
           </button>
         ))}
       </div>
-      <div className="flex justify-center text-2xl items-center mb-1">
+      <div className="flex flex-col md:flex-row  justify-center md:text-2xl text-lg items-center mb-1">
         <div className="font-jakarta mr-4">Choose Your Platfrom:</div>
+        <div>
         <button
           onClick={() => handleServiceSelection('spotify')}
           className={`p-2 ${selectedService === 'spotify' ? 'text-[#1ed760] bg-[#F4EFE6] rounded-full' : 'text-[#1ed760]'}`}
@@ -129,6 +130,8 @@ const TracksList = ({ onTracksChange }) => {
         <button className="p-2 text-[#f66f0e]">
           <SiSoundcloud className='text-4xl' />
         </button>
+        </div>
+       
       </div>
       <h2 className="md:text-xl text-base  tracking-wider mb-4 font-jakarta">This Week&rsquo;s  Top Tracks - <span className='text-[#A18249] uppercase font-semibold'>{selectedService}</span> </h2>
       <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
