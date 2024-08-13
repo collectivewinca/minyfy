@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY);
+const allowedCountries = ['US', 'CA', 'GB'];
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -65,6 +66,9 @@ export default async function handler(req, res) {
         mode: 'payment',
         success_url: `${origin}/crates?session_id={CHECKOUT_SESSION_ID}&crateId=${crateId}&status=success`,
         cancel_url: `${origin}/play/${docId}`,
+        // shipping_address_collection: {
+        //   allowed_countries: allowedCountries,
+        // },
       };
 
       // Add discount if signed is true and couponId exists
