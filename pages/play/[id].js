@@ -12,6 +12,7 @@ import PledgeForm from '@/components/PledgeForm';
 import { MdFileDownload } from "react-icons/md";
 import { toBlob } from 'html-to-image';
 import download from 'downloadjs';
+import { PinterestShareButton, PinterestIcon } from 'react-share';
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -413,6 +414,13 @@ const PlaylistPage = ({ docData, docId }) => {
               <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
               <MdFileDownload className='md:text-2xl text-base' /> Download Image
             </button>
+            {/* <PinterestShareButton
+              url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+              media={imageUrl}
+              description="Check out my Latest Mixtape on Miny Vinyl"
+            >
+              <PinterestIcon size={32} round />
+            </PinterestShareButton> */}
             
             
           </div>
