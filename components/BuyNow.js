@@ -75,12 +75,12 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
             <MdClose className="text-2xl text-white" />
           </button>
 
-          <div className="text-center font-bold tracking-wide text-2xl mb-4">Pre Order Your Miny</div>
+          <div className="text-center font-bold tracking-wide text-2xl mb-4">Pre Order Your MINY</div>
           <div className="flex w-full justify-center items-center">
           <ImageSlider />
           </div>
           <div className="text-xm md:text-sm py-2 pt-3 tracking-normal text-white font-jakarta ">
-            <p className="text-center">Miny is a limited edition drop that includes a mixtape of your favorite songs, a personalized message, and a unique artwork.</p>
+            <p className="text-center">MINY is a limited edition drop that includes a mixtape of your favorite songs, a personalized message, and a unique artwork.</p>
             <p className="text-center">Pre-order now to get a special discount and secure your copy before it sells out.</p>
           </div>
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">

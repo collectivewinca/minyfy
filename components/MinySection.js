@@ -186,8 +186,8 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
               ))}
             </div>
             <div className="flex flex-col  gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
-              <p>MINY Order for <strong className='text-[#f48531]'>{name}</strong></p>
-              <p>{formattedDate}</p>
+              <p>MINY Order for <strong className='text-[#f48531] mb-3'>{name}</strong></p>
+              {/* <p>{formattedDate}</p> */}
             </div>
           </div>
         </div>

@@ -402,8 +402,8 @@ const PlaylistPage = ({ docData, docId }) => {
                   ))}
                 </div>
                 <div className="flex flex-col md:gap-2 gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
-                  <p>MINY Order for <strong className='text-[#f48531]'>{name}</strong></p>
-                  <p>{date}</p>
+                  <p>MINY Order for <strong className='text-[#f48531] mb-3'>{name}</strong></p>
+                  {/* <p>{date}</p> */}
                 </div>
               </div>
             </div>

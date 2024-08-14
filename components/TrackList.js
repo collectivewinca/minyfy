@@ -110,7 +110,7 @@ const TracksList = ({ onTracksChange }) => {
         ))}
       </div>
       <div className="flex flex-col md:flex-row  justify-center md:text-2xl text-lg items-center mb-1">
-        <div className="font-jakarta mr-4">Choose Your Platfrom:</div>
+        <div className="font-jakarta mr-4">Choose Your Platform:</div>
         <div>
         <button
           onClick={() => handleServiceSelection('spotify')}
