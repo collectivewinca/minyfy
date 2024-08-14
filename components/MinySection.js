@@ -59,7 +59,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
       const blob = await toBlob(trackDataContainerRef.current);
       if (blob) {
         const random = Math.floor(Math.random() * 1000);
-        download(blob, `miny${random}.jpg`);
+        download(blob, `MINY${random}.jpg`);
       } else {
         console.error('Error: Blob is null.');
       }

@@ -257,7 +257,7 @@ const Custom = () => {
           <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
           <div className="cardContent shadow-md">
             <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4 py-2">
-              Customize Your Miny
+              Customize Your MINY
             </p>
           </div>
       </div>
@@ -275,8 +275,8 @@ const Custom = () => {
               <option value="searchArtist">Artists</option>
               <option value="import">Import Playlist from Spotify</option>
               <option value="genre">Genres</option>
-              <option value="customize">Customize Miny</option>
-              <option value="tracks">Tracks</option>
+              <option value="customize">Customize MINY</option>
+              <option value="tracks">Top Tracks This Week</option>
             </select>
           </div>
 
