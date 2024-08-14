@@ -107,15 +107,15 @@ const PlaylistPage = ({ docData, docId }) => {
 
   const areFieldsFilled = () => {
     return (
-      formData.street.trim() &&
-      formData.phone.trim() &&
+      // formData.street.trim() &&
+      // formData.phone.trim() &&
       formData.userName.trim() &&
       formData.email.trim() &&
-      formData.city.trim() &&
-      formData.state.trim() &&
-      formData.postalCode.trim() &&
-      formData.agreeTerms &&
-      formData.country.trim()
+      // formData.city.trim() &&
+      // formData.state.trim() &&
+      // formData.postalCode.trim() &&
+      formData.agreeTerms
+      // formData.country.trim()
     );
   };
 
@@ -293,11 +293,7 @@ const PlaylistPage = ({ docData, docId }) => {
 
   const handlePledgeFormClick = () => {
     if (!isPledgeTaken) {
-      if (areFieldsFilled()) {
-        setShowPledgeForm(!showPledgeForm);
-      } else {
-        alert("Please fill in all Contact details before proceeding to the pledge form.");
-      }
+      setShowPledgeForm(!showPledgeForm);
     }
     
   };

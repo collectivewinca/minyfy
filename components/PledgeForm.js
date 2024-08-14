@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Header from '@/components/Header';
 import { useRouter } from 'next/router';
@@ -11,11 +11,37 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const router = useRouter();
 
+  // Create refs for each input field
+  const userNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+  const categoryRef = useRef(null);
+  const signatureNameRef = useRef(null);
+
   useEffect(() => {
     if (formData.category) {
       setSelectedCategory(formData.category);
     }
   }, [formData.category]);
+
+  useEffect(() => {
+    // Scroll to the first error field
+    const errorKeys = Object.keys(errors);
+    if (errorKeys.length > 0) {
+      const firstErrorKey = errorKeys[0];
+      const refs = {
+        userName: userNameRef,
+        email: emailRef,
+        phone: phoneRef,
+        category: categoryRef,
+        signatureName: signatureNameRef
+      };
+      const ref = refs[firstErrorKey];
+      if (ref && ref.current) {
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, [errors]);
 
   const categoryContent = {
     Fan: {
@@ -117,8 +143,9 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
               <div>
                 <label className="block text-sm font-medium text-[#111418]">Full Name:</label>
                 <input 
+                  ref={userNameRef}
                   type="text" 
-                  name="name"
+                  name="userName"
                   value={formData.userName}
                   onChange={handleFormChange}
                   className="mt-1 block w-full p-2 rounded-lg bg-transparent border border-gray-300 bg-opacity-80 text-[#111418]" 
@@ -128,6 +155,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
               <div>
                 <label className="block text-sm font-medium text-[#111418]">Email Address:</label>
                 <input 
+                  ref={emailRef}
                   type="email" 
                   name="email"
                   value={formData.email}
@@ -139,6 +167,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
               <div>
                 <label className="block text-sm font-medium text-[#111418]">Phone Number:</label>
                 <input 
+                  ref={phoneRef}
                   type="tel" 
                   name="phone"
                   value={formData.phone}
@@ -150,7 +179,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
               <h3 className="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] pb-3 pt-5">
                 Select Your Category
               </h3>
-              <div className="space-y-4">
+              <div ref={categoryRef} className="space-y-4">
                 {Object.keys(categoryContent).map((category) => (
                   <div key={category} className="flex items-center">
                     <input
@@ -190,6 +219,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
                     <div className='w-full'>
                       <label className="block text-sm font-medium text-[#111418]">Enter your Name for signature:</label>
                       <input 
+                        ref={signatureNameRef}
                         type="text" 
                         value={signatureName}
                         onChange={(e) => setSignatureName(e.target.value)}
@@ -207,6 +237,7 @@ const MinyPledge = ({ formData, handleFormChange, handlePledgeSubmit, handleBack
                       />
                     </div>
                   </div>
+
                 </div>
               )}
               

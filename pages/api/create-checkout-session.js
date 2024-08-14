@@ -66,9 +66,9 @@ export default async function handler(req, res) {
         mode: 'payment',
         success_url: `${origin}/crates?session_id={CHECKOUT_SESSION_ID}&crateId=${crateId}&status=success`,
         cancel_url: `${origin}/play/${docId}`,
-        // shipping_address_collection: {
-        //   allowed_countries: allowedCountries,
-        // },
+        shipping_address_collection: {
+          allowed_countries: allowedCountries,
+        },
       };
 
       // Add discount if signed is true and couponId exists

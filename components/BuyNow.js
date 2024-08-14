@@ -22,10 +22,11 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        if (validateForm()) {
-          handlePledgeFormClick();
-          // console.log("Form submitted:", formData);
-        }
+        // if (validateForm()) {
+        //   handlePledgeFormClick();
+        //   // console.log("Form submitted:", formData);
+        // }
+        handlePledgeFormClick();
       };
 
       const useLoadingDots = () => {
@@ -78,6 +79,10 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           <div className="flex w-full justify-center items-center">
           <ImageSlider />
           </div>
+          <div className="text-xm md:text-sm py-2 pt-3 tracking-normal text-white font-jakarta ">
+            <p className="text-center">Miny is a limited edition drop that includes a mixtape of your favorite songs, a personalized message, and a unique artwork.</p>
+            <p className="text-center">Pre-order now to get a special discount and secure your copy before it sells out.</p>
+          </div>
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>
@@ -116,7 +121,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
 
           <form className="space-y-4" onSubmit={handleSubmit}>
 
-             {!isProcessing && (
+             {/* {!isProcessing && (
               <>
                 <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
                 <div className="md:w-1/2">
@@ -244,7 +249,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
 
               
               </>
-             )} 
+             )}  */}
 
             <div className="w-full flex justify-center mt-5 md:mt-0 ">
               <button className="bg-lime-950  relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer" disabled={isProcessing}>
