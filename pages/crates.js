@@ -173,7 +173,13 @@ function Crates() {
                 <div className="sm:w-2/3 p-4">
                   <h2 className="text-xl font-semibold mb-2">{`${crate.name}'s Mixtape`}</h2>
                   <p className="text-sm text-gray-600 mb-1">Email: {crate.email}</p>
-                  <p className="text-sm text-gray-600 mb-1">Payment Status: {crate.paymentStatus}</p>
+                  <p 
+                    className={`text-sm mb-1 ${
+                      crate.paymentStatus === "success" ? "text-lime-600" : "text-gray-600"
+                    }`}
+                  >
+                    Payment Status: {crate.paymentStatus}
+                  </p>
                   <p className="text-sm text-gray-600 mb-1">Date: {new Date(crate.dateTime).toLocaleString()}</p>
                   <p className="text-sm text-gray-600 mb-1">Order ID: {crate.id}</p>
                   {crate.shortenedLink && (
