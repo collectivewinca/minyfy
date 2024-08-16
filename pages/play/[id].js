@@ -11,6 +11,7 @@ import BuyNow from '@/components/BuyNow';
 import PledgeForm from '@/components/PledgeForm';
 import { MdFileDownload } from "react-icons/md";
 import { toBlob } from 'html-to-image';
+import { toPng } from 'html-to-image';
 import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
 
@@ -304,18 +305,49 @@ const PlaylistPage = ({ docData, docId }) => {
       console.error('Error: trackDataContainerRef is not defined.');
       return;
     }
-
+  
     try {
       const blob = await toBlob(trackDataContainerRef.current);
       if (blob) {
+        // Compress the image
+        const compressedBlob = await compressImage(blob);
+        
         const random = Math.floor(Math.random() * 1000);
-        download(blob, `miny${random}.jpg`);
+        download(compressedBlob, `miny${random}.jpg`);
       } else {
         console.error('Error: Blob is null.');
       }
     } catch (error) {
       console.error('Error converting to image:', error);
     }
+  };
+  
+  // Image compression function
+  const compressImage = (blob) => {
+    return new Promise((resolve) => {
+      const img = new window.Image();
+      img.src = URL.createObjectURL(blob);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set the desired compression level (0.7 means 70% quality)
+        const compressionLevel = 0.5;
+        
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        
+        canvas.toBlob(
+          (compressedBlob) => {
+            resolve(compressedBlob);
+          },
+          'image/jpeg',
+          compressionLevel
+        );
+      };
+    });
   };
 
   if (!docData) {
