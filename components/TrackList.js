@@ -10,6 +10,7 @@ const TracksList = ({ onTracksChange }) => {
   const [selectedButton, setSelectedButton] = useState('Worldwide');
   const [selectedService, setSelectedService] = useState('spotify');
   const [appleMusicToken, setAppleMusicToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const countryPlaylistMap = {
     'Worldwide': '37i9dQZEVXbMDoHDwVN2tF',
@@ -105,6 +106,7 @@ const TracksList = ({ onTracksChange }) => {
 
 
   const fetchTracks = async (country, service) => {
+    setIsLoading(true);
     let trackList = [];
 
     if (service === 'lastfm') {
@@ -141,6 +143,7 @@ const TracksList = ({ onTracksChange }) => {
 
     setTracks(trackList);
     onTracksChange(trackList);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -189,14 +192,22 @@ const TracksList = ({ onTracksChange }) => {
        
       </div>
       <h2 className="md:text-xl text-base  tracking-wider mb-4 font-jakarta">This Week&rsquo;s  Top Tracks - <span className='text-[#A18249] uppercase font-semibold'>{selectedService}</span> </h2>
-      <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
-        {tracks.map((track, index) => (
-          <li key={index} className="flex md:gap-4 gap-2 mb-2 w-full items-center">
-            <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-clack'><PiMusicNoteFill className='md:text-2xl text-lg '/></div>
-            <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
-          </li>
-        ))}
-      </ul>
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-t-2 border-[#A18249]"></div>
+        </div>
+      ) : (
+        <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
+          {tracks.map((track, index) => (
+            <li key={index} className="flex md:gap-4 gap-2 mb-2 w-full items-center">
+              <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-clack'>
+                <PiMusicNoteFill className='md:text-2xl text-lg '/>
+              </div>
+              <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
