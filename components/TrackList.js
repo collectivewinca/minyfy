@@ -9,6 +9,7 @@ const TracksList = ({ onTracksChange }) => {
   const [tracks, setTracks] = useState([]);
   const [selectedButton, setSelectedButton] = useState('Worldwide');
   const [selectedService, setSelectedService] = useState('spotify');
+  const [appleMusicToken, setAppleMusicToken] = useState(null);
 
   const countryPlaylistMap = {
     'Worldwide': '37i9dQZEVXbMDoHDwVN2tF',
@@ -16,6 +17,14 @@ const TracksList = ({ onTracksChange }) => {
     'Canada': '37i9dQZEVXbKj23U1GF4IR',
     'France': '37i9dQZEVXbIPWwFssbupI',
     'India': '37i9dQZEVXbLZ52XmnySJg'
+  };
+
+  const appleMusicPlaylistMap = {
+    'Worldwide': 'pl.d25f5d1181894928af76c85c967f8f31',
+    'United States': 'pl.606afcbb70264d2eb2b51d8dbcfa6a12',
+    'Canada': 'pl.79bac9045a2540e0b195e983df8ba569',
+    'France': 'pl.6e8cfd81d51042648fa36c9df5236b8d',
+    'India': 'pl.c0e98d2423e54c39b3df955c24df3cc5'
   };
 
   const capitalizeWords = (str) => {
@@ -52,6 +61,49 @@ const TracksList = ({ onTracksChange }) => {
     return tokenResponse.data.access_token;
   };
 
+  const fetchAppleMusicToken = async () => {
+    if (!appleMusicToken) {
+      try {
+        const tokenResponse = await axios.get('/api/generate-am-token');
+        setAppleMusicToken(tokenResponse.data.token);
+        return tokenResponse.data.token;
+      } catch (error) {
+        console.error('Error fetching Apple Music token:', error);
+        return null;
+      }
+    }
+    return appleMusicToken;
+  };
+
+  const fetchAppleMusicTracks = async (playlistId) => {
+    try {
+      const token = await fetchAppleMusicToken();
+      if (!token) {
+        throw new Error('Failed to get Apple Music token');
+      }
+
+      const response = await axios.get(`https://api.music.apple.com/v1/catalog/ca/playlists/${playlistId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const trackList = response.data.data[0].relationships.tracks.data
+      .slice(0, 10)  // Ensure we only take the first 10 tracks
+      .map(track => 
+        `${capitalizeWords(track.attributes.name)} - ${capitalizeWords(track.attributes.artistName)}`
+      );
+
+      return trackList;
+    } catch (error) {
+      console.error('Error fetching Apple Music tracks:', error);
+      return [];
+    }
+  };
+
+
+
+
   const fetchTracks = async (country, service) => {
     let trackList = [];
 
@@ -82,8 +134,10 @@ const TracksList = ({ onTracksChange }) => {
       trackList = response.data.items.map(item => 
         `${item.track.name} - ${item.track.artists[0].name}`
       );
+    } else if (service === 'applemusic') {
+      const playlistId = appleMusicPlaylistMap[country];
+      trackList = await fetchAppleMusicTracks(playlistId);
     }
-    // Add other services here when implemented
 
     setTracks(trackList);
     onTracksChange(trackList);
@@ -124,12 +178,13 @@ const TracksList = ({ onTracksChange }) => {
         >
           <FaLastfmSquare className='text-3xl'  />
         </button>
-        <button className="p-2 text-[#fb3c55]">
+        <button
+          onClick={() => handleServiceSelection('applemusic')}
+          className={`p-2 ${selectedService === 'applemusic' ? 'text-[#fb3c55] bg-[#F4EFE6] rounded-full' : 'text-[#fb3c55]'}`}
+        >
           <SiApplemusic className='text-3xl' />
         </button>
-        <button className="p-2 text-[#f66f0e]">
-          <SiSoundcloud className='text-4xl' />
-        </button>
+        
         </div>
        
       </div>

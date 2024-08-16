@@ -20,6 +20,7 @@
     "googleapis": "^140.0.1",
     "html-to-image": "^1.11.11",
     "icons": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
     "node-fetch": "^3.3.2",
     "qs": "^6.12.1",
