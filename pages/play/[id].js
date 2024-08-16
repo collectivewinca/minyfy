@@ -332,7 +332,7 @@ const PlaylistPage = ({ docData, docId }) => {
         const ctx = canvas.getContext('2d');
         
         // Set the desired compression level (0.7 means 70% quality)
-        const compressionLevel = 0.5;
+        const compressionLevel = 0.8;
         
         canvas.width = img.width;
         canvas.height = img.height;
