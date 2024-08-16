@@ -273,10 +273,11 @@ const Custom = () => {
             >
               <option value="">Build Your Playlist...</option>
               <option value="searchArtist">Artists</option>
-              <option value="import">Import Playlist from Spotify</option>
-              <option value="genre">Genres</option>
-              <option value="customize">Customize MINY</option>
               <option value="tracks">Top Tracks This Week</option>
+              <option value="import">Import Playlist from Spotify</option>
+              <option value="customize">Customize MINY</option>
+              <option value="genre">Genres</option>
+              
             </select>
           </div>
 
