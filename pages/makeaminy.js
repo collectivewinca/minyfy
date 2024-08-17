@@ -12,6 +12,7 @@ import { db, auth, storage } from "@/firebase/config";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { MdModeEdit } from "react-icons/md";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -274,7 +275,8 @@ const Custom = () => {
               <option value="">Build Your Playlist...</option>
               <option value="searchArtist">Artists</option>
               <option value="tracks">Top Tracks This Week</option>
-              <option value="import">Import Playlist from Spotify</option>
+              <option value="import">Import Playlist - Spotify</option>
+              <option value="apple">Import Playlist - Apple Music</option>
               <option value="customize">Customize MINY</option>
               <option value="genre">Genres</option>
               
@@ -362,6 +364,10 @@ const Custom = () => {
 
         {selectedOption === 'import' && (
           <ImportPlaylist onTracksChange={handleTracksChange} />
+        )}
+
+        {selectedOption === 'apple' && (
+          <ImportAppleMusicPlaylist onTracksChange={handleTracksChange} />
         )}
       </div>
 
