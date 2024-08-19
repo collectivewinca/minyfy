@@ -419,7 +419,7 @@ const PlaylistPage = ({ docData, docId }) => {
               <div className="overlay"></div>
               <img className="h-full w-full  " src={backgroundImage} alt="Background" />
               <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
-                <div className="flex flex-col md:gap-[6px] gap-[2px] items-end text-[2.8vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+                <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.8vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
                 {tracks.map((track, index) => (
                         <div
                           key={index}
