@@ -175,7 +175,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
       <div ref={trackDataContainerRef} className='overflow-y-auto'>
       <div className="relative z-10 cursor-pointer hex-alt">
           <div className="overlay"></div>
-          <img className="h-full w-full " src={backgroundImage} alt="Background" />
+          <img className="w-full h-full bg-cover " src={backgroundImage} alt="Background" />
           
           {/* Top center - Logo */}
           {/* <div className="absolute top-3 left-1/2 transform -translate-x-1/2 mt-4 ml-2">
@@ -195,7 +195,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
             </div>
           </div>
           
-          <div className="absolute left-[8.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+          <div className="absolute left-[8.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
             
@@ -215,7 +215,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
                       </div>
                     </div>
             {/* Bottom-left text */}
-            <div className="absolute left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+            <div className="absolute left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
 
