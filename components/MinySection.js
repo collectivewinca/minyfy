@@ -17,7 +17,8 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
   const [user, setUser] = useState(null);
   const trackDataContainerRef = useRef(null);
   const router = useRouter();
-  const topValue = 42 - name.length * 0.45;
+  const topValue = 38 - name.length * 0.45;
+  
 
   const useLoadingDots = () => {
     const [dots, setDots] = useState('');
@@ -76,7 +77,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
     }
 
     if (!name) {
-      alert('Please enter your name to watermark a MINY!');
+      alert('Please enter mixtape name to watermark the MINY!');
       return;
     }
 
@@ -184,38 +185,39 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
           </div> */}
           
           {/* Right center - Tracks */}
-          <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
-            <div className="flex flex-col md:gap-[6px] gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+          <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
+            <div className="flex flex-col md:gap-[6px] gap-1 items-end text-[2.8vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
               {tracks.map((track, index) => (
-                <div key={index}>
+                <div key={index} className="w-full text-right">
                   {toSentenceCase(track.length > 39 ? `${track.slice(0, 39)}..` : track)}
                 </div>
               ))}
             </div>
           </div>
           
-          <div className="absolute left-10 text-[0.5rem] font-medium top-[4rem] text-white" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
-          <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
-          </div>
-          <div 
-            className="absolute left-2 top-1/2 text-[0.5rem] font-medium text-white origin-left"
-            style={{ 
-              top: `${topValue}%`,
-              transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
-              transformOrigin: "",
-              textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
-            }}
-          >
-            <div className="whitespace-nowrap">
-              MINY MIXTAPE :
-              <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+          <div className="absolute left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
-          </div>
-
-       
-          <div className="absolute left-10 text-[0.5rem] font-medium bottom-[4rem] text-white" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"  }}>
-          <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
-          </div>
+            
+            {/* Middle-left text */}
+            <div 
+                      className="absolute left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
+                      style={{ 
+                        top: `${topValue}%`,
+                        transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
+                        transformOrigin: "",
+                        textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
+                      }}
+                    >
+                      <div className="whitespace-nowrap">
+                        MINY MIXTAPE :
+                        <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+                      </div>
+                    </div>
+            {/* Bottom-left text */}
+            <div className="absolute left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
+            </div>
 
         
           

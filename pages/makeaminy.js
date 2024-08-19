@@ -290,7 +290,7 @@ const Custom = () => {
               className="px-5 placeholder:text-neutral-500 py-2 pb-[10px] md:text-lg text-sm font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
               value={inputValue}
               onChange={handleInputChange}
-              placeholder='Add your name to watermark a MINY...'
+              placeholder='Add mixtape name to watermark the MINY...'
             />
           </div>
         </div>

@@ -12,6 +12,25 @@
   const MinySection = () => {
     const [isFavorite, setIsFavorite] = useState(true);
     const trackDataContainerRef = useRef(null);
+    const [width, setWidth] = useState(null);
+    useEffect(() => {
+      const handleResize = () => {
+        const width = window.innerWidth;
+        setWidth(width);
+        
+      };
+      
+      // Set initial values
+      handleResize();
+      
+      // Add event listener
+      window.addEventListener('resize', handleResize);
+      
+      // Clean up event listener
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
 
     const backgroundImage = '/gallery/img6.png'
     const tracks = [
@@ -27,7 +46,7 @@
       "Beautiful Things - Benson Boone"
     ]
     const name = 'Daniel Daniel'
-    const topValue = 42 - name.length * 0.4;
+    const topValue = 38 - name.length * 0.4;
     
     const toSentenceCase = (str) => {
       return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
@@ -66,54 +85,38 @@
           
           {/* Right center - Tracks */}
           <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
-  <div className="flex flex-col md:gap-[6px] gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
-    {tracks.map((track, index) => (
-      <div key={index} className="w-full text-right">
-        {track.length > 39 ? (
-          <MovingText text={track} />
-        ) : (
-          toSentenceCase(track)
-        )}
-      </div>
-    ))}
-  </div>
-</div>
-          
-          <div className="absolute left-10 text-[0.5rem] font-medium top-[4rem] text-white" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
-          <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
-          </div>
-          <div 
-            className="absolute left-2 top-1/2 text-[0.5rem] font-medium text-white origin-left"
-            style={{ 
-              top: `${topValue}%`,
-              transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
-              transformOrigin: "",
-              textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
-            }}
-          >
-            <div className="whitespace-nowrap">
-              MINY MIXTAPE :
-              <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+            <div className="flex flex-col md:gap-[6px] gap-1 items-end text-[2.8vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+              {tracks.map((track, index) => (
+                <div key={index} className="w-full text-right">
+                  {toSentenceCase(track.length > 39 ? `${track.slice(0, 39)}..` : track)}
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* <div 
-            className={`absolute left-2 top-[${32 - name.length * 0.5}%] text-[0.5rem] font-medium text-white origin-left`}
-            style={{ 
-              transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
-              transformOrigin: "left center",
-              textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
-            }}
-          >
-            <div>
-              MINY MIXTAPE :
-              <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+                    
+          <div className="absolute left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
-          </div> */}
-
-          <div className="absolute left-10 text-[0.5rem] font-medium bottom-[4rem] text-white" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"  }}>
-          <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
-          </div>
+            
+            {/* Middle-left text */}
+            <div 
+                      className="absolute left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
+                      style={{ 
+                        top: `${topValue}%`,
+                        transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
+                        transformOrigin: "",
+                        textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
+                      }}
+                    >
+                      <div className="whitespace-nowrap">
+                        MINY MIXTAPE :
+                        <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+                      </div>
+                    </div>
+            {/* Bottom-left text */}
+            <div className="absolute left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
+            </div>
 
           
           {/* Bottom center - Name */}
