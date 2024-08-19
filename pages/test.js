@@ -1,5 +1,5 @@
   import React, { useRef, useState, useEffect } from 'react';
-  import { toPng } from 'html-to-image';
+  import { toPng, toBlob } from 'html-to-image';
   import download from 'downloadjs';
   import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
   import Marquee from "react-fast-marquee";
@@ -13,6 +13,7 @@
     const [isFavorite, setIsFavorite] = useState(true);
     const trackDataContainerRef = useRef(null);
     const [width, setWidth] = useState(null);
+    const [downloadStage, setDownloadStage] = useState(0);
     useEffect(() => {
       const handleResize = () => {
         const width = window.innerWidth;
@@ -52,19 +53,41 @@
       return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
     };
 
-    const handleDownload = () => {
-      if (trackDataContainerRef.current === null) {
-        return
-      }
+    const randomNumberInRange = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
 
-      toPng(trackDataContainerRef.current, { cacheBust: true, })
-        .then((dataUrl) => {
-          download(dataUrl, 'my-miny-order.png');
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+    const handleDownload = async () => {
+      if (trackDataContainerRef.current === null) {
+        return;
+      }
+  
+      try {
+        let blob = await Promise.all([
+          toBlob(trackDataContainerRef.current),
+          toBlob(trackDataContainerRef.current)
+        ]).then((res) => res[1]);
+  
+        setDownloadStage(86);
+  
+        const url = window.URL.createObjectURL(blob);
+        let ran = randomNumberInRange(0, 999);
+  
+        setDownloadStage(90);
+  
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `my-miny-order-${ran}.png`;
+        link.click();
+  
+        setDownloadStage(100);
+        
+        // Clean up
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error("Error downloading image:", error);
+      }
+    };
     return (
       <>
       <div className='min-h-screen flex justify-center items-center'>
@@ -137,6 +160,11 @@
               <FaDownload className="mr-2" /> Download Image
             </button>
           </div>
+          {downloadStage > 0 && (
+            <div className="mt-2 text-center">
+              Download progress: {downloadStage}%
+            </div>
+          )}
       </div>
 
       </div>
