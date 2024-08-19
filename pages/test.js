@@ -69,8 +69,6 @@
       <>
       <div className='min-h-screen flex justify-center items-center'>
       <div className='py-7 md:w-[35%]'>
-      <Marquee gradient={true} gradientWidth={20} speed={40} pauseOnHover={true}>
-      This is a long sentence that will move from left to right.</Marquee>
         <div ref={trackDataContainerRef} className='overflow-y-auto'>
         <div className="relative z-10 cursor-pointer hex-alt">
           <div className="overlay"></div>
@@ -94,7 +92,7 @@
             </div>
           </div>
                     
-          <div className="absolute left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-26.5deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+          <div className="absolute left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
             
@@ -114,7 +112,7 @@
                       </div>
                     </div>
             {/* Bottom-left text */}
-            <div className="absolute left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+            <div className="absolute left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
 
