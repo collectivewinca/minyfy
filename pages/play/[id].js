@@ -307,7 +307,7 @@ const PlaylistPage = ({ docData, docId }) => {
     }
   
     try {
-      const blob = await toPng(trackDataContainerRef.current);
+      const blob = await toBlob(trackDataContainerRef.current);
       if (blob) {
         // Compress the image
         const compressedBlob = await compressImage(blob);
