@@ -307,13 +307,13 @@ const PlaylistPage = ({ docData, docId }) => {
     }
   
     try {
-      const blob = await toBlob(trackDataContainerRef.current);
+      const blob = await toPng(trackDataContainerRef.current);
       if (blob) {
         // Compress the image
         const compressedBlob = await compressImage(blob);
         
         const random = Math.floor(Math.random() * 1000);
-        download(compressedBlob, `miny${random}.jpg`);
+        download(compressedBlob, `miny${random}`);
       } else {
         console.error('Error: Blob is null.');
       }
@@ -432,7 +432,7 @@ const PlaylistPage = ({ docData, docId }) => {
                 </div>
               </div>
               
-              <div className="absolute left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div className="absolute left-[7.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
             
@@ -452,7 +452,7 @@ const PlaylistPage = ({ docData, docId }) => {
                       </div>
                     </div>
             {/* Bottom-left text */}
-            <div className="absolute left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+            <div className="absolute left-[6%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
               

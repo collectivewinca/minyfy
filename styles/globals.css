@@ -243,9 +243,7 @@ body{
 }
 
 .hex-alt {
-  aspect-ratio: cos(30deg);
-  clip-path: polygon(-50% 50%,50% 100%,150% 50%,50% 0);
-  
-  /* Notice how I simply switched the x/y 
-     of the previous polygon, easy! */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background-color: #ddd; /* Background color for visibility */
+  /* Optional: Add border or other styles if needed */
 }
