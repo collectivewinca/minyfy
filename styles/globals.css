@@ -241,3 +241,11 @@ body{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.hex-alt {
+  aspect-ratio: cos(30deg);
+  clip-path: polygon(-50% 50%,50% 100%,150% 50%,50% 0);
+  
+  /* Notice how I simply switched the x/y 
+     of the previous polygon, easy! */
+}

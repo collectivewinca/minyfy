@@ -79,14 +79,14 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           <div className="flex w-full justify-center items-center">
           <ImageSlider />
           </div>
-          <div className="text-xm md:text-sm py-2 pt-3 tracking-normal text-white font-jakarta ">
+          <div className="text-xs md:text-sm py-2 pt-3 tracking-normal text-white font-jakarta ">
             <p className="text-center">MINY is a limited edition drop that includes a mixtape of your favorite songs, a personalized message, and a unique artwork.</p>
             <p className="text-center">Pre-order now to get a special discount and secure your copy before it sells out.</p>
           </div>
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>
-                <img src={backgroundImage} alt="Artwork" className="w-[7rem] rounded-2xl md:w-[5rem]" />
+                <img src={backgroundImage} alt="Artwork" className="w-[7rem] hex-alt md:w-[5rem]" />
               </div>
               <div className="flex flex-col text-center md:text-start">
                 <div className="text-xl">{formData.title}'s Mixtape</div>

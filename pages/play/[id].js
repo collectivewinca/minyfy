@@ -358,7 +358,7 @@ const PlaylistPage = ({ docData, docId }) => {
 
   const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink} = docData;
   const description = `Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
-
+  const topValue = 42 - name.length * 0.4;
 
   return (
     <>
@@ -414,30 +414,47 @@ const PlaylistPage = ({ docData, docId }) => {
 
           
           
-          <div ref={trackDataContainerRef} className='overflow-y-auto w-full md:w-[60%] shadow shadow-neutral-600'>
-            <div className="relative cursor-pointer">
+          <div ref={trackDataContainerRef} className='overflow-y-auto w-full md:w-[60%] '>
+            <div className="relative cursor-pointer shadow shadow-white hex-alt ">
               <div className="overlay"></div>
-              <img className="h-full w-full" src={backgroundImage} alt="Background" />
-              <div className="flex flex-col justify-between items-end md:pr-2 pr-2 absolute right-0 top-0 h-full pb-4">
-                <p className="text-white font-medium text-lg tracking-wide">
-                  <img src="/stamp.png" alt="Minyfy Logo" className="md:h-[8vh] h-[4vh] md:px-2 px-2 mt-4" />
-                </p>
-                <div className="flex flex-col md:gap-2 gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
-                  {tracks.map((track, index) => (
-                    <div
-                      key={index}
-                      className={`cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
-                      onClick={() => handleTrackClick(index)}
-                    >
-                      {track.track.length > 39 ? `${track.track.slice(0, 39)}..` : track.track}
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col md:gap-2 gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-4 px-2 right-0 text-neutral-300 tracking-wider">
-                  <p>MINY Order for <strong className='text-[#f48531] mb-3'>{name}</strong></p>
-                  {/* <p>{date}</p> */}
+              <img className="h-full w-full  " src={backgroundImage} alt="Background" />
+              <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
+                <div className="flex flex-col md:gap-[6px] gap-1 items-end md:text-xs text-[0.6rem] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+                {tracks.map((track, index) => (
+                        <div
+                          key={index}
+                          className={`cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
+                          onClick={() => handleTrackClick(index)}
+                        >
+                          {track.track.length > 39 ? `${track.track.slice(0, 39)}..` : track.track}
+                        </div>
+                      ))}
                 </div>
               </div>
+              
+              <div className="absolute left-10 text-[0.5rem] font-medium top-[3.6rem] md:top-[5rem] text-white" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
+              </div>
+              <div 
+                className="absolute left-2 top-1/2 text-[0.5rem] font-medium text-white origin-left"
+                style={{ 
+                  top: `${topValue}%`,
+                  transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
+                  transformOrigin: "",
+                  textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
+                }}
+              >
+                <div className="whitespace-nowrap">
+                  MINY MIXTAPE :
+                  <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+                </div>
+              </div>
+
+          
+              <div className="absolute left-10 text-[0.5rem] font-medium bottom-[3.6rem] md:bottom-[5rem] text-white" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"  }}>
+              <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
+              </div>
+              
             </div>
             
           </div>
