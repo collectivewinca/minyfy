@@ -189,7 +189,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
             <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.4vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
               {tracks.map((track, index) => (
                 <div key={index} className="w-full text-right">
-                  {toSentenceCase(track.length > 39 ? `${track.slice(0, 39)}..` : track)}
+                  {toSentenceCase(track.length > 33 ? `${track.slice(0, 33)}..` : track)}
                 </div>
               ))}
             </div>
