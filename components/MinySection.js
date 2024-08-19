@@ -186,7 +186,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
           
           {/* Right center - Tracks */}
           <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
-            <div className="flex flex-col md:gap-[6px] gap-1 items-end text-[2.8vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+            <div className="flex flex-col md:gap-[6px] gap-[2px] items-end text-[2.4vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
               {tracks.map((track, index) => (
                 <div key={index} className="w-full text-right">
                   {toSentenceCase(track.length > 39 ? `${track.slice(0, 39)}..` : track)}
@@ -195,7 +195,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
             </div>
           </div>
           
-          <div className="absolute left-[7.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+          <div className="absolute left-[8.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
             
@@ -215,7 +215,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
                       </div>
                     </div>
             {/* Bottom-left text */}
-            <div className="absolute left-[6%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+            <div className="absolute left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(26.5deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
 
