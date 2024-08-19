@@ -32,7 +32,7 @@
       };
     }, []);
 
-    const backgroundImage = '/gallery/img4.png'
+    const backgroundImage = 'https://minyfy.subwaymusician.xyz/4.png'
     const tracks = [
       "A Bar Song (Tipsy) - Shaboozey",
       "I Had Some Help (Feat. Morgan Wallen) - Post Malone",
