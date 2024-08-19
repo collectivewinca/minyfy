@@ -130,6 +130,7 @@ const Custom = () => {
             imageUrl: finalImage,
             shortenedLink: json.shortURL,
             email: user.email,
+            displayName: user.displayName,
           }),
         });
   

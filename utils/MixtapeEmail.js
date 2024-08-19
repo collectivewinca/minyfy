@@ -14,7 +14,7 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  export const MixtapeEmail = ({ imageUrl, name, shortenedLink }) => {
+  export const MixtapeEmail = ({ imageUrl, name, shortenedLink, displayName }) => {
     const previewText = `Enjoy Your Vibe!`;
 
     const images = [
@@ -35,14 +35,14 @@ import {
             <Section>
               <Row>
                 <Text style={paragraph}>
-                  Hi <strong>{name}</strong>,
+                  Hi <strong>{displayName}</strong>,
                 </Text>
                 <Text style={paragraph}>
                   We're excited to let you know that your MINY Mixtape has been created. Enjoy your curated selection of tracks!
                 </Text>
                 <Img src={imageUrl} width="100%" alt="Mixtape Image" style={mixtapeImage} />
                 <Button style={button} href={shortenedLink}>
-                  Listen to Your Mixtape
+                  Listen to Your {name} Mixtape
                 </Button>
                 
                 <Text style={paragraph}>

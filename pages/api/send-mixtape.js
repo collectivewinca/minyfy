@@ -5,13 +5,13 @@ const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 export default async function handler(req, res) {
   try {
-    const { name, imageUrl, shortenedLink, email } = req.body;
+    const { name, imageUrl, shortenedLink, email, displayName } = req.body;
 
     const data = {
       from: 'Miny Vinyl <mixtapes@subwaymusician.xyz>',
       to: email,
       subject: 'Your Miny Mixtape is Ready!',
-      react: MixtapeEmail({ name, imageUrl, shortenedLink })
+      react: MixtapeEmail({ name, imageUrl, shortenedLink, displayName })
     };
 
     console.log(`Sending email to: ${email}`);
