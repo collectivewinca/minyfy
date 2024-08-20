@@ -1,34 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { toSvg, toCanvas } from 'html-to-image'; // Import both toSvg and toCanvas
+import html2canvas from 'html2canvas';
 import download from 'downloadjs';
 import { FaDownload } from "react-icons/fa6";
 
 const createCanvas = async (node) => {
-  const isSafariOrChrome = /safari|chrome/i.test(navigator.userAgent) && !/android/i.test(navigator.userAgent);
+  const canvas = await html2canvas(node, {
+    useCORS: true,
+    scale: 2, // Increase scale for higher resolution
+    allowTaint: true,
+    logging: false, // Disable logging to console
+  });
 
-  let dataUrl = "";
-  let canvas;
-  let i = 0;
-  let maxAttempts = isSafariOrChrome ? 5 : 1;
-  let cycle = [];
-  let repeat = true;
-
-  while (repeat && i < maxAttempts) {
-    canvas = await toCanvas(node, {
-      fetchRequestInit: {
-        cache: "no-cache",
-      },
-      skipFonts: true,
-      includeQueryParams: true,
-      quality: 1,
-    });
-    i += 1;
-    dataUrl = canvas.toDataURL("image/png");
-    cycle[i] = dataUrl.length;
-
-    if (dataUrl.length > cycle[i - 1]) repeat = false;
-  }
-  console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
   return canvas;
 };
 
@@ -42,7 +24,7 @@ const MinySection = () => {
       const width = window.innerWidth;
       setWidth(width);
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => {
@@ -91,8 +73,8 @@ const MinySection = () => {
           <div ref={trackDataContainerRef} className='overflow-y-auto'>
             <div className="relative z-10 cursor-pointer hex-alt">
               <div className="overlay"></div>
-              <img className="h-full w-full" src={backgroundImage} alt="Background" />
-              
+              <img className="h-full w-full object-cover" src={backgroundImage} alt="Background" />
+
               <div className="absolute z-20 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
                 <div className="flex flex-col md:gap-[5px] gap-1 items-end text-[2.8vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
                   {tracks.map((track, index) => (
@@ -102,14 +84,14 @@ const MinySection = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="absolute z-20 left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
                 <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
               </div>
-              
-              <div 
+
+              <div
                 className="absolute z-20 left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
-                style={{ 
+                style={{
                   top: `${topValue}%`,
                   transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
                   transformOrigin: "",
@@ -121,14 +103,14 @@ const MinySection = () => {
                   <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
                 </div>
               </div>
-              
-              <div className="absolute z-20 left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+
+              <div className="absolute left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
                 <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
               </div>
             </div>
           </div>
           <div className="mt-4 flex justify-center">
-            <button 
+            <button
               onClick={handleDownload}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
             >

@@ -101,40 +101,44 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
         };
       }));
   
-      // Use createCanvas to generate the canvas
+      // Generate the canvas
       const canvas = await createCanvas(trackDataContainerRef.current);
-      
-      // Convert canvas to blob
-      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-      
-      if (!blob) {
-        throw new Error('Error: Blob is null.');
-      }
-      
-      const imageRef = ref(storage, `aminy-generation/miny-${Date.now()}.png`);
-      await uploadBytes(imageRef, blob);
-      const imageUrl = await getDownloadURL(imageRef);
-      setFinalImage(imageUrl);
   
-      // Save the document in Firestore with the image URL
-      const docRef = await addDoc(collection(db, "mixtapes"), {
-        name,
-        backgroundImage,
-        tracks: tracksWithYouTube,
-        date: formattedDate,
-        isFavorite,
-        userDisplayName: user.displayName || 'Anonymous',
-        userEmail: user.email,
-        imageUrl,
+      // Convert canvas to base64
+      const imageData = canvas.toDataURL("image/png");
+  
+      // Send the image data to the server-side API
+      const response = await fetch('/api/save-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageData,
+          name,
+          backgroundImage,
+          tracks: tracksWithYouTube,
+          user,
+          isFavorite,
+          date: formattedDate,
+        }),
       });
   
-      onDocIdChange(docRef.id);
+      const data = await response.json();
+  
+      if (response.ok) {
+        setFinalImage(data.imageUrl);
+        onDocIdChange(data.docId);
+      } else {
+        throw new Error(data.message || 'Failed to save image');
+      }
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error saving image: ", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
 
   const fetchYouTubeData = async (track) => {
