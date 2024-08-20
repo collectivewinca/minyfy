@@ -18,7 +18,6 @@ const createCanvas = async (node) => {
       fetchRequestInit: {
         cache: "no-cache",
       },
-      skipFonts: true,
       includeQueryParams: true,
       quality: 1,
     });
@@ -33,22 +32,10 @@ const createCanvas = async (node) => {
 };
 
 const MinySection = () => {
-  const [isFavorite, setIsFavorite] = useState(true);
   const trackDataContainerRef = useRef(null);
-  const [width, setWidth] = useState(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setWidth(width);
-    };
-    
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+
+ 
 
   const backgroundImage = 'https://minyfy.subwaymusician.xyz/4.png';
   const tracks = [

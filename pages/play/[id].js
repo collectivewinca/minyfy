@@ -10,7 +10,7 @@ import SocialShareButtons from '@/components/SocialShareButtons';
 import BuyNow from '@/components/BuyNow';
 import PledgeForm from '@/components/PledgeForm';
 import { MdFileDownload } from "react-icons/md";
-import { toBlob } from 'html-to-image';
+import { toBlob, toCanvas } from 'html-to-image';
 import { toPng } from 'html-to-image';
 import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
@@ -301,6 +301,34 @@ const PlaylistPage = ({ docData, docId }) => {
     
   };
 
+  const createCanvas = async (node) => {
+    const isSafariOrChrome = /safari|chrome/i.test(navigator.userAgent) && !/android/i.test(navigator.userAgent);
+  
+    let dataUrl = "";
+    let canvas;
+    let i = 0;
+    let maxAttempts = isSafariOrChrome ? 5 : 1;
+    let cycle = [];
+    let repeat = true;
+  
+    while (repeat && i < maxAttempts) {
+      canvas = await toCanvas(node, {
+        fetchRequestInit: {
+          cache: "no-cache",
+        },
+        includeQueryParams: true,
+        quality: 1,
+      });
+      i += 1;
+      dataUrl = canvas.toDataURL("image/png");
+      cycle[i] = dataUrl.length;
+  
+      if (dataUrl.length > cycle[i - 1]) repeat = false;
+    }
+    console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
+    return canvas;
+  };
+
   const handleDownloadImage = async () => {
     if (!trackDataContainerRef.current) {
       console.error('Error: trackDataContainerRef is not defined.');
@@ -308,47 +336,31 @@ const PlaylistPage = ({ docData, docId }) => {
     }
   
     try {
-      const blob = await toBlob(trackDataContainerRef.current);
-      if (blob) {
-        // Compress the image
-        const compressedBlob = await compressImage(blob);
-        
-        const random = Math.floor(Math.random() * 1000);
-        download(compressedBlob, `miny${random}`);
-      } else {
-        console.error('Error: Blob is null.');
-      }
+      const canvas = await createCanvas(trackDataContainerRef.current);
+      
+      // Compress the image
+      const compressedDataUrl = compressCanvas(canvas, 0.7); // 0.7 is the quality level (0-1)
+      
+      const random = Math.floor(Math.random() * 1000);
+      download(compressedDataUrl, `my-miny-order-${random}.jpg`);
     } catch (error) {
       console.error('Error converting to image:', error);
     }
   };
   
-  // Image compression function
-  const compressImage = (blob) => {
-    return new Promise((resolve) => {
-      const img = new window.Image();
-      img.src = URL.createObjectURL(blob);
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        // Set the desired compression level (0.7 means 70% quality)
-        const compressionLevel = 0.8;
-        
-        canvas.width = img.width;
-        canvas.height = img.height;
-        
-        ctx.drawImage(img, 0, 0, img.width, img.height);
-        
-        canvas.toBlob(
-          (compressedBlob) => {
-            resolve(compressedBlob);
-          },
-          'image/jpeg',
-          compressionLevel
-        );
-      };
-    });
+  const compressCanvas = (canvas, quality) => {
+    const compressedCanvas = document.createElement('canvas');
+    const ctx = compressedCanvas.getContext('2d');
+    
+    // Set the compressed canvas size (you can adjust this for further compression)
+    compressedCanvas.width = canvas.width * 0.8;
+    compressedCanvas.height = canvas.height * 0.8;
+    
+    // Draw the original canvas onto the compressed canvas
+    ctx.drawImage(canvas, 0, 0, compressedCanvas.width, compressedCanvas.height);
+    
+    // Convert to compressed JPEG
+    return compressedCanvas.toDataURL('image/jpeg', quality);
   };
 
   if (!docData) {

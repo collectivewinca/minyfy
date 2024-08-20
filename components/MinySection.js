@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { toBlob } from 'html-to-image';
 import download from 'downloadjs';
+import { toSvg, toCanvas } from 'html-to-image';
 import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
 import { MdRocketLaunch } from "react-icons/md";
 import { useRouter } from 'next/router';
@@ -51,23 +52,32 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
     }
   }, []);
 
-  const handleDownloadImage = async () => {
-    if (!trackDataContainerRef.current) {
-      console.error('Error: trackDataContainerRef is not defined.');
-      return;
+  const createCanvas = async (node) => {
+    const isSafariOrChrome = /safari|chrome/i.test(navigator.userAgent) && !/android/i.test(navigator.userAgent);
+  
+    let dataUrl = "";
+    let canvas;
+    let i = 0;
+    let maxAttempts = isSafariOrChrome ? 5 : 1;
+    let cycle = [];
+    let repeat = true;
+  
+    while (repeat && i < maxAttempts) {
+      canvas = await toCanvas(node, {
+        fetchRequestInit: {
+          cache: "no-cache",
+        },
+        includeQueryParams: true,
+        quality: 1,
+      });
+      i += 1;
+      dataUrl = canvas.toDataURL("image/png");
+      cycle[i] = dataUrl.length;
+  
+      if (dataUrl.length > cycle[i - 1]) repeat = false;
     }
-
-    try {
-      const blob = await toBlob(trackDataContainerRef.current);
-      if (blob) {
-        const random = Math.floor(Math.random() * 1000);
-        download(blob, `MINY${random}.jpg`);
-      } else {
-        console.error('Error: Blob is null.');
-      }
-    } catch (error) {
-      console.error('Error converting to image:', error);
-    }
+    console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
+    return canvas;
   };
 
   const saveToFirestore = async () => {
@@ -75,12 +85,12 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
       await handleLogin();
       return;
     }
-
+  
     if (!name) {
       alert('Please enter mixtape name to watermark the MINY!');
       return;
     }
-
+  
     setLoading(true);
     try {
       const tracksWithYouTube = await Promise.all(tracks.map(async (track) => {
@@ -90,18 +100,22 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
           youtubeData,
         };
       }));
-
-      // Upload image to Firebase Storage
-      const blob = await toBlob(trackDataContainerRef.current);
+  
+      // Use createCanvas to generate the canvas
+      const canvas = await createCanvas(trackDataContainerRef.current);
+      
+      // Convert canvas to blob
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      
       if (!blob) {
         throw new Error('Error: Blob is null.');
       }
       
-      const imageRef = ref(storage, `aminy-generation/miny-${Date.now()}.jpg`);
+      const imageRef = ref(storage, `aminy-generation/miny-${Date.now()}.png`);
       await uploadBytes(imageRef, blob);
       const imageUrl = await getDownloadURL(imageRef);
       setFinalImage(imageUrl);
-
+  
       // Save the document in Firestore with the image URL
       const docRef = await addDoc(collection(db, "mixtapes"), {
         name,
@@ -113,7 +127,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
         userEmail: user.email,
         imageUrl,
       });
-
+  
       onDocIdChange(docRef.id);
     } catch (error) {
       console.error("Error adding document: ", error);
