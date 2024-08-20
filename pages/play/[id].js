@@ -367,6 +367,10 @@ const PlaylistPage = ({ docData, docId }) => {
     return <div>Loading...</div>;
   }
 
+  const toSentenceCase = (str) => {
+    return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+  };
+
   
 
   const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink} = docData;
@@ -438,14 +442,14 @@ const PlaylistPage = ({ docData, docId }) => {
                 />
               </div>
               <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
-                <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.4vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+                <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
                 {tracks.map((track, index) => (
                         <div
                           key={index}
                           className={`cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
                           onClick={() => handleTrackClick(index)}
                         >
-                          {track.track.length > 33 ? `${track.track.slice(0, 33)}..` : track.track}
+                          {toSentenceCase(track.track.length > 33 ? `${track.track.slice(0, 33)}..` : track.track)}
                         </div>
                       ))}
                 </div>
