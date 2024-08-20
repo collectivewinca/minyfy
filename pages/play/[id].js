@@ -434,13 +434,7 @@ const PlaylistPage = ({ docData, docId }) => {
           <div ref={trackDataContainerRef} className='overflow-y-auto w-full md:w-[60%] '>
             <div className="relative cursor-pointer shadow shadow-white hex-alt ">
               <div className="overlay"></div>
-              <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
-                <img 
-                  className="absolute z-[-1] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover" 
-                  src={backgroundImage} 
-                  alt="Background" 
-                />
-              </div>
+              <img  className="w-full h-full object-cover" src={backgroundImage} alt="Background"  />
               <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
                 <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
                 {tracks.map((track, index) => (
