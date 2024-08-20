@@ -78,13 +78,7 @@ const MinySection = () => {
           <div ref={trackDataContainerRef} className='overflow-y-auto'>
             <div className="relative z-10 cursor-pointer hex-alt">
               <div className="overlay"></div>
-              <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
-                <img 
-                  className="absolute z-[-1] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover" 
-                  src={backgroundImage} 
-                  alt="Background" 
-                />
-              </div>
+              <img  className="w-full h-full object-cover" src={backgroundImage} alt="Background"  />
               
               <div className="absolute top-1/2 z-10 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
                 <div className="flex flex-col md:gap-[5px] gap-1 items-end text-[2.8vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
