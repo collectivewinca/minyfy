@@ -189,7 +189,13 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
       <div ref={trackDataContainerRef} className='overflow-y-auto'>
       <div className="relative z-10 cursor-pointer hex-alt">
           <div className="overlay"></div>
-          <img className="w-full h-full bg-cover " src={backgroundImage} alt="Background" />
+          <div className="absolute inset-0 overflow-hidden" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
+            <img 
+              className="absolute z-[-1] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover" 
+              src={backgroundImage} 
+              alt="Background" 
+            />
+          </div>
           
           {/* Top center - Logo */}
           {/* <div className="absolute top-3 left-1/2 transform -translate-x-1/2 mt-4 ml-2">
@@ -199,7 +205,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
           </div> */}
           
           {/* Right center - Tracks */}
-          <div className="absolute top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
+          <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
             <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.4vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
               {tracks.map((track, index) => (
                 <div key={index} className="w-full text-right">
@@ -209,13 +215,13 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
             </div>
           </div>
           
-          <div className="absolute left-[8.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+          <div className="absolute z-10 left-[8.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
             
             {/* Middle-left text */}
             <div 
-                      className="absolute left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
+                      className="absolute z-10 left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
                       style={{ 
                         top: `${topValue}%`,
                         transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
@@ -229,7 +235,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
                       </div>
                     </div>
             {/* Bottom-left text */}
-            <div className="absolute left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+            <div className="absolute z-10 left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
 
