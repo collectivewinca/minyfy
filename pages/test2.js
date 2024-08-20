@@ -18,6 +18,7 @@ const createCanvas = async (node) => {
       fetchRequestInit: {
         cache: "no-cache",
       },
+      skipFonts: true,
       includeQueryParams: true,
       quality: 1,
     });
@@ -32,12 +33,24 @@ const createCanvas = async (node) => {
 };
 
 const MinySection = () => {
+  const [isFavorite, setIsFavorite] = useState(true);
   const trackDataContainerRef = useRef(null);
+  const [width, setWidth] = useState(null);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setWidth(width);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
- 
-
-  const backgroundImage = 'https://minyfy.subwaymusician.xyz/6.png';
+  const backgroundImage = 'https://minyfy.subwaymusician.xyz/4.png';
   const tracks = [
     "A Bar Song (Tipsy) - Shaboozey",
     "I Had Some Help (Feat. Morgan Wallen) - Post Malone",
@@ -78,9 +91,9 @@ const MinySection = () => {
           <div ref={trackDataContainerRef} className='overflow-y-auto'>
             <div className="relative z-10 cursor-pointer hex-alt">
               <div className="overlay"></div>
-              <img  className="w-full h-full object-cover" src={backgroundImage} alt="Background"  />
+              <img className="h-full w-full" src={backgroundImage} alt="Background" />
               
-              <div className="absolute top-1/2 z-10 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
+              <div className="absolute z-20 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
                 <div className="flex flex-col md:gap-[5px] gap-1 items-end text-[2.8vw] md:text-[0.9vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
                   {tracks.map((track, index) => (
                     <div key={index} className="w-full text-right">
@@ -90,12 +103,12 @@ const MinySection = () => {
                 </div>
               </div>
               
-              <div className="absolute left-[8.5%] z-10 top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div className="absolute z-20 left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
                 <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
               </div>
               
               <div 
-                className="absolute left-2 top-1/2 z-10 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
+                className="absolute z-20 left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
                 style={{ 
                   top: `${topValue}%`,
                   transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
@@ -109,7 +122,7 @@ const MinySection = () => {
                 </div>
               </div>
               
-              <div className="absolute left-[7%] z-10 bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+              <div className="absolute z-20 left-[7%] bottom-[22%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
                 <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
               </div>
             </div>
