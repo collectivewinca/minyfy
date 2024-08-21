@@ -192,7 +192,7 @@ const Custom = () => {
         },
         body: JSON.stringify({
           model: 'dall-e-3',
-          prompt: 'create a uniform background image featuring music vinyls, make it vibrant and retro, and ensure it relates to music tracks',
+          prompt: 'create a uniform background image featuring music vinyls, make it vibrant and retro, and ensure it relates to music tracks and it should have real life feel',
           n: 1,
           size: '1024x1024',
         }),

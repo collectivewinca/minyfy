@@ -6,10 +6,9 @@ import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
 import { MdRocketLaunch } from "react-icons/md";
 import { useRouter } from 'next/router';
 import { db, auth, storage } from "@/firebase/config";
-import { collection, addDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -81,25 +80,6 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
     return canvas;
   };
 
-  const uploadImage = async (canvas) => {
-    try {
-      const imageData = canvas.toDataURL("image/png");
-      const base64Data = imageData.replace(/^data:image\/png;base64,/, "");
-      const buffer = Buffer.from(base64Data, 'base64');
-  
-      const fileName = `miny-${uuidv4()}.png`;
-      const imageRef = ref(storage, `aminy-generation/${fileName}`);
-      await uploadBytes(imageRef, buffer, { contentType: 'image/png' });
-  
-      const imageUrl = await getDownloadURL(imageRef);
-      return imageUrl;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      throw new Error("Image upload failed");
-    }
-  };
-  
-
   const saveToFirestore = async () => {
     if (!user) {
       await handleLogin();
@@ -124,31 +104,40 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
       // Generate the canvas
       const canvas = await createCanvas(trackDataContainerRef.current);
   
-      // Upload image and get URL
-      const imageUrl = await uploadImage(canvas);
+      // Convert canvas to base64
+      const imageData = canvas.toDataURL("image/png");
   
-      // Save to Firestore
-      const docRef = await addDoc(collection(db, "mixtapes"), {
-        name,
-        backgroundImage,
-        tracks: tracksWithYouTube,
-        date: formattedDate,
-        isFavorite,
-        userDisplayName: user.displayName || 'Anonymous',
-        userEmail: user.email,
-        imageUrl,
-        createdAt: serverTimestamp(),
+      // Send the image data to the server-side API
+      const response = await fetch('/api/save-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageData,
+          name,
+          backgroundImage,
+          tracks: tracksWithYouTube,
+          user,
+          isFavorite,
+          date: formattedDate,
+        }),
       });
   
-      setFinalImage(imageUrl);
-      onDocIdChange(docRef.id);
+      const data = await response.json();
+  
+      if (response.ok) {
+        setFinalImage(data.imageUrl);
+        onDocIdChange(data.docId);
+      } else {
+        throw new Error(data.message || 'Failed to save image');
+      }
     } catch (error) {
-      console.error("Error saving image:", error);
+      console.error("Error saving image: ", error);
     } finally {
       setLoading(false);
     }
   };
-  
   
 
 
@@ -207,7 +196,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
          
           
           <img  className="w-full h-full object-cover" 
-              src={backgroundImageSrc} 
+              src={backgroundImage} 
               alt="Background"  />
 
           <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
