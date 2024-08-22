@@ -247,3 +247,12 @@ body{
   aspect-ratio: cos(30deg);
   clip-path: polygon(-50% 50%,50% 100%,150% 50%,50% 0);
 }
+
+
+
+/* Optional: Remove any additional unwanted styles */
+.no-style * {
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+}
