@@ -260,6 +260,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
         <button
           onClick={saveToFirestore}
           className="bg-[#f48531] hover:opacity-80 text-sm shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-7 rounded-full"
+          disabled={loading}
         >
           <MdRocketLaunch className='text-lg' />{loading ? `Creating${dots}` : 'Create Mixtape'}
         </button>
