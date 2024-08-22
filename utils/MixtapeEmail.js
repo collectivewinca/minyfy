@@ -175,5 +175,8 @@ import {
   };
   
   const mixtapeImage = {
-    margin: "1.25rem 0"
+    margin: "1.25rem 0",
+    aspectRatio: "cos(30deg)",
+    objectFit: "cover",
+    clipPath: "polygon(-50% 50%,50% 100%,150% 50%,50% 0)",
   };

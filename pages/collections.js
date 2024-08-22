@@ -70,7 +70,7 @@ function Collections() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
               {images.map((image, index) => (
                 <div key={index} className="cursor-pointer transform transition-transform duration-300 hover:scale-105" onClick={() => openImageInNewTab(image.id)}>
-                  <img src={image.url} alt={`Image ${index + 1}`} className="w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360" />
+                  <img src={image.url} alt={`Image ${index + 1}`} className=" hex-alt w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360" />
                 </div>
               ))}
             </div>

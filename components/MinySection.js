@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { toBlob } from 'html-to-image';
-import download from 'downloadjs';
+
 import { toSvg, toCanvas } from 'html-to-image';
+import html2canvas from 'html2canvas';
 import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
 import { MdRocketLaunch } from "react-icons/md";
 import { useRouter } from 'next/router';
@@ -54,42 +54,62 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
   }, []);
 
   const createCanvas = async (node) => {
-    const isSafariOrChrome = /safari|chrome/i.test(navigator.userAgent) && !/android/i.test(navigator.userAgent);
-  
-    let dataUrl = "";
-    let canvas;
-    let i = 0;
-    let maxAttempts = isSafariOrChrome ? 5 : 1;
-    let cycle = [];
-    let repeat = true;
-  
-    while (repeat && i < maxAttempts) {
-      canvas = await toCanvas(node, {
-        fetchRequestInit: {
-          cache: "no-cache",
-        },
-        includeQueryParams: true,
-        quality: 1,
-      });
-      i += 1;
-      dataUrl = canvas.toDataURL("image/png");
-      cycle[i] = dataUrl.length;
-  
-      if (dataUrl.length > cycle[i - 1]) repeat = false;
-    }
-    console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
+    const canvas = await html2canvas(node, {
+      useCORS: true,
+      scale: 2,
+      allowTaint: true,
+      logging: false,
+    });
     return canvas;
   };
-
-  const uploadImage = async (canvas) => {
-    try {
-      const imageData = canvas.toDataURL("image/png");
-      const base64Data = imageData.replace(/^data:image\/png;base64,/, "");
-      const buffer = Buffer.from(base64Data, 'base64');
   
+  const drawHexagonClip = (context, width, height) => {
+    const sideLength = Math.min(width, height) / 3;
+    const hexHeight = sideLength * Math.sqrt(3) / 2;
+  
+    context.beginPath();
+    context.moveTo(width / 2, 0);
+    context.lineTo(width, hexHeight);
+    context.lineTo(width, height - hexHeight);
+    context.lineTo(width / 2, height);
+    context.lineTo(0, height - hexHeight);
+    context.lineTo(0, hexHeight);
+    context.closePath();
+  
+    context.clip();
+  };
+
+  const uploadImage = async () => {
+    if (trackDataContainerRef.current === null) return;
+    try {
+      const originalCanvas = await createCanvas(trackDataContainerRef.current);
+      const width = originalCanvas.width;
+      const height = originalCanvas.height;
+
+      // Create a new offscreen canvas
+      const hexCanvas = document.createElement("canvas");
+      hexCanvas.width = width;
+      hexCanvas.height = height;
+      const hexContext = hexCanvas.getContext("2d");
+
+      // Draw the hexagon clipping path
+      drawHexagonClip(hexContext, width, height);
+
+      // Draw the original canvas content into the hexagon-clipped canvas
+      hexContext.drawImage(originalCanvas, 0, 0);
+
+      // Convert the hexagon-clipped canvas to a Data URL
+      const dataUrl = hexCanvas.toDataURL("image/png");
+
+      // Convert Data URL to Blob
+      const blob = await (await fetch(dataUrl)).blob();
+      
+      // Create a storage reference
       const fileName = `miny-${uuidv4()}.png`;
       const imageRef = ref(storage, `aminy-generation/${fileName}`);
-      await uploadBytes(imageRef, buffer, { contentType: 'image/png' });
+      
+      // Upload the blob to Firebase Storage
+      await uploadBytes(imageRef, blob);
   
       const imageUrl = await getDownloadURL(imageRef);
       return imageUrl;
@@ -122,10 +142,8 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
       }));
   
       // Generate the canvas
-      const canvas = await createCanvas(trackDataContainerRef.current);
-  
       // Upload image and get URL
-      const imageUrl = await uploadImage(canvas);
+      const imageUrl = await uploadImage();
   
       // Save to Firestore
       const docRef = await addDoc(collection(db, "mixtapes"), {

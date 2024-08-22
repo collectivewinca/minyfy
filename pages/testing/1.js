@@ -1,9 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
-import download from 'downloadjs';
-import { FaDownload } from "react-icons/fa6";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/firebase/config";
+import { storage } from "@/firebase/config";
+import { v4 as uuidv4 } from 'uuid';
 
 const createCanvas = async (node) => {
   const canvas = await html2canvas(node, {
@@ -12,29 +11,29 @@ const createCanvas = async (node) => {
     allowTaint: true,
     logging: false,
   });
-
   return canvas;
 };
 
+const drawHexagonClip = (context, width, height) => {
+  const sideLength = Math.min(width, height) / 3;
+  const hexHeight = sideLength * Math.sqrt(3) / 2;
+
+  context.beginPath();
+  context.moveTo(width / 2, 0);
+  context.lineTo(width, hexHeight);
+  context.lineTo(width, height - hexHeight);
+  context.lineTo(width / 2, height);
+  context.lineTo(0, height - hexHeight);
+  context.lineTo(0, hexHeight);
+  context.closePath();
+
+  context.clip();
+};
+
 const MinySection = () => {
-  const [isFavorite, setIsFavorite] = useState(true);
-  const [width, setWidth] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const trackDataContainerRef = useRef(null);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setWidth(width);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const backgroundImage = 'https://minyfy.subwaymusician.xyz/4.png';
   const tracks = [
@@ -56,37 +55,42 @@ const MinySection = () => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
-  const handleDownload = async () => {
-    if (trackDataContainerRef.current === null) return;
-
-    try {
-      const canvas = await createCanvas(trackDataContainerRef.current);
-      const dataUrl = canvas.toDataURL("image/png");
-      download(dataUrl, 'my-miny-order.png');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleUpload = async () => {
     if (trackDataContainerRef.current === null) return;
 
     try {
-      const canvas = await createCanvas(trackDataContainerRef.current);
-      const dataUrl = canvas.toDataURL("image/png");
-      
+      const originalCanvas = await createCanvas(trackDataContainerRef.current);
+      const width = originalCanvas.width;
+      const height = originalCanvas.height;
+
+      // Create a new offscreen canvas
+      const hexCanvas = document.createElement("canvas");
+      hexCanvas.width = width;
+      hexCanvas.height = height;
+      const hexContext = hexCanvas.getContext("2d");
+
+      // Draw the hexagon clipping path
+      drawHexagonClip(hexContext, width, height);
+
+      // Draw the original canvas content into the hexagon-clipped canvas
+      hexContext.drawImage(originalCanvas, 0, 0);
+
+      // Convert the hexagon-clipped canvas to a Data URL
+      const dataUrl = hexCanvas.toDataURL("image/png");
+
       // Convert Data URL to Blob
       const blob = await (await fetch(dataUrl)).blob();
-      
+
       // Create a storage reference
-      const storageRef = ref(storage, `mixtapes/${name}_mixtape.png`);
-      
+      const fileName = `miny-${uuidv4()}.png`;
+      const storageRef = ref(storage, `mixtapes/${fileName}`);
+
       // Upload the blob to Firebase Storage
       await uploadBytes(storageRef, blob);
-      
+
       // Get the download URL
       const downloadUrl = await getDownloadURL(storageRef);
-      console.log("Uploaded  to Firebase Storage",downloadUrl);
+      console.log("Uploaded to Firebase Storage:", downloadUrl);
       setUploadedImageUrl(downloadUrl);
       setIsPopupOpen(true); // Open popup to show the uploaded image
 
@@ -100,7 +104,7 @@ const MinySection = () => {
       <div className='min-h-screen flex justify-center items-center border-none shadow-none'>
         <div className='py-7 md:w-[35%]'>
           <div ref={trackDataContainerRef} className='overflow-y-auto'>
-            <div className="relative z-10 cursor-pointer hex-alt ">
+            <div className="relative z-10 cursor-pointer hex-alt">
               <div className="overlay"></div>
               <img className="h-full w-full object-cover" src={backgroundImage} alt="Background" />
 
@@ -139,12 +143,6 @@ const MinySection = () => {
             </div>
           </div>
           <div className="mt-4 flex justify-center gap-4">
-            {/* <button
-              onClick={handleDownload}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-            >
-              <FaDownload className="mr-2" /> Download Image
-            </button> */}
             <button
               onClick={handleUpload}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center"
@@ -166,7 +164,7 @@ const MinySection = () => {
               &times;
             </button>
             {uploadedImageUrl && (
-              <img src={uploadedImageUrl} alt="Uploaded Mixtape" className="hex-alt h-[100vh] w-full object-contain" />
+              <img src={uploadedImageUrl} alt="Uploaded Mixtape" className="h-[100vh] w-full object-contain" />
             )}
           </div>
         </div>
