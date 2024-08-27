@@ -38,7 +38,10 @@ import {
                   Hi <strong>{displayName}</strong>,
                 </Text>
                 <Text style={paragraph}>
-                  We're excited to let you know that your MINY Mixtape has been created. Enjoy your curated selection of tracks!
+                Congratulations on creating your first mixtape with MINY! 🎉
+                </Text>
+                <Text style={paragraph}>
+                Your personalized mixtape is now ready to be shared with the world. Whether it's a collection of your favorite tracks or a musical journey for someone special, your mixtape is a reflection of your unique taste and creativity.
                 </Text>
                 <Img src={imageUrl} width="100%" alt="Mixtape Image" style={mixtapeImage} />
                 <Button style={button} href={shortenedLink}>
