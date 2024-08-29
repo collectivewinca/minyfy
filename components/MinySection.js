@@ -258,7 +258,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
                       </div>
                     </div>
             {/* Bottom-left text */}
-            <div className="absolute z-10 left-[7%] bottom-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+            <div className="absolute z-10 left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
 
