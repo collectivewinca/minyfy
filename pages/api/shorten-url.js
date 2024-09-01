@@ -4,20 +4,16 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { docId, customUrl } = req.body;
     console.log(docId, customUrl);
-    const url = 'https://api.short.io/links';
+    const url = 'https://go.minyvinyl.com/api/link/create';
     const options = {
       method: 'POST',
       headers: {
-        accept: 'application/json',
         'content-type': 'application/json',
-        Authorization: process.env.NEXT_PUBLIC_SHORT_IO_KEY
+        'authorization': `Bearer ${process.env.NEXT_PUBLIC_SINK_KEY}`
       },
       body: JSON.stringify({
-        domain: 'go.minyvinyl.com',
-        // cloaking: true,
-        originalURL: `https://minyfy.subwaymusician.xyz/play/${docId}`,
-        title: 'Minyfy',
-        ...(customUrl && { path: customUrl })
+        url: `https://minyfy.subwaymusician.xyz/play/${docId}`,
+        ...(customUrl && { slug: customUrl })
       })
     };
 

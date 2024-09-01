@@ -262,9 +262,6 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
               <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
             </div>
 
-        
-          
-          
         </div>
       </div>
 

@@ -148,19 +148,22 @@ function Lastfm() {
   };
 
   const isValidUrl = (url) => {
-    const urlPattern = /^[a-zA-Z0-9-_]+$/; // Adjust pattern as needed
+    // Pattern allows alphanumeric characters and dashes
+    const urlPattern = /^[a-zA-Z0-9-]+$/;
     return urlPattern.test(url);
   };
 
   const createShortUrl = async () => {
     const trimmedCustomUrl = customUrl.trim();
-    
+  
+    // Validate custom URL if provided
     if (trimmedCustomUrl && !isValidUrl(trimmedCustomUrl)) {
-      setErrorMessage("Invalid URL. Only alphanumeric characters, dashes, and underscores are allowed.");
+      setErrorMessage("Invalid URL. Only alphanumeric characters, dashes are allowed.");
       return;
     }
-
+  
     try {
+      // Send POST request to create short URL
       const response = await fetch('/api/shorten-url', {
         method: 'POST',
         headers: {
@@ -168,24 +171,59 @@ function Lastfm() {
         },
         body: JSON.stringify({ docId, customUrl: trimmedCustomUrl }),
       });
+  
       const json = await response.json();
-
-      if (json.error === "Link already exists") {
+  
+      if (response.status === 409) {
+        // Handle "Link already exists" error
         setErrorMessage("Link already exists. Please choose a different custom URL.");
         return;
+      } else if (!response.ok) {
+        // Handle other errors
+        setErrorMessage("Error creating short URL. Please try again.");
+        console.error('Error creating short URL:', json.message);
+        return;
       }
-
-      console.log(json);
-
-      // Update Firestore document with shortened link
+  
+      console.log('Short URL created successfully:', json);
+  
+      // Update Firestore document with the shortened link
       await updateDoc(doc(db, "mixtapes", docId), {
-        shortenedLink: json.shortURL
+        shortenedLink: `https://go.minyvinyl.com/${json.link.slug}` 
       });
-
-      // Redirect to the shortened URL
-      window.location.href = json.shortURL;
+  
+      // Send email with the shortened link
+      try {
+        const emailResponse = await fetch('/api/send-mixtape', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: inputValue,
+            imageUrl: finalImage,
+            shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,  // Ensure correct field
+            email: user.email,
+            displayName: user.displayName,
+          }),
+        });
+  
+        const emailJson = await emailResponse.json();
+        if (!emailResponse.ok) {
+          console.error('Error sending email:', emailJson.error);
+          setErrorMessage('Error sending email. Please try again.');
+          return;
+        }
+  
+        // Redirect to the shortened URL
+        window.location.href = `https://go.minyvinyl.com/${json.link.slug}`;
+      } catch (emailError) {
+        console.error('Error sending email:', emailError);
+        setErrorMessage('Error sending email. Please try again.');
+      }
     } catch (err) {
-      console.error('error:' + err);
+      console.error('Error creating short URL:', err);
+      setErrorMessage('An unexpected error occurred. Please try again.');
     }
   };
 
