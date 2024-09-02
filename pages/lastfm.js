@@ -196,26 +196,26 @@ function Lastfm() {
   
       // Send email with the shortened link
       try {
-        const emailResponse = await fetch('/api/send-mixtape', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: username,
-            imageUrl: finalImage,
-            shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,  // Ensure correct field
-            email: user.email,
-            displayName: user.displayName,
-          }),
-        });
+        // const emailResponse = await fetch('/api/send-mixtape', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({
+        //     name: username,
+        //     imageUrl: finalImage,
+        //     shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,  // Ensure correct field
+        //     email: user.email,
+        //     displayName: user.displayName,
+        //   }),
+        // });
   
-        const emailJson = await emailResponse.json();
-        if (!emailResponse.ok) {
-          console.error('Error sending email:', emailJson.error);
-          setErrorMessage('Error sending email. Please try again.');
-          return;
-        }
+        // const emailJson = await emailResponse.json();
+        // if (!emailResponse.ok) {
+        //   console.error('Error sending email:', emailJson.error);
+        //   setErrorMessage('Error sending email. Please try again.');
+        //   return;
+        // }
   
         // Redirect to the shortened URL
         window.location.href = `https://go.minyvinyl.com/${json.link.slug}`;
