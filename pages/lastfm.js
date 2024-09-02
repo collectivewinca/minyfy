@@ -6,7 +6,8 @@ import MinySection from '@/components/MinySection';
 import { FaLastfm } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db,storage } from "@/firebase/config";
 
 function Lastfm() {
   const [username, setUsername] = useState('');
@@ -17,6 +18,7 @@ function Lastfm() {
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("/img3.png");
   const [backgroundImageSrc, setBackgroundImageSrc] = useState("/img3.png");
+  const [finalImage, setFinalImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [docId, setDocId] = useState(null);
   const [showUrlInput, setShowUrlInput] = useState(false);
@@ -200,7 +202,7 @@ function Lastfm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            name: inputValue,
+            name: username,
             imageUrl: finalImage,
             shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,  // Ensure correct field
             email: user.email,
@@ -315,6 +317,7 @@ function Lastfm() {
             tracks={trackData} 
             backgroundImageSrc={backgroundImageSrc}
             onDocIdChange={handleDocIdChange}
+            setFinalImage={setFinalImage}
           />
           </div>
         )}

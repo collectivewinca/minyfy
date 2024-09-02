@@ -220,7 +220,7 @@ const Custom = () => {
           const blob = await apiResponse.blob();
           
           // Save image to Firebase Storage
-          const storage = getStorage();
+          
           const storageRef = ref(storage, `generated-images/${Date.now()}.jpg`);
           
           // Upload to Firebase Storage
