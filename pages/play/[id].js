@@ -15,6 +15,7 @@ import { toPng } from 'html-to-image';
 import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
 
+
 export async function getServerSideProps(context) {
   const { id } = context.params;
   let docData = null;
@@ -25,9 +26,9 @@ export async function getServerSideProps(context) {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      docData = docSnap.data();
+      const { createdAt, ...rest } = docSnap.data(); // Destructure to exclude createdAt
+      docData = rest; // Assign everything except createdAt to docData
       docId = id;
-      // console.log('Document id:', docId);
     } else {
       console.error("No such document!");
     }
@@ -42,6 +43,7 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
 
 const PlaylistPage = ({ docData, docId }) => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -419,6 +421,8 @@ const PlaylistPage = ({ docData, docId }) => {
             <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
             <FaShoppingCart className='md:text-3xl text-xl' /> Buy Your MINY
           </button>
+
+          
 
           <SocialShareButtons 
             shareUrl={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}

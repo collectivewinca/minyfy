@@ -47,7 +47,7 @@ const ImageGallery = () => {
               unoptimized={true}
               loading={index === 0 ? "eager" : "lazy"}
               alt={`Image ${startIndex + index + 1}`} 
-              className="w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360"
+              className="w-full h-auto rounded-lg  transition-all duration-500 ease-in-out  hover:rotate-360"
             />
           </div>
         ))}
