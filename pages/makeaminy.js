@@ -13,6 +13,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { MdModeEdit } from "react-icons/md";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
+import mixtapeNames from '@/utils/MixtapeNames';
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -42,11 +43,23 @@ const Custom = () => {
     setSelectedOption(event.target.value);
   };
 
+  
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+  }, []);
+
+  useEffect(() => {
+    // Initialize inputValue to a random name from the mixtapeNames list
+    const getRandomName = () => {
+      const randomIndex = Math.floor(Math.random() * mixtapeNames.length);
+      return mixtapeNames[randomIndex];
+    };
+
+    setInputValue(getRandomName());
   }, []);
 
   const handleInputChange = (event) => {
@@ -266,7 +279,7 @@ const Custom = () => {
           <img className="md:h-auto h-[15vh] w-full rounded-2xl" src="/loog.jpg" alt="" />
           <div className="cardContent shadow-md">
             <p className="text-white font-bold md:text-4xl text-xl tracking-wide md:pb-6 pb-2 font-jakarta absolute bottom-0 left-0 px-4 py-2">
-              Customize Your MINY
+            Create a Modern Day Mixtape. Share. Play.
             </p>
           </div>
       </div>
@@ -274,13 +287,13 @@ const Custom = () => {
         </div>
         <div className='flex flex-col md:flex-row gap-2 w-full mt-3'>
           <div className='flex flex-col justify-start w-full'>
-            <div className='font-jakarta md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium'>Approach for Building Playlist</div>
+            <div className='font-jakarta md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium'>Start creating your Mixtape here</div>
             <select
               className="px-5 py-3 font-thin font-mono bg-[#F4EFE6] md:text-lg text-sm text-neutral-500 rounded-xl"
               value={selectedOption}
               onChange={handleSelection}
             >
-              <option value="">Build Your Playlist...</option>
+              <option value="">Mixtape by Artist, Genre or Import...</option>
               <option value="searchArtist">Artists</option>
               <option value="tracks">Top Tracks This Week</option>
               <option value="import">Import Playlist - Spotify</option>
@@ -292,12 +305,12 @@ const Custom = () => {
           </div>
 
           <div className='flex flex-col justify-start w-full'>
-            <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Showcase Your Identity</div>
+            <div className='md:text-lg text-base mb-1 justify-start text-neutral-800 font-medium font-jakarta'>Personalize your Mixtape</div>
             <input
               className="px-5 placeholder:text-neutral-500 py-2 pb-[10px] md:text-lg text-sm font-mono text-neutral-500 bg-[#F4EFE6] rounded-xl"
               value={inputValue}
               onChange={handleInputChange}
-              placeholder='Add mixtape name to watermark the MINY...'
+              placeholder='Add mixtape name to watermark your MINY...'
             />
           </div>
         </div>

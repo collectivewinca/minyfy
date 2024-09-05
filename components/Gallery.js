@@ -97,7 +97,7 @@ const ImageGallery = () => {
       {renderImageSection("Top Mixtapes This Week", "Most popular tracks of the week", 0, 3)}
       {renderImageSection("Featured Artists", "Discover mixtapes from featured artists", 3, 6)}
       {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 7, 10)}
-      {renderImageSection("Featured Genres", "Discover mixtapes by genre", 11, 13)}
+      {renderImageSection("Featured Genres", "Discover mixtapes by genre", 11, 14)}
     </div>
   );
 };

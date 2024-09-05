@@ -74,14 +74,14 @@ body{
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  background: #000000;
-  min-width: 200px;
+  background: linear-gradient(to right, #ffdd59, #ff914b);
+
   border: 0;
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
   box-sizing: border-box;
   padding: 16px 28px;
-  color: #fff;
+  color: #000000;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.1px;

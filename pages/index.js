@@ -13,12 +13,13 @@ function Home() {
       <Header />
       <div className="container mx-auto px-4 my-6">
         <div className="w-full flex justify-center">
-          <div>
-              <button className="btn" onClick={() => {router.push("/makeaminy")}}><i className="animation"></i>
+            <div>
+              <div className="btn w-full   hex-alt" onClick={() => {router.push("/makeaminy")}}><i className="animation"></i>
              <IoRocketSharp className="text-xl" />
              Create A Mixtape<i className="animation"></i>
-              </button>
+              </div>
           </div>
+          
         </div>
         
         <div className="mt-8">
