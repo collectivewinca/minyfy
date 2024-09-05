@@ -151,7 +151,7 @@ const Custom = () => {
         }
   
         // Redirect to the shortened URL
-        window.location.href = `https://go.minyvinyl.com/${json.link.slug}`;
+        window.location.href = json.link.url;
       } catch (emailError) {
         console.error('Error sending email:', emailError);
         setErrorMessage('Error sending email. Please try again.');

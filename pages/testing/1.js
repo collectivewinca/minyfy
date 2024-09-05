@@ -35,7 +35,7 @@ const MinySection = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const trackDataContainerRef = useRef(null);
 
-  const backgroundImage = 'https://minyfy.subwaymusician.xyz/4.png';
+  const backgroundImage = 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/images%2F2RTSHUOUitZKHPe5tHz3%2FPlaylist_Bg%20(1).png?alt=media&token=547b8aab-174b-468c-aa0e-4c6b7051888e';
   const tracks = [
     "A Bar Song (Tipsy) - Shaboozey",
     "I Had Some Help (Feat. Morgan Wallen) - Post Malone",

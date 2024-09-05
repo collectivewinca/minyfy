@@ -4,7 +4,39 @@ import { db, auth, storage } from '@/firebase/config';
 import { collection, getDocs, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 import Header from '@/components/Header';
+import html2canvas from 'html2canvas';
+import { toCanvas } from 'html-to-image';
+
+const createCanvas = async (node) => {
+  const isSafariOrChrome = /safari|chrome/i.test(navigator.userAgent) && !/android/i.test(navigator.userAgent);
+
+  let dataUrl = "";
+  let canvas;
+  let i = 0;
+  let maxAttempts = isSafariOrChrome ? 5 : 1;
+  let cycle = [];
+  let repeat = true;
+
+  while (repeat && i < maxAttempts) {
+    canvas = await toCanvas(node, {
+      fetchRequestInit: {
+        cache: "no-cache",
+      },
+      includeQueryParams: true,
+      skipFonts: true,
+      quality: 1,
+    });
+    i += 1;
+    dataUrl = canvas.toDataURL("image/png");
+    cycle[i] = dataUrl.length;
+
+    if (dataUrl.length > cycle[i - 1]) repeat = false;
+  }
+  console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
+  return canvas;
+};
 
 function Admin() {
   const [user, setUser] = useState(null);
@@ -16,6 +48,17 @@ function Admin() {
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
   const router = useRouter();
+  const trackDataContainerRef = useRef(null);
+
+  const [backgroundImage, setBackgroundImage] = useState('https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/images%2F2RTSHUOUitZKHPe5tHz3%2FPlaylist_Bg%20(1).png?alt=media&token=547b8aab-174b-468c-aa0e-4c6b7051888e');
+  const [tracks, setTracks] = useState([]);
+  const [name, setName] = useState('');
+
+  const toSentenceCase = (str) => {
+    return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+  };
+
+
   const adminEmails = [
     'labh@collectivewin.ca',
     'hello@collectivewin.ca',
@@ -46,41 +89,75 @@ function Admin() {
       }));
       // Sort mixtapesData by date
       mixtapesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-      console.log(mixtapesData);
       setMixtapes(mixtapesData);
     } catch (error) {
       console.error("Error fetching mixtapes: ", error);
     }
   };
 
-  const handleDelete = async (id) => {
+  const findMixtapeById = (docID) => {
+    return mixtapes.find(mixtape => mixtape.id === docID);
+  };
+
+  const uploadImage = async () => {
+    if (trackDataContainerRef.current === null) return;
     try {
-      await deleteDoc(doc(db, "mixtapes", id));
-      setMixtapes(mixtapes.filter(mixtape => mixtape.id !== id));
+      const canvas = await createCanvas(trackDataContainerRef.current);
+      const dataUrl = canvas.toDataURL("image/png");
+      
+      // Convert Data URL to Blob
+      const blob = await (await fetch(dataUrl)).blob();
+      
+      // Create a storage reference
+      const fileName = `miny-${uuidv4()}.png`;
+      const imageRef = ref(storage, `aminy-generation/${fileName}`);
+      
+      // Upload the blob to Firebase Storage
+      await uploadBytes(imageRef, blob);
+  
+      const imageUrl = await getDownloadURL(imageRef);
+      return imageUrl;
     } catch (error) {
-      console.error("Error deleting document: ", error);
+      console.error("Error uploading image:", error);
+      throw new Error("Image upload failed");
     }
   };
 
   const handleUrlSubmit = async () => {
     const docID = docId.split('/').pop();
+    const mixtape = findMixtapeById(docID);
+
+    if (!mixtape) {
+      setError('Mixtape not found.');
+      return;
+    }
+
+    
+    setTracks(mixtape.tracks || []);
+    setName(mixtape.name || '');
+
     try {
       const docRef = doc(db, "mixtapes", docID);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         setError('');
-        // Allow user to upload image
         if (selectedFile) {
           setUploading(true);
           const storageRef = ref(storage, `images/${docID}/${selectedFile.name}`);
           await uploadBytes(storageRef, fileBlob);
           const downloadURL = await getDownloadURL(storageRef);
 
-          // Update the document with the new background image URL
-          await updateDoc(docRef, { backgroundImage: downloadURL });
+          setBackgroundImage(downloadURL || '');
+          
+          const screenshotUrl = await uploadImage(); // Screenshot URL
 
-          // Clear the input fields
+          // Update the document with the new background image and screenshot URL
+          await updateDoc(docRef, {
+            backgroundImage: downloadURL,
+            imageUrl: screenshotUrl // Store the screenshot URL in Firestore
+          });
+
           setDocId('');
           setSelectedFile(null);
           setFileBlob(null);
@@ -88,7 +165,7 @@ function Admin() {
             fileInputRef.current.value = '';
           }
           setUploading(false);
-          alert('Background image updated successfully!');
+          alert('Background image and screenshot updated successfully!');
         } else {
           setError('Please select a file to upload.');
         }
@@ -140,6 +217,7 @@ function Admin() {
           </button>
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
+
         <table className="min-w-full bg-white">
           <thead>
             <tr>
@@ -148,17 +226,19 @@ function Admin() {
               <th className="py-2 px-4 border-b">Date</th>
               <th className="py-2 px-4 border-b">User Email</th>
               <th className="py-2 px-4 border-b">Image Url</th>
+              <th className="py-2 px-4 border-b">Bg Url</th>
               <th className="py-2 px-4 border-b">Actions</th>
             </tr>
           </thead>
           <tbody>
             {mixtapes.map((mixtape) => (
               <tr key={mixtape.id}>
-                <td className="py-2 px-4 border-b underline cursor-pointer" onClick={() => window.open(`/play/${mixtape.id}`, '_blank')}>Visit</td>
+                <td className="py-2 px-4 border-b underline cursor-pointer" onClick={() => window.open(`https://minyfy.subwaymusician.xyz/play/${mixtape.id}`, '_blank')}>Visit</td>
                 <td className="py-2 px-4 border-b">{mixtape.name}</td>
                 <td className="py-2 px-4 border-b">{mixtape.date}</td>
                 <td className="py-2 px-4 border-b">{mixtape.userEmail}</td>
                 <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.imageUrl} target="_blank">view</a></td>
+                <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.backgroundImage} target="_blank">view</a></td>
                 <td className="py-2 px-4 border-b">
                   <button
                     onClick={() => handleDelete(mixtape.id)}
@@ -172,6 +252,55 @@ function Admin() {
           </tbody>
         </table>
       </div>
+          
+          <div className="md:w-[40%] mx-auto">
+          {backgroundImage && tracks && (<>
+              <div ref={trackDataContainerRef} className='overflow-y-auto'>
+                  <div className="relative z-10 cursor-pointer hex-alt">
+                    <div className="overlay"></div>
+                    <img className="h-full w-full object-cover" src={backgroundImage} alt="Background" />
+
+                    <div className="absolute z-20 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
+                      <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
+                        {tracks.map((track, index) => (
+                          <div key={index} className="w-full text-right">
+                            {toSentenceCase(track.track.length > 35 ? `${track.track.slice(0, 35)}..` : track.track)}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="absolute z-20 left-[8.5%] top-[21%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+                      <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
+                    </div>
+
+                    <div
+                      className="absolute z-20 left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
+                      style={{
+                        top: `${42 - name.length * 0.45}%`,
+                        transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
+                        transformOrigin: "",
+                        textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
+                      }}
+                    >
+                      <div className="whitespace-nowrap">
+                        MINY MIXTAPE :
+                        <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+                      </div>
+                    </div>
+
+                    <div className="absolute z-20 left-[7%] bottom-[23%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg)", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
+                      <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
+                    </div>
+                  </div>
+                </div>
+            
+            </>)}
+          </div>
+      
+      
+      
+      
     </>
   );
 }
