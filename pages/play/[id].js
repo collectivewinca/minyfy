@@ -487,11 +487,12 @@ const PlaylistPage = ({ docData, docId }) => {
             </button>
             {/* <PinterestShareButton
               url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
-              media={imageUrl}
+              media={`https://i.ibb.co/CVZW3rr/Daniel-Daniel-mixtape.png`}
               description="Check out my Latest Mixtape on Miny Vinyl"
             >
               <PinterestIcon size={32} round />
             </PinterestShareButton> */}
+
             
             
           </div>
