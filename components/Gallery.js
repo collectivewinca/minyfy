@@ -61,6 +61,66 @@ const images = [
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
     link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73'
+  },
+   {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    link: 'https://minyfy.subwaymusician.xyz/play/k0KjOatJ2lZG7oxQ83W6'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73'
+  },
+   {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    link: 'https://minyfy.subwaymusician.xyz/play/k0KjOatJ2lZG7oxQ83W6'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73'
+  },
+   {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    link: 'https://minyfy.subwaymusician.xyz/play/k0KjOatJ2lZG7oxQ83W6'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73'
+  },
+   {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    link: 'https://minyfy.subwaymusician.xyz/play/k0KjOatJ2lZG7oxQ83W6'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73'
+  },
+   {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    link: 'https://minyfy.subwaymusician.xyz/play/k0KjOatJ2lZG7oxQ83W6'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73'
   }
   
 ];
@@ -98,6 +158,12 @@ const ImageGallery = () => {
       {renderImageSection("Featured Artists", "Discover mixtapes from featured artists", 3, 6)}
       {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 7, 10)}
       {renderImageSection("Featured Genres", "Discover mixtapes by genre", 11, 14)}
+{renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 15, 18)}
+{renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 19, 22)}
+{renderImageSection("Featured from New York", "Discover mixtapes from artists in New York", 23, 26)}
+{renderImageSection("Featured from Austin, Texas", "Discover mixtapes from artists in Austin, Texas", 27, 30)}
+{renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 31, 34)}
+
     </div>
   );
 };
