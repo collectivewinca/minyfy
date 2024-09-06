@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/__/auth/:path*",
+      "destination": "https://subway-musician-564bd.firebaseapp.com/__/auth/:path*"
+    }
+  ]
+}
