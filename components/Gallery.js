@@ -9,8 +9,8 @@ const images = [
 
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-686cc899-48b6-42bb-b474-77f05f668731.png?alt=media&token=b94c09b2-0894-430b-b622-a20bf912e5ca',
-    link: 'https://go.minyvinyl.com/septpick',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-ffdfa175-dd5f-4fd9-8e63-8d658add631b.png?alt=media&token=70216cab-3124-4430-b03a-88e56f255b0c',
+    link: 'https://go.minyvinyl.com/offplaylist1',
     label: 'Top Mixtape 2'
   },
   {
@@ -59,13 +59,13 @@ const images = [
     label: 'Featured Genre 2'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-4dbbf2a4-2e41-49f1-92d4-a926b3401477.png?alt=media&token=34592d00-8d90-44b1-a9a8-8ae4dbd5d754',
     link: 'https://go.minyvinyl.com/thealgorithm',
     label: 'Featured Genre 3'
   },
    {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
-    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-d7878677-5964-4244-be2f-62ce4ea3a0f2.png?alt=media&token=1d8ecf03-3ffd-4e52-a148-1c134ed66e8d',
+    link: 'https://go.minyvinyl.com/hbdruku',
     label: 'Featured Genre 3' 
   },
   {
