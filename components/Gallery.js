@@ -49,7 +49,7 @@ const images = [
     label: 'Featured Curator 3'
   },
    {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-4b9e6096-635b-4bd1-8260-98f06d49b045.png?alt=media&token=22fed9ca-0ba7-4f8f-82cb-263cf5ed9fca',
     link: 'https://go.minyvinyl.com/sweetrap'
     label: 'Featured Genre 1'
   },
