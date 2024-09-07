@@ -64,7 +64,7 @@ const images = [
     label: 'Featured Genre 1'
   },
    {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-fbce2fc0-ae5b-4807-9700-59f796329157.png?alt=media&token=1dc8efb5-1509-4755-a919-ac3ea74f8e04',
     link: 'https://go.minyvinyl.com/BedroomBeats',
     label: 'Featured Genre 2' 
   },
@@ -89,28 +89,28 @@ const images = [
     label: 'Live Performer 2'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-31eef8f3-77e1-4b43-971a-9c29c2480a57.png?alt=media&token=6af58e5d-a424-492d-a672-ab610dc5fc51',
-    link: 'https://go.minyvinyl.com/tracyten',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6e402d96-8d3c-49ae-ba0b-4b151957d1d6.png?alt=media&token=3b8a2b00-8d6c-4021-9d07-fd246344c9b9',
+    link: 'https://go.minyvinyl.com/julumixy',
     label: 'Live Performer 3'
   },
    {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
-    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-67de979a-bd8c-490c-b291-259856593f99.png?alt=media&token=6e4b969a-93fc-4867-b701-bb4ebb71f0c7',
+    link: 'https://go.minyvinyl.com/afrodomini',
     label: 'Subway Musician 1'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
-    link: 'https://minyfy.subwaymusician.xyz/play/k0KjOatJ2lZG7oxQ83W6',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-0d1d312c-1740-4d48-8e44-1b58fe62d1e6.png?alt=media&token=7a66df7d-678e-49a2-ba7c-2d3f884b4a57',
+    link: 'https://go.minyvinyl.com/galdort',
     label: 'Subway Musician 2'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
-    link: 'https://minyfy.subwaymusician.xyz/play/Y8gzr3Mid7DI0OqaRV73',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-93727014-df05-4553-86ef-15ad59ec27b0.png?alt=media&token=89e51498-ac38-4f54-83a7-7fb17df56e3c',
+    link: 'https://go.minyvinyl.com/thebluedalhia',
     label: 'Subway Musician 3'
   },
    {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
-    link: 'https://minyfy.subwaymusician.xyz/play/n7ff7fFKLVIRl7ITw8n2',
+    imageUrl: 'https://minyfy.subwaymusician.xyz/6.png',
+    link: 'https://minyfy.subwaymusician.xyz/play/75c2jQVezsGYkC5qS6TH',
     label: 'Subway Musician 4'
   },
   {
