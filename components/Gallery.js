@@ -136,7 +136,7 @@ const images = [
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-9514a0f7-ccfe-4597-8a88-fbbb3bfa4545.png?alt=media&token=bae868f1-00d7-407a-b068-738835dabad6',
     link: 'https://go.minyvinyl.com/avarafusion',
-    label: 'Austin 1'
+    label: 'Austin 0'
   },
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-ee193071-c4c7-4c43-a418-216a4787dae8.png?alt=media&token=07418778-b794-43f9-a056-98c7a9c2a5a3',
@@ -149,9 +149,9 @@ const images = [
     label: 'Austin 3'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-ccd157f7-c863-48f3-88f6-2d9e0671e598.png?alt=media&token=d87cda58-15b2-4c40-b8a2-846dbf4a2336',
-    link: 'https://go.minyvinyl.com/ingentyler',
-    label: 'Chicago 1'
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-9514a0f7-ccfe-4597-8a88-fbbb3bfa4545.png?alt=media&token=bae868f1-00d7-407a-b068-738835dabad6',
+    link: 'https://go.minyvinyl.com/avarafusion',
+    label: 'Austin 1'
   },
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-d63e6e08-9bff-4be5-88b7-1648a48ac4e1.png?alt=media&token=94affed7-78f6-49c2-9e22-821974a82902',
