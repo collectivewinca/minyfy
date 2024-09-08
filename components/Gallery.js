@@ -139,7 +139,7 @@ const images = [
     label: 'Austin 1'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6051bfd9-30c4-4ce4-8c01-ae2f27b211c2.png?alt=media&token=638bf1a0-1274-459c-92e6-e64640856020',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-ee193071-c4c7-4c43-a418-216a4787dae8.png?alt=media&token=07418778-b794-43f9-a056-98c7a9c2a5a3',
     link: 'https://go.minyvinyl.com/chakeeta',
     label: 'Austin 2'
   },
@@ -156,16 +156,21 @@ const images = [
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-d63e6e08-9bff-4be5-88b7-1648a48ac4e1.png?alt=media&token=94affed7-78f6-49c2-9e22-821974a82902',
     link: 'https://go.minyvinyl.com/taiingen',
-    label: 'Chicago 2'
+    label: 'Chicago 0'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-bb2bb513-f01e-4f29-a693-97fe12abb330.png?alt=media&token=6b3febd2-95f9-44fd-90e5-bbacac04803b',
-    link: 'https://go.minyvinyl.com/weekes',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-d63e6e08-9bff-4be5-88b7-1648a48ac4e1.png?alt=media&token=94affed7-78f6-49c2-9e22-821974a82902',
+    link: 'https://go.minyvinyl.com/taiingen',
     label: 'Chicago 2'
   },
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-226167a8-bb8a-4247-b051-e6f404cd0a16.png?alt=media&token=40f058c5-71c7-4770-9cfd-9ddf1336fd28',
     link: 'https://go.minyvinyl.com/buggin',
+    label: 'Chicago 3'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-ccd157f7-c863-48f3-88f6-2d9e0671e598.png?alt=media&token=d87cda58-15b2-4c40-b8a2-846dbf4a2336',
+    link: 'https://go.minyvinyl.com/ingentyler',
     label: 'Chicago 3'
   }
   
