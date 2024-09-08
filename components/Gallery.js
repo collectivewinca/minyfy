@@ -116,20 +116,25 @@ const images = [
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-bb2bb513-f01e-4f29-a693-97fe12abb330.png?alt=media&token=6b3febd2-95f9-44fd-90e5-bbacac04803b',
     link: 'https://go.minyvinyl.com/weekes',
-    label: 'New York 1'
+    label: 'New York 0'
   },
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-017812c8-1e43-4ccd-8291-8ddcbec6bdcb.png?alt=media&token=8b5e6fc2-74c8-4f88-950a-112600d14301',
     link: 'https://go.minyvinyl.com/harrisblend',
-    label: 'New York 2'
+    label: 'New York 1'
   },
    {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-afa2ca16-c3bb-44ff-9904-2dcf396b9a1f.png?alt=media&token=29431cd9-caab-4080-9a84-64e21549672c',
     link: 'https://go.minyvinyl.com/canorush',
+    label: 'New York 2'
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-bb2bb513-f01e-4f29-a693-97fe12abb330.png?alt=media&token=6b3febd2-95f9-44fd-90e5-bbacac04803b',
+    link: 'https://go.minyvinyl.com/weekes',
     label: 'New York 3'
   },
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-edca1ab3-74b6-473b-a6f2-d2b9acc8606a.png?alt=media&token=d07e0600-0d7f-4f48-ba8b-c4259150b3cc',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-9514a0f7-ccfe-4597-8a88-fbbb3bfa4545.png?alt=media&token=bae868f1-00d7-407a-b068-738835dabad6',
     link: 'https://go.minyvinyl.com/avarafusion',
     label: 'Austin 1'
   },
@@ -139,7 +144,7 @@ const images = [
     label: 'Austin 2'
   },
    {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-5e21563c-987d-469b-a958-f5b38b876f72.png?alt=media&token=c03a4464-44a2-4d86-9854-a4d8397f4815',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-fa3697a9-ecbb-4f6b-adf7-8e0579112de8.png?alt=media&token=008ce4de-5e9e-4d85-b591-260e4d3f0517',
     link: 'https://go.minyvinyl.com/curtis',
     label: 'Austin 3'
   },
@@ -152,8 +157,12 @@ const images = [
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-d63e6e08-9bff-4be5-88b7-1648a48ac4e1.png?alt=media&token=94affed7-78f6-49c2-9e22-821974a82902',
     link: 'https://go.minyvinyl.com/taiingen',
     label: 'Chicago 2'
-  }
-  ,
+  },
+  {
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-bb2bb513-f01e-4f29-a693-97fe12abb330.png?alt=media&token=6b3febd2-95f9-44fd-90e5-bbacac04803b',
+    link: 'https://go.minyvinyl.com/weekes',
+    label: 'Chicago 2'
+  },
   {
     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-226167a8-bb8a-4247-b051-e6f404cd0a16.png?alt=media&token=40f058c5-71c7-4770-9cfd-9ddf1336fd28',
     link: 'https://go.minyvinyl.com/buggin',
