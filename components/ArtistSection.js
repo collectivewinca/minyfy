@@ -115,10 +115,38 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
-  const handleArtistSelection = (artistId, artistName) => {
-    setSelectedArtist(artistName);
-    setSearchResults([]); // Clear search results after selection
-    fetchTopTracks(artistId);
+  // Handle selecting an artist from Last.fm's top artists
+  const handleArtistSelection = async (artistName) => {
+    const token = await getAccessToken();
+    if (!token) {
+      setError('Unable to get Spotify access token.');
+      return;
+    }
+
+    const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(artistName)}&type=artist&limit=1`;
+  
+    try {
+      const response = await axios.get(searchUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const artist = response.data.artists.items[0];
+      if (!artist) {
+        setError(`No Spotify artist found for ${artistName}`);
+        setTopTracks([]);
+        return;
+      }
+
+      const artistId = artist.id;
+      fetchTopTracks(artistId);
+      setSelectedArtist(artistName); // Display the artist name in the UI
+      setError('');
+    } catch (error) {
+      console.error('Error fetching artist from Spotify:', error);
+      setError('Error fetching artist from Spotify.');
+    }
   };
 
   const handleInputChange = (event) => {
@@ -148,7 +176,7 @@ const ArtistSection = ({ onTracksChange }) => {
             <li key={artist.name} className=''>
               <button
                 className="cursor-pointer rounded-full text-sm font-jakarta  bg-[#F4EFE6] px-4 text-neutral-700   font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
-                onClick={() => handleArtistSelection(artist.name, artist.name)}
+                onClick={() => handleArtistSelection(artist.name)}
               >
                 {artist.name}
               </button>
@@ -186,7 +214,7 @@ const ArtistSection = ({ onTracksChange }) => {
               <li key={artist.id} className=''>
                 <button
                   className="cursor-pointer rounded-full text-sm font-jakarta bg-[#F4EFE6] px-4 text-neutral-700 font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
-                  onClick={() => handleArtistSelection(artist.id, artist.name)}
+                  onClick={() => handleArtistSelection(artist.name)}
                 >
                   {artist.name}
                 </button>
