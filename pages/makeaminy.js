@@ -17,7 +17,7 @@ import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
 import mixtapeNames from '@/utils/MixtapeNames';
 
 const Custom = () => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState('customize');
   const [inputValue, setInputValue] = useState('');
   const [backgroundImage, setBackgroundImage] = useState('/6.png');
   const [backgroundImageSrc, setBackgroundImageSrc] = useState("/6.png");
@@ -294,13 +294,13 @@ const Custom = () => {
               value={selectedOption}
               onChange={handleSelection}
             >
-              <option value="">Mixtape by Artist, Genre or Import...</option>
+              <option value="customize">Create personal MINY 📼
+              </option>
               <option value="searchArtist">Artists</option>
               <option value="tracks">Top Tracks This Week</option>
               <option value="import">Import Playlist - Spotify</option>
               <option value="apple">Import Playlist - Apple Music</option>
               <option value="discogs">Import Playlist - Discogs</option>
-              <option value="customize">Customize MINY</option>
               <option value="genre">Genres</option>
               
             </select>
