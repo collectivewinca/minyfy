@@ -42,11 +42,15 @@ const ImportDiscogPlaylist = ({ onTracksChange }) => {
       const albumDetails = await getAlbumDetails(album.id);
       if (albumDetails.tracklist && albumDetails.tracklist.length > 0) {
         setSelectedDiscosAlbum(albumDetails);
-
-        // Extract and format track titles
-        const formattedTracks = albumDetails.tracklist.map(track => track.title);
+  
+        // Extract and format track titles along with artist names
+        const formattedTracks = albumDetails.tracklist.map(track => {
+          const artistName = albumDetails.artists?.[0]?.name || 'Unknown Artist'; // Fallback to 'Unknown Artist' if undefined
+          return `${track.title} - ${artistName}`;
+        });
+  
         setAllTracks(formattedTracks);
-
+  
         // Preselect up to 10 tracks
         const initialSelectedTracks = formattedTracks.slice(0, 10);
         setSelectedTracks(initialSelectedTracks);
@@ -59,6 +63,7 @@ const ImportDiscogPlaylist = ({ onTracksChange }) => {
       setError('Failed to fetch album details. Please try again.');
     }
   };
+  
 
   const toggleTrack = (track) => {
     if (selectedTracks.includes(track)) {
@@ -178,7 +183,7 @@ const ImportDiscogPlaylist = ({ onTracksChange }) => {
                 >
                   <PiMusicNoteFill className='md:text-2xl text-lg' />
                 </button>
-                <div className='font-base font-jakarta md:text-xl text-sm'>{track} - {selectedDiscosAlbum.artists[0]?.name}</div>
+                <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
               </li>
             ))}
           </ul>
