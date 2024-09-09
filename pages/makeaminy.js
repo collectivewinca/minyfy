@@ -5,6 +5,7 @@ import ArtistSection from '@/components/ArtistSection';
 import TagSection from '@/components/TagSection';
 import MinySection from '@/components/MinySection';
 import ImportPlaylist from '@/components/ImportPlaylist';
+import ImportDiscogPlaylist from '@/components/ImportDiscogPlaylist';
 import CustomTrack from '@/components/CustomTrack';
 import { FaArrowUp } from "react-icons/fa6";
 import { updateDoc, doc } from "firebase/firestore";
@@ -298,6 +299,7 @@ const Custom = () => {
               <option value="tracks">Top Tracks This Week</option>
               <option value="import">Import Playlist - Spotify</option>
               <option value="apple">Import Playlist - Apple Music</option>
+              <option value="discogs">Import Playlist - Discogs</option>
               <option value="customize">Customize MINY</option>
               <option value="genre">Genres</option>
               
@@ -389,6 +391,10 @@ const Custom = () => {
 
         {selectedOption === 'apple' && (
           <ImportAppleMusicPlaylist onTracksChange={handleTracksChange} />
+        )}
+
+        {selectedOption === 'discogs' && (
+          <ImportDiscogPlaylist onTracksChange={handleTracksChange} />
         )}
       </div>
 

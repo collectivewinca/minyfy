@@ -15,6 +15,7 @@
     "canvas": "^2.11.2",
     "cookie": "^0.6.0",
     "crypto": "^1.0.1",
+    "discogs-client": "^0.5.1",
     "dom-to-image-more": "^3.3.1",
     "downloadjs": "^1.4.7",
     "firebase": "^10.12.3",
