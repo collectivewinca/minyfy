@@ -15,6 +15,7 @@ import { MdModeEdit } from "react-icons/md";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
 import mixtapeNames from '@/utils/MixtapeNames';
+import ImportYoutubePlaylist from '@/components/ImportYoutubePlaylist';
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('customize');
@@ -299,6 +300,7 @@ const Custom = () => {
               <option value="searchArtist">Artists</option>
               <option value="tracks">Top Tracks This Week</option>
               <option value="import">Import Playlist - Spotify</option>
+              <option value="youtube">Import Playlist - YouTube</option>
               <option value="apple">Import Playlist - Apple Music</option>
               <option value="discogs">Import Playlist - Discogs</option>
               <option value="genre">Genres</option>
@@ -391,6 +393,10 @@ const Custom = () => {
 
         {selectedOption === 'apple' && (
           <ImportAppleMusicPlaylist onTracksChange={handleTracksChange} />
+        )}
+
+        {selectedOption === 'youtube' && (
+          <ImportYoutubePlaylist onTracksChange={handleTracksChange} />
         )}
 
         {selectedOption === 'discogs' && (
