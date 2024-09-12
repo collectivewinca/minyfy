@@ -58,6 +58,8 @@ function Admin() {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
+  consoleo.log("Minys:", mixtapes);
+
 
   const adminEmails = [
     'labh@collectivewin.ca',
