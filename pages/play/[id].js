@@ -14,20 +14,24 @@ import { toBlob, toCanvas } from 'html-to-image';
 import { toPng } from 'html-to-image';
 import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
+import CommentSection from '@/components/CommentSection';
 
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
   let docData = null;
   let docId = null;
+  let initialComments = [];
 
   try {
+    // Fetch the main document
     const docRef = doc(db, 'mixtapes', id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const { createdAt, ...rest } = docSnap.data(); // Destructure to exclude createdAt
+      const { createdAt, comments: commentsData = [], ...rest } = docSnap.data(); // Destructure to exclude createdAt and get comments
       docData = rest; // Assign everything except createdAt to docData
+      initialComments = commentsData; // Default to empty array if comments field is missing
       docId = id;
     } else {
       console.error("No such document!");
@@ -40,20 +44,20 @@ export async function getServerSideProps(context) {
     props: {
       docData,
       docId,
+      initialComments,
     },
   };
 }
 
 
-const PlaylistPage = ({ docData, docId }) => {
+
+
+const PlaylistPage = ({ docData, docId, initialComments }) => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
   const [showBuyNow, setShowBuyNow] = useState(false);
   const [showPledgeForm, setShowPledgeForm] = useState(false);
   const [user, setUser] = useState(null);
-  const playerRef = useRef(null);
-  const router = useRouter();
-  const trackDataContainerRef = useRef(null);
   const [formData, setFormData] = useState({
     title: docData?.name || '',
     userName: '',
@@ -70,7 +74,13 @@ const PlaylistPage = ({ docData, docId }) => {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [isPledgeTaken, setIsPledgeTaken] = useState(false);
-  const [ backgroundImageSrc, setBackgroundImageSrc ] = useState(null);
+  const [comments, setComments] = useState(initialComments);
+  const [currentTrackName, setCurrentTrackName] = useState(docData?.tracks[0]?.track || ''); // New state for track name
+  const playerRef = useRef(null);
+  const router = useRouter();
+  const trackDataContainerRef = useRef(null);
+  const [displayName, setDisplayName] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
   
 
   const handleLogin = async () => {
@@ -80,17 +90,22 @@ const PlaylistPage = ({ docData, docId }) => {
       const user = result.user;
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
-      
-      // Update formData with user's name and email
-      setFormData(prevData => ({
-        ...prevData,
-        userName: user.displayName || '',
-        email: user.email || ''
-      }));
+  
+      // Ensure user is not null before accessing its properties
+      if (user) {
+        setFormData(prevData => ({
+          ...prevData,
+          userName: user.displayName || '',
+          email: user.email || ''
+        }));
+        setDisplayName(user.displayName || '');
+        setAvatarUrl(user.photoURL || '');
+      }
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
   };
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -102,12 +117,15 @@ const PlaylistPage = ({ docData, docId }) => {
           userName: currentUser.displayName || '',
           email: currentUser.email || ''
         }));
+        setDisplayName(currentUser.displayName || '');
+        setAvatarUrl(currentUser.photoURL || '');
       }
     });
   
     return () => unsubscribe();
-  }, []);
-
+  }, []); // Ensure the dependencies are correct here
+  
+  console.log(comments);
   
 
   const areFieldsFilled = () => {
@@ -277,6 +295,7 @@ const PlaylistPage = ({ docData, docId }) => {
 
   const handleTrackClick = (index) => {
     setCurrentTrackIndex(index);
+    setCurrentTrackName(docData.tracks[index]?.track || ''); // Update current track name
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -378,6 +397,7 @@ const PlaylistPage = ({ docData, docId }) => {
   const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink} = docData;
   const description = `Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
   const topValue = 42 - name.length * 0.4;
+
 
   return (
     <>
@@ -495,6 +515,10 @@ const PlaylistPage = ({ docData, docId }) => {
 
             
             
+          </div>
+
+          <div>
+          <CommentSection comments={comments} displayName={displayName} avatarUrl={avatarUrl} handleLogin={handleLogin} currentTrackName={currentTrackName} setComments={setComments} docId={docId}  />
           </div>
 
         </div>
