@@ -35,7 +35,7 @@ const TrackList = ({ tracks, currentTrackIndex, handleTrackClick, comments }) =>
   };
 
   return (
-    <div className="flex flex-col md:gap-[5px] px-1 gap-[3.5px] items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base text-neutral-300 tracking-wider">
+    <div className="flex flex-col px-1 c1 items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base text-neutral-300 tracking-wider">
       {tracks.map((track, index) => {
         const { totalCount, counts } = getCommentCounts(track.track);
         const icons = renderCommentIcons(counts);

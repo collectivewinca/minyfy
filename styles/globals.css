@@ -266,3 +266,13 @@ body{
 .blink {
   animation: blink 1.5s infinite;
 }
+
+.c1 {
+  gap: 2.3px;
+}
+
+@media (min-width: 768px) {
+  .c1 {
+    gap: 5px;
+  }
+}
