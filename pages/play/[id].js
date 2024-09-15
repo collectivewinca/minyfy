@@ -15,6 +15,7 @@ import { toPng } from 'html-to-image';
 import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
 import CommentSection from '@/components/CommentSection';
+import TrackList from '@/utils/TrackList';
 
 
 export async function getServerSideProps(context) {
@@ -451,12 +452,21 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
           <div id="player" className='w-full max-w-4xl mx-auto aspect-video mb-6 mt-2 shadow shadow-neutral-600'>
             {!isYouTubeApiReady && <div>Loading player...</div>}
-          </div>
+          </div> 
 
-          
-          
-          <div ref={trackDataContainerRef} className='overflow-y-auto w-full md:w-[60%] '>
-            <div className="relative cursor-pointer shadow shadow-white hex-alt ">
+          <div className="relative w-full  md:px-0  md:w-[60%]">
+          <div className="absolute left-0 md:left-5 top-0 w-full h-full bg-transparent rounded-lg">
+          <div className="absolute  z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-9">
+              <TrackList
+                tracks={tracks}
+                currentTrackIndex={currentTrackIndex}
+                handleTrackClick={handleTrackClick}
+                comments={comments}
+              />
+          </div>
+          </div>
+          <div ref={trackDataContainerRef} className='relative pr-12 md:pr-0 z-10 overflow-y-auto w-full '>
+            <div className="relative cursor-pointer hex-alt ">
               <div className="overlay"></div>
               <img  className="w-full h-full object-cover" src={backgroundImage} alt="Background"  />
               <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
@@ -500,6 +510,10 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             </div>
             
           </div>
+          </div>
+          
+          
+          
           <div className='flex items-center gap-2 mt-3 mb-3'>
             <button onClick={handleDownloadImage} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
               <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
