@@ -713,7 +713,7 @@ const CommentSection = ({
                           dateTime={reply.date}
                           title={reply.date}
                         >
-                          {formatDate(comment.date)}
+                          {formatDate(reply.date)}
                         </time>
                       </div>
                     </div>
