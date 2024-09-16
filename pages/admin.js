@@ -58,7 +58,8 @@ function Admin() {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
-  console.log("Minys:", mixtapes);
+  console.log("Minys:", mixtapes.map(({ tracks, ...rest }) => rest));
+
 
 
   const adminEmails = [
