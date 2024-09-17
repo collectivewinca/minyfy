@@ -150,6 +150,32 @@ const CommentSection = ({
     }
   };
 
+  const handleRemoveComment = async (commentId) => {
+    if (!displayName) {
+      handleLogin();
+      return;
+    }
+
+    const commentToRemove = comments.find(comment => comment.id === commentId);
+    if (!commentToRemove || commentToRemove.author !== displayName) {
+      alert("You can only remove your own comments.");
+      return;
+    }
+
+    const updatedComments = comments.filter(comment => comment.id !== commentId);
+    setComments(updatedComments);
+
+    try {
+      const docRef = doc(db, 'mixtapes', docId);
+      await updateDoc(docRef, {
+        comments: updatedComments,
+      });
+    } catch (error) {
+      console.error('Error removing comment from Firestore: ', error);
+      alert('Failed to remove comment. Please try again.');
+    }
+  };
+
   const handleReplyClick = (commentId) => {
     setReplyingTo((prevReplyingTo) =>
       prevReplyingTo === commentId ? null : commentId
@@ -640,20 +666,20 @@ const CommentSection = ({
                     <div className="absolute right-0 mt-1 rounded bg-neutral-700 divide-neutral-600 z-10">
                       <ul className="py-1 text-sm text-neutral-200">
                         <li>
-                          <a
-                            href="#"
-                            className="block py-2 px-4 hover:bg-neutral-600 hover:text-red-400"
+                          <div
+                            onClick={() => handleRemoveComment(comment.id)}
+                            className="block py-2 px-4 hover:bg-neutral-600 cursor-pointer hover:text-red-400"
                           >
                             Remove
-                          </a>
+                          </div>
                         </li>
                         <li>
-                          <a
-                            href="#"
-                            className="block py-2 px-4 hover:bg-neutral-600 hover:text-yellow-400"
+                          <div
+                            onClick={() =>{alert('Reported Successfully!')}}
+                            className="block py-2 px-4 hover:bg-neutral-600 cursor-pointer hover:text-yellow-400"
                           >
                             Report
-                          </a>
+                          </div>
                         </li>
                       </ul>
                     </div>
