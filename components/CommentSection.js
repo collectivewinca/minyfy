@@ -22,11 +22,16 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Example stickers data
 const stickers = [
-  '/stickers/guitar.png',
-  '/stickers/listening.png',
-  '/stickers/music-player.png',
-  '/stickers/music.png',
-  '/stickers/people.png',
+  '/stickers/music1.png',
+  '/stickers/music2.png',
+  '/stickers/music3.png',
+  '/stickers/music4.png',
+  '/stickers/music5.png',
+  '/stickers/music6.png',
+  '/stickers/music7.png',
+  '/stickers/music8.png',
+  '/stickers/music9.png',
+  '/stickers/music10.png',
 ];
 
 const formatDate = (timestamp) => {
@@ -614,7 +619,7 @@ const CommentSection = ({
       </div>
     )}
 
-        <div className="grid grid-flow-col gap-3 mt-2 mb-8">
+        <div className="grid grid-cols-5 gap-2 mt-2 mb-8">
           {stickers.map((sticker, index) => (
             <img
               key={index}
