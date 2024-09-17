@@ -131,6 +131,9 @@ const CommentSection = ({
   const [isRecording, setIsRecording] = useState(false);
   const [pollQuestion, setPollQuestion] = useState('');
   const [pollOptions, setPollOptions] = useState(['', '']);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const timerRef = useRef(null);
 
   // Voice recording setup
   const mediaRecorderRef = useRef(null);
@@ -374,6 +377,7 @@ const CommentSection = ({
     );
   };
 
+  
   const handleStartRecording = async () => {
     if (!displayName) {
       handleLogin();
@@ -388,48 +392,37 @@ const CommentSection = ({
       audioChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorderRef.current.onstart = () => {
+        setRecordingTime(0);
+        timerRef.current = setInterval(() => {
+          setRecordingTime((prevTime) => prevTime + 1);
+        }, 1000);
       };
 
       mediaRecorderRef.current.onstop = async () => {
+        clearInterval(timerRef.current);
         const audioBlob = new Blob(audioChunksRef.current, {
-          type: 'audio/wav',
+          type: 'audio/webm',
         });
-        const audioFile = new File(
-          [audioBlob],
-          `voice_comment_${Date.now()}.wav`,
-          { type: 'audio/wav' }
-        );
 
-        const storageRef = ref(
-          storage,
-          `voice_comments/${audioFile.name}`
-        );
-        await uploadBytes(storageRef, audioFile);
-        const audioUrl = await getDownloadURL(storageRef);
-
-        const newVoiceComment = {
-          id: Date.now(),
-          author: displayName,
-          avatar: avatarUrl,
-          trackRefer: currentTrackName,
-          date: Date.now(),
-          content: audioUrl,
-          replies: [],
-          commentType: 'voice',
-        };
-
-        const updatedComments = [...comments, newVoiceComment];
-        setComments(updatedComments);
-        await updateFirestore(updatedComments);
-
-        setShowVoiceRecorder(false);
+        if (audioBlob.size > 0) {
+          await handleUploadAudio(audioBlob);
+        } else {
+          console.error('No audio data recorded');
+          alert('No audio was recorded. Please try again.');
+        }
       };
 
       mediaRecorderRef.current.start();
       setIsRecording(true);
     } catch (error) {
       console.error('Error accessing microphone:', error);
+      alert('Error accessing microphone. Please check your permissions and try again.');
     }
   };
 
@@ -437,6 +430,41 @@ const CommentSection = ({
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
+    }
+  };
+
+  const handleUploadAudio = async (audioBlob) => {
+    setIsUploading(true);
+    try {
+      const audioFile = new File([audioBlob], `voice_comment_${Date.now()}.webm`, { type: 'audio/webm' });
+
+      const storageRef = ref(storage, `voice_comments/${audioFile.name}`);
+      await uploadBytes(storageRef, audioFile);
+      const audioDownloadUrl = await getDownloadURL(storageRef);
+
+      const newVoiceComment = {
+        id: Date.now(),
+        author: displayName,
+        avatar: avatarUrl,
+        trackRefer: currentTrackName,
+        date: Date.now(),
+        content: audioDownloadUrl,
+        replies: [],
+        commentType: 'voice',
+        duration: recordingTime,
+      };
+
+      const updatedComments = [...comments, newVoiceComment];
+      setComments(updatedComments);
+      await updateFirestore(updatedComments);
+
+      setShowVoiceRecorder(false);
+      setRecordingTime(0);
+    } catch (error) {
+      console.error('Error uploading audio:', error);
+      alert('Error uploading audio. Please try again.');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -528,31 +556,37 @@ const CommentSection = ({
           </div>
         )}
 
-        {showVoiceRecorder && (
-          <div className="mb-6 p-4 rounded-lg backdrop-filter backdrop-blur-md shadow-2xl border border-neutral-700 bg-white bg-opacity-10">
-            <button
-              onClick={
-                isRecording ? handleStopRecording : handleStartRecording
-              }
-              className={`px-4 w-full text-lg flex flex-col justify-center items-center py-4 rounded ${
-                isRecording
-                  ? 'bg-red-600 text-white hover:bg-red-700'
-                  : 'bg-lime-950 text-lime-400 hover:bg-lime-900'
-              }`}
-            >
-              {isRecording ? (
-                <>
-                  <MdStop className="text-3xl" />{' '}
-                  <span className="blink">Stop Recording</span>
-                </>
-              ) : (
-                <>
-                  <MdMic className="text-3xl" /> Start Recording
-                </>
-              )}
-            </button>
-          </div>
-        )}
+{showVoiceRecorder && (
+      <div className="mb-6 p-4 rounded-lg backdrop-filter backdrop-blur-md shadow-2xl border border-neutral-700 bg-white bg-opacity-10">
+        <button
+          onClick={isRecording ? handleStopRecording : handleStartRecording}
+          disabled={isUploading}
+          className={`px-4 w-full text-lg flex flex-col justify-center items-center py-4 rounded ${
+            isRecording
+              ? 'bg-red-600 text-white hover:bg-red-700'
+              : isUploading
+              ? 'bg-gray-500 text-white cursor-not-allowed'
+              : 'bg-lime-950 text-lime-400 hover:bg-lime-900'
+          }`}
+        >
+          {isRecording ? (
+            <>
+              <MdStop className="text-3xl" />
+              <span className="blink">Stop Recording ({recordingTime}s)</span>
+            </>
+          ) : isUploading ? (
+            <>
+              <span className="animate-spin mr-2">&#9696;</span>
+              Uploading...
+            </>
+          ) : (
+            <>
+              <MdMic className="text-3xl" /> Start Recording
+            </>
+          )}
+        </button>
+      </div>
+    )}
 
         <div className="grid grid-flow-col gap-3 mt-2 mb-8">
           {stickers.map((sticker, index) => (
