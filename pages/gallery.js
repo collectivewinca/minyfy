@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import Header from '@/components/Header';
 import { IoCaretUpSharp } from 'react-icons/io5';
+import Image from 'next/image';
 import { FaRegComment } from 'react-icons/fa';
 import confetti from 'canvas-confetti';
 
@@ -184,14 +185,17 @@ export default function Gallery() {
     <div className="min-h-screen">
       <Header />
       <div className="container font-jakarta mx-auto py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 gap-5">
           {mixtapes.map((mixtape, index) => (
             <div key={`${mixtape.id}-${index}`} className="relative flex flex-col items-center justify-center">
-              <img
+              <Image
                 alt={mixtape.name}
                 className="w-full rounded object-cover cursor-pointer hover:scale-95"
                 onClick={() => window.open(mixtape.shortenedLink, '_blank')}
                 src={mixtape.imageUrl}
+                width={300}
+                height={300}
+                quality={75}
               />
               <h2 className="text-base text-center font-medium mt-1">{toSentenceCase(mixtape.name)}</h2>
               <div className="flex gap-1 mb-2 text-slate-600 hover:text-primary items-center cursor-pointer">
