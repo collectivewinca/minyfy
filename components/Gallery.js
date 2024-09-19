@@ -340,7 +340,7 @@ const ImageGallery = () => {
               width={100}
               height={100}
               src={image.imageUrl} 
-              unoptimized={true}
+              quality={75}
               loading={index === 0 ? "eager" : "lazy"}
               alt={`Image ${startIndex + index + 1}`} 
               onClick={() => openImageInNewTab(image.link)}
