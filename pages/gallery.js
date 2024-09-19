@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { collection, query, orderBy, limit, startAfter, getDocs } from 'firebase/firestore';
-import { db, auth } from '@/firebase/config'; // Consolidated Firebase imports
+import { db, auth } from '@/firebase/config';
 import { doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import Header from '@/components/Header';
 import { IoCaretUpSharp } from 'react-icons/io5';
 import { FaRegComment } from 'react-icons/fa';
-import confetti from 'canvas-confetti'; // Added missing import
+import confetti from 'canvas-confetti';
 
 const BATCH_SIZE = 24;
 
@@ -158,7 +158,7 @@ export default function Gallery() {
 
   useEffect(() => {
     fetchMixtapes();
-  }, [fetchMixtapes]);
+  }, []); // Only run once on component mount
   
   const toSentenceCase = (str) => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
@@ -167,11 +167,13 @@ export default function Gallery() {
   const handleScroll = useCallback(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 100
+      document.documentElement.offsetHeight - 100 &&
+      !loading &&
+      hasMore
     ) {
       fetchMixtapes();
     }
-  }, [fetchMixtapes]);
+  }, [fetchMixtapes, loading, hasMore]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -200,19 +202,17 @@ export default function Gallery() {
               </div>
 
               <div
-                className={`flex flex-col absolute top-0 right-0 justify-center items-center border pb-1 rounded-sm px-[6px] cursor-pointer hover:border-primary shadow-md hover:shadow-primary ${
-                  voted[mixtape.id] ? 'border-primary text-primary' : 'border-gray-300 text-slate-600'
-                }`}
-                onClick={() => handleUpvote(mixtape.id)}
+                className={`flex flex-col absolute top-0 right-0 justify-center items-center border pb-1 rounded-sm px-2 cursor-pointer hover:border-[#78bf45] shadow-md hover:shadow-[#78bf45] ${voted[mixtape.id] ? 'border-[#78bf45] text-[#78bf45]' : 'border-gray-300 text-slate-600'}`}
+                onClick={() => handleUpvote(mixtape.id)} 
               >
-                <IoCaretUpSharp className={`text-base leading-none ${voted[mixtape.id] ? 'text-primary' : 'text-slate-600'}`} />
+                <IoCaretUpSharp className={`text-base leading-none ${voted[mixtape.id] ? 'text-[#78bf45]' : 'text-slate-600'}`} />
                 <div className="text-[0.6rem] -mt-[1px] leading-none">{votes[mixtape.id] || 0}</div>
               </div>
             </div>
           ))}
         </div>
-        {loading && <p className="text-center mt-4">Loading...</p>}
-        {!hasMore && <p className="text-center mt-4">No more mixtapes to load.</p>}
+        {loading && <div className="animate-spin mx-auto my-4 ease-linear rounded-full w-10 h-10 border-t-2 border-b-2 border-[#78bf45]"></div>}
+        {!hasMore && <p className="text-center font-medium font-jakarta mt-4">END</p>}
       </div>
     </div>
   );
