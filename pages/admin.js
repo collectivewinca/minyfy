@@ -61,6 +61,19 @@ function Admin() {
   console.log("Minys:", mixtapes.map(({ tracks, ...rest }) => rest));
 
 
+  const handleDelete = async (mixtapeId) => {
+    try {
+      // Delete the document from Firestore
+      await deleteDoc(doc(db, 'mixtapes', mixtapeId));
+
+      // Remove the deleted mixtape from the state
+      setMixtapes(mixtapes.filter((mixtape) => mixtape.id !== mixtapeId));
+
+    } catch (error) {
+      console.error('Error deleting mixtape:', error);
+      alert('Failed to delete mixtape.');
+    }
+  };
 
   const adminEmails = [
     'labh@collectivewin.ca',
