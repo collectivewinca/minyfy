@@ -11,7 +11,7 @@ import confetti from 'canvas-confetti';
 
 const BATCH_SIZE = 24;
 
-export default function Gallery() {
+export default function Catalog() {
   const [mixtapes, setMixtapes] = useState([]);
   const [lastDoc, setLastDoc] = useState(null);
   const [loading, setLoading] = useState(false);
