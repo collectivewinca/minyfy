@@ -8,6 +8,7 @@ import { IoCaretUpSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import { FaRegComment } from 'react-icons/fa';
 import confetti from 'canvas-confetti';
+import { useRouter } from 'next/navigation';
 
 const BATCH_SIZE = 24;
 
@@ -19,6 +20,7 @@ export default function Catalog() {
   const [votes, setVotes] = useState({});
   const [hasMore, setHasMore] = useState(true);
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -191,7 +193,7 @@ export default function Catalog() {
               <Image
                 alt={mixtape.name}
                 className="w-full rounded object-cover cursor-pointer hover:scale-95"
-                onClick={() => window.open(mixtape.shortenedLink, '_blank')}
+                onClick={() => {router.push(`/play/${mixtape.id}`)}}
                 src={mixtape.imageUrl}
                 width={300}
                 height={300}

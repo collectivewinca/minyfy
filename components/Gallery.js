@@ -5,6 +5,7 @@ import confetti from 'canvas-confetti';
 import { db, auth } from '@/firebase/config';
 import { collection, doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
+import {useRouter} from 'next/navigation';
 
 
 const images = [
@@ -219,6 +220,7 @@ const ImageGallery = () => {
   const [voted, setVoted] = useState(false);
   const [votes, setVotes] = useState({});
   const [user, setUser] = useState(null); // Track the current user
+  const router = useRouter();
 
   useEffect(() => {
     // Check authentication state
@@ -325,8 +327,8 @@ const ImageGallery = () => {
   };
   
 
-  const openImageInNewTab = (link) => {
-    window.open(link, '_blank');
+  const openImageInNewTab = (docId) => {
+    router.push(`/play/${docId}`);
   };
 
   const renderImageSection = (title, subtitle, startIndex, endIndex) => (
@@ -343,7 +345,7 @@ const ImageGallery = () => {
               unoptimized={true}
               loading={index === 0 ? "eager" : "lazy"}
               alt={`Image ${startIndex + index + 1}`} 
-              onClick={() => openImageInNewTab(image.link)}
+              onClick={() => openImageInNewTab(image.MixtapeId)}
               className="w-full h-auto hex-alt rounded-lg cursor-pointer transition-all duration-500 ease-in-out hover:rotate-360"
             />
   

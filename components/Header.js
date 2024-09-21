@@ -55,7 +55,7 @@ const Header = () => {
       <nav className="bg-white border-b rounded-xl border-gray-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
-            <img src="/log.jpg" alt="Flowbite Logo" className="mr-3 h-12" />
+            <img src="/log.jpg" alt="Miny Vinyl Logo" className="mr-3 h-12" />
           </div>
           <div className="flex items-center lg:order-2">
             {user ? (

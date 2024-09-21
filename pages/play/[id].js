@@ -16,6 +16,7 @@ import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
 import CommentSection from '@/components/CommentSection';
 import TrackList from '@/utils/TrackList';
+import PWAShare from '@/components/PWAshare';
 
 
 export async function getServerSideProps(context) {
@@ -526,6 +527,12 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             >
               <PinterestIcon size={32} round />
             </PinterestShareButton> */}
+            <PWAShare 
+              title="Check out my Latest Mixtape on Miny Vinyl"
+              text={`Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`}
+              url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+              imageUrl={imageUrl}
+            />
 
             
             
