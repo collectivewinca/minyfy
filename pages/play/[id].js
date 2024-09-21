@@ -16,7 +16,7 @@ import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
 import CommentSection from '@/components/CommentSection';
 import TrackList from '@/utils/TrackList';
-import PWAShare from '@/components/PWAshare';
+import PWAShare from '@/components/PWAShare';
 
 
 export async function getServerSideProps(context) {
