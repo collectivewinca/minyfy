@@ -84,6 +84,7 @@ const AudioPlayer = ({ audioUrl }) => {
         barWidth: 2,
         barRadius: 3,
         responsive: true,
+        backend: 'WebAudio', 
         height: 60,
         normalize: true,
         partialRender: true,
