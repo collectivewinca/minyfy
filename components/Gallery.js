@@ -10,7 +10,7 @@ import {useRouter} from 'next/navigation';
 
 const images = [
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-0a2b761b-2a29-40fc-a44b-7ae3dee54b03.png?alt=media&token=b017d05f-c168-4998-bc34-a7f54fb498a9',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2FMiny%20Vinyl%20Record%20Playlists%20Mixtapes%20for%20Artist%20Track.webp?alt=media&token=a4349d55-e1a5-4bd3-990f-4805e4c90f5f',
     link: 'https://go.minyvinyl.com/aclfestanthem',
     MixtapeId: 'Qe6nRzVhSPWd0IhSsP4g',
     label: 'Top Mixtape 1'
