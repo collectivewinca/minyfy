@@ -16,7 +16,7 @@ import download from 'downloadjs';
 import { PinterestShareButton, PinterestIcon } from 'react-share';
 import CommentSection from '@/components/CommentSection';
 import TrackList from '@/utils/TrackList';
-import PWAShare from '@/components/PWAShare';
+import PWAShare from '@/components/PWAshare';
 
 
 export async function getServerSideProps(context) {
@@ -522,7 +522,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             </button>
             {/* <PinterestShareButton
               url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
-              media={`https://i.ibb.co/CVZW3rr/Daniel-Daniel-mixtape.png`}
+              media={imageUrl}
               description="Check out my Latest Mixtape on Miny Vinyl"
             >
               <PinterestIcon size={32} round />
