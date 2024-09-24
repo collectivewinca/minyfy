@@ -367,14 +367,14 @@ const ImageGallery = () => {
   return (
     <div className="container mx-auto px-4">
       {renderImageSection("Top Mixtapes This Week", "Most popular tracks of the week", 0, 3)}
-      {renderImageSection("Featured Artists", "Discover mixtapes from featured artists", 3, 6)}
+      {/* {renderImageSection("Featured Artists", "Discover mixtapes from featured artists", 3, 6)}
       {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 7, 10)}
       {renderImageSection("Featured Genres", "Discover mixtapes by genre", 11, 14)}
       {renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 15, 18)}
       {renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 19, 22)}
       {renderImageSection("Featured from New York", "Discover mixtapes from artists in New York", 23, 26)}
       {renderImageSection("Featured from Austin, Texas", "Discover mixtapes from artists in Austin, Texas", 27, 30)}
-      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 31, 34)}
+      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 31, 34)} */}
     </div>
   );
 };
