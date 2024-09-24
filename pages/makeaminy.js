@@ -20,8 +20,8 @@ import ImportYoutubePlaylist from '@/components/ImportYoutubePlaylist';
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('customize');
   const [inputValue, setInputValue] = useState('');
-  const [backgroundImage, setBackgroundImage] = useState('/7.png');
-  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/7.png");
+  const [backgroundImage, setBackgroundImage] = useState('/4.png');
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/4.png");
   const [finalImage, setFinalImage] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -34,12 +34,12 @@ const Custom = () => {
   const [user, setUser] = useState(null);
   const [pngImageUrl, setPngImageUrl] = useState("");
   const [images, setImages] = useState([
-    "/5.png",
-    "/7.png",
+    "/6.png",
+    "/1.png",
     "/4.png",
     "/8.png",
     "/9.png",
-    "/6.png"
+    "/5.png"
   ]);
 
   const handleSelection = (event) => {
