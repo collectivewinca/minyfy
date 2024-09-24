@@ -20,8 +20,8 @@ import ImportYoutubePlaylist from '@/components/ImportYoutubePlaylist';
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('customize');
   const [inputValue, setInputValue] = useState('');
-  const [backgroundImage, setBackgroundImage] = useState('/6.png');
-  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/6.png");
+  const [backgroundImage, setBackgroundImage] = useState('/7.png');
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/7.png");
   const [finalImage, setFinalImage] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -32,13 +32,14 @@ const Custom = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
+  const [pngImageUrl, setPngImageUrl] = useState("");
   const [images, setImages] = useState([
     "/5.png",
-    "/6.png",
+    "/7.png",
     "/4.png",
     "/8.png",
     "/9.png",
-    "/7.png"
+    "/6.png"
   ]);
 
   const handleSelection = (event) => {
@@ -151,7 +152,7 @@ const Custom = () => {
           },
           body: JSON.stringify({
             name: inputValue,
-            imageUrl: finalImage,
+            imageUrl: pngImageUrl,
             shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,  // Ensure correct field
             email: user.email,
             displayName: user.displayName,
@@ -224,38 +225,28 @@ const Custom = () => {
       console.log('Generated image data:', data);
       if (data.data && data.data.length > 0) {
         const imageUrl = data.data[0].url;
-        const updatedImages = [imageUrl, ...images.slice(1)];
-        setImages(updatedImages);
-        setBackgroundImage(imageUrl);
+        
         try {
-          const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
-          if (!apiResponse.ok) {
-            throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
+          // Send the image URL to your server for processing
+          const response = await fetch('/api/process-and-upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ imageUrl })
+          });
+    
+          if (!response.ok) {
+            throw new Error(`Server processing failed: ${response.statusText}`);
           }
-          const blob = await apiResponse.blob();
-          
-          // Save image to Firebase Storage
-          
-          const storageRef = ref(storage, `generated-images/${Date.now()}.jpg`);
-          
-          // Upload to Firebase Storage
-          await uploadBytes(storageRef, blob);
-          
-          // Get the Firebase Storage URL
-          const firebaseUrl = await getDownloadURL(storageRef);
-          
-          // You can use firebaseUrl here if needed, or store it somewhere
-
+    
+          const { firebaseUrl } = await response.json();
+    
           setBackgroundImage(firebaseUrl);
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => {
-            const base64data = reader.result;
-            setBackgroundImageSrc(base64data);
-            setLoading(false);
-          };
+          const updatedImages = [firebaseUrl, ...images.slice(1)];
+          setImages(updatedImages);
+    
+          setLoading(false);
         } catch (error) {
-          console.error('Error fetching image data or saving to Firebase:', error);
+          console.error('Error processing image:', error);
           setLoading(false);
         }
       } else {
@@ -368,6 +359,7 @@ const Custom = () => {
                 backgroundImageSrc={backgroundImageSrc}
                 onDocIdChange={handleDocIdChange}
                 setFinalImage={setFinalImage}
+                setPngImageUrl={setPngImageUrl}
               />
             </div>
           </>

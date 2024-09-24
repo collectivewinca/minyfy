@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChange, backgroundImageSrc }) => {
+const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChange, backgroundImageSrc, setPngImageUrl }) => {
   const [isFavorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -79,45 +79,68 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
     context.clip();
   };
 
-  const uploadImage = async () => {
+  const uploadImage = async (tracksWithYouTube) => {
     if (trackDataContainerRef.current === null) return;
+
     try {
-      const originalCanvas = await createCanvas(trackDataContainerRef.current);
-      const width = originalCanvas.width;
-      const height = originalCanvas.height;
+        const originalCanvas = await createCanvas(trackDataContainerRef.current);
+        const width = originalCanvas.width;
+        const height = originalCanvas.height;
 
-      // Create a new offscreen canvas
-      const hexCanvas = document.createElement("canvas");
-      hexCanvas.width = width;
-      hexCanvas.height = height;
-      const hexContext = hexCanvas.getContext("2d");
+        // Create a new offscreen canvas
+        const hexCanvas = document.createElement("canvas");
+        hexCanvas.width = width;
+        hexCanvas.height = height;
+        const hexContext = hexCanvas.getContext("2d");
 
-      // Draw the hexagon clipping path
-      drawHexagonClip(hexContext, width, height);
+        // Draw the hexagon clipping path
+        drawHexagonClip(hexContext, width, height);
 
-      // Draw the original canvas content into the hexagon-clipped canvas
-      hexContext.drawImage(originalCanvas, 0, 0);
+        // Draw the original canvas content into the hexagon-clipped canvas
+        hexContext.drawImage(originalCanvas, 0, 0);
 
-      // Convert the hexagon-clipped canvas to a Data URL
-      const dataUrl = hexCanvas.toDataURL("image/png");
+        // Convert the hexagon-clipped canvas to WebP format using Canvas API
+        const webpDataUrl = hexCanvas.toDataURL("image/webp", 0.8); // Quality is set to 80% (0.8)
 
-      // Convert Data URL to Blob
-      const blob = await (await fetch(dataUrl)).blob();
-      
-      // Create a storage reference
-      const fileName = `miny-${uuidv4()}.png`;
-      const imageRef = ref(storage, `aminy-generation/${fileName}`);
-      
-      // Upload the blob to Firebase Storage
-      await uploadBytes(imageRef, blob);
-  
-      const imageUrl = await getDownloadURL(imageRef);
-      return imageUrl;
+        // Convert the WebP Data URL to Blob
+        const webpBlob = await (await fetch(webpDataUrl)).blob();
+
+        // Create PNG Data URL
+        const pngDataUrl = hexCanvas.toDataURL("image/png", 0.7); // Create PNG data URL
+
+        // Convert the PNG Data URL to Blob
+        const pngBlob = await (await fetch(pngDataUrl)).blob();
+
+        // Generate the track names for the filename
+        const trackNames = tracksWithYouTube.slice(0, 4).map(t => t.track).join(' - ');
+
+        // Generate the base file name
+        const baseFileName = trackNames
+            ? `Miny Vinyl Playlist (Mixtape) featuring tracks - ${trackNames.replace(/\s+/g, '-')}`
+            : `Miny Vinyl Playlist (Mixtape)`;
+
+        // Create references for both WebP and PNG uploads
+        const webpImageRef = ref(storage, `a-mixtapes/${baseFileName}.webp`);
+        const pngImageRef = ref(storage, `email-mixtapes/${baseFileName}.png`);
+
+        // Upload the WebP blob to Firebase Storage
+        await uploadBytes(webpImageRef, webpBlob);
+        // Upload the PNG blob to Firebase Storage
+        await uploadBytes(pngImageRef, pngBlob);
+
+        // Get download URLs for both formats
+        const webpImageUrl = await getDownloadURL(webpImageRef);
+        const pngImageUrl = await getDownloadURL(pngImageRef);
+
+        // Return both URLs (or choose how to handle them)
+        return { webpImageUrl, pngImageUrl };
     } catch (error) {
-      console.error("Error uploading image:", error);
-      throw new Error("Image upload failed");
+        console.error("Error uploading image:", error);
+        throw new Error("Image upload failed");
     }
-  };
+};
+
+  
   
 
   const saveToFirestore = async () => {
@@ -141,10 +164,10 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
         };
       }));
   
-      // Generate the canvas
       // Upload image and get URL
-      const imageUrl = await uploadImage();
-  
+      const { webpImageUrl, pngImageUrl } = await uploadImage(tracksWithYouTube);
+      setPngImageUrl(pngImageUrl);
+
       // Save to Firestore
       const docRef = await addDoc(collection(db, "mixtapes"), {
         name,
@@ -154,11 +177,12 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
         isFavorite,
         userDisplayName: user.displayName || 'Anonymous',
         userEmail: user.email,
-        imageUrl,
+        imageUrl:webpImageUrl,
+        pngImageUrl,
         createdAt: serverTimestamp(),
       });
   
-      setFinalImage(imageUrl);
+      setFinalImage(webpImageUrl);
       onDocIdChange(docRef.id);
     } catch (error) {
       console.error("Error saving image:", error);
@@ -225,7 +249,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
          
           
           <img  className="w-full h-full object-cover" 
-              src={backgroundImageSrc} 
+              src={backgroundImage} 
               alt="Background"  />
 
           <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">

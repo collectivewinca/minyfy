@@ -84,6 +84,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   
+  console.log("docData", docData);
 
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();

@@ -24,6 +24,7 @@ function Lastfm() {
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [customUrl, setCustomUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [pngImageUrl, setPngImageUrl] = useState("");
 
   const handleDocIdChange = (id) => {
     console.log("handleDocIdChange called with ID:", id);
@@ -125,24 +126,28 @@ function Lastfm() {
     console.log('Generated image data:', data);
     if (data.data && data.data.length > 0) {
       const imageUrl = data.data[0].url;
-      setBackgroundImageUrl(imageUrl);
       try {
-        const apiResponse = await fetch(`/api/fetch-image?imageUrl=${encodeURIComponent(imageUrl)}`);
-        if (!apiResponse.ok) {
-          throw new Error(`Failed to fetch image: ${apiResponse.statusText}`);
+        // Send the image URL to your server for processing
+        const response = await fetch('/api/process-and-upload-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageUrl })
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Server processing failed: ${response.statusText}`);
         }
-        const blob = await apiResponse.blob();
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-          const base64data = reader.result;
-          setBackgroundImageSrc(base64data);
-          setLoading(false);
-        };
+  
+        const { firebaseUrl } = await response.json();
+  
+        setBackgroundImageUrl(firebaseUrl);
+  
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching image data:', error);
+        console.error('Error processing image:', error);
         setLoading(false);
       }
+      
     } else {
       console.error('Error generating image:', data);
       setLoading(false);
@@ -317,6 +322,7 @@ function Lastfm() {
             tracks={trackData} 
             backgroundImageSrc={backgroundImageSrc}
             onDocIdChange={handleDocIdChange}
+            setPngImageUrl={setPngImageUrl}
             setFinalImage={setFinalImage}
           />
           </div>
