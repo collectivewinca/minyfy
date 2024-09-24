@@ -116,7 +116,7 @@ function Lastfm() {
       },
       body: JSON.stringify({
         model: 'dall-e-3',
-        prompt: 'create a uniform background image for a list of music track, make it life like, be creative and simple',
+        prompt: 'Generate a detailed image of small, 2-inch vinyl records shaped like hexagons. The records should have the look of classic vinyl, with grooves and a label in the center. The label can have artistic designs, like abstract art or a logo, and should fit neatly into the hexagonal shape. Use a mix of modern and vintage aesthetics, with some records featuring bold, bright colors and others in more muted tones. Display the records in an interesting layout, like stacked or fanned out, showing the unique hexagonal design. Lighting should highlight the textures and depth of the vinyl, making the records look glossy and tactile.',
         n: 1,
         size: '1024x1024',
       }),
