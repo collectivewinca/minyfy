@@ -19,8 +19,8 @@ export default async function handler(req, res) {
       });
 
       // Define coupon details
-      const couponCode = 'SINGLECOUPON'; // The coupon code to apply
-      const couponDiscount = 90; // Discount percentage
+      const couponCode = 'NEWCOUPON'; // The coupon code to apply
+      const couponDiscount = 70; // Discount percentage
 
       let couponId = null;
 

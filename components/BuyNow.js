@@ -101,7 +101,7 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           <div className="rotating-border"></div>
           <div className="discount">
           <div className=" flex items-center justify-center space-x-2 " >
-                <span className=" text-[#00dc04] font-bold text-2xl pulse-gradient">$4.99</span>
+                <span className=" text-[#00dc04] font-bold text-2xl pulse-gradient">$14.99</span>
                 <FaArrowLeft className="text-white text-base" />
                 <span className="text-2xl text-gray-300">$49.99 </span>
             </div>
