@@ -170,7 +170,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
 
       // Save to Firestore
       const docRef = await addDoc(collection(db, "mixtapes"), {
-        name,
+        name: name.toLowerCase(),
         backgroundImage,
         tracks: tracksWithYouTube,
         date: formattedDate,

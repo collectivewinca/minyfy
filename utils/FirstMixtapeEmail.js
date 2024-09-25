@@ -14,17 +14,10 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  export const MixtapeEmail = ({ imageUrl, name, shortenedLink, displayName }) => {
+  export const FirstMixtapeEmail = ({ imageUrl, name, shortenedLink, displayName }) => {
     const previewText = `Enjoy Your Vibe!`;
 
-    const images = [
-      "https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/5.png?alt=media&token=c78225d7-c468-4417-be0b-7fc6496a46cb",
-      "https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/6.png?alt=media&token=4ab9d0a4-be8b-430c-bb88-b9520ee17918",
-      "https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/4.png?alt=media&token=d8a6ecee-2874-4594-a9e3-522f9e88ab59",
-      "https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/8.png?alt=media&token=e827316f-7f7f-4dd4-9194-c7334787a9ee",
-      "https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/9.png?alt=media&token=460e9876-f3e0-4e8a-9b6f-d4938c6b4e0b",
-      "https://firebasestorage.googleapis.com/v0/b/minyfy-e8c97.appspot.com/o/7.png?alt=media&token=924f7447-dc9b-45ac-8823-7498729b49f4"
-    ];
+  
   
     return (
       <Html>
@@ -95,7 +88,7 @@ import {
     );
   };
   
-  export default MixtapeEmail;
+  export default FirstMixtapeEmail;
   
   const main = {
     backgroundColor: "#fff",

@@ -398,7 +398,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   
 
   const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink} = docData;
-  const description = `Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
+  const description = `Check out ${toSentenceCase(name)}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
   const topValue = 42 - name.length * 0.4;
 
 
@@ -416,9 +416,9 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       <>
       <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
         <Head>
-          <title>{`${name}'s Mixtape`}</title>
+          <title>{`${toSentenceCase(name)}'s Mixtape`}</title>
           <meta name="description" content={description} />
-          <meta property="og:title" content={`${name}'s Mixtape`} />
+          <meta property="og:title" content={`${toSentenceCase(name)}'s Mixtape`} />
           <meta property="og:description" content={description} />
           <meta property="og:image" content={backgroundImage} />
           <meta property="og:type" content="music.playlist" />
@@ -501,7 +501,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
                     >
                       <div className="whitespace-nowrap">
                         MINY MIXTAPE :
-                        <strong className='text-[#f48531] ml-1 uppercase'>{name}</strong>
+                        <strong className='text-[#f48531] ml-1 uppercase'>{toSentenceCase(name)}</strong>
                       </div>
                     </div>
             {/* Bottom-left text */}
@@ -530,7 +530,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             </PinterestShareButton> */}
             <PWAShare 
               title="Check out my Latest Mixtape on Miny Vinyl"
-              text={`Check out ${name}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`}
+              text={`Check out ${toSentenceCase(name)}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`}
               url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
               imageUrl={imageUrl}
             />

@@ -120,16 +120,21 @@ function Admin() {
     try {
       const canvas = await createCanvas(trackDataContainerRef.current);
       const dataUrl = canvas.toDataURL("image/png");
+
+      const webpDataUrl = canvas.toDataURL("image/webp", 0.8); 
+
+        // Convert the WebP Data URL to Blob
+        const webpBlob = await (await fetch(webpDataUrl)).blob();
       
       // Convert Data URL to Blob
       const blob = await (await fetch(dataUrl)).blob();
       
       // Create a storage reference
-      const fileName = `miny-${uuidv4()}.png`;
+      const fileName = `miny-${uuidv4()}`;
       const imageRef = ref(storage, `aminy-generation/${fileName}`);
       
       // Upload the blob to Firebase Storage
-      await uploadBytes(imageRef, blob);
+      await uploadBytes(imageRef, webpBlob);
   
       const imageUrl = await getDownloadURL(imageRef);
       return imageUrl;
@@ -142,38 +147,55 @@ function Admin() {
   const handleUrlSubmit = async () => {
     const docID = docId.split('/').pop();
     const mixtape = findMixtapeById(docID);
-
+  
     if (!mixtape) {
       setError('Mixtape not found.');
       return;
     }
-
-    
+  
     setTracks(mixtape.tracks || []);
     setName(mixtape.name || '');
-
+  
     try {
       const docRef = doc(db, "mixtapes", docID);
       const docSnap = await getDoc(docRef);
-
+  
       if (docSnap.exists()) {
         setError('');
         if (selectedFile) {
           setUploading(true);
-          const storageRef = ref(storage, `images/${docID}/${selectedFile.name}`);
-          await uploadBytes(storageRef, fileBlob);
+  
+          // Create a function to convert the image file to WebP format
+          const convertToWebP = async (file) => {
+            const imageBitmap = await createImageBitmap(file);
+            const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(imageBitmap, 0, 0);
+  
+            // Convert the canvas content to a WebP Blob
+            const webpBlob = await canvas.convertToBlob({ type: 'image/webp', quality: 0.8 });
+            return webpBlob;
+          };
+  
+          // Convert the selected image file to WebP
+          const webpBlob = await convertToWebP(selectedFile);
+  
+          // Now upload the WebP Blob to Firebase Storage
+          const storageRef = ref(storage, `images/${docID}/${selectedFile.name}.webp`);
+          await uploadBytes(storageRef, webpBlob);
+  
           const downloadURL = await getDownloadURL(storageRef);
-
+  
           setBackgroundImage(downloadURL || '');
-          
+  
           const screenshotUrl = await uploadImage(); // Screenshot URL
-
+  
           // Update the document with the new background image and screenshot URL
           await updateDoc(docRef, {
             backgroundImage: downloadURL,
             imageUrl: screenshotUrl // Store the screenshot URL in Firestore
           });
-
+  
           setDocId('');
           setSelectedFile(null);
           setFileBlob(null);
@@ -194,6 +216,7 @@ function Admin() {
       setUploading(false);
     }
   };
+  
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -250,7 +273,7 @@ function Admin() {
             {mixtapes.map((mixtape) => (
               <tr key={mixtape.id}>
                 <td className="py-2 px-4 border-b underline cursor-pointer" onClick={() => window.open(`https://minyfy.subwaymusician.xyz/play/${mixtape.id}`, '_blank')}>Visit</td>
-                <td className="py-2 px-4 border-b">{mixtape.name}</td>
+                <td className="py-2 px-4 border-b">{mixtape.name.toUpperCase()}</td>
                 <td className="py-2 px-4 border-b">{mixtape.date}</td>
                 <td className="py-2 px-4 border-b">{mixtape.userEmail}</td>
                 <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.imageUrl} target="_blank">view</a></td>

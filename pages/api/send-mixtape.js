@@ -1,20 +1,23 @@
 import { Resend } from 'resend';
-import { MixtapeEmail } from '@/utils/MixtapeEmail';
+import { LaterMixtapeEmail } from '@/utils/LaterMixtapeEmail';
+import { FirstMixtapeEmail } from '@/utils/FirstMixtapeEmail';
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 export default async function handler(req, res) {
   try {
-    const { name, imageUrl, shortenedLink, email, displayName } = req.body;
+    const { name, imageUrl, shortenedLink, email, displayName, isFirstLogin } = req.body;
+
+    const EmailComponent = isFirstLogin ? FirstMixtapeEmail : LaterMixtapeEmail;
 
     const data = {
       from: 'Miny Vinyl <mixtapes@subwaymusician.xyz>',
       to: email,
-      subject: 'Your Miny Mixtape is Ready!',
-      react: MixtapeEmail({ name, imageUrl, shortenedLink, displayName })
+      subject: isFirstLogin ? 'Your First Mixtape is Ready to Rock!' : 'Your New Mixtape is Ready to Rock!',
+      react: EmailComponent({ name, imageUrl, shortenedLink, displayName })
     };
 
-    console.log(`Sending email to: ${email}`);
+    console.log(`Sending ${isFirstLogin ? 'first-time' : 'returning'} user email to: ${email}`);
 
     await resend.emails.send(data);
 

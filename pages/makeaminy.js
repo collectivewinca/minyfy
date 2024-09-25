@@ -114,6 +114,18 @@ const Custom = () => {
     }
   
     try {
+      // Fetch user data from localStorage
+      const userString = localStorage.getItem('user');
+      if (!userString) {
+        setErrorMessage("User data not found. Please log in again.");
+        return;
+      }
+  
+      const userHere = JSON.parse(userString);
+  
+      // Check if it's the user's first login
+      const isFirstLogin = !userHere.lastLoginAt || userHere.lastLoginAt === userHere.createdAt;
+  
       // Send POST request to create short URL
       const response = await fetch('/api/shorten-url', {
         method: 'POST',
@@ -126,11 +138,9 @@ const Custom = () => {
       const json = await response.json();
   
       if (response.status === 409) {
-        // Handle "Link already exists" error
         setErrorMessage("Link already exists. Please choose a different custom URL.");
         return;
       } else if (!response.ok) {
-        // Handle other errors
         setErrorMessage("Error creating short URL. Please try again.");
         console.error('Error creating short URL:', json.message);
         return;
@@ -140,7 +150,7 @@ const Custom = () => {
   
       // Update Firestore document with the shortened link
       await updateDoc(doc(db, "mixtapes", docId), {
-        shortenedLink: `https://go.minyvinyl.com/${json.link.slug}` 
+        shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`
       });
   
       // Send email with the shortened link
@@ -153,9 +163,10 @@ const Custom = () => {
           body: JSON.stringify({
             name: inputValue,
             imageUrl: pngImageUrl,
-            shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,  // Ensure correct field
-            email: user.email,
-            displayName: user.displayName,
+            shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,
+            email: userHere.email,
+            displayName: userHere.displayName,
+            isFirstLogin: isFirstLogin
           }),
         });
   
@@ -165,6 +176,10 @@ const Custom = () => {
           setErrorMessage('Error sending email. Please try again.');
           return;
         }
+  
+        // Update user's lastLoginAt in localStorage
+        user.lastLoginAt = new Date().getTime().toString();
+        localStorage.setItem('user', JSON.stringify(user));
   
         // Redirect to the shortened URL
         window.location.href = json.link.url;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { collection, query, orderBy, limit, startAfter, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, limit, startAfter, getDocs, where } from 'firebase/firestore';
 import { db, auth } from '@/firebase/config';
 import { doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
@@ -9,8 +9,9 @@ import Image from 'next/image';
 import { FaRegComment } from 'react-icons/fa';
 import confetti from 'canvas-confetti';
 import { useRouter } from 'next/navigation';
+import { FaSearch } from "react-icons/fa";
 
-const BATCH_SIZE = 24;
+const BATCH_SIZE = 20;
 
 export default function Catalog() {
   const [mixtapes, setMixtapes] = useState([]);
@@ -20,6 +21,9 @@ export default function Catalog() {
   const [votes, setVotes] = useState({});
   const [hasMore, setHasMore] = useState(true);
   const [user, setUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,6 +37,10 @@ export default function Catalog() {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    fetchMixtapes();
   }, []);
 
   useEffect(() => {
@@ -128,7 +136,9 @@ export default function Catalog() {
     setLoading(true);
     try {
       const mixtapesCollection = collection(db, 'mixtapes');
-      let mixtapesQuery = query(
+      let mixtapesQuery;
+
+      mixtapesQuery = query(
         mixtapesCollection,
         orderBy('createdAt', 'desc'),
         limit(BATCH_SIZE)
@@ -159,36 +169,98 @@ export default function Catalog() {
     }
   }, [lastDoc, loading, hasMore]);
 
-  useEffect(() => {
-    fetchMixtapes();
-  }, []); // Only run once on component mount
-  
+
+  const fetchMixtapesBySearch = useCallback(async () => {
+    if (loading) return;
+
+    setLoading(true);
+    setIsSearching(true);
+    try {
+      const mixtapesCollection = collection(db, 'mixtapes');
+      const mixtapesQuery = query(
+        mixtapesCollection,
+        where('name', '>=', searchQuery.toLowerCase()),
+        where('name', '<=', searchQuery.toLowerCase() + '\uf8ff'),
+        limit(8)
+      );
+
+      const querySnapshot = await getDocs(mixtapesQuery);
+      const newMixtapes = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setSearchResults(newMixtapes);
+    } catch (error) {
+      console.error('Error fetching mixtapes by search:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, searchQuery]);
+
   const toSentenceCase = (str) => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value === "") {
+      setIsSearching(false);
+      setSearchResults([]);
+    }
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      fetchMixtapesBySearch();
+    } else {
+      setIsSearching(false);
+      setSearchResults([]);
+    }
+  };
+
   const handleScroll = useCallback(() => {
     if (
-      window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 100 &&
+      window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100 &&
+      !isSearching &&
       !loading &&
       hasMore
     ) {
       fetchMixtapes();
     }
-  }, [fetchMixtapes, loading, hasMore]);
+  }, [fetchMixtapes, isSearching, loading, hasMore]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
+  const displayedMixtapes = isSearching ? searchResults : mixtapes;
+
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="container font-jakarta mx-auto py-8">
+      <div className="w-full font-jakarta mx-auto pb-8">
+        {/* Search Bar */}
+        <div className="mb-6 mx-2 my-2 text-sm justify-end w-44 flex">
+          <input 
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search mixtapes..."
+            className="w-full p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-[#000000]"
+          />
+          <button 
+            onClick={handleSearch}
+            className="p-1 px-2 bg-[#000000] text-white rounded-r-md focus:outline-none hover:bg-[#6aa43c]"
+          >
+            <FaSearch className='text-lg' />
+          </button>
+        </div>
+
+        {/* Mixtapes Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 gap-5">
-          {mixtapes.map((mixtape, index) => (
+          {displayedMixtapes.map((mixtape, index) => (
             <div key={`${mixtape.id}-${index}`} className="relative flex flex-col items-center justify-center">
               <Image
                 alt={mixtape.name}
@@ -217,8 +289,24 @@ export default function Catalog() {
             </div>
           ))}
         </div>
-        {loading && <div className="animate-spin mx-auto my-4 ease-linear rounded-full w-10 h-10 border-t-2 border-b-2 border-[#78bf45]"></div>}
-        {!hasMore && <p className="text-center font-medium font-jakarta mt-4">END</p>}
+
+        {loading && (
+          <div className="flex justify-center items-center mb-2">
+            <div className="relative">
+              <div className="h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-gray-600"></div>
+              <div className="absolute top-0 left-0 h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-[#78bf45] animate-spin">
+              </div>
+            </div>
+          </div>
+        )}
+
+        {isSearching && searchResults.length === 0 && !loading && (
+          <p className="text-center font-medium font-jakarta mt-4">No results found for "{searchQuery}"</p>
+        )}
+
+        {!isSearching && !hasMore && mixtapes.length > 0 && (
+          <p className="text-center font-medium font-jakarta mt-4">END</p>
+        )}
       </div>
     </div>
   );
