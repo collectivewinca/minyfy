@@ -107,7 +107,7 @@ export default function TagsComponent() {
         {tags.map(tag => (
           <div key={tag.id} className=" relative">
             {/* Tag Name */}
-            <h2 className="md:text-3xl text-xl font-semibold mb-4">{tag.tagName}</h2>
+            <h2 className="text-3xl text-center md:text-left font-semibold mb-4">{tag.tagName}</h2>
 
             {/* Mixtapes under the tag */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 gap-5">
@@ -122,7 +122,7 @@ export default function TagsComponent() {
                  height={300}
                  quality={75}
                />
-               <h2 className="text-base text-center font-medium mt-1">{toSentenceCase(mixtape.name)}</h2>
+               <h2 className="text-lg text-center font-medium mt-1">{toSentenceCase(mixtape.name)}</h2>
                {/* <div className="flex gap-1 mb-2 text-slate-600 hover:text-primary items-center cursor-pointer">
                  <FaRegComment className="text-base leading-none" />
                  <div className="text-xs leading-none">
