@@ -123,12 +123,12 @@ export default function TagsComponent() {
                  quality={75}
                />
                <h2 className="text-base text-center font-medium mt-1">{toSentenceCase(mixtape.name)}</h2>
-               <div className="flex gap-1 mb-2 text-slate-600 hover:text-primary items-center cursor-pointer">
+               {/* <div className="flex gap-1 mb-2 text-slate-600 hover:text-primary items-center cursor-pointer">
                  <FaRegComment className="text-base leading-none" />
                  <div className="text-xs leading-none">
                    {mixtape.comments && mixtape.comments.length > 0 ? mixtape.comments.length : 0} Comments
                  </div>
-               </div>
+               </div> */}
 
                {/* <div
                  className={`flex flex-col absolute top-0 right-0 justify-center items-center border pb-1 rounded-sm px-2 cursor-pointer hover:border-[#78bf45] shadow-md hover:shadow-[#78bf45] ${voted[mixtape.id] ? 'border-[#78bf45] text-[#78bf45]' : 'border-gray-300 text-slate-600'}`}
