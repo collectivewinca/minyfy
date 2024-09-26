@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const { createdAt, comments: commentsData = [], ...rest } = docSnap.data(); // Destructure to exclude createdAt and get comments
+      const { createdAt, votedBy, comments: commentsData = [], ...rest } = docSnap.data(); // Destructure to exclude createdAt and get comments
       docData = rest; // Assign everything except createdAt to docData
       initialComments = commentsData; // Default to empty array if comments field is missing
       docId = id;

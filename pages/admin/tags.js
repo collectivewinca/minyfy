@@ -47,8 +47,8 @@ export default function Tags() {
     if (tagName && selectedMixtapes.length > 0) {
       try {
         const newTag = {
-          tagName: tagName.toLowerCase(),
-          selectedMixtapes: selectedMixtapes.map(m => ({ id: m.id, name: m.name })),
+          tagName: tagName,
+          selectedMixtapes: selectedMixtapes,
           order: tags.length,
         };
         await addDoc(collection(db, 'tags'), newTag);

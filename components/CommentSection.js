@@ -148,13 +148,21 @@ const CommentSection = ({
   const updateFirestore = async (newComments) => {
     try {
       const docRef = doc(db, 'mixtapes', docId);
+      
+      // Calculate the length of the comments array
+      const commentCount = newComments.length;
+  
+      // Update both the comments array and the commentCount field
       await updateDoc(docRef, {
         comments: newComments,
+        commentCount: commentCount, // Add commentCount field
       });
+      
     } catch (error) {
       console.error('Error updating Firestore: ', error);
     }
   };
+    
 
   const handleRemoveComment = async (commentId) => {
     if (!displayName) {
