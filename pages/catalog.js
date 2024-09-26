@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { collection, query, orderBy, limit, startAfter, getDocs, where } from 'firebase/firestore';
+import { collection, query, orderBy, limit, startAfter, getDocs, where, updateDoc } from 'firebase/firestore';
 import { db, auth } from '@/firebase/config';
-import { doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import Header from '@/components/Header';
 import { IoCaretUpSharp } from 'react-icons/io5';
@@ -18,7 +18,6 @@ export default function Catalog() {
   const [lastDoc, setLastDoc] = useState(null);
   const [loading, setLoading] = useState(false);
   const [voted, setVoted] = useState({});
-  const [votes, setVotes] = useState({});
   const [hasMore, setHasMore] = useState(true);
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,26 +42,6 @@ export default function Catalog() {
     fetchMixtapes();
   }, []);
 
-  useEffect(() => {
-    const fetchVotes = async () => {
-      const newVotes = {};
-      const votePromises = mixtapes.map(async (mixtape) => {
-        const docRef = doc(db, "votes", mixtape.id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          newVotes[mixtape.id] = docSnap.data().voteCount || 0;
-        } else {
-          newVotes[mixtape.id] = 0;
-        }
-      });
-      await Promise.all(votePromises);
-      setVotes(newVotes);
-    };
-
-    fetchVotes();
-  }, [mixtapes]);
-
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -78,53 +57,40 @@ export default function Catalog() {
       handleLogin();
       return;
     }
-  
+
+    const mixtape = mixtapes.find(m => m.id === mixtapeId);
+    const hasVotedToday = mixtape.votedBy?.some(vote =>
+      vote.userId === user.uid &&
+      vote.date.toDate().toDateString() === new Date().toDateString()
+    );
+
+    if (hasVotedToday) {
+      alert("You've already voted today!");
+      return;
+    }
+
     try {
-      const docRef = doc(db, 'votes', mixtapeId);
-      const docSnap = await getDoc(docRef);
-  
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const hasVotedToday = data.votedBy?.some(vote =>
-          vote.userId === user.uid &&
-          vote.date.toDate().toDateString() === new Date().toDateString()
-        );
-  
-        if (hasVotedToday) {
-          alert("You've already voted today!");
-          return;
-        }
-  
-        await updateDoc(docRef, {
-          voteCount: increment(1),
-          votedBy: [...(data.votedBy || []), { userId: user.uid, date: new Date() }]
-        });
-  
-      } else {
-        await setDoc(docRef, {
-          mixtapeId,
-          voteCount: 1,
-          votedBy: [{ userId: user.uid, date: new Date() }]
-        });
-      }
-  
+      const docRef = doc(db, 'mixtapes', mixtapeId);
+      await updateDoc(docRef, {
+        voteCount: (mixtape.voteCount || 0) + 1,
+        votedBy: [...(mixtape.votedBy || []), { userId: user.uid, date: new Date() }]
+      });
+
       confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
         colors: ['#78bf45', '#96ed58', '#4f9120'],
       });
-  
-      setVotes((prevVotes) => ({
-        ...prevVotes,
-        [mixtapeId]: (prevVotes[mixtapeId] || 0) + 1,
-      }));
-  
+
+      setMixtapes(prevMixtapes => prevMixtapes.map(m => 
+        m.id === mixtapeId ? { ...m, voteCount: (m.voteCount || 0) + 1, votedBy: [...(m.votedBy || []), { userId: user.uid, date: new Date() }] } : m
+      ));
+
       setVoted((prevVoted) => ({
         ...prevVoted,
         [mixtapeId]: true,
       }));
-  
     } catch (error) {
       console.error('Error updating vote count: ', error);
     }
@@ -136,9 +102,7 @@ export default function Catalog() {
     setLoading(true);
     try {
       const mixtapesCollection = collection(db, 'mixtapes');
-      let mixtapesQuery;
-
-      mixtapesQuery = query(
+      let mixtapesQuery = query(
         mixtapesCollection,
         orderBy('createdAt', 'desc'),
         limit(BATCH_SIZE)
@@ -168,7 +132,6 @@ export default function Catalog() {
       setLoading(false);
     }
   }, [lastDoc, loading, hasMore]);
-
 
   const fetchMixtapesBySearch = useCallback(async () => {
     if (loading) return;
@@ -284,7 +247,7 @@ export default function Catalog() {
                 onClick={() => handleUpvote(mixtape.id)} 
               >
                 <IoCaretUpSharp className={`text-base leading-none ${voted[mixtape.id] ? 'text-[#78bf45]' : 'text-slate-600'}`} />
-                <div className="text-[0.6rem] -mt-[1px] leading-none">{votes[mixtape.id] || 0}</div>
+                <div className="text-[0.6rem] -mt-[1px] leading-none">{mixtape.voteCount || 0}</div>
               </div>
             </div>
           ))}
@@ -294,8 +257,7 @@ export default function Catalog() {
           <div className="flex justify-center items-center mb-2">
             <div className="relative">
               <div className="h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-gray-600"></div>
-              <div className="absolute top-0 left-0 h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-[#78bf45] animate-spin">
-              </div>
+              <div className="absolute top-0 left-0 h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-[#78bf45] animate-spin"></div>
             </div>
           </div>
         )}

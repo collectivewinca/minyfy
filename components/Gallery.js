@@ -216,6 +216,7 @@ const images = [
   }
   
 ];
+
 const ImageGallery = () => {
   const [voted, setVoted] = useState(false);
   const [votes, setVotes] = useState({});
@@ -271,7 +272,7 @@ const ImageGallery = () => {
     }
   
     try {
-      const docRef = doc(db, 'votes', mixtapeId);
+      const docRef = doc(db, 'mixtapes', mixtapeId);
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
