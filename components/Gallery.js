@@ -237,7 +237,7 @@ const ImageGallery = () => {
     const fetchVotes = async () => {
       const newVotes = {};
       const votePromises = images.map(async (mixtape) => {
-        const docRef = doc(db, "votes", mixtape.MixtapeId);
+        const docRef = doc(db, "mixtapes", mixtape.MixtapeId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
