@@ -29,7 +29,7 @@ export default function Tags() {
   }, []);
 
   const fetchMixtapes = async () => {
-    const q = query(collection(db, 'mixtapes'), orderBy('createdAt', 'desc'), limit(200));
+    const q = query(collection(db, 'mixtapes'), orderBy('createdAt', 'desc'), limit(150));
     const querySnapshot = await getDocs(q);
     const mixtapesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setMixtapes(mixtapesData);
