@@ -237,35 +237,34 @@ export default function Catalog() {
       <Header />
       <div className="w-full font-jakarta mx-auto pb-8">
         {/* Search Bar and Filter Buttons */}
-        <div className="flex justify-between items-center mx-2 mb-8 mt-2">
-          <div className="flex gap-2">
-            {['Tags', 'Latest', 'Most Upvotes', 'Most Comments'].map((tab) => (
-              <button 
-                key={tab}
-                className={`bg-gray-300 rounded-full hover:bg-gray-400 py-1 px-3 text-sm ${activeTab === tab ? 'bg-gray-400' : ''}`}
-                onClick={() => handleTabChange(tab)}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-          {/* Search Bar */}
-          <div className="flex items-center w-full max-w-xs">
-            <input 
-              type="text"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              placeholder="Search mixtapes..."
-              className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-[#000000] h-10"
-            />
-            <button 
-              onClick={handleSearch}
-              className="py-1 px-2 bg-[#000000] text-white rounded-r-md focus:outline-none hover:bg-[#6aa43c] h-10"
-            >
-              <FaSearch className='text-lg' />
-            </button>
-          </div>
-        </div>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mx-2 mb-8 mt-2 space-y-4 sm:space-y-0">
+      <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+        {['Tags', 'Latest', 'Most Upvotes', 'Most Comments'].map((tab) => (
+          <button 
+            key={tab}
+            className={`bg-gray-200 rounded-full hover:bg-gray-400 py-1 px-3 text-sm ${activeTab === tab ? 'bg-gray-900 text-white' : ''}`}
+            onClick={() => handleTabChange(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <div className="flex items-center w-full sm:w-auto sm:max-w-xs">
+        <input 
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search mixtapes..."
+          className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-[#000000] h-10"
+        />
+        <button 
+          onClick={handleSearch}
+          className="py-1 px-2 bg-[#000000] text-white rounded-r-md focus:outline-none hover:bg-[#6aa43c] h-10"
+        >
+          <FaSearch className="text-lg" />
+        </button>
+      </div>
+    </div>
 
         {/* Conditionally Render Tags or Mixtapes */}
         {activeTab === 'Tags' && !isSearching ? (
