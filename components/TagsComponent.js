@@ -100,7 +100,7 @@ export default function TagsComponent() {
                   src={tag.tagImageUrl}
                   width={100}
                  height={100}
-                  quality={75}
+                  quality={86}
                 />
               </div>
               <div className="cardContent">
