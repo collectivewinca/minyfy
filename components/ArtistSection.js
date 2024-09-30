@@ -61,7 +61,7 @@ const ArtistSection = ({ onTracksChange }) => {
       return;
     }
 
-    const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(artistName)}&type=artist&limit=5`;
+    const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(artistName)}&type=artist&limit=10`;
 
     try {
       const response = await axios.get(url, {
