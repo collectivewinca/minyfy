@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, orderBy, limit, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-import { db } from '@/firebase/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import storage functions
+import { db, storage } from '@/firebase/config'; // Import Firebase storage
 import { FaTrash } from 'react-icons/fa'; // Import the trash icon from react-icons
 import Header from '@/components/Header';
 
@@ -9,7 +10,8 @@ export default function Tags() {
   const [tagName, setTagName] = useState('');
   const [selectedMixtapes, setSelectedMixtapes] = useState([]);
   const [tags, setTags] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [tagImage, setTagImage] = useState(null); // State for the uploaded tag image
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [draggingTagIndex, setDraggingTagIndex] = useState(null);
 
@@ -42,23 +44,52 @@ export default function Tags() {
     setTags(tagsData);
   };
 
+  const handleImageUpload = async () => {
+    if (!tagImage) return null;
+
+    // Create a reference for the image file in Firebase Storage
+    const storageRef = ref(storage, `tags/${Date.now()}-${tagImage.name}.webp`);
+
+    // Upload the file to Firebase Storage
+    const snapshot = await uploadBytes(storageRef, tagImage);
+    
+    // Get the download URL of the uploaded image
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
+  };
+
   const handleTagCreation = async (e) => {
     e.preventDefault();
     if (tagName && selectedMixtapes.length > 0) {
+      setLoading(true);
       try {
+        // Upload the tag image and get the URL
+        const tagImageUrl = await handleImageUpload();
+        if(tagImageUrl === null) {
+          alert('Image Not found. Please try uploading Tag Image again.');
+          return;
+        }
+
         const newTag = {
           tagName: tagName,
           selectedMixtapes: selectedMixtapes,
+          tagImageUrl: tagImageUrl, // If image is not uploaded, default to empty string
           order: tags.length,
         };
+
+        // Add the tag to Firestore
         await addDoc(collection(db, 'tags'), newTag);
+        
         alert('Tag created successfully!');
         setTagName('');
         setSelectedMixtapes([]);
+        setTagImage(null); // Reset image input after submission
         await fetchTags();
       } catch (error) {
         console.error('Error creating tag:', error);
         alert('Error creating tag. Please try again.');
+      } finally {
+        setLoading(false);
       }
     } else {
       alert('Please enter a tag name and select at least one mixtape.');
@@ -136,8 +167,16 @@ export default function Tags() {
               placeholder="Enter tag name"
               className="border p-2 mr-2"
             />
-            <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-              Create Tag
+
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setTagImage(e.target.files[0])}
+              className="border p-2 mr-2"
+            />
+
+            <button type="submit" className="bg-blue-500 text-white p-2 rounded" disabled={loading}>
+              {loading ? 'Creating...' : 'Create Tag'}
             </button>
           </form>
 
