@@ -96,11 +96,11 @@ export default function TagsComponent() {
               <div className="w-full aspect-square relative">
                 <Image 
                   alt={tag.tagName}
-                  className="rounded-xl object-cover"
+                  className=" h-full w-full rounded-xl object-cover"
                   src={tag.tagImageUrl}
-                  layout="fill"
-                  objectFit="cover"
-                  quality={75} 
+                  width={100}
+                 height={100}
+                  quality={75}
                 />
               </div>
               <div className="cardContent">
