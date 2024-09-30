@@ -36,6 +36,41 @@ import {
                 <Text style={paragraph}>
                 Your personalized mixtape is now ready to be shared with the world. Whether it's a collection of your favorite tracks or a musical journey for someone special, your mixtape is a reflection of your unique taste and creativity.
                 </Text>
+                <Link 
+                  href={shortenedLink}
+                  style={{
+                    backgroundColor: '#f0f0f0',
+                    border: '2px solid #ff5722',
+                    borderRadius: '8px',
+                    padding: '12px 20px',
+                    margin: '20px 0',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ffe0d6';
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f0f0f0';
+                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                  }}
+                >
+                  <span style={{ 
+                    fontSize: '16px', 
+                    fontWeight: 'bold', 
+                    color: '#333',
+                    marginRight: '10px',
+                    wordBreak: 'break-all'
+                  }}>
+                    {shortenedLink}
+                  </span>
+                 
+                </Link>
                 <Img src={imageUrl} width="100%" alt="Mixtape Image" style={mixtapeImage} />
                 <Button style={button} href={shortenedLink}>
                   Listen to Your {name} Mixtape
