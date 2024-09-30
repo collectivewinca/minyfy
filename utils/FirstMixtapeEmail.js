@@ -46,31 +46,21 @@ import {
                     margin: '20px 0',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    display: 'block', // Change display to block
+                    textAlign: 'center', // Ensure text is centered
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#ffe0d6';
-                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f0f0f0';
-                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
                   }}
                 >
                   <span style={{ 
                     fontSize: '16px', 
                     fontWeight: 'bold', 
                     color: '#333',
-                    marginRight: '10px',
-                    wordBreak: 'break-all'
+                    wordBreak: 'break-word' // Ensure the link breaks nicely on long URLs
                   }}>
                     {shortenedLink}
                   </span>
-                 
                 </Link>
+
                 <Img src={imageUrl} width="100%" alt="Mixtape Image" style={mixtapeImage} />
                 <Button style={button} href={shortenedLink}>
                   Listen to Your {name} Mixtape
