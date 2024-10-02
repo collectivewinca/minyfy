@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // You'll need axios for the Spotify API call
+import axios from 'axios';
+import Image from 'next/image';
 import { PiMusicNoteFill } from "react-icons/pi";
 
 const ArtistSection = ({ onTracksChange }) => {
@@ -7,14 +8,13 @@ const ArtistSection = ({ onTracksChange }) => {
   const [selectedArtist, setSelectedArtist] = useState('');
   const [topTracks, setTopTracks] = useState([]);
   const [searchedArtist, setSearchedArtist] = useState('');
-  const [searchResults, setSearchResults] = useState([]); // For storing Spotify search results
+  const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
     fetchTopArtists();
   }, []);
 
-  // Fetch Last.fm Top Artists
   const fetchTopArtists = async () => {
     const url = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=913f1b2c2126b54f985407d31d49da12&limit=10&format=json`;
 
@@ -27,7 +27,6 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
-  // Fetch Spotify access token
   const getAccessToken = async () => {
     const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
     const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
@@ -53,7 +52,6 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
-  // Fetch artists from Spotify based on search input
   const fetchSpotifyArtists = async (artistName) => {
     const token = await getAccessToken();
     if (!token) {
@@ -77,7 +75,6 @@ const ArtistSection = ({ onTracksChange }) => {
         return;
       }
 
-      // Set search results to allow user selection
       setSearchResults(artists);
       setError('');
     } catch (error) {
@@ -86,7 +83,6 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
-  // Fetch top tracks for a selected artist
   const fetchTopTracks = async (artistId) => {
     const token = await getAccessToken();
     if (!token) {
@@ -115,7 +111,6 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
-  // Handle selecting an artist from Last.fm's top artists
   const handleArtistSelection = async (artistName) => {
     const token = await getAccessToken();
     if (!token) {
@@ -141,7 +136,7 @@ const ArtistSection = ({ onTracksChange }) => {
 
       const artistId = artist.id;
       fetchTopTracks(artistId);
-      setSelectedArtist(artistName); // Display the artist name in the UI
+      setSelectedArtist(artistName);
       setError('');
     } catch (error) {
       console.error('Error fetching artist from Spotify:', error);
@@ -205,13 +200,22 @@ const ArtistSection = ({ onTracksChange }) => {
         {error && <p className="text-red-600 mt-2">{error}</p>}
       </div>
 
-      {/* Search results for Spotify artists */}
       {searchResults.length > 0 && (
         <div className="mt-5">
           <h2 className="md:text-xl text-base font-medium mb-4 font-jakarta">Select an Artist</h2>
-          <ul className="grid md:grid-cols-5 grid-cols-2 gap-2">
+          <ul className="grid md:grid-cols-5 grid-cols-2 gap-4">
             {searchResults.map((artist) => (
-              <li key={artist.id} className=''>
+              <li key={artist.id} className='flex flex-col items-center'>
+                <div className="w-24 h-24 relative mb-2">
+                  <Image
+                    src={artist.images[0]?.url || '/api/placeholder/200/200'}
+                    alt={artist.name}
+                    layout="fill"
+                    quality={70}
+                    objectFit="cover"
+                    className="rounded-full"
+                  />
+                </div>
                 <button
                   className="cursor-pointer rounded-full text-sm font-jakarta bg-[#F4EFE6] px-4 text-neutral-700 font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
                   onClick={() => handleArtistSelection(artist.name)}
@@ -224,7 +228,6 @@ const ArtistSection = ({ onTracksChange }) => {
         </div>
       )}
 
-      {/* Display selected artist's top tracks */}
       {selectedArtist && topTracks.length > 0 && (
         <div className="mt-5 font-jakarta">
           <h2 className="md:text-xl text-base font-medium tracking-wider mb-4">{selectedArtist}&rsquo;s Top Tracks</h2>

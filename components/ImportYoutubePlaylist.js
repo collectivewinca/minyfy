@@ -47,7 +47,7 @@ const ImportPlaylist = ({ onTracksChange }) => {
 
     try {
       const results = await searchYouTubePlaylists(searchQuery);
-      setSearchResults(results.slice(0, 5));
+      setSearchResults(results.slice(0, 10));
       setError('');
     } catch (error) {
       console.error('Error searching playlists:', error);
@@ -94,7 +94,7 @@ const ImportPlaylist = ({ onTracksChange }) => {
   const searchYouTubePlaylists = async (query) => {
     const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
     const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${encodeURIComponent(query)}&key=${apiKey}&maxResults=5`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${encodeURIComponent(query)}&key=${apiKey}&maxResults=10`
     );
     return response.data.items.map(item => ({
       id: item.id.playlistId,
