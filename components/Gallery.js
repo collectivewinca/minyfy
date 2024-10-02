@@ -46,12 +46,6 @@ const images = [
     MixtapeId: 'Y8gzr3Mid7DI0OqaRV73',
     label: 'Featured Artist 3'
   },
-   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Kaathu-Mela---From-%22Think-Indie%22---Paal-Dabba---Aasa-Kooda---From-%22Think-Indie%22---Sai-Abhyankkar---I-Love-You---From-%22Think-Indie%22---Urban-Thozha---Yaaro---From-%22Think-Indie%22---Rakhooo?alt=media&token=a0db6fbc-9c0a-49c7-97a5-b965099ec808",
-    link: 'https://go.minyvinyl.com/thinkindie',
-    MixtapeId: '2RTSHUOUitZKHPe5tHz3',
-    label: 'Featured Curator 0'
-  },
   {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Chup-Chup-Ke---Shankar-Ehsaan-Loy---Hona-Tha-Pyar---Atif-Aslam---Pehla-Nasha---Udit-Narayan---Chalo-Tumko-Lekar%2C-Pt.-1---Shreya-Ghoshal?alt=media&token=17d15491-f41a-4742-b2e2-73e0685f515f",
     link: 'https://go.minyvinyl.com/handpickinten',
@@ -71,12 +65,6 @@ const images = [
     label: 'Featured Curator 3'
   },
   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Kill-Bill---SZA---As-It-Was---Harry-Styles---Dark-Red---Steve-Lacy---Ivy---Frank-Ocean?alt=media&token=851e15a2-e3e6-48e9-991d-6eaadec84e0c",
-    link: 'https://go.minyvinyl.com/BedroomBeats',
-    MixtapeId: 'zIIeXOeegkFNO8NjToF1',
-    label: 'Featured Genre 0'
-  },
-  {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Karma---Taylor-Swift---Never-Meant---American-Football---Spanish-Sahara---Foals---Cassius---Foals?alt=media&token=e043833f-bd13-4e03-91a8-a467f4c10339",
     link: 'https://go.minyvinyl.com/thealgorithm',
     MixtapeId: 'QbDCyRWwpgBE7h818243',
@@ -93,12 +81,6 @@ const images = [
     link: 'https://go.minyvinyl.com/sweetrap',
     MixtapeId: '4cqkbBGC7SovpwPqMx9p',
     label: 'Featured Genre 3'
-  },
-  {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---The-American-Metaphysical-Circus---The-United-States-Of-America---Accidents-Will-Happen---Broadcast-Remix---The-Projects---Plastic-Mile---Stereolab---Variations-on-Pachelbel's-Canon---Emerald-Web?alt=media&token=66e29eaa-adc0-4220-a19b-e08c4fbc2685",
-    link: 'https://go.minyvinyl.com/tracyten',
-    MixtapeId: 'MVpD6wM1JaY3qgPLVxI4',
-    label: 'Live Performer 0'
   },
    {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Sunshine-Song-(Thomas-Gold-Remix)---Nicole-Otero---Sunshine-Song-(Arno-Cost-Remix)---Nicole-Otero---Sunshine-Song-(Original-Mix)---Nicole-Otero---Sunshine-Song---Thomas-Gold-Radio-Edit---Nicole-Otero?alt=media&token=4752f5a1-31cd-41e9-907d-3e579a36b7a9",
@@ -125,28 +107,16 @@ const images = [
     label: 'Subway Musician 1'
   },
   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Greed---Gabriel-Adort---Lucky-Man---Gabriel-Adort---Tipitina---Gabriel-Adort---Nature-Boy---Gabriel-Adort?alt=media&token=28a2f976-0437-4dc1-9a13-15151b899f15",
-    link: 'https://go.minyvinyl.com/galdort',
-    MixtapeId: '83YsYzejtnGv7jDKjQRt',
-    label: 'Subway Musician 2'
-  },
-  {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Brazil---The-Blue-Dahlia---Laura---The-Blue-Dahlia---The-Way-You-Look-Tonight---The-Blue-Dahlia---New-York%2C-New-York---The-Blue-Dahlia?alt=media&token=6c975240-a3d4-4b47-b04e-9338180907d2",
     link: 'https://go.minyvinyl.com/thebluedalhia',
     MixtapeId: 'x90HQK8w6SW5lqa53sc1',
-    label: 'Subway Musician 3'
+    label: 'Subway Musician 2'
   },
    {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Sicilienne---Luellen-Abdoo---Sonata-Concertata%3A-Adagio---Luellen-Abdoo---Sonata-Concertata%3A-Rondo---Luellen-Abdoo---Sonata-Concertata%3A-Allegro---Luellen-Abdoo?alt=media&token=a86eb3ff-f755-4047-88be-263eed97badd",
     link: 'https://go.minyvinyl.com/abdoo',
     MixtapeId: '75c2jQVezsGYkC5qS6TH',
-    label: 'Subway Musician 4'
-  },
-  {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Harlem-Salsa---Troy-Weekes-Music---Bifaysic-Sleep-Paralysis-(Feat.-Mark-Ferg%2C-Troy-Weekes-Music-%26-Liberty-Styles)---LiKWUiD-%26-2-Hungry-Bros---Trying-To-Survive---Troy-Weekes-Music---Trying-So-Hard---Troy-Weekes-Music?alt=media&token=5a2daa7c-36fa-47c3-8db3-0dc7c37de8a8",
-    link: 'https://go.minyvinyl.com/weekes',
-    MixtapeId: '5Ql9OmZiBRYstvlI5uKN',
-    label: 'New York 0'
+    label: 'Subway Musician 3'
   },
   {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---SO-WHAT---Allan-Harris---Get-Ready---Allan-Harris---I-Grew-Up-(Kate'S-Place)---Allan-Harris---You-Bring-Out-The-Best-In-Me---Allan-Harris?alt=media&token=19e6a662-7271-42d8-a753-8bb9bbadf423",
@@ -167,12 +137,6 @@ const images = [
     label: 'New York 3'
   },
   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---SILKSCREEN---Avara---Let-It-Go...-(Outro)---Avara---Been-Some-Time-(Need-U)---Avara---Duck-%26-Roll---Avara?alt=media&token=dbff874c-f342-454e-8745-81a22d386aa5",
-    link: 'https://go.minyvinyl.com/avarafusion',
-    MixtapeId: 'nGvBUEZvPHJ3251xj6dB',
-    label: 'Austin 0'
-  },
-  {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---2-Can-Play-That-Game-(Feat.-Nubia-Emmon)---Cha'Keeta-B---Fall-Back-(Feat.-Alesia-Lani)---Cha'Keeta-B---Cha'Keeta-B-2-Can-Play-That-Game-Ft-Nubia-Emmon---Cha'Keeta-B---Aromatic---Cha'Keeta-B?alt=media&token=2927a57d-0736-402b-a68e-b04d1330174b",
     link: 'https://go.minyvinyl.com/chakeeta',
     MixtapeId: 'dkQT0TtstanC9lE99XGM',
@@ -189,12 +153,6 @@ const images = [
     link: 'https://go.minyvinyl.com/avarafusion',
     MixtapeId: 'nGvBUEZvPHJ3251xj6dB',
     label: 'Austin 1'
-  },
-  {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Toxic---Tai-Mistyque---Be-Without-Me---Tai-Mistyque---Reminder---Tai-Mistyque---Where-Do-I-Go---Tai-Mistyque?alt=media&token=70a981b0-83bc-48c3-bd02-afa69b842e90",
-    link: 'https://go.minyvinyl.com/taiingen',
-    MixtapeId: 'FfiZ8lrmj7cjrxv1xsWW',
-    label: 'Chicago 0'
   },
   {
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Toxic---Tai-Mistyque---Be-Without-Me---Tai-Mistyque---Reminder---Tai-Mistyque---Where-Do-I-Go---Tai-Mistyque?alt=media&token=70a981b0-83bc-48c3-bd02-afa69b842e90",
@@ -369,13 +327,13 @@ const ImageGallery = () => {
     <div className="container mx-auto px-4">
       {renderImageSection("Top Mixtapes This Week", "Most popular tracks of the week", 0, 3)}
       {renderImageSection("Featured Artists", "Discover mixtapes from featured artists", 3, 6)}
-      {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 7, 10)}
-      {renderImageSection("Featured Genres", "Discover mixtapes by genre", 11, 14)}
-      {renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 15, 18)}
-      {renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 19, 22)}
-      {renderImageSection("Featured from New York", "Discover mixtapes from artists in New York", 23, 26)}
-      {renderImageSection("Featured from Austin, Texas", "Discover mixtapes from artists in Austin, Texas", 27, 30)}
-      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 31, 34)}
+      {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 6, 9)}
+      {renderImageSection("Featured Genres", "Discover mixtapes by genre", 9, 12)}
+      {renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 12, 15)}
+      {renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 15, 18)}
+      {renderImageSection("Featured from New York", "Discover mixtapes from artists in New York", 18, 21)}
+      {renderImageSection("Featured from Austin, Texas", "Discover mixtapes from artists in Austin, Texas", 21, 24)}
+      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 24, 27)}
     </div>
   );
 };
