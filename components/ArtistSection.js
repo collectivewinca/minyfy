@@ -3,7 +3,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { PiMusicNoteFill } from "react-icons/pi";
 
-const ArtistSection = ({ onTracksChange }) => {
+const ArtistSection = ({ onTracksChange, artist }) => {
   const [topArtists, setTopArtists] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState('');
   const [topTracks, setTopTracks] = useState([]);
@@ -11,10 +11,22 @@ const ArtistSection = ({ onTracksChange }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchTopArtists();
-  }, []);
+  console.log(artist);
 
+  useEffect(() => {
+    if (artist) {
+      
+      // If artistName is provided as a prop, fetch Spotify artist and their top tracks
+      handleArtistSelection(artist);
+      // Fetch the top artists when no artistName prop is passed
+      fetchTopArtists();
+    } else {
+      // Fetch the top artists when no artistName prop is passed
+      fetchTopArtists();
+    }
+  }, [artist]);
+
+  // Fetch top artists from Last.fm
   const fetchTopArtists = async () => {
     const url = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=913f1b2c2126b54f985407d31d49da12&limit=10&format=json`;
 
@@ -27,6 +39,7 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
+  // Function to get Spotify access token
   const getAccessToken = async () => {
     const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
     const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
@@ -52,6 +65,7 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
+  // Fetch artists from Spotify
   const fetchSpotifyArtists = async (artistName) => {
     const token = await getAccessToken();
     if (!token) {
@@ -83,6 +97,7 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
+  // Fetch top tracks for a specific artist ID
   const fetchTopTracks = async (artistId) => {
     const token = await getAccessToken();
     if (!token) {
@@ -103,7 +118,7 @@ const ArtistSection = ({ onTracksChange }) => {
         (track) => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artists[0].name)}`
       );
       setTopTracks(trackList);
-      onTracksChange(trackList);
+      onTracksChange(trackList); // Notify parent about the new tracks
       setError('');
     } catch (error) {
       console.error('Error fetching top tracks from Spotify:', error);
@@ -111,6 +126,7 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
+  // Handle artist selection or artistName prop flow
   const handleArtistSelection = async (artistName) => {
     const token = await getAccessToken();
     if (!token) {
@@ -119,7 +135,7 @@ const ArtistSection = ({ onTracksChange }) => {
     }
 
     const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(artistName)}&type=artist&limit=1`;
-  
+
     try {
       const response = await axios.get(searchUrl, {
         headers: {
@@ -135,7 +151,7 @@ const ArtistSection = ({ onTracksChange }) => {
       }
 
       const artistId = artist.id;
-      fetchTopTracks(artistId);
+      fetchTopTracks(artistId); // Fetch top tracks for the selected artist
       setSelectedArtist(artistName);
       setError('');
     } catch (error) {
@@ -144,33 +160,39 @@ const ArtistSection = ({ onTracksChange }) => {
     }
   };
 
+  // Handle input change for manual search
   const handleInputChange = (event) => {
     setSearchedArtist(event.target.value);
   };
 
+  // Handle manual search
   const handleSearch = () => {
     if (searchedArtist.trim() === '') {
       setError('Please enter an artist name.');
       setTopTracks([]);
-      onTracksChange([]);
+      onTracksChange([]); // Reset tracks if no search query
       return;
     }
     fetchSpotifyArtists(searchedArtist);
   };
 
+  // Helper function to capitalize words
   const capitalizeWords = (str) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
   return (
     <div className="my-5 flex flex-col justify-start w-full">
+      {/* Top Artists Section */}
       <div className="mt-5">
-        <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Select from this Week&rsquo;s Top Artists</h2>
+        <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">
+          Select from this Week&rsquo;s Top Artists
+        </h2>
         <ul className="grid md:grid-cols-5 grid-cols-2 gap-2">
           {topArtists.map((artist) => (
-            <li key={artist.name} className=''>
+            <li key={artist.name}>
               <button
-                className="cursor-pointer rounded-full text-sm font-jakarta  bg-[#F4EFE6] px-4 text-neutral-700   font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
+                className="cursor-pointer rounded-full text-sm font-jakarta bg-[#F4EFE6] px-4 text-neutral-700 font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
                 onClick={() => handleArtistSelection(artist.name)}
               >
                 {artist.name}
@@ -180,6 +202,7 @@ const ArtistSection = ({ onTracksChange }) => {
         </ul>
       </div>
 
+      {/* Search for Artist Section */}
       <div className="mt-5">
         <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Search for Artist</h2>
         <div className="flex items-center">
@@ -200,12 +223,13 @@ const ArtistSection = ({ onTracksChange }) => {
         {error && <p className="text-red-600 mt-2">{error}</p>}
       </div>
 
+      {/* Artist Search Results Section */}
       {searchResults.length > 0 && (
         <div className="mt-5">
           <h2 className="md:text-xl text-base font-medium mb-4 font-jakarta">Select an Artist</h2>
           <ul className="grid md:grid-cols-5 grid-cols-2 gap-4">
             {searchResults.map((artist) => (
-              <li key={artist.id} className='flex flex-col items-center'>
+              <li key={artist.id} className="flex flex-col items-center">
                 <div className="w-24 h-24 relative mb-2">
                   <Image
                     src={artist.images[0]?.url || '/api/placeholder/200/200'}
@@ -228,6 +252,7 @@ const ArtistSection = ({ onTracksChange }) => {
         </div>
       )}
 
+      {/* Display Selected Artist's Top Tracks */}
       {selectedArtist && topTracks.length > 0 && (
         <div className="mt-5 font-jakarta">
           <h2 className="md:text-xl text-base font-medium tracking-wider mb-4">{selectedArtist}&rsquo;s Top Tracks</h2>
@@ -235,10 +260,10 @@ const ArtistSection = ({ onTracksChange }) => {
           <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {topTracks.map((track) => (
               <li key={track} className="flex md:gap-4 gap-2 mb-2 w-full items-center">
-                <div className='p-2 rounded-md bg-[#F4EFE6] font-extrabold text-black'>
-                  <PiMusicNoteFill className='md:text-xl text-sm' />
+                <div className="p-2 rounded-md bg-[#F4EFE6] font-extrabold text-black">
+                  <PiMusicNoteFill className="md:text-xl text-sm" />
                 </div>
-                <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
+                <div className="font-base font-jakarta md:text-xl text-sm">{track}</div>
               </li>
             ))}
           </ul>

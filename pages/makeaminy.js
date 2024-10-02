@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import TracksList from '@/components/TrackList';
 import ArtistSection from '@/components/ArtistSection';
 import TagSection from '@/components/TagSection';
+import { useRouter } from 'next/router';
 import MinySection from '@/components/MinySection';
 import ImportPlaylist from '@/components/ImportPlaylist';
 import ImportDiscogPlaylist from '@/components/ImportDiscogPlaylist';
@@ -41,6 +42,17 @@ const Custom = () => {
     "/9.png",
     "/5.png"
   ]);
+  const [artistName, setArtistName] = useState(''); // New state for artist name
+
+  const router = useRouter(); // Get the router object to parse URL
+
+  useEffect(() => {
+    const query = router.query; // Access the URL query parameters
+    if (query.artist) {
+      setSelectedOption('searchArtist'); // Set selected option to 'searchArtist'
+      setArtistName(query.artist); // Set artistName from the query parameter
+    }
+  }, [router.query]);
 
   const handleSelection = (event) => {
     setSelectedOption(event.target.value);
@@ -385,7 +397,7 @@ const Custom = () => {
         )}
 
         {selectedOption === 'searchArtist' && (
-          <ArtistSection onTracksChange={handleTracksChange} />
+          <ArtistSection artist={artistName} onTracksChange={handleTracksChange} />
         )}
 
         {selectedOption === 'genre' && (
