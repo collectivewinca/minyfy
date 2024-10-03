@@ -57,7 +57,7 @@ function Blog() {
       // Upload the file
       await uploadBytes(storageRef, blob);
 
-      setUploadMessage({ type: 'success', text: `File ${uploadFileName} successfully uploaded!` });
+      setUploadMessage({ type: 'success', text: uploadFileName });
     } catch (error) {
       console.error('Error uploading file:', error);
       setUploadMessage({ type: 'error', text: 'An error occurred during upload.' });
@@ -883,7 +883,8 @@ function Blog() {
             {/* Display upload message */}
             {uploadMessage && (
               <div className={`mb-4 p-3 rounded ${uploadMessage.type === 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
-                {uploadMessage.text}
+                <a className="float-right" onClick={() => window.open(`https://miny.subwaymusician.xyz/blog/${uploadMessage.text}`)}>https://miny.subwaymusician.xyz/blog/{uploadMessage.text}</a>
+                
               </div>
             )}
 
