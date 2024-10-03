@@ -9,7 +9,7 @@ function Footer() {
         <div className="flex flex-col items-center md:flex-row md:justify-between">
           <div className="mb-6 md:mb-0 text-center md:text-left">
             <a href="" className="flex justify-center md:justify-start">
-              <img src="/Logo.png" className="md:h-[18vh] h-[12vh] me-3" alt="Miny Vinyl Logo" />
+              <img src="/Minylogo.png" className="md:h-[18vh] h-[12vh] mt-2 me-3" alt="Miny Vinyl Logo" />
             </a>
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-3 gap-8 md:pt-6 md:pr-5 text-center md:text-left">
