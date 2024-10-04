@@ -558,27 +558,16 @@ function Blog() {
                 class="flex items-center justify-between w-full md:w-auto gap-8 mb-3 md:mb-0"
               >
                 <div class="flex items-center gap-2 text-white">
-                  <div class="size-4">
-                    <svg
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h2
-                    class="text-white mr-5 text-lg font-bold leading-tight tracking-[-0.015em]"
-                  >
+                  
+                  
                     <a
                       class=""
                       href="https://minyvinyl.com/"
-                      >MINY</a
-                    >
-                  </h2>
+                      >
+                      <div class="size-12 mr-3">
+                            <img src="https://minyfy.subwaymusician.xyz/Minylogo.png" alt="Miny Vinyl Logo" className=" h-12" />
+                        </div>
+                      </a>
                 </div>
                 <label class="flex flex-col min-w-40 !h-10 max-w-64 md:hidden">
                   <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
@@ -662,7 +651,7 @@ function Blog() {
                 </label>
               </div>
             </header>
-            <div class=" px-2 md:px-40 flex flex-1 justify-center pb-5">
+            <div class=" px-2 md:px-40 flex flex-col justify-center pb-5">
               <div
                 class="layout-content-container flex flex-col md:max-w-[960px] w-full flex-1"
               >
@@ -704,7 +693,7 @@ function Blog() {
                 <h2
                   class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
                 >
-                  Featured Playlists
+                  ${featuredTitle}
                 </h2>
                 <div
                   class="grid grid-cols-1 md:grid-cols-4 gap-3 p-4"
@@ -738,6 +727,48 @@ function Blog() {
                   </div>
                 `).join('')}
                 </div>
+              </div>
+              <div class="flex flex-col justify-center items-center gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row">
+                <div class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center">
+                  <div class="flex flex-col gap-2 justify-center text-center">
+                    <h1
+                      class="text-white text-center text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
+                    >
+                      ${buyNowTitle}
+                    </h1>
+                    <h2
+                      class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
+                    >
+                      All Mixtapes for $${buyNowPrice}
+                    </h2>
+                    <p
+                      class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
+                    >
+                      ${buyNowDescription}
+                    </p>
+              
+                    <!-- Centering the button -->
+                    <div class="flex justify-center mt-2">
+                      <a
+                        href="${buyNowButtonLink}"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#193be6] text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
+                      >
+                        <span class="truncate">Buy your Collection Now</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="container">
+                <p class="text-sm text-center text-gray-500 mt-4">
+                  Disclaimer: MINY is not affiliated with, endorsed by, or sponsored
+                  by ACL Festival or any of the artists or brands mentioned. We do
+                  not own or claim to own any rights to the music, logos, or other
+                  content shared on this page. This is a fan-created project
+                  intended for entertainment purposes only. No copyright
+                  infringement is intended.
+                </p>
               </div>
             </div>
           </div>
