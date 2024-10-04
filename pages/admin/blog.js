@@ -17,7 +17,7 @@ function Blog() {
     }
   ]);
   const [previewHtml, setPreviewHtml] = useState('');
-
+  const [featuredTitle, setFeaturedTitle] = useState('Featured Playlists');
 
   // Meta information state
   const [metaTitle, setMetaTitle] = useState('Top Arabic Pop Playlists by MINY - Create your own MINY Mixtape');
@@ -28,6 +28,28 @@ function Blog() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadFileName, setUploadFileName] = useState('');
   const [uploadMessage, setUploadMessage] = useState(null);
+  const [buyNowTitle, setbuyNowTitle] = useState('💀 MINY buyNow Collection');
+  const [buyNowPrice, setbuyNowPrice] = useState('All Mixtapes for $99 USD');
+  const [buyNowDescription, setbuyNowDescription] = useState('Take your Halloween experience to the next level by getting the entire MINY Halloween collection! For just $99 USD, you\'ll gain access to all 10 expertly curated mixtapes, perfect for every spooky occasion.');
+  const [buyNowButtonLink, setbuyNowButtonLink] = useState('https://buy.stripe.com/8wM7td96D2YZ5So4gi');
+
+
+
+  const handlebuyNowTitleChange = (event) => {
+    setbuyNowTitle(event.target.value);
+  };
+
+  const handlebuyNowPriceChange = (event) => {
+    setbuyNowPrice(event.target.value);
+  };
+
+  const handlebuyNowDescriptionChange = (event) => {
+    setbuyNowDescription(event.target.value);
+  };
+
+  const handlebuyNowButtonLinkChange = (event) => {
+    setbuyNowButtonLink(event.target.value);
+  };
 
   const handleUploadButtonClick = () => {
     setShowUploadModal(true);
@@ -231,7 +253,7 @@ function Blog() {
                 </label>
               </div>
             </header>
-            <div class=" px-2 md:px-40 flex flex-1 justify-center pb-5">
+            <div class=" px-2 md:px-40 flex flex-col justify-center pb-5">
               <div
                 class="layout-content-container flex flex-col md:max-w-[960px] w-full flex-1"
               >
@@ -273,7 +295,7 @@ function Blog() {
                 <h2
                   class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
                 >
-                  Featured Playlists
+                  ${featuredTitle}
                 </h2>
                 <div
                   class="grid grid-cols-1 md:grid-cols-4 gap-3 p-4"
@@ -308,6 +330,48 @@ function Blog() {
                 `).join('')}
                 </div>
               </div>
+              <div class="flex flex-col justify-center items-center gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row">
+                <div class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center">
+                  <div class="flex flex-col gap-2 justify-center text-center">
+                    <h1
+                      class="text-white text-center text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
+                    >
+                      ${buyNowTitle}
+                    </h1>
+                    <h2
+                      class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
+                    >
+                      All Mixtapes for $${buyNowPrice}
+                    </h2>
+                    <p
+                      class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
+                    >
+                      ${buyNowDescription}
+                    </p>
+              
+                    <!-- Centering the button -->
+                    <div class="flex justify-center mt-2">
+                      <a
+                        href="${buyNowButtonLink}"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#193be6] text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
+                      >
+                        <span class="truncate">Buy your Collection Now</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="container">
+                <p class="text-sm text-center text-gray-500 mt-4">
+                  Disclaimer: MINY is not affiliated with, endorsed by, or sponsored
+                  by ACL Festival or any of the artists or brands mentioned. We do
+                  not own or claim to own any rights to the music, logos, or other
+                  content shared on this page. This is a fan-created project
+                  intended for entertainment purposes only. No copyright
+                  infringement is intended.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -318,10 +382,27 @@ function Blog() {
     };
 
     setPreviewHtml(generatePreviewHtml());
-  }, [playlists, title, description, backgroundImage, metaTitle, metaDescription, metaKeywords]);
+  }, [
+    playlists, 
+    title, 
+    description, 
+    backgroundImage, 
+    metaTitle, 
+    metaDescription, 
+    metaKeywords, 
+    featuredTitle, // Add featuredTitle here
+    buyNowTitle,
+    buyNowPrice,
+    buyNowDescription,
+    buyNowButtonLink
+]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  const handleFeaturedTileChange = (event) => {
+    setFeaturedTitle(event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
@@ -737,7 +818,16 @@ function Blog() {
             {backgroundImage && <img src={backgroundImage} alt="Background" style={{ maxWidth: '200px' }} />}
           </div>
 
-          <h2>Featured Playlists</h2>
+          <div className="mb-4">
+            <label htmlFor="title" className="block text-gray-700 font-bold mb-2">Featured Playlist Title:</label>
+            <input
+              type="text"
+              id="title"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={featuredTitle}
+              onChange={handleFeaturedTileChange}
+            />
+          </div>
           {playlists.map((playlist, index) => (
             <div key={index} className="mb-6 border p-4 rounded-md">
               <h3>Playlist {index + 1}</h3>
@@ -798,6 +888,48 @@ function Blog() {
             >
                 Add Playlist
             </button>
+
+          <h2 className='mt-2 font-extrabold'>Buy Now Section</h2>
+          <div className="mb-4">
+            <label htmlFor="buyNowTitle" className="block text-gray-700 font-bold mb-2">Buy Now Title:</label>
+            <input 
+              type="text"
+              id="BuyNowTitle"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={buyNowTitle}
+              onChange={handlebuyNowTitleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="buyNowPrice" className="block text-gray-700 font-bold mb-2">Buy Now Price:</label>
+            <input 
+              type="text" 
+              id="buyNowPrice" 
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={buyNowPrice}
+              onChange={handlebuyNowPriceChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="buyNowDescription" className="block text-gray-700 font-bold mb-2">Buy Now  Description:</label>
+            <textarea 
+              id="buyNowDescription" 
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={buyNowDescription}
+              onChange={handlebuyNowDescriptionChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="buyNowButtonLink" className="block text-gray-700 font-bold mb-2">Buy Now  Button Link:</label>
+            <input 
+              type="text" 
+              id="buyNowButtonLink" 
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={buyNowButtonLink}
+              onChange={handlebuyNowButtonLinkChange}
+            />
+          </div>
+          
           <button
             onClick={downloadHTML}
             className="mt-4 bg-green-500 mr-2 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -818,7 +950,7 @@ function Blog() {
         <iframe 
           srcDoc={previewHtml} 
           title="Preview"
-          className="w-full h-96 border rounded-md"
+          className="w-full h-[100vh] border rounded-md"
         />
       </div>
       
