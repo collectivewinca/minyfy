@@ -1034,14 +1034,14 @@ function Blog() {
 
             {/* Display upload message */}
             {uploadMessage && (
-              <div className={`mb-4 p-3 rounded ${uploadMessage.type === 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
-                <a className="float-right" onClick={() => window.open(`https://miny.subwaymusician.xyz/blog/${uploadMessage.text}`)}>https://miny.subwaymusician.xyz/blog/{uploadMessage.text}</a>
+              <div className={`mb-4 p-3  rounded ${uploadMessage.type === 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
+                <a className="hover:underline cursor-pointer" onClick={() => window.open(`https://miny.subwaymusician.xyz/blog/${uploadMessage.text}`)}>https://miny.subwaymusician.xyz/blog/{uploadMessage.text}</a>
                 
               </div>
             )}
 
             <div className="mb-4">
-              <label htmlFor="uploadFileName" className="block text-gray-700 font-bold mb-2">File Name (.html):</label>
+              <label htmlFor="uploadFileName" className="block text-gray-700 font-bold mb-2">Enter route in /blog/...</label>
               <input 
                 type="text" 
                 id="uploadFileName" 
