@@ -17,6 +17,7 @@ import { PinterestShareButton, PinterestIcon } from 'react-share';
 import CommentSection from '@/components/CommentSection';
 import TrackList from '@/utils/TrackList';
 import PWAShare from '@/components/PWAshare';
+import { NextSeo } from 'next-seo';
 
 
 export async function getServerSideProps(context) {
@@ -415,50 +416,46 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       ) : (
       <>
       <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
-      <Head>
-        <title>{`${toSentenceCase(name)}'s Mixtape | Listen, Comment & Share | Miny Vinyl`}</title>
-        <meta
-          name="description"
-          content={`Listen to ${toSentenceCase(name)}'s custom mixtape. Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
-        />
-        <meta
-          name="keywords"
-          content="custom mixtape, music playlist, share mixtape, music comments, audio comments, mixtape stickers, polls, interactive playlist, Miny Vinyl"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charSet="utf-8" />
-
-        {/* Open Graph tags for social sharing */}
-        <meta property="og:site_name" content="Miny Vinyl" />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:title" content={`${toSentenceCase(name)}'s Mixtape | Miny Vinyl`} />
-        <meta
-          property="og:description"
-          content={`Explore ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Comment with text, stickers, audio, or participate in polls. Join the conversation and enjoy unique music.`}
-        />
-        <meta property="og:image" content={backgroundImage} />
-        <meta property="og:image:alt" content={`${toSentenceCase(name)}'s Mixtape Cover`} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:type" content="music.playlist" />
-        <meta property="og:url" content={`https://minyfy.subwaymusician.xyz${router.asPath}`} />
-        <meta property="og:url" content={shortenedLink} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-
-        {/* Twitter Cards */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@minyvinyl" />
-        <meta name="twitter:creator" content="@minyvinyl" />
-        <meta name="twitter:title" content={`${toSentenceCase(name)}'s Mixtape | Miny Vinyl`} />
-        <meta
-          name="twitter:description"
-          content={`Listen to and comment on ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Share your thoughts with text, stickers, audio comments, and polls.`}
-        />
-        <meta name="twitter:image" content={backgroundImage} />
-        <link rel="icon" href={backgroundImage} />
-      </Head>
+      <NextSeo
+        title={`${toSentenceCase(name)}'s Mixtape | Listen, Comment & Share | Miny Vinyl`}
+        description={`Listen to ${toSentenceCase(name)}'s custom mixtape. Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
+        canonical={`https://minyfy.subwaymusician.xyz${router.asPath}`}
+        openGraph={{
+          url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
+          title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
+          description: `Explore ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Comment with text, stickers, audio, or participate in polls. Join the conversation and enjoy unique music.`,
+          images: [
+            {
+              url: backgroundImage,
+              alt: `${toSentenceCase(name)}'s Mixtape Cover`,
+              width: 1200,
+              height: 630,
+            },
+          ],
+          site_name: 'Miny Vinyl',
+          type: 'music.playlist', 
+        }}
+        twitter={{
+          handle: '@minyvinyl',
+          site: '@minyvinyl',
+          cardType: 'summary_large_image',
+          title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
+          description: `Listen to and comment on ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Share your thoughts with text, stickers, audio comments, and polls.`,
+          image: backgroundImage, 
+        }}
+        additionalJsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MusicPlaylist',
+            name: `${toSentenceCase(name)}'s Mixtape`,
+            description: `Listen to ${toSentenceCase(
+              name
+            )}'s custom mixtape on Miny Vinyl. Discover unique tracks, join the conversation, and share your thoughts!`, 
+            url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
+            image: backgroundImage,
+          },
+        ]}
+      />
 
         <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-1/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
           <div className="flex items-center">

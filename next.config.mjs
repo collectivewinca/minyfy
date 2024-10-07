@@ -7,17 +7,19 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: '**', // This allows images from any HTTPS domain
       },
     ],
   },
+  // You can add other configurations here if needed
 };
 
 // PWA configuration
 const pwaConfig = {
-  dest: 'public',
+  dest: 'public', // Output directory for service worker and PWA files
   register: true,
   skipWaiting: true,
 };
 
+// Export the combined configuration
 export default withPWA(pwaConfig)(nextConfig);
