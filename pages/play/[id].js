@@ -417,8 +417,8 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       <>
       <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
       <NextSeo
-        title={`${toSentenceCase(name)}'s Mixtape | Listen, Comment & Share | Miny Vinyl`}
-        description={`Listen to ${toSentenceCase(name)}'s custom mixtape. Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
+        title={`${toSentenceCase(name)}'s Mixtape - Listen, Comment & Share | Miny Vinyl`}
+        description={`Listen to ${toSentenceCase(name)}'s custom mixtape. Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
         canonical={`https://minyfy.subwaymusician.xyz${router.asPath}`}
         openGraph={{
           url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
