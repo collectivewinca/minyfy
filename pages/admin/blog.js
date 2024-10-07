@@ -364,12 +364,7 @@ function Blog() {
               
               <div class="container">
                 <p class="text-sm text-center text-gray-500 mt-4">
-                  Disclaimer: MINY is not affiliated with, endorsed by, or sponsored
-                  by ACL Festival or any of the artists or brands mentioned. We do
-                  not own or claim to own any rights to the music, logos, or other
-                  content shared on this page. This is a fan-created project
-                  intended for entertainment purposes only. No copyright
-                  infringement is intended.
+                  Disclaimer: MINY is not affiliated with, endorsed by, or sponsored by any of the artists or brands mentioned on the page. We do not own or claim to own any rights to the music, logos, or other content shared on this page. This is a fan-created project intended for entertainment purposes only. No copyright infringement is intended.
                 </p>
               </div>
             </div>
