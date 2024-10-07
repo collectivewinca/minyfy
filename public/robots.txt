@@ -4,6 +4,6 @@ Allow: /
 
 # Host
 Host: https://minyfy.subwaymusician.xyz
-Disallow: /admin
+
 # Sitemaps
 Sitemap: https://minyfy.subwaymusician.xyz/sitemap.xml
