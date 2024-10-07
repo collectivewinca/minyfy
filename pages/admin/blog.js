@@ -90,7 +90,7 @@ function Blog() {
     const fetchRecentMixtapes = async () => {
       try {
         const mixtapesRef = collection(db, 'mixtapes');
-        const q = query(mixtapesRef, orderBy('createdAt', 'desc'), limit(70));
+        const q = query(mixtapesRef, orderBy('createdAt', 'desc'), limit(30));
         const querySnapshot = await getDocs(q);
 
         const mixtapesData = querySnapshot.docs.map(doc => ({
