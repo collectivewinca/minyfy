@@ -8,6 +8,7 @@ import { MdModeEdit } from "react-icons/md";
 import { updateDoc, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db,storage } from "@/firebase/config";
+import Head from 'next/head';
 
 function Lastfm() {
   const [username, setUsername] = useState('');
@@ -236,6 +237,60 @@ function Lastfm() {
 
   return (
     <>
+      <Head>
+        <title>Last.fm Mixtape - Create a Playlist from Your Listens | Miny Vinyl</title>
+        <meta
+          name="description"
+          content="Relive your favorite tracks! Create a Miny Vinyl playlist from your Last.fm listening history. Choose a duration, generate an AI-powered background, customize your playlist, and share with a personalized URL."
+        />
+        <meta
+          name="keywords"
+          content="Last.fm playlist, import Last.fm, music history playlist, Miny Vinyl, custom playlist, AI playlist, Spotify, Apple Music, YouTube Music, Discogs, personalized playlist, custom playlist URL, music sharing"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="utf-8" />
+
+        {/* Open Graph tags for social sharing */}
+        <meta property="og:site_name" content="Miny Vinyl" />
+        <meta property="og:locale" content="en_US" />
+        <meta 
+          property="og:title" 
+          content="Last.fm Mixtape - Create a Playlist from Your Listens | Miny Vinyl"
+        />
+        <meta
+          property="og:description"
+          content="Relive your favorite tracks! Create a Miny Vinyl playlist from your Last.fm listening history. Choose a duration, generate an AI-powered background, customize your playlist, and share with a personalized URL."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://minyfy.subwaymusician.xyz/lastfm" />
+        <meta
+          property="og:image"
+          content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+        />
+        <meta property="og:image:alt" content="Miny Vinyl - Create a Playlist from Your Last.fm History" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@minyvinyl" />
+        <meta name="twitter:creator" content="@minyvinyl" />
+        <meta
+          name="twitter:title"
+          content="Turn Your Last.fm History into a Fire Playlist! 🔥 | Miny Vinyl" 
+        />
+        <meta
+          name="twitter:description"
+          content="Relive your top tracks! Create a playlist from your Last.fm listens with Miny Vinyl. AI art, custom options, and shareable links - let's go! 🚀"
+        />
+        <meta
+          name="twitter:image"
+          content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+        />
+      </Head>
       <Header />
       <div className=" px-4 my-12 flex flex-col justify-center items-center">
         <h1 className="md:text-4xl text-2xl font-extrabold mb-8 text-black flex gap-2 items-center"> <FaLastfm className="text-5xl pt-1"/> Last.fm Track Generator</h1>

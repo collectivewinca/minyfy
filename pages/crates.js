@@ -5,6 +5,7 @@ import { db, auth } from '@/firebase/config';
 import { collection, query, getDoc,where, getDocs, doc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import Confetti from 'react-confetti';
+import Head from 'next/head';
 
 function Crates() {
   const [user, setUser] = useState(null);
@@ -123,7 +124,61 @@ function Crates() {
 
   if (!user) {
     return (
-      <>
+      <>  
+        <Head>
+          <title>My Crates - View Your Miny Vinyl Purchase History | Miny Vinyl</title>
+          <meta
+            name="description"
+            content="Keep track of your musical treasures! Your Miny Vinyl 'Crates' section lets you view your purchased MINY history, easily access your downloads, and rediscover your favorite sonic gems."
+          />
+          <meta
+            name="keywords"
+            content="Miny Vinyl,MINY purchase history, music downloads, mixtape collection, my crates, music library, digital music, music MINY purchases"
+          />
+          <meta name="robots" content="index, follow" />
+          <meta name="googlebot" content="index, follow" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta charSet="utf-8" />
+
+          {/* Open Graph tags for social sharing */}
+          <meta property="og:site_name" content="Miny Vinyl" />
+          <meta property="og:locale" content="en_US" />
+          <meta 
+            property="og:title" 
+            content="My Miny Crates: Your Music Collection Awaits | Miny Vinyl" 
+          />
+          <meta
+            property="og:description"
+            content="Never lose track of a beat! Your Miny Vinyl 'Crates' provide easy access to your purchased mixtapes. Rediscover, download, and enjoy your music anytime."
+          />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://minyfy.subwaymusician.xyz/crates" /> 
+          <meta
+            property="og:image"
+            content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+          />
+          <meta property="og:image:alt" content="Miny Vinyl - Your Music Purchase History and Downloads" />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+
+          {/* Twitter Cards */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@minyvinyl" />
+          <meta name="twitter:creator" content="@minyvinyl" />
+          <meta
+            name="twitter:title"
+            content="Keep Your Mixtapes Safe: Check Out Your Miny Vinyl Crates! 🎧"
+          />
+          <meta
+            name="twitter:description"
+            content="View your purchased Miny Vinyl mixtapes anytime, anywhere. Access your downloads, organize your collection, and keep the music flowing!"
+          />
+          <meta
+            name="twitter:image"
+            content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+          />
+        </Head>
         <Header />
         <div className='flex mt-6 flex-col min-h-screen px-4 mb-10'>
           <h1 className='text-4xl text-center font-bold font-jakarta'>Crates</h1>
@@ -135,6 +190,60 @@ function Crates() {
 
   return (
     <>
+      <Head>
+          <title>My Crates - View Your Miny Vinyl Purchase History | Miny Vinyl</title>
+          <meta
+            name="description"
+            content="Keep track of your musical treasures! Your Miny Vinyl 'Crates' section lets you view your purchased MINY history, easily access your downloads, and rediscover your favorite sonic gems."
+          />
+          <meta
+            name="keywords"
+            content="Miny Vinyl,MINY purchase history, music downloads, mixtape collection, my crates, music library, digital music, music MINY purchases"
+          />
+          <meta name="robots" content="index, follow" />
+          <meta name="googlebot" content="index, follow" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta charSet="utf-8" />
+
+          {/* Open Graph tags for social sharing */}
+          <meta property="og:site_name" content="Miny Vinyl" />
+          <meta property="og:locale" content="en_US" />
+          <meta 
+            property="og:title" 
+            content="My Miny Crates: Your Music Collection Awaits | Miny Vinyl" 
+          />
+          <meta
+            property="og:description"
+            content="Never lose track of a beat! Your Miny Vinyl 'Crates' provide easy access to your purchased mixtapes. Rediscover, download, and enjoy your music anytime."
+          />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://minyfy.subwaymusician.xyz/crates" /> 
+          <meta
+            property="og:image"
+            content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+          />
+          <meta property="og:image:alt" content="Miny Vinyl - Your Music Purchase History and Downloads" />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+
+          {/* Twitter Cards */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@minyvinyl" />
+          <meta name="twitter:creator" content="@minyvinyl" />
+          <meta
+            name="twitter:title"
+            content="Keep Your Mixtapes Safe: Check Out Your Miny Vinyl Crates! 🎧"
+          />
+          <meta
+            name="twitter:description"
+            content="View your purchased Miny Vinyl mixtapes anytime, anywhere. Access your downloads, organize your collection, and keep the music flowing!"
+          />
+          <meta
+            name="twitter:image"
+            content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+          />
+        </Head>
       <Header />
       <div className='flex mt-6 flex-col min-h-screen px-4 mb-10'>
         <h1 className='text-4xl text-center font-bold font-jakarta'>Crates</h1>

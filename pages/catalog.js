@@ -9,6 +9,7 @@ import { FaRegComment, FaSearch } from 'react-icons/fa';
 import confetti from 'canvas-confetti';
 import { useRouter } from 'next/navigation';
 import TagsComponent from '@/components/TagsComponent';
+import Head from 'next/head';
 
 const BATCH_SIZE = 20;
 
@@ -233,6 +234,61 @@ export default function Catalog() {
   };
 
   return (
+    <>
+    <Head>
+      <title>Mixtape Catalog - Discover Trending Music Playlists | Miny Vinyl</title>
+      <meta
+        name="description"
+        content="Explore the Miny Vinyl mixtape / playlist gallery(Catalog) ! Discover new music and trending playlists, filter by upvotes, comments, or tags like Halloween, ACL Festival and many more. Find your next sonic obsession. Also Suppurt your favorite mixtapes by upvoting them!"
+      />
+      <meta
+        name="keywords"
+        content="mixtape gallery, music playlist discovery, trending playlists, Miny Vinyl, music community, top mixtapes, popular playlists, music tags, genre playlists, event playlists, curated playlists" 
+      />
+      <meta name="robots" content="index, follow" />
+      <meta name="googlebot" content="index, follow" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta charSet="utf-8" />
+
+      {/* Open Graph tags for social sharing */}
+      <meta property="og:site_name" content="Miny Vinyl" />
+      <meta property="og:locale" content="en_US" />
+      <meta 
+        property="og:title" 
+        content="Dive into the Miny Vinyl Mixtape Catalog! 🔥 Discover Trending Playlists Now!" 
+      />
+      <meta
+        property="og:description"
+        content="Explore a world of curated music! Discover new playlists, filter by trending tags, or see what's hot in the Miny Vinyl community. Your next favorite song awaits!"
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://minyfy.subwaymusician.xyz/catalog" /> 
+      <meta
+        property="og:image"
+        content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+      />
+      <meta property="og:image:alt" content="Miny Vinyl - Explore the Mixtape Catalog" />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      {/* Twitter Cards */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@minyvinyl" />
+      <meta name="twitter:creator" content="@minyvinyl" />
+      <meta
+        name="twitter:title"
+        content="Discover Your Next Music Obsession in the Miny Vinyl Catalog! 🎧"
+      />
+      <meta
+        name="twitter:description"
+        content="Trending mixtapes, curated playlists, and more! Explore the Miny Vinyl gallery and find your new soundtrack. #MINY #mixtape #musicdiscovery #playlists" 
+      />
+      <meta
+        name="twitter:image"
+        content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+      />
+    </Head>
     <div className="min-h-screen">
       <Header />
       <div className="w-full font-jakarta mx-auto pb-8">
@@ -320,5 +376,7 @@ export default function Catalog() {
         )}
       </div>
     </div>
+    </>
+    
   );
 }

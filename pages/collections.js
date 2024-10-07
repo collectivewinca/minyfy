@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { db, auth } from '@/firebase/config';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
+import Head from 'next/head';
 
 function Collections() {
   const [user, setUser] = useState(null);
@@ -51,6 +52,60 @@ function Collections() {
 
   return (
     <>
+      <Head>
+        <title>Your Mixtape Collection | Miny Vinyl - View and Manage Your Creations</title>
+        <meta
+          name="description"
+          content="Explore your personal collection of Miny Vinyl playlists! Rediscover your curated music mixes, share your favorites with friends, and relive your best musical moments."
+        />
+        <meta
+          name="keywords"
+          content="Miny Vinyl, music playlist collection, my playlists, curated playlists, music library, playlist sharing, music community"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="utf-8" />
+
+        {/* Open Graph tags for social sharing */}
+        <meta property="og:site_name" content="Miny Vinyl" />
+        <meta property="og:locale" content="en_US" />
+        <meta 
+          property="og:title" 
+          content="Your Mixtape Collection | Miny Vinyl - View and Manage Your Creations" 
+        />
+        <meta
+          property="og:description"
+          content="Explore your personal collection of Miny Vinyl playlists! Rediscover your curated music mixes, share your favorites with friends, and relive your best musical moments."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://minyfy.subwaymusician.xyz/collections" /> 
+        <meta
+          property="og:image"
+          content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+        />
+        <meta property="og:image:alt" content="Miny Vinyl - Your Personal Music Playlist Collection" /> 
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@minyvinyl" />
+        <meta name="twitter:creator" content="@minyvinyl" />
+        <meta
+          name="twitter:title"
+          content="My Miny Collections: A Showcase of My Musical Journey 🎶 | Miny Vinyl" 
+        />
+        <meta
+          name="twitter:description"
+          content="Check out my curated Miny Vinyl playlists! From chill vibes to party anthems, explore my musical world and discover your next favorite mix."
+        />
+        <meta
+          name="twitter:image"
+          content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+        />
+      </Head>
       <Header />
       <div className='flex mt-6 flex-col min-h-screen px-4 mb-10'>
         <h1 className='text-4xl text-center font-bold font-jakarta'>Collections</h1>

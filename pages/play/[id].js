@@ -415,15 +415,50 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       ) : (
       <>
       <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
-        <Head>
-          <title>{`${toSentenceCase(name)}'s Mixtape`}</title>
-          <meta name="description" content={description} />
-          <meta property="og:title" content={`${toSentenceCase(name)}'s Mixtape`} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content={backgroundImage} />
-          <meta property="og:type" content="music.playlist" />
-          <link rel="icon" href={backgroundImage} />
-        </Head>
+      <Head>
+        <title>{`${toSentenceCase(name)}'s Mixtape | Listen, Comment & Share | Miny Vinyl`}</title>
+        <meta
+          name="description"
+          content={`Listen to ${toSentenceCase(name)}'s custom mixtape. Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
+        />
+        <meta
+          name="keywords"
+          content="custom mixtape, music playlist, share mixtape, music comments, audio comments, mixtape stickers, polls, interactive playlist, Miny Vinyl"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="utf-8" />
+
+        {/* Open Graph tags for social sharing */}
+        <meta property="og:site_name" content="Miny Vinyl" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:title" content={`${toSentenceCase(name)}'s Mixtape | Miny Vinyl`} />
+        <meta
+          property="og:description"
+          content={`Explore ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Comment with text, stickers, audio, or participate in polls. Join the conversation and enjoy unique music.`}
+        />
+        <meta property="og:image" content={backgroundImage} />
+        <meta property="og:image:alt" content={`${toSentenceCase(name)}'s Mixtape Cover`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:type" content="music.playlist" />
+        <meta property="og:url" content={`https://minyfy.subwaymusician.xyz${router.asPath}`} />
+        <meta property="og:url" content={shortenedLink} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@minyvinyl" />
+        <meta name="twitter:creator" content="@minyvinyl" />
+        <meta name="twitter:title" content={`${toSentenceCase(name)}'s Mixtape | Miny Vinyl`} />
+        <meta
+          name="twitter:description"
+          content={`Listen to and comment on ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Share your thoughts with text, stickers, audio comments, and polls.`}
+        />
+        <meta name="twitter:image" content={backgroundImage} />
+        <link rel="icon" href={backgroundImage} />
+      </Head>
 
         <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-1/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
           <div className="flex items-center">

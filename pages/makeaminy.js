@@ -4,6 +4,7 @@ import TracksList from '@/components/TrackList';
 import ArtistSection from '@/components/ArtistSection';
 import TagSection from '@/components/TagSection';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import MinySection from '@/components/MinySection';
 import ImportPlaylist from '@/components/ImportPlaylist';
 import ImportDiscogPlaylist from '@/components/ImportDiscogPlaylist';
@@ -289,6 +290,60 @@ const Custom = () => {
 
   return (
     <>
+      <Head>
+        <title>Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl</title>
+        <meta
+          name="description"
+          content="Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Spotify, Apple Music, YouTube, Discogs, and more."
+        />
+        <meta
+          name="keywords"
+          content="create mixtape, make a playlist, MINY Vinyl,music playlist maker, custom playlist, AI playlist design, Spotify playlists, YouTube playlists, Apple Music, Discogs, top tracks, genres, artist playlists, custom playlist URL, music sharing, AI music"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="utf-8" />
+
+        {/* Open Graph tags for social sharing */}
+        <meta property="og:site_name" content="Miny Vinyl" />
+        <meta property="og:locale" content="en_US" />
+        <meta
+          property="og:title"
+          content="Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl"
+        />
+        <meta
+          property="og:description"
+          content="Customize your mixtape with AI-generated backgrounds, import playlists from Spotify, YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world! "
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://minyfy.subwaymusician.xyz/makeaminy" />
+        <meta
+          property="og:image"
+          content="https://minyfy.subwaymusician.xyz/vinyl.png"
+        />
+        <meta property="og:image:alt" content="Miny Vinyl - Music Playlist(Mixtape) Creation Page" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@minyvinyl" />
+        <meta name="twitter:creator" content="@minyvinyl" />
+        <meta
+          name="twitter:title"
+          content="Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl"
+        />
+        <meta
+          name="twitter:description"
+          content="Customize your mixtape with AI-generated backgrounds, import playlists from Spotify, YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world! "
+        />
+        <meta
+          name="twitter:image"
+          content="https://minyfy.subwaymusician.xyz/vinyl.png"
+        />
+      </Head>
       <Header />
 
       <div className="md:px-4 flex flex-col justify-center mb-10 items-center px-3">
