@@ -2,7 +2,7 @@
 
 const MakeAMinyImages = [
     "/img1.png",
-    "/img2.png",
+    "https://picsum.photos/200",
     "/img3.png",
     "/img4.png",
     "/img5.png"
