@@ -127,7 +127,7 @@ function Blog() {
         <title>${metaTitle}</title>
         <meta name="description" content="${metaDescription}" />
         <meta name="keywords" content="${metaKeywords}" />
-        <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+        <link rel="icon" type="image/x-icon" href="${playlists[0].imageUrl}" />
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style>
@@ -205,7 +205,7 @@ function Blog() {
                 >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://go.minyvinyl.com/genrex"
+                    href="https://minyfy.subwaymusician.xyz/catalog"
                     >View Catalog</a
                   >
                   <a
@@ -515,7 +515,7 @@ function Blog() {
         <title>${metaTitle}</title>
         <meta name="description" content="${metaDescription}" />
         <meta name="keywords" content="${metaKeywords}" />
-        <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+        <link rel="icon" type="image/x-icon" href="${playlists[0].imageUrl}" />
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style>
@@ -593,23 +593,18 @@ function Blog() {
                 >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://go.minyvinyl.com/prezmix"
-                    >Prez Mix</a
-                  >
-                  <a
-                    class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://go.minyvinyl.com/genrex"
-                    >New Genres</a
+                    href="https://minyfy.subwaymusician.xyz/catalog"
+                    >View Catalog</a
                   >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
                     href="https://minyfy.subwaymusician.xyz/makeaminy"
-                    >Create a Mixtape</a
+                    >Create MINY</a
                   >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
                     href="https://www.instagram.com/minyvinyl/"
-                    >Instagram</a
+                    >Follow Us</a
                   >
                 </div>
                 <label class="flex flex-col min-w-40 !h-10 max-w-64 hidden md:flex">
@@ -729,7 +724,7 @@ function Blog() {
                     <h2
                       class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
                     >
-                      All Mixtapes for $${buyNowPrice}
+                      ${buyNowPrice}
                     </h2>
                     <p
                       class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
@@ -752,12 +747,7 @@ function Blog() {
               
               <div class="container">
                 <p class="text-sm text-center text-gray-500 mt-4">
-                  Disclaimer: MINY is not affiliated with, endorsed by, or sponsored
-                  by ACL Festival or any of the artists or brands mentioned. We do
-                  not own or claim to own any rights to the music, logos, or other
-                  content shared on this page. This is a fan-created project
-                  intended for entertainment purposes only. No copyright
-                  infringement is intended.
+                  Disclaimer: MINY is not affiliated with, endorsed by, or sponsored by any of the artists or brands mentioned on the page. We do not own or claim to own any rights to the music, logos, or other content shared on this page. This is a fan-created project intended for entertainment purposes only. No copyright infringement is intended.
                 </p>
               </div>
             </div>
@@ -1031,7 +1021,7 @@ function Blog() {
             )}
 
             <div className="mb-4">
-              <label htmlFor="uploadFileName" className="block text-gray-700 font-bold mb-2">Enter route in /blog/...</label>
+              <label htmlFor="uploadFileName" className="block text-gray-700 font-bold mb-2">Enter route in /blog/...(Not need to add .html at end)</label>
               <input 
                 type="text" 
                 id="uploadFileName" 
