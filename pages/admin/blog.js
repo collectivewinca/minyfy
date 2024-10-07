@@ -205,23 +205,18 @@ function Blog() {
                 >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://go.minyvinyl.com/prezmix"
-                    >Prez Mix</a
-                  >
-                  <a
-                    class="text-white text-xs md:text-sm font-medium leading-normal"
                     href="https://go.minyvinyl.com/genrex"
-                    >New Genres</a
+                    >View Catalog</a
                   >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
                     href="https://minyfy.subwaymusician.xyz/makeaminy"
-                    >Create a Mixtape</a
+                    >Create MINY</a
                   >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
                     href="https://www.instagram.com/minyvinyl/"
-                    >Instagram</a
+                    >Follow Us</a
                   >
                 </div>
                 <label class="flex flex-col min-w-40 !h-10 max-w-64 hidden md:flex">
@@ -341,7 +336,7 @@ function Blog() {
                     <h2
                       class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
                     >
-                      All Mixtapes for $${buyNowPrice}
+                      ${buyNowPrice}
                     </h2>
                     <p
                       class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
@@ -927,7 +922,7 @@ function Blog() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="buyNowPrice" className="block text-gray-700 font-bold mb-2">Buy Now Price:</label>
+            <label htmlFor="buyNowPrice" className="block text-gray-700 font-bold mb-2">Buy Now small text:</label>
             <input 
               type="text" 
               id="buyNowPrice" 
