@@ -19,12 +19,13 @@ import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
 import mixtapeNames from '@/utils/MixtapeNames';
 import ImportYoutubePlaylist from '@/components/ImportYoutubePlaylist';
 import { NextSeo } from 'next-seo';
+import MakeAMinyImages from "@/utils/MakeAMinyImages";
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('customize');
   const [inputValue, setInputValue] = useState('');
-  const [backgroundImage, setBackgroundImage] = useState('/4.png');
-  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/4.png");
+  const [backgroundImage, setBackgroundImage] = useState('/img3.png');
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/img3.png");
   const [finalImage, setFinalImage] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -36,14 +37,7 @@ const Custom = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [pngImageUrl, setPngImageUrl] = useState("");
-  const [images, setImages] = useState([
-    "/6.png",
-    "/1.png",
-    "/4.png",
-    "/8.png",
-    "/9.png",
-    "/5.png"
-  ]);
+  const [images, setImages] = useState(MakeAMinyImages);
   const [artistName, setArtistName] = useState(''); // New state for artist name
 
   const router = useRouter(); // Get the router object to parse URL
