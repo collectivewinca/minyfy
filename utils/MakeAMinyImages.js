@@ -1,5 +1,3 @@
-
-
 const MakeAMinyImages = [
     "https://minyfy.subwaymusician.xyz/img1.png",
     "https://minyfy.subwaymusician.xyz/img2.png",
