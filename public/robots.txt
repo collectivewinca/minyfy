@@ -1,9 +1,10 @@
-# *
+# All user agents are allowed
 User-agent: *
-Allow: /
+Disallow: /admin
 
-# Host
+# Host declaration (primary domain)
 Host: https://minyfy.subwaymusician.xyz
 
-# Sitemaps
+# Sitemap locations
 Sitemap: https://minyfy.subwaymusician.xyz/sitemap.xml
+Sitemap: https://minyfy.subwaymusician.xyz/sitemap-0.xml
