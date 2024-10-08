@@ -457,7 +457,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         ]}
       />
 
-        <header className="fixed md:top-[-30px] top-[-25px] md:left-[-30px] w-1/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
+        <header className="fixed md:top-[2px] top-[4px] md:left-[-30px] w-1/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
           <div className="flex items-center">
             <div className="cursor-pointer" onClick={() => router.push('/')}>
               <Image 
