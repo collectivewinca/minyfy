@@ -1,9 +1,9 @@
 const MakeAMinyImages = [
-    "https://minyfy.subwaymusician.xyz/img1.png",
-    "https://minyfy.subwaymusician.xyz/img2.png",
-    "https://minyfy.subwaymusician.xyz/img3.png",
-    "https://minyfy.subwaymusician.xyz/img4.png",
-    "https://minyfy.subwaymusician.xyz/img5.png"
+    "https://minyfy.subwaymusician.xyz/thisisfirebg.png",
+    "https://minyfy.subwaymusician.xyz/grammybg.png",
+    "https://minyfy.subwaymusician.xyz/hallowbg.png",
+    "https://minyfy.subwaymusician.xyz/diwalibg.png",
+    "https://minyfy.subwaymusician.xyz/img4.png"
 ];
 
 // Export the array
