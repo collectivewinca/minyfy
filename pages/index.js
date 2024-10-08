@@ -6,6 +6,7 @@ import ImageGallery from '@/components/Gallery';
 import { IoRocketSharp } from "react-icons/io5";
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 
 function Home() {
   const router = useRouter();
