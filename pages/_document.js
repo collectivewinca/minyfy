@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import Script from 'next/script'
-import { Head } from 'next/head'
 
 class MyDocument extends Document {
   render() {
