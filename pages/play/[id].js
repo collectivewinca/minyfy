@@ -457,9 +457,8 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         ]}
       />
         <Head>
-          <link key="favicon" rel="icon" href={backgroundImage} type="image/png" />
-          <link key="apple-touch-icon" rel="apple-touch-icon" href={backgroundImage} />
-          <link key="shortcut-icon" rel="shortcut icon" href={backgroundImage} type="image/png" />
+          <meta property="og:image" content={backgroundImage} />
+          <link rel="icon" href={backgroundImage} /> 
         </Head>
 
         <header className="fixed md:top-[2px] top-[4px] md:left-[-30px] w-1/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
