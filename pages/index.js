@@ -43,6 +43,7 @@ function Home() {
           },
         ]}
       />
+      
       <Header />
       <div className="container mx-auto px-4 my-6">
         <div className="w-full flex justify-center">
