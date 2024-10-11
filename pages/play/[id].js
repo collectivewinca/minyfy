@@ -418,12 +418,12 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       <div className='bg-black text-white w-full min-h-screen flex flex-col justify-center items-center'>
       <NextSeo
         title={`${toSentenceCase(name)}'s Mixtape - Listen, Comment & Share | Miny Vinyl`}
-        description={`Listen to ${toSentenceCase(name)}'s custom mixtape. Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
+        description={`${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
         canonical={`https://minyfy.subwaymusician.xyz${router.asPath}`}
         openGraph={{
           url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
           title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
-          description: `Explore ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Comment with text, stickers, audio, or participate in polls. Join the conversation and enjoy unique music.`,
+          description: `${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!.`,
           images: [
             {
               url: backgroundImage,
