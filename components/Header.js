@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TbLogin2 } from "react-icons/tb";
 import { useRouter } from 'next/router';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 import { TbLogin } from "react-icons/tb";
 import { auth } from '@/firebase/config';  // Adjust the path based on your project structure
 
@@ -17,7 +17,7 @@ const Header = () => {
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithRedirect(auth, provider);
       setUser(result.user);
       localStorage.setItem('user', JSON.stringify(result.user));
     } catch (error) {
