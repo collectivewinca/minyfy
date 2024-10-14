@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { TbLogin2 } from "react-icons/tb";
+import { TbLogin2, TbLogin } from "react-icons/tb";
 import { useRouter } from 'next/router';
-import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
-import { TbLogin } from "react-icons/tb";
-import { auth } from '@/firebase/config';  // Adjust the path based on your project structure
+import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut, getRedirectResult, onAuthStateChanged } from "firebase/auth";
+import { auth } from '@/firebase/config';  // Adjust based on your project structure
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,9 +16,8 @@ const Header = () => {
   const handleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithRedirect(auth, provider);
-      setUser(result.user);
-      localStorage.setItem('user', JSON.stringify(result.user));
+      await signInWithRedirect(auth, provider);
+      // No need to set user here since it will be handled after redirect
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
@@ -36,18 +34,41 @@ const Header = () => {
   };
 
   useEffect(() => {
+    // After redirection, capture the result
+    const fetchRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          setUser(result.user);
+          localStorage.setItem('user', JSON.stringify(result.user));
+        }
+      } catch (error) {
+        console.error("Error after redirect:", error);
+      }
+    };
+
+    fetchRedirectResult();
+
+    // Handle auth state persistence
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
+      } else {
+        setUser(null);
+        localStorage.removeItem('user');
+      }
+    });
+
+    return () => unsubscribe();  // Cleanup on unmount
+  }, []);
+
+  useEffect(() => {
+    // Check if user exists in localStorage for session persistence
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => unsubscribe();
   }, []);
 
   return (
@@ -92,7 +113,7 @@ const Header = () => {
           </div>
           <div className={`justify-between items-center w-full lg:flex lg:w-auto lg:order-1 ${menuOpen ? 'block' : 'hidden'}`} id="mobile-menu-2">
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              <li>
+            <li>
                 <div 
                   className="block py-2 pr-4 pl-3 text-neutral-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-[#73c33e] lg:p-0 cursor-pointer"
                   onClick={() => router.push('/makeaminy')}
