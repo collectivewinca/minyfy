@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { db, auth } from '@/firebase/config';
-import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { FaShoppingCart } from "react-icons/fa";
 import { useRouter } from 'next/router';
@@ -18,6 +18,8 @@ import CommentSection from '@/components/CommentSection';
 import TrackList from '@/utils/TrackList';
 import PWAShare from '@/components/PWAshare';
 import { NextSeo } from 'next-seo';
+import {TbLogin} from 'react-icons/tb'
+import {IoRocketSharp} from 'react-icons/io5'
 
 
 export async function getServerSideProps(context) {
@@ -107,6 +109,16 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       }
     } catch (error) {
       console.error("Error during sign-in:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      localStorage.removeItem('user');
+    } catch (error) {
+      console.error("Error during sign-out:", error);
     }
   };
   
@@ -461,19 +473,37 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           <link rel="icon" href={backgroundImage} /> 
         </Head>
 
-        <header className="fixed md:top-[2px] top-[4px] md:left-[-30px] w-1/3 left-[-10px] right-0 z-50 flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8 ">
-          <div className="flex items-center">
+
+        <header className="w-full flex items-center justify-between py-2 px-4">
             <div className="cursor-pointer" onClick={() => router.push('/')}>
               <Image 
                 src="/Logo.png" 
                 alt="Icon" 
                 width={140} 
                 height={100} 
-                className="w-20 sm:w-24 md:w-28 lg:w-32 "
+                className="w-20 sm:w-24 md:w-28 lg:w-28"
               />
             </div>
-          </div>
-        </header>
+
+            <div>
+              {user ? (
+                <button 
+                  onClick={handleLogout} 
+                  className="text-black border-r-4 border-b-4 border-black bg-[#d6d6d6] hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 "
+                >
+                  <TbLogin className="text-xl" /> Log out
+                </button>
+              ) : (
+                <button 
+                  onClick={handleLogin} 
+                  className="text-black border-r-4 border-b-4 border-black bg-[#73c33e] hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 "
+                >
+                  <TbLogin className="text-xl" /> Log in
+                </button>
+              )}
+            </div>
+          </header>
+
 
         <div className='py-14 px-2 bg-black text-white md:w-2/3 min-h-screen flex flex-col justify-center relative items-center'>
           <button onClick={handleBuyNowClick} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
@@ -557,6 +587,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
               <MdFileDownload className='md:text-2xl text-base' /> Download Image
             </button>
+
             {/* <PinterestShareButton
               url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
               media={imageUrl}
@@ -572,8 +603,18 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             />
 
             
+
+            
             
           </div>
+
+          <div>
+              <div className="btn w-full hex-alt" onClick={() => { router.push("/makeaminy") }}>
+                <i className="animation"></i>
+                <IoRocketSharp className="text-xl" />
+                 Create A MINY 📼<i className="animation"></i>
+              </div>
+            </div>
 
           <div>
           <CommentSection comments={comments} displayName={displayName} avatarUrl={avatarUrl} handleLogin={handleLogin} currentTrackName={currentTrackName} setComments={setComments} docId={docId}  />
