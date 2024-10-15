@@ -588,6 +588,11 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               <MdFileDownload className='md:text-2xl text-base' /> Download Image
             </button>
 
+            <button onClick={handleDownloadImage} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
+              <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
+              <IoRocketSharp className='md:text-xl text-base' /> Create A MINY
+            </button>
+
             {/* <PinterestShareButton
               url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
               media={imageUrl}
@@ -608,13 +613,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             
           </div>
 
-          <div>
-              <div className="btn w-full hex-alt" onClick={() => { router.push("/makeaminy") }}>
-                <i className="animation"></i>
-                <IoRocketSharp className="text-xl" />
-                 Create A MINY 📼<i className="animation"></i>
-              </div>
-            </div>
+          
 
           <div>
           <CommentSection comments={comments} displayName={displayName} avatarUrl={avatarUrl} handleLogin={handleLogin} currentTrackName={currentTrackName} setComments={setComments} docId={docId}  />

@@ -509,7 +509,7 @@ const CommentSection = ({
   };
 
   return (
-    <section className="bg-black max-w-2xl py-8 lg:py-16 font-jakarta antialiased">
+    <section className="bg-black max-w-2xl py-2 lg:py-5 font-jakarta antialiased">
       <div className="mx-auto px-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg lg:text-2xl font-bold text-white">
