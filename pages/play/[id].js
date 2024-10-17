@@ -522,6 +522,10 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             {!isYouTubeApiReady && <div>Loading player...</div>}
           </div> 
 
+          <div className='font-bold mb-3 text-lg  text-[#f48531] font-jakarta'>
+          Click Below To Change The Track.
+          </div>
+
           <div className="relative w-full  md:px-0  md:w-[60%]">
           <div className="absolute left-0 md:left-5 top-0 w-full h-full bg-transparent rounded-lg">
           <div className="absolute  z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-[2.15rem]">
