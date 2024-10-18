@@ -508,7 +508,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         <div className='py-4 px-2 bg-black text-white md:w-2/3 min-h-screen flex flex-col justify-center relative items-center'>
           <button onClick={handleBuyNowClick} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
             <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
-            <FaShoppingCart className='md:text-3xl text-xl' /> Buy Your MINY
+            <FaShoppingCart className='md:text-3xl text-xl' /> Claim MINY Collectible
           </button>
 
           
