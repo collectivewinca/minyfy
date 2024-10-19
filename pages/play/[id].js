@@ -20,6 +20,7 @@ import PWAShare from '@/components/PWAshare';
 import { NextSeo } from 'next-seo';
 import {TbLogin} from 'react-icons/tb'
 import {IoRocketSharp} from 'react-icons/io5'
+import { FaArrowDownLong } from "react-icons/fa6";
 
 
 export async function getServerSideProps(context) {
@@ -522,8 +523,10 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             {!isYouTubeApiReady && <div>Loading player...</div>}
           </div> 
 
-          <div className='font-bold mb-3 text-lg  text-[#f48531] font-jakarta'>
-          Click Below To Change The Track.
+          <div className='font-bold mb-3 text-lg md:text-xl  text-[#f48531] font-jakarta flex items-center gap-1'>
+          <FaArrowDownLong className='md:text-2xl text-xl' />
+          Tap Track Names to Listen
+          <FaArrowDownLong className='md:text-2xl text-xl' />
           </div>
 
           <div className="relative w-full  md:px-0  md:w-[60%]">
