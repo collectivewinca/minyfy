@@ -358,7 +358,7 @@ const Custom = () => {
               <option value="youtube">Import Playlist - YouTube</option>
               <option value="apple">Import Playlist - Apple Music</option>
               <option value="discogs">Import Playlist - Discogs</option>
-              <option value="reddit">Import Playlist - Reddit</option>
+              {/* <option value="reddit">Import Playlist - Reddit</option> */}
               <option value="genre">Genres</option>
               
             </select>
