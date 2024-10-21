@@ -18,14 +18,15 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
 import mixtapeNames from '@/utils/MixtapeNames';
 import ImportYoutubePlaylist from '@/components/ImportYoutubePlaylist';
+import FetchRedditThread from "@/components/FetchRedditThread"
 import { NextSeo } from 'next-seo';
 import MakeAMinyImages from "@/utils/MakeAMinyImages";
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('customize');
   const [inputValue, setInputValue] = useState('');
-  const [backgroundImage, setBackgroundImage] = useState('/img3.png');
-  const [backgroundImageSrc, setBackgroundImageSrc] = useState("/img3.png");
+  const [backgroundImage, setBackgroundImage] = useState(MakeAMinyImages[1]);
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState(MakeAMinyImages[1]);
   const [finalImage, setFinalImage] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -357,6 +358,7 @@ const Custom = () => {
               <option value="youtube">Import Playlist - YouTube</option>
               <option value="apple">Import Playlist - Apple Music</option>
               <option value="discogs">Import Playlist - Discogs</option>
+              <option value="reddit">Import Playlist - Reddit</option>
               <option value="genre">Genres</option>
               
             </select>
@@ -456,6 +458,10 @@ const Custom = () => {
 
         {selectedOption === 'discogs' && (
           <ImportDiscogPlaylist onTracksChange={handleTracksChange} />
+        )}
+
+        {selectedOption === 'reddit' && (
+          <FetchRedditThread onTracksChange={handleTracksChange} />
         )}
       </div>
 
