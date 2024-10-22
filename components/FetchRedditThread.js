@@ -129,7 +129,7 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
 
   const handleUrlImport = async () => {
     if (!redditUrl.trim()) {
-      setError('Please enter a Reddit post URL.');
+      setError('Please enter a Reddit post URL! Please Try Again.');
       return;
     }
   
@@ -152,11 +152,11 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
         setSelectedTracks(initialSelectedTracks);
         onTracksChange(initialSelectedTracks);
       } else {
-        setError('No tracks found in the content');
+        setError('No tracks found in the content. Please Try Importing Again.');
       }
     } catch (error) {
       console.error('Error importing from Reddit:', error);
-      setError('Failed to import playlist. Please check the URL and try again.');
+      setError('Failed to import playlist. Please check the URL and Importing Again.');
     } finally {
       setLoading(false);
     }
