@@ -103,7 +103,7 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
       
       // Get comments and replies
       const comments = response.data[1].data.children;
-      comments.slice(0,15).forEach(comment => {
+      comments.slice(0,13).forEach(comment => {
         if (comment.data.body) {
           content += comment.data.body + '\n';
           
