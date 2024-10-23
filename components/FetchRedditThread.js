@@ -135,9 +135,25 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
   
     setLoading(true);
     setError('');
-    
+  
     try {
-      const apiUrl = `${redditUrl}.json`;
+      let resolvedRedditUrl = redditUrl;
+  
+      // Check if the URL is a short URL (e.g., contains '/s/')
+      if (redditUrl.includes('/s/')) {
+        // Make a request to the API to resolve the short URL
+        const resolveResponse = await axios.post('/api/resolve-reddit-url', { shortUrl: redditUrl });
+        resolvedRedditUrl = resolveResponse.data.fullUrl; // Get the resolved full URL
+      }
+  
+      // Remove any query parameters (like ?share_id= or ?utm_source=) from the resolved URL
+      const cleanUrl = new URL(resolvedRedditUrl);
+      const baseRedditUrl = `${cleanUrl.origin}${cleanUrl.pathname}`; // Get the base URL without queries
+  
+      // Append .json to the clean URL
+      const apiUrl = `${baseRedditUrl}.json`;
+  
+      // Fetch data from Reddit
       const response = await axios.get(apiUrl);
       const allContent = await collectRedditContent(response);
       const processedData = await processWithGemini(allContent);
@@ -146,7 +162,7 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
         // Remove duplicates and store unique tracks
         const uniqueTracks = [...new Set(processedData.tracks)];
         setAllTracks(uniqueTracks);
-        
+  
         // Select first 10 tracks by default
         const initialSelectedTracks = uniqueTracks.slice(0, 10);
         setSelectedTracks(initialSelectedTracks);
@@ -161,6 +177,8 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
       setLoading(false);
     }
   };
+  
+  
 
   const toggleTrack = (track) => {
     setSelectedTracks(prevSelected => {
