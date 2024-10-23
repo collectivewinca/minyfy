@@ -132,37 +132,44 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
       setError('Please enter a Reddit post URL! Please Try Again.');
       return;
     }
-  
+
     setLoading(true);
     setError('');
-  
+
     try {
       let resolvedRedditUrl = redditUrl;
-  
+
       // Check if the URL is a short URL (e.g., contains '/s/')
       if (redditUrl.includes('/s/')) {
-        // Make a request to the API to resolve the short URL
-        const resolveResponse = await axios.post('/api/resolve-reddit-url', { shortUrl: redditUrl });
-        resolvedRedditUrl = resolveResponse.data.fullUrl; // Get the resolved full URL
+        try {
+          // Make a GET request using axios to follow redirects and get the full URL
+          const response = await axios.get(redditUrl, {
+            maxRedirects: 5, // Limit redirects in case of endless loops
+          });
+          resolvedRedditUrl = response.request.responseURL || resolvedRedditUrl;
+        } catch (error) {
+          console.error('Error resolving short URL:', error);
+          setError('Failed to resolve short URL. Proceeding with the original URL.');
+        }
       }
-  
-      // Remove any query parameters (like ?share_id= or ?utm_source=) from the resolved URL
+
+      // Remove any query parameters from the resolved URL
       const cleanUrl = new URL(resolvedRedditUrl);
-      const baseRedditUrl = `${cleanUrl.origin}${cleanUrl.pathname}`; // Get the base URL without queries
-  
+      const baseRedditUrl = `${cleanUrl.origin}${cleanUrl.pathname}`;
+
       // Append .json to the clean URL
       const apiUrl = `${baseRedditUrl}.json`;
-  
-      // Fetch data from Reddit
+
+      // Fetch data from Reddit using axios
       const response = await axios.get(apiUrl);
       const allContent = await collectRedditContent(response);
       const processedData = await processWithGemini(allContent);
-  
+
       if (processedData?.tracks?.length) {
         // Remove duplicates and store unique tracks
         const uniqueTracks = [...new Set(processedData.tracks)];
         setAllTracks(uniqueTracks);
-  
+
         // Select first 10 tracks by default
         const initialSelectedTracks = uniqueTracks.slice(0, 10);
         setSelectedTracks(initialSelectedTracks);
@@ -172,12 +179,13 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
       }
     } catch (error) {
       console.error('Error importing from Reddit:', error);
-      setError('Failed to import playlist. Please check the URL and Importing Again.');
+      setError('Failed to import playlist. Please check the URL and try importing again.');
     } finally {
       setLoading(false);
     }
   };
-  
+
+
   
 
   const toggleTrack = (track) => {
