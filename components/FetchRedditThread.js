@@ -139,20 +139,6 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
     try {
       let resolvedRedditUrl = redditUrl;
 
-      // Check if the URL is a short URL (e.g., contains '/s/')
-      if (redditUrl.includes('/s/')) {
-        try {
-          // Make a GET request using axios to follow redirects and get the full URL
-          const response = await axios.get(redditUrl, {
-            maxRedirects: 5, // Limit redirects in case of endless loops
-          });
-          resolvedRedditUrl = response.request.responseURL || resolvedRedditUrl;
-        } catch (error) {
-          console.error('Error resolving short URL:', error);
-          setError('Failed to resolve short URL. Proceeding with the original URL.');
-        }
-      }
-
       // Remove any query parameters from the resolved URL
       const cleanUrl = new URL(resolvedRedditUrl);
       const baseRedditUrl = `${cleanUrl.origin}${cleanUrl.pathname}`;
