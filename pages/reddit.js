@@ -339,7 +339,7 @@ function Reddit() {
         }}
       />
       <Header />
-      <div className="px-4 my-12 flex flex-col justify-center items-center">
+      <div className="px-4 mt-6 mb-12 flex flex-col justify-center items-center">
         <h1 className="md:text-4xl text-2xl font-extrabold  text-black flex gap-2 items-center">
           <FaReddit className="text-5xl pt-1"/> Reddit Playlist Generator
         </h1>
@@ -373,7 +373,7 @@ function Reddit() {
                 id="redditUrl"
                 value={redditUrl}
                 onChange={(e) => setRedditUrl(e.target.value)}
-                className="px-5 py-3 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-400 rounded-l-xl focus:outline-none focus:ring-1 focus:ring-[#A18249]"
+                className="px-5 py-3 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-600 rounded-l-xl focus:outline-none focus:ring-1 focus:ring-[#A18249]"
                 placeholder="Reddit Post URL"
               />
               <button
@@ -396,7 +396,7 @@ function Reddit() {
             </label>
             <input
               id="mixtapeName"
-              className="px-5 py-3 h-14 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#73c33e]"
+              className="px-5 py-3 h-14 font-thin font-mono w-full bg-neutral-200 text-lg text-neutral-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#73c33e]"
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Add mixtape name to watermark your MINY..."
