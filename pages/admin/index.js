@@ -241,12 +241,17 @@ function Admin() {
             Create Tags
           </h1>
           <h1
+            onClick={()=>{router.push('/admin/copy')}}
+            className={`bg-lime-500 flex justify-center cursor-pointer items-center text-center hover:bg-lime-700 text-white font-bold w-44 py-2 px-4 rounded `}
+          >
+            Transfer Mixtapes
+          </h1>
+          <h1
             onClick={()=>{router.push('/admin/blog')}}
             className={`bg-lime-500 flex justify-center cursor-pointer items-center text-center hover:bg-lime-700 text-white font-bold w-44 py-2 px-4 rounded `}
           >
             Create Blog
           </h1>
-        
         </div>
         <div className="mt-2">
           <input
