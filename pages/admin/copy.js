@@ -8,11 +8,10 @@ import {
   startAfter,
   getFirestore,
 } from "firebase/firestore";
-import { app } from "@/firebase/config"; // Import the app initialization
+import { db } from "@/firebase/config"; // Import the app initialization
 import Image from "next/image";
 import Header from "@/components/Header";
 
-const db = getFirestore(app); // Initialize Firestore with the app
 
 const MixtapesCopy = () => {
   const [mixtapes, setMixtapes] = useState([]);
