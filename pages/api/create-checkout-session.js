@@ -2,7 +2,7 @@
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY);
+
 const allowedCountries = ['US', 'CA', 'GB'];
 
 export default async function handler(req, res) {
