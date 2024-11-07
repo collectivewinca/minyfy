@@ -5,16 +5,26 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { name, email, amount, docId, crateId } = req.body;
-    const originalAmount = amount; // Amount in cents (e.g., 4999 for $49.99)
+    const { origin, dropType, DesignUrl, DesignFee, quantity } = req.body;
+    
+    // Calculate originalAmount in cents for Stripe
+    const pricePerUnit = 4.99;
+    let originalAmount = Math.round(quantity * pricePerUnit * 100); // Convert to cents
+
+    // Add $1,000 design fee in cents if DesignFee is true
+    if (DesignFee) {
+      originalAmount += 100000; // Adding 100000 cents for the $1,000 design fee
+    }
 
     try {
-      const origin = "http://localhost:3000";
+      // Create a customer (without pre-filling the email)
+      const customer = await stripe.customers.create();
 
-      // Create a customer
-      const customer = await stripe.customers.create({
-        email,
-      });
+      // Create a descriptive name and description for the product
+      const productName = `MINY Drop Order for ${dropType}`;
+      const productDescription = `${quantity} MINYs @ $4.99 each for ${dropType}${
+        DesignFee ? ' : Design Fee Included ($1,000.00)' : ''
+      }`;
 
       // Create a Checkout session
       const sessionParams = {
@@ -26,22 +36,32 @@ export default async function handler(req, res) {
               currency: 'usd',
               unit_amount: originalAmount,
               product_data: {
-                name: `${name}'s Mixtape Order`
+                name: productName,
+                description: productDescription,
+                images: ["https://minyfy.subwaymusician.xyz/9.png", DesignUrl],
+                metadata: {
+                  dropType: dropType,
+                  quantity: quantity,
+                  DesignFee: DesignFee ? "Included" : "Not Included",
+                  DesignUrl: DesignUrl
+                }
               }
             },
           },
         ],
         mode: 'payment',
-        success_url: `${origin}/crates?session_id={CHECKOUT_SESSION_ID}&crateId=${crateId}&status=success`,
-        cancel_url: `${origin}/play/${docId}`,
+        success_url: `${origin}/success?status=success`,
+        cancel_url: `${origin}`,
         shipping_address_collection: {
           allowed_countries: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'NL', 'JP'], // Allowed countries
         },
         payment_intent_data: {
           metadata: {
-            order_name: `${name}'s Mixtape Order`,
-            crateId: crateId,
-            docId: docId,
+            order_name: productName,
+            dropType: dropType,
+            quantity: quantity,
+            DesignFee: DesignFee ? "Included" : "Not Included",
+            DesignUrl: DesignUrl
           },
         },
       };
