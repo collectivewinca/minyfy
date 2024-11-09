@@ -271,16 +271,6 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink } = docData;
   const topValue = 42 - name.length * 0.4;
 
-  useEffect(() => {
-    if (playerRef.current) {
-      const player = new Player(playerRef.current);
-      player.on('ended', () => {
-        const nextIndex = (currentTrackIndex + 1) % tracks.length;
-        handleTrackClick(nextIndex);
-      });
-    }
-  }, [currentTrackIndex, tracks.length]);
-
   return (
     <>
       <NextSeo
@@ -369,7 +359,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           title="Check out my Latest Mixtape on Miny Vinyl"
         />
 
-        <PasswordProtectedPlayer setIsLockedPlayer={setIsLocked}  correctPassword="1234">
+        <PasswordProtectedPlayer setIsLockedPlayer={setIsLocked}  correctPassword="minylock">
           <div className="w-full h-full rounded-lg flex items-center justify-center">
             <div
                 id="player"
