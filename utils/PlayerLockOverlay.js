@@ -32,9 +32,9 @@ export function PasswordProtectedPlayer({ children, setIsLockedPlayer, correctPa
     <div className="relative w-full max-w-3xl shadow shadow-neutral-600 border border-neutral-700 mx-auto aspect-video bg-black rounded-lg overflow-hidden">
 
       <div
-        className="absolute inset-0 bg-cover bg-center blur-sm opacity-30"
+        className="absolute inset-0 bg-cover bg-center "
         style={{ 
-          backgroundImage: 'url(https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop)'
+          backgroundImage: 'url(https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop)', 'blur': '20px', "opacity": "0.3"
         }}
       />
 
@@ -42,7 +42,7 @@ export function PasswordProtectedPlayer({ children, setIsLockedPlayer, correctPa
         {!showInput ? (
           <button
             onClick={() => setShowInput(true)}
-            className="group relative inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-lg backdrop-blur-sm transition-all duration-300 transform hover:scale-105"
+            className="group relative inline-flex items-center gap-2 px-8 py-4  hover:bg-white/20 text-white rounded-lg backdrop-blur-sm transition-all duration-300 transform hover:scale-105" style={{ "backgroundColor": "rgb(255 255 255 / 0.1)"}}
           >
             <Lock className="w-5 h-5" />
             <span className="text-lg font-medium">Unlock Player</span>
