@@ -70,14 +70,14 @@ export function PasswordProtectedPlayer({ children, setIsLockedPlayer, correctPa
             <div className="flex gap-3">
               <button
                 onClick={handleUnlock}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors" style={{ "backgroundColor": "rgb(255 255 255 / 0.1)"}}
               >
                 <Unlock className="w-4 h-4" />
                 Submit
               </button>
               <button
                 onClick={handleCancel}
-                className="flex-1 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                className="flex-1 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors" style={{ "backgroundColor": "rgb(255 255 255 / 0.1)"}}
               >
                 Cancel
               </button>
