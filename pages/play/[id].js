@@ -623,7 +623,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           
 
           <div>
-          <CommentSection comments={comments} displayName={displayName} avatarUrl={avatarUrl} handleLogin={handleLogin} currentTrackName={currentTrackName} setComments={setComments} docId={docId}  />
+          <CommentSection comments={comments} displayName={displayName} avatarUrl={avatarUrl} handleLogin={handleLogin} currentTrackName={currentTrackName} setComments={setComments} collection={`mixtapes`} docId={docId}  />
           </div>
 
         </div>

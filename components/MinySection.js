@@ -180,6 +180,8 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
         imageUrl:webpImageUrl,
         pngImageUrl,
         createdAt: serverTimestamp(),
+        commentCount: 0,
+        voteCount: 0,
       });
   
       setFinalImage(webpImageUrl);
@@ -244,7 +246,7 @@ const MinySection = ({ name, backgroundImage, tracks, setFinalImage, onDocIdChan
     <>
     <div className='py-7'>
       <div ref={trackDataContainerRef} className='overflow-y-auto'>
-      <div className="relative z-10 cursor-pointer hex-alt">
+        <div className="relative z-10 cursor-pointer hex-alt">
           <div className="overlay"></div>
          
           

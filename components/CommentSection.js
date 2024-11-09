@@ -127,6 +127,7 @@ const CommentSection = ({
   displayName,
   avatarUrl,
   handleLogin,
+  collection,
   currentTrackName,
 }) => {
   const [replyingTo, setReplyingTo] = useState(null);
@@ -147,7 +148,7 @@ const CommentSection = ({
 
   const updateFirestore = async (newComments) => {
     try {
-      const docRef = doc(db, 'mixtapes', docId);
+      const docRef = doc(db, collection, docId);
       
       // Calculate the length of the comments array
       const commentCount = newComments.length;
@@ -180,7 +181,7 @@ const CommentSection = ({
     setComments(updatedComments);
 
     try {
-      const docRef = doc(db, 'mixtapes', docId);
+      const docRef = doc(db, collection, docId);
       await updateDoc(docRef, {
         comments: updatedComments,
       });

@@ -146,7 +146,7 @@ const Custom = () => {
   
       const json = await response.json();
   
-      if (response.status === 409) {
+      if (json.statusCode === 409) {
         setErrorMessage("Link already exists. Please choose a different custom URL.");
         return;
       } else if (!response.ok) {
