@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Music, Loader2 } from 'lucide-react';
 
 const PlaylistViewer = () => {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState('https://soundcloud.com/sc-playlists-in/sets/party-rap');
   const [playlist, setPlaylist] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,6 +16,7 @@ const PlaylistViewer = () => {
   };
 
   useEffect(() => {
+    
     if (playlist && playlist.tracks.length > 0 && !currentTrack) {
       setCurrentTrack(playlist.tracks[0]);
     }
