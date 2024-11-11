@@ -7,7 +7,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { NextSeo } from 'next-seo';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
-import { FaRegHeart, FaHeart, FaArrowUp } from "react-icons/fa6";
+import { FaRegHeart, FaHeart, FaArrowUp, FaPlus } from "react-icons/fa6"; // Import FaPlus
 import { MdModeEdit, MdRocketLaunch } from "react-icons/md";
 import Header from '@/components/Header';
 import Player from '@vimeo/player';
@@ -30,6 +30,48 @@ const ExclusiveMixtape = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [images, setImages] = useState(MakeAMinyImages);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [vimeoLinks, setVimeoLinks] = useState([{ url: '' }]);
+
+  const handleVimeoLinkChange = (index, value) => {
+    const updatedLinks = [...vimeoLinks];
+    updatedLinks[index].url = value;
+    setVimeoLinks(updatedLinks);
+  };
+
+  const addVimeoLinkInput = () => {
+    setVimeoLinks([...vimeoLinks, { url: '' }]);
+  };
+
+  const handleVimeoLinksAdd = async (event) => {
+    event.preventDefault();
+
+    const validLinks = vimeoLinks.filter(link => link.url.trim() !== ''); // Filter out empty links
+
+    for (const link of validLinks) {
+      const vimeoUrl = link.url.trim();
+      const videoId = vimeoUrl.split('/').pop();
+      try {
+        const response = await axios.get(`https://api.vimeo.com/videos/${videoId}`, {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_VIMEO_ACCESS_TOKEN}`,
+          },
+        });
+
+        setUploadedVideos(prev => [...prev, {
+          id: videoId,
+          url: vimeoUrl,
+          title: response.data.name,
+          processed: true
+        }]);
+
+        setTracks(prev => [...prev, response.data.name]);
+      } catch (error) {
+        console.error('Error fetching video details:', error);
+      }
+    }
+
+    setVimeoLinks([{url: ''}]); // Reset the input fields after processing
+  };
 
   const trackDataContainerRef = useRef(null);
   const router = useRouter();
@@ -519,6 +561,7 @@ const ExclusiveMixtape = () => {
           {/* Video Upload */}
           <div className="mb-6">
             <label className="block text-lg font-medium mb-2">Upload Videos</label>
+            <label className="block text-lg font-medium mb-2">Click Plus(+) to upload multiple video links at once</label>
             {/* <input
               type="file"
               accept="video/*"
@@ -530,21 +573,37 @@ const ExclusiveMixtape = () => {
 
           {/* Direct Vimeo Link */}
           <div className="mb-6">
-            <form onSubmit={handleVimeoLinkAdd} className="flex gap-2">
+        <form onSubmit={handleVimeoLinksAdd} className="flex flex-col gap-2">
+          {vimeoLinks.map((link, index) => (
+            <div key={index} className="flex gap-2">
               <input
-                name="vimeoLink"
                 type="text"
+                value={link.url}
+                onChange={(e) => handleVimeoLinkChange(index, e.target.value)}
                 placeholder="Enter Vimeo link..."
                 className="flex-1 px-4 py-2 rounded-lg border"
               />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-              >
-                Add Link
-              </button>
-            </form>
-          </div>
+              {index === vimeoLinks.length - 1 && (
+                <button
+                  type="button"
+                  onClick={addVimeoLinkInput}
+                  className="px-4 py-2 bg-gray-300 rounded-lg"
+                >
+                  <FaPlus /> {/* Plus icon */}
+                </button>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg mt-2"
+          >
+            Process Links
+          </button>
+        </form>
+      </div>
+
 
           {/* Uploaded Videos List */}
           {uploadedVideos.length > 0 && (
