@@ -16,7 +16,6 @@ const PlaylistViewer = () => {
   };
 
   useEffect(() => {
-    // Set first track as current when playlist loads
     if (playlist && playlist.tracks.length > 0 && !currentTrack) {
       setCurrentTrack(playlist.tracks[0]);
     }
