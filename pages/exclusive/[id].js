@@ -268,7 +268,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
-  const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink } = docData;
+  const { name, tracks, date, imageUrl, backgroundImage, unlockPassword, shortenedLink } = docData;
   const topValue = 42 - name.length * 0.4;
 
   return (
@@ -359,7 +359,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           title="Check out my Latest Mixtape on Miny Vinyl"
         />
 
-        <PasswordProtectedPlayer setIsLockedPlayer={setIsLocked}  correctPassword="minylock">
+        <PasswordProtectedPlayer setIsLockedPlayer={setIsLocked}  correctPassword={unlockPassword}>
           <div className="w-full h-full rounded-lg flex items-center justify-center">
             <div
                 id="player"

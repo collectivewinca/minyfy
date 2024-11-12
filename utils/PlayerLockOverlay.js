@@ -66,7 +66,7 @@ export function PasswordProtectedPlayer({ children, setIsLockedPlayer, correctPa
               placeholder="Enter password"
               className="w-full px-4 py-2 text-black bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-white/40 transition-colors mb-4"
             />
-            {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
+            {error && <p className="text-red-400 text-sm mb-4" style={{"color": "#f87171"}}>{error}</p>}
             <div className="flex gap-3">
               <button
                 onClick={handleUnlock}

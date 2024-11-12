@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { db, auth, storage } from "@/firebase/config";
-import { collection, addDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, getDocs, serverTimestamp } from "firebase/firestore";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { NextSeo } from 'next-seo';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 import { FaRegHeart, FaHeart, FaArrowUp, FaPlus } from "react-icons/fa6"; // Import FaPlus
-import { MdModeEdit, MdRocketLaunch } from "react-icons/md";
+import { MdModeEdit, MdRocketLaunch, MdLock  } from "react-icons/md";
 import Header from '@/components/Header';
 import Player from '@vimeo/player';
 import MakeAMinyImages from "@/utils/MakeAMinyImages";
@@ -31,6 +31,26 @@ const ExclusiveMixtape = () => {
   const [images, setImages] = useState(MakeAMinyImages);
   const [isProcessing, setIsProcessing] = useState(false);
   const [vimeoLinks, setVimeoLinks] = useState([{ url: '' }]);
+  const [unlockPassword, setUnlockPassword] = useState('minylock');
+  const [exclusives, setExclusives] = useState([]);
+
+  useEffect(() => {
+    const fetchExclusives = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "exclusives"));
+        const exclusivesData = [];
+        querySnapshot.forEach((doc) => {
+          exclusivesData.push({ id: doc.id, ...doc.data() });
+        });
+        setExclusives(exclusivesData);
+      } catch (error) {
+        console.error("Error fetching exclusives:", error);
+      }
+    };
+
+    fetchExclusives();
+  }, []);
+
 
   const handleVimeoLinkChange = (index, value) => {
     const updatedLinks = [...vimeoLinks];
@@ -363,12 +383,22 @@ const ExclusiveMixtape = () => {
     }
 
     if (!inputValue) {
-      setErrorMessage('Please enter a mixtape name');
+      alert('Please enter a mixtape name');
       return;
     }
 
     if (isProcessing || uploadedVideos.some(video => !video.processed)) {
-      setErrorMessage('Please wait for all videos to process');
+      alert('Please wait for all videos to process');
+      return;
+    }
+
+    if (!backgroundImage) {
+      alert('Please select a background image');
+      return;
+    }
+
+    if (uploadedVideos.length === 0) {
+      alert('Please upload at least one video');
       return;
     }
 
@@ -384,6 +414,7 @@ const ExclusiveMixtape = () => {
         tracks: uploadedVideos,
         date: new Date().toLocaleDateString(),
         isFavorite,
+        unlockPassword: unlockPassword.trim() !== '' ? unlockPassword : null,
         userDisplayName: user.displayName || 'Anonymous',
         userEmail: user.email,
         imageUrl: imageUrl.webpImageUrl,
@@ -451,7 +482,7 @@ const ExclusiveMixtape = () => {
       />
       <Header />
       
-      <div className="container flex flex-col justify-center items-center gap-3 px-4 py-8">
+      <div className="container flex flex-col font-jakarta justify-center items-center gap-3 px-4 py-8">
           {tracks.length > 0 && (
              <div className="md:w-[35%]">
               <div ref={trackDataContainerRef} className="mb-6">
@@ -502,8 +533,9 @@ const ExclusiveMixtape = () => {
           )}
         <div className="max-w-4xl mx-auto">
 
-          <div className="mb-6">
-            <label className="block text-lg font-medium mb-2">Mixtape Name</label>
+          <div className="flex justify-center gap-4">
+          <div className="mb-6 w-full">
+            <label className="block text-base font-medium mb-2">Mixtape Name</label>
             <input
               type="text"
               value={inputValue}
@@ -511,7 +543,23 @@ const ExclusiveMixtape = () => {
               className="w-full px-4 py-2 rounded-lg border"
               placeholder="Enter mixtape name..."
             />
+            
           </div>
+          <div className="mb-6 w-full">
+            <label className="text-base font-medium mb-2 flex items-center">
+              Unlock Password
+            </label>
+            <input
+              value={unlockPassword}
+              onChange={(e) => setUnlockPassword(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg border"
+              placeholder="Set a password to protect your mixtape..."
+            />
+          </div>
+          </div>
+
+          
+
 
           {/* Background Selection */}
           <div className="mb-6">
@@ -697,6 +745,44 @@ const ExclusiveMixtape = () => {
             </div>
           )}
         </div>
+
+      </div>
+      <div className="container mx-auto px-4 py-8 mt-8">
+        <h2 className="text-2xl font-bold mb-4">All Exclusives</h2>
+        <table className="table-auto w-full border-collapse border border-gray-400">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-400 px-4 py-2">Name</th>
+              <th className="border border-gray-400 px-4 py-2">Date</th>
+              <th className="border border-gray-400 px-4 py-2">User</th>
+              <th className="border border-gray-400 px-4 py-2">Link</th>
+              <th className="border border-gray-400 px-4 py-2">Image</th>
+              <th className="border border-gray-400 px-4 py-2">Unlock Password </th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {exclusives.map((exclusive) => (
+              <tr key={exclusive.id}>
+                <td className="border border-gray-400 px-4 py-2 uppercase">{exclusive.name}</td>
+                <td className="border border-gray-400 px-4 py-2">{exclusive.date}</td>
+                <td className="border border-gray-400 px-4 py-2">{exclusive.userDisplayName}</td>
+                <td className="border border-gray-400 text-blue-600 hover:underline px-4 py-2">
+                  <a href={exclusive.shortenedLink || `exclusives/${exclusive.id}`} target="_blank" rel="noopener noreferrer">
+                    {exclusive.shortenedLink || "View"}
+                  </a>
+                </td> {/* Display link */}
+                <td className="border border-gray-400 px-4 text-blue-600 hover:underline py-2">
+                  <a href={exclusive.imageUrl} target="_blank" rel="noopener noreferrer">
+                    view
+                  </a>
+                </td>
+                <td className="border border-gray-400 px-4 py-2">{exclusive.unlockPassword || 'None'}</td>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );
