@@ -247,66 +247,110 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   };
   
 
-  const resizePlayer = () => {
-    if (playerRef.current) {
-      const playerElement = document.getElementById('player');
-      const width = playerElement?.clientWidth;
-      const height = width * (9 / 16); // 16:9 aspect ratio
-      playerRef?.current.setSize(width, height);
-    }
-  };
+
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !window.YT) {
+    // Only load the API if it hasn't been loaded yet
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // Define the callback function
       window.onYouTubeIframeAPIReady = () => {
         setIsYouTubeApiReady(true);
       };
     } else if (window.YT && window.YT.Player) {
+      // API is already loaded
       setIsYouTubeApiReady(true);
     }
-
-    window.addEventListener('resize', resizePlayer);
-    return () => {
-      window.removeEventListener('resize', resizePlayer);
-    };
   }, []);
 
+  // Initialize or update player when API is ready or track changes
   useEffect(() => {
     if (isYouTubeApiReady && docData?.tracks[currentTrackIndex]?.youtubeData?.videoId) {
+      const videoId = docData.tracks[currentTrackIndex].youtubeData.videoId;
+
       if (!playerRef.current) {
+        // Initialize new player
         playerRef.current = new window.YT.Player('player', {
           height: '100%',
           width: '100%',
-          videoId: docData.tracks[currentTrackIndex].youtubeData.videoId,
+          videoId: videoId,
           playerVars: {
             autoplay: 1,
             controls: 1,
             modestbranding: 1,
+            rel: 0,
+            showinfo: 0,
+            fs: 1,
+            playsinline: 1
           },
           events: {
             onReady: onPlayerReady,
             onStateChange: onPlayerStateChange,
-          },
+            onError: (event) => {
+              console.error('YouTube Player Error:', event.data);
+            }
+          }
         });
-      } else {
-        playerRef.current.loadVideoById(docData.tracks[currentTrackIndex].youtubeData.videoId);
+      } else if (playerRef.current.loadVideoById) {
+        // Load new video in existing player
+        try {
+          playerRef.current.loadVideoById(videoId);
+        } catch (error) {
+          console.error('Error loading video:', error);
+          // Attempt to recreate player if loading fails
+          playerRef.current = null;
+        }
       }
     }
   }, [isYouTubeApiReady, currentTrackIndex, docData]);
 
+  // Resize player on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (playerRef.current?.setSize) {
+        const playerElement = document.getElementById('player');
+        if (playerElement) {
+          const width = playerElement.clientWidth;
+          const height = width * (9 / 16); // 16:9 aspect ratio
+          playerRef.current.setSize(width, height);
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const onPlayerReady = (event) => {
-    event.target.playVideo();
-    resizePlayer();
+    try {
+      event.target.playVideo();
+      const playerElement = document.getElementById('player');
+      if (playerElement) {
+        const width = playerElement.clientWidth;
+        const height = width * (9 / 16);
+        event.target.setSize(width, height);
+      }
+    } catch (error) {
+      console.error('Error in onPlayerReady:', error);
+    }
   };
 
   const onPlayerStateChange = (event) => {
-    if (event.data === window.YT.PlayerState.ENDED) {
-      if (currentTrackIndex < docData.tracks.length - 1) {
-        setCurrentTrackIndex((prevIndex) => prevIndex + 1);
-      } else {
-        // If it's the last track, play from the start again
-        setCurrentTrackIndex(0);
+    try {
+      if (event.data === window.YT.PlayerState.ENDED) {
+        if (currentTrackIndex < docData.tracks.length - 1) {
+          setCurrentTrackIndex(prevIndex => prevIndex + 1);
+        } else {
+          // Optional: loop back to first track
+          setCurrentTrackIndex(0);
+        }
       }
+    } catch (error) {
+      console.error('Error in onPlayerStateChange:', error);
     }
   };
 
