@@ -1,34 +1,35 @@
-import Footer from '@/components/Footer'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-import Script from 'next/script'
+import Footer from '@/components/Footer';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Script from 'next/script';
 
 class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href="/vinyl.png" type="image/png" /> 
+          <link rel="icon" href="/vinyl.png" type="image/png" />
         </Head>
         <body>
           <Main />
           <NextScript />
+          {/* Google Analytics */}
           <Script
-            id="clarity-script"
+            src="https://www.googletagmanager.com/gtag/js?id=G-CQSPN22TTV"
             strategy="afterInteractive"
-          >
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
             {`
-              (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-              })(window, document, "clarity", "script", "ozc9phvqpz");
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-CQSPN22TTV');
             `}
           </Script>
         </body>
         <Footer />
       </Html>
-    )
+    );
   }
 }
 
-export default MyDocument
+export default MyDocument;
