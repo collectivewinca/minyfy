@@ -61,20 +61,20 @@ const images = [
     name: 'handpickinten',
     label: 'Featured Curator 1'
   },
-  // {
-  //   imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---3AM-In-London---Lavaud---Booboo---Yaeji---Lost-In-Between---XTIE-Feat.-Anniina---%40MSMSMSM_FOREVER---Sophie?alt=media&token=2f9ce9ca-f656-4e42-b8cf-4ff09a4a6ec6",
-  //   link: 'https://go.minyvinyl.com/septpick',
-  //   MixtapeId: 'hR4s0Xgbt4JhbZIOI01X',
-  //   name: 'Artists by shesaid.so',
-  //   label: 'Featured Curator 2'
-  // },
-  //  {
-  //   imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Cold-Reactor---Everything-Everything---Grace---IDLES---Off-With-Her-Tits---Allie-X---Ruined---Adrianne-Lenker?alt=media&token=9cd51428-16b6-466a-b8d3-b148c465b8fb",
-  //   link: 'https://go.minyvinyl.com/myllck24',
-  //   MixtapeId: 'rV7OlY1rBJUpC7Wki8C4',
-  //   name: 'myllck 2024 fave',
-  //   label: 'Featured Curator 3'
-  // },
+  {
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---3AM-In-London---Lavaud---Booboo---Yaeji---Lost-In-Between---XTIE-Feat.-Anniina---%40MSMSMSM_FOREVER---Sophie?alt=media&token=2f9ce9ca-f656-4e42-b8cf-4ff09a4a6ec6",
+    link: 'https://go.minyvinyl.com/septpick',
+    MixtapeId: 'hR4s0Xgbt4JhbZIOI01X',
+    name: 'Artists by shesaid.so',
+    label: 'Featured Curator 2'
+  },
+   {
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Cold-Reactor---Everything-Everything---Grace---IDLES---Off-With-Her-Tits---Allie-X---Ruined---Adrianne-Lenker?alt=media&token=9cd51428-16b6-466a-b8d3-b148c465b8fb",
+    link: 'https://go.minyvinyl.com/myllck24',
+    MixtapeId: 'rV7OlY1rBJUpC7Wki8C4',
+    name: 'myllck 2024 fave',
+    label: 'Featured Curator 3'
+  },
   // {
   //   imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Karma---Taylor-Swift---Never-Meant---American-Football---Spanish-Sahara---Foals---Cassius---Foals?alt=media&token=e043833f-bd13-4e03-91a8-a467f4c10339",
   //   link: 'https://go.minyvinyl.com/thealgorithm',
@@ -404,10 +404,10 @@ const ImageGallery = () => {
       {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 6, 9)}
       {renderImageSection("Featured Genres", "Discover mixtapes by genre", 9, 12)}
       {renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 12, 15)}
-      {renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 15, 18)}
+      {/* {renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 15, 18)}
       {renderImageSection("Featured from New York", "Discover mixtapes from artists in New York", 18, 21)}
       {renderImageSection("Featured from Austin, Texas", "Discover mixtapes from artists in Austin, Texas", 21, 24)}
-      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 24, 27)}
+      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 24, 27)} */}
     </div>
   );
 };
