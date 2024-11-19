@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
+import {sRGBEncoding} from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 
@@ -46,7 +47,7 @@ const HexagonMesh = React.memo(({ imageUrl, isPlaying }) => {
 
   // Configure texture once
   useEffect(() => {
-    texture.encoding = THREE.sRGBEncoding;
+    texture.encoding = sRGBEncoding;
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(1, 1);
     texture.needsUpdate = true;
