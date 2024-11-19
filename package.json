@@ -12,6 +12,8 @@
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@react-email/components": "^0.0.22",
+    "@react-three/drei": "^9.117.2",
+    "@react-three/fiber": "^8.17.10",
     "@vimeo/player": "^2.24.0",
     "axios": "^1.7.7",
     "buffer": "^6.0.3",
@@ -56,6 +58,7 @@
     "spotify-web-api-node": "^5.0.2",
     "strip": "^3.0.0",
     "stripe": "^16.5.0",
+    "three": "^0.170.0",
     "tus-js-client": "^4.2.3",
     "typescript": "^5.4.5",
     "uuid": "^10.0.0",

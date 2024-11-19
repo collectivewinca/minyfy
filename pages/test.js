@@ -1,142 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Music, Loader2 } from 'lucide-react';
+import React, { useState, Suspense, useCallback } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { PerspectiveCamera, OrbitControls, Environment } from '@react-three/drei';
+import { ExternalLink } from 'lucide-react';
+import HexagonMesh from '@/utils/HexagonMesh';
 
-const PlaylistViewer = () => {
-  const [searchInput, setSearchInput] = useState('https://soundcloud.com/sc-playlists-in/sets/party-rap');
-  const [playlist, setPlaylist] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentTrack, setCurrentTrack] = useState(null);
+const mixtapes = [
+  {
+    name: "structure pulse",
+    imageUrl: "https://minyfy.subwaymusician.xyz/grammybg.png",
+    shortenedLink: "https://go.minyvinyl.com/rkmix"
+  },
+  {
+    name: "burnout pre save",
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny%20Vinyl%20Playlist%20(Mixtape)%20featuring%20tracks%20-%20Die-With-A-Smile---Lady-Gaga---APT.---ROS%C3%89---BIRDS-OF-A-FEATHER---Billie-Eilish---That%E2%80%99s-So-True---Gracie-Abrams.webp?alt=media&token=9be50bc2-15dd-4b82-94ab-857f750d2526",
+    shortenedLink: "https://go.minyvinyl.com/canvasburnout"
+  },
+  {
+    name: "diesel dust",
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6556a229-bb98-4bca-954b-1712fa62d9ae?alt=media&token=25eea789-5dc6-47a6-b722-ecc9e20d8240",
+    shortenedLink: "https://go.minyvinyl.com/dieseldust"
+  },
+  {
+    name: "structure pulse",
+    imageUrl: "https://minyfy.subwaymusician.xyz/grammybg.png",
+    shortenedLink: "https://go.minyvinyl.com/rkmix"
+  },
+  {
+    name: "burnout pre save",
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny%20Vinyl%20Playlist%20(Mixtape)%20featuring%20tracks%20-%20Die-With-A-Smile---Lady-Gaga---APT.---ROS%C3%89---BIRDS-OF-A-FEATHER---Billie-Eilish---That%E2%80%99s-So-True---Gracie-Abrams.webp?alt=media&token=9be50bc2-15dd-4b82-94ab-857f750d2526",
+    shortenedLink: "https://go.minyvinyl.com/canvasburnout"
+  },
+  {
+    name: "diesel dust",
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-6556a229-bb98-4bca-954b-1712fa62d9ae?alt=media&token=25eea789-5dc6-47a6-b722-ecc9e20d8240",
+    shortenedLink: "https://go.minyvinyl.com/dieseldust"
+  },
+  
+];
 
-  // Convert milliseconds to mm:ss format
-  const formatDuration = (ms) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = Math.floor((ms % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
-
-  useEffect(() => {
-    
-    if (playlist && playlist.tracks.length > 0 && !currentTrack) {
-      setCurrentTrack(playlist.tracks[0]);
-    }
-  }, [playlist]);
-
-  const handleSearch = async () => {
-    if (!searchInput.trim()) return;
-
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const isUrl = searchInput.includes('/');
-      const params = isUrl ? `url=${searchInput}` : `search=${searchInput}`;
-      const response = await fetch(`/api/soundcloud?${params}`);
-      
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to fetch playlist');
-      }
-      
-      const data = await response.json();
-      console.log(data);
-      setPlaylist(data);
-      setCurrentTrack(null); // Reset current track when new playlist loads
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      setPlaylist(null);
-      setCurrentTrack(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleTrackClick = (track) => {
-    setCurrentTrack(track);
-  };
+const MixtapeCard = React.memo(({ mixtape }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="w-full max-w-3xl mx-auto min-h-screen p-4 space-y-4">
-      <div className="bg-white shadow-md rounded-lg p-4">
-        <div className="flex items-center gap-2 mb-4">
-          <Music className="w-6 h-6 text-indigo-500" />
-          <h2 className="text-lg font-semibold">SoundCloud Playlist Viewer</h2>
-        </div>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Enter playlist URL or search term"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    <div
+      className="relative h-[500px] bg-gradient-to-br from-gray-900 to-neutral-900 rounded-xl overflow-hidden shadow-xl group transform transition-transform hover:scale-[1.02]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Canvas 
+        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        shadows 
+        dpr={[1, 2]}
+      >
+        <PerspectiveCamera makeDefault position={[0, 0, 3]} />
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI / 2}
+        />
+        <ambientLight intensity={0.5} />
+        <spotLight
+          position={[5, 5, 5]}
+          angle={0.25}
+          penumbra={1}
+          intensity={0.5}
+          castShadow
+        />
+        <Environment preset="studio" />
+        <Suspense fallback={null}>
+          <HexagonMesh
+            imageUrl={mixtape.imageUrl}
+            isPlaying={isHovered}
           />
-          <button
-            onClick={handleSearch}
-            disabled={loading || !searchInput.trim()}
-            className="flex items-center px-4 py-2 bg-indigo-500 text-white rounded-md disabled:opacity-50 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            {loading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Search className="w-4 h-4" />
-            )}
-            <span className="ml-2">Search</span>
-          </button>
+        </Suspense>
+      </Canvas>
+
+      <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-2xl font-bold text-white capitalize mb-2">
+              {mixtape.name}
+            </h3>
+            <a
+              href={mixtape.shortenedLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
+            >
+              Listen Now
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
+    </div>
+  );
+});
 
-      {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md" role="alert">
-          <p>{error}</p>
-        </div>
-      )}
-
-      {currentTrack && (
-        <div className="bg-white shadow-md rounded-lg p-4">
-          <iframe
-            width="100%"
-            height="166"
-            scrolling="no"
-            frameBorder="no"
-            allow="autoplay"
-            src={`https://w.soundcloud.com/player/?url=${currentTrack.permalink_url}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
-            className="mb-4"
-          />
-        </div>
-      )}
-
-      {playlist && (
-        <div className="bg-white shadow-md rounded-lg p-4">
-          <div className="mb-4">
-            <h3 className="text-xl font-semibold">{playlist.title}</h3>
-            {playlist.description && (
-              <p className="text-sm text-gray-500">{playlist.description}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            {playlist.tracks.map((track) => (
-              <div
-                key={track.id}
-                className={`flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer ${
-                  currentTrack?.id === track.id ? 'bg-indigo-50' : 'bg-gray-50'
-                }`}
-                onClick={() => handleTrackClick(track)}
-              >
-                <div className="flex-1">
-                  <h4 className="font-medium">{track.title}</h4>
-                  <p className="text-sm text-gray-600">{track.creator}</p>
-                </div>
-                <div className="text-sm text-gray-500">
-                  {formatDuration(track.duration)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+const MixtapeGrid = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-6 gap-16 max-w-[1800px] mx-auto">
+      {mixtapes.map((mixtape) => (
+        <MixtapeCard key={mixtape.name} mixtape={mixtape} />
+      ))}
     </div>
   );
 };
 
-export default PlaylistViewer;
+export default MixtapeGrid;
