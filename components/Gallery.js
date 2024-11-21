@@ -403,11 +403,11 @@ const ImageGallery = () => {
       {renderImageSection("Featured Artists", "Discover mixtapes from featured artists", 3, 6)}
       {renderImageSection("Featured Curators", "Discover mixtapes from the best curators", 6, 9)}
       {renderImageSection("Featured Genres", "Discover mixtapes by genre", 9, 12)}
-      {renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 12, 15)}
+      {/* {renderImageSection("Featured Live Performers", "Discover mixtapes from live performers", 12, 15)}
       {renderImageSection("Featured Subway Musicians", "Discover mixtapes from subway musicians", 15, 18)}
       {renderImageSection("Featured from New York", "Discover mixtapes from artists in New York", 18, 21)}
       {renderImageSection("Featured from Austin, Texas", "Discover mixtapes from artists in Austin, Texas", 21, 24)}
-      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 24, 27)}
+      {renderImageSection("Featured from Chicago", "Discover mixtapes from artists in Chicago", 24, 27)} */}
     </div>
   );
 };
