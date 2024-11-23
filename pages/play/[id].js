@@ -598,167 +598,172 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             {!isYouTubeApiReady && <div>Loading player...</div>}
           </div> 
 
-          <div className='w-full  overflow-hidden mx-auto'>
+          {/* <div className='grid grid-cols-1 '>
             <MixtapeCard imageUrl={backgroundImage} />
-          </div>
+          </div> */}
 
-          <style jsx>{animationStyles}</style>
-
-          <div className="w-full max-w-2xl mx-auto p-8 bg-gradient-to-b from-zinc-900 via-zinc-900 to-black rounded-2xl border border-zinc-800/50 shadow-2xl">
-            <div className="relative mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#73c33e]/10 via-[#8ed654]/10 to-[#73c33e]/10 blur-xl"></div>
-              <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
-                <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-[#73c33e] to-[#8ed654] bg-clip-text text-transparent">
-                  {toSentenceCase(tracks[currentTrackIndex]?.track || '')}
-                </h2>
+         
+            <div className="w-full p-4 md:p-8 bg-gradient-to-b from-zinc-900 via-zinc-900 to-black rounded-2xl border border-zinc-800/50 shadow-2xl">
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#73c33e]/10 via-[#8ed654]/10 to-[#73c33e]/10 blur-xl"></div>
+                <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
+                  <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-[#73c33e] to-[#8ed654] bg-clip-text text-transparent break-words">
+                    {toSentenceCase(tracks[currentTrackIndex]?.track || '')}
+                  </h2>
+                </div>
               </div>
-            </div>
 
-            <div className="relative h-24 mb-8">
-              <div className="absolute inset-0 flex items-center justify-center gap-[2px] px-4">
-                {Array.from({ length: 64 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-1 bg-gradient-to-t from-[#73c33e] to-[#8ed654] rounded-full transform-gpu"
-                    style={{
-                      height: `${15 + Math.random() * 70}%`,
-                      animation: `waveform ${0.2 + Math.random() * 0.3}s ease-in-out infinite alternate`,
-                      animationDelay: `${i * 0.02}s`,
-                    }}
-                  ></div>
-                ))}
+              <div className="relative h-24 mb-8 overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center gap-[2px] px-4">
+                  {Array.from({ length: 64 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-1 bg-gradient-to-t from-[#73c33e] to-[#8ed654] rounded-full transform-gpu"
+                      style={{
+                        animationName: 'waveform',
+                        animationDuration: `${0.2 + Math.random() * 0.3}s`,
+                        animationTimingFunction: 'ease-in-out',
+                        animationIterationCount: 'infinite',
+                        animationDirection: 'alternate',
+                        animationDelay: `${i * 0.02}s`,
+                      }}
+                    ></div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="flex justify-center items-center mb-8">
-              <div className="flex items-center justify-center gap-8">
-                <button
-                  onClick={() => currentTrackIndex > 0 && handleTrackChange(currentTrackIndex - 1)}
-                  className={`p-2 transition-colors ${
-                    currentTrackIndex === 0 ? 'text-zinc-600 cursor-not-allowed' : 'text-zinc-400 hover:text-white'
-                  }`}
-                  disabled={currentTrackIndex === 0}
-                >
-                  <SkipBack className="w-6 h-6" />
-                </button>
-
-                <button
-                  onClick={handlePlay}
-                  className="p-4 rounded-full bg-gradient-to-r from-[#73c33e] to-[#8ed654] hover:from-[#8ed654] hover:to-[#73c33e] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
-                >
-                  <Play className="w-8 h-8 text-black" fill="black" />
-                </button>
-
-                <button
-                  onClick={() => currentTrackIndex < tracks.length - 1 && handleTrackChange(currentTrackIndex + 1)}
-                  className={`p-2 transition-colors ${
-                    currentTrackIndex === tracks.length - 1 ? 'text-zinc-600 cursor-not-allowed' : 'text-zinc-400 hover:text-white'
-                  }`}
-                  disabled={currentTrackIndex === tracks.length - 1}
-                >
-                  <SkipForward className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-
-            <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar bg-zinc-900/50 p-4">
-              {tracks.map((track, index) => {
-                // Get comment counts for this track
-                const trackComments = comments.filter(comment => comment.trackRefer === track.track);
-                const counts = {
-                  text: trackComments.reduce((sum, c) => sum + (c.commentType === 'text' ? 1 + (c.replies?.length || 0) : 0), 0),
-                  sticker: trackComments.reduce((sum, c) => sum + (c.commentType === 'sticker' ? 1 + (c.replies?.length || 0) : 0), 0),
-                  voice: trackComments.reduce((sum, c) => sum + (c.commentType === 'voice' ? 1 + (c.replies?.length || 0) : 0), 0),
-                  poll: trackComments.reduce((sum, c) => sum + (c.commentType === 'poll' ? 1 + (c.replies?.length || 0) : 0), 0),
-                };
-
-                return (
-                  <div
-                    key={index}
-                    onClick={() => handleTrackChange(index)}
-                    className={`group relative p-4 rounded-lg cursor-pointer transition-all duration-300
-                      ${currentTrackIndex === index 
-                        ? 'bg-gradient-to-r from-[#73c33e]/20 to-[#8ed654]/20 border border-[#73c33e]/20' 
-                        : 'hover:bg-white/5'
-                      }`}
+              <div className="flex justify-center items-center mb-8">
+                <div className="flex items-center justify-center gap-8">
+                  <button
+                    onClick={() => currentTrackIndex > 0 && handleTrackChange(currentTrackIndex - 1)}
+                    className={`p-2 transition-colors ${
+                      currentTrackIndex === 0 ? 'text-zinc-600 cursor-not-allowed' : 'text-zinc-400 hover:text-white'
+                    }`}
+                    disabled={currentTrackIndex === 0}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`relative w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center
-                        ${currentTrackIndex === index 
-                          ? 'bg-gradient-to-r from-[#73c33e] to-[#8ed654]' 
-                          : 'bg-zinc-800'
-                        }`}
-                      >
-                        {currentTrackIndex === index ? (
-                          <div className="flex gap-0.5">
-                            {Array.from({ length: 3 }).map((_, i) => (
-                              <div
-                                key={i}
-                                className="w-0.5 h-4 bg-black rounded-full"
-                                style={{
-                                  animation: `equalizer 0.5s ease-in-out infinite alternate`,
-                                  animationDelay: `${i * 0.15}s`
-                                }}
-                              ></div>
-                            ))}
-                          </div>
-                        ) : (
-                          <span className="text-zinc-400">{index + 1}</span>
-                        )}
-                      </div>
+                    <SkipBack className="w-6 h-6" />
+                  </button>
 
-                      <div className="flex-1 min-w-0">
-                        <p className={`truncate text-sm font-medium
+                  <button
+                    onClick={handlePlay}
+                    className="p-4 rounded-full bg-gradient-to-r from-[#73c33e] to-[#8ed654] hover:from-[#8ed654] hover:to-[#73c33e] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+                  >
+                    <Play className="w-8 h-8 text-black" fill="black" />
+                  </button>
+
+                  <button
+                    onClick={() => currentTrackIndex < tracks.length - 1 && handleTrackChange(currentTrackIndex + 1)}
+                    className={`p-2 transition-colors ${
+                      currentTrackIndex === tracks.length - 1 ? 'text-zinc-600 cursor-not-allowed' : 'text-zinc-400 hover:text-white'
+                    }`}
+                    disabled={currentTrackIndex === tracks.length - 1}
+                  >
+                    <SkipForward className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-2 max-h-[300px] md:max-h-[400px] overflow-y-auto custom-scrollbar bg-zinc-900/50 p-2 md:p-4">
+                {tracks.map((track, index) => {
+                  const trackComments = comments.filter(comment => comment.trackRefer === track.track);
+                  const counts = {
+                    text: trackComments.reduce((sum, c) => sum + (c.commentType === 'text' ? 1 + (c.replies?.length || 0) : 0), 0),
+                    sticker: trackComments.reduce((sum, c) => sum + (c.commentType === 'sticker' ? 1 + (c.replies?.length || 0) : 0), 0),
+                    voice: trackComments.reduce((sum, c) => sum + (c.commentType === 'voice' ? 1 + (c.replies?.length || 0) : 0), 0),
+                    poll: trackComments.reduce((sum, c) => sum + (c.commentType === 'poll' ? 1 + (c.replies?.length || 0) : 0), 0),
+                  };
+
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => handleTrackChange(index)}
+                      className={`group relative p-4 rounded-lg cursor-pointer transition-all duration-300
+                        ${currentTrackIndex === index 
+                          ? 'bg-gradient-to-r from-[#73c33e]/20 to-[#8ed654]/20 border border-[#73c33e]/20' 
+                          : 'hover:bg-white/5'
+                        }`}
+                    >
+                      <div className="flex items-center gap-4 min-w-0">
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center
                           ${currentTrackIndex === index 
-                            ? 'text-[#73c33e]' 
-                            : 'text-zinc-300 group-hover:text-white'
+                            ? 'bg-gradient-to-r from-[#73c33e] to-[#8ed654]' 
+                            : 'bg-zinc-800'
                           }`}
                         >
-                          {toSentenceCase(track.track)}
-                        </p>
-                        
-                        {/* Comment icons section */}
-                        {Object.entries(counts).some(([_, count]) => count > 0) && (
-                          <div className="flex gap-2 mt-1">
-                            {counts.text > 0 && (
-                              <div className="flex items-center gap-1 text-xs text-zinc-500">
-                                <FaComment className="w-3 h-3" />
-                                <span>{counts.text}</span>
-                              </div>
-                            )}
-                            {counts.sticker > 0 && (
-                              <div className="flex items-center gap-1 text-xs text-zinc-500">
-                                <FaHeart className="w-3 h-3" />
-                                <span>{counts.sticker}</span>
-                              </div>
-                            )}
-                            {counts.voice > 0 && (
-                              <div className="flex items-center gap-1 text-xs text-zinc-500">
-                                <MdMic className="w-3 h-3" />
-                                <span>{counts.voice}</span>
-                              </div>
-                            )}
-                            {counts.poll > 0 && (
-                              <div className="flex items-center gap-1 text-xs text-zinc-500">
-                                <MdPoll className="w-3 h-3" />
-                                <span>{counts.poll}</span>
-                              </div>
-                            )}
+                          {currentTrackIndex === index ? (
+                            <div className="flex gap-0.5">
+                              {Array.from({ length: 3 }).map((_, i) => (
+                                <div
+                                  key={i}
+                                  className="w-0.5 h-4 bg-black rounded-full"
+                                  style={{
+                                    animation: `equalizer 0.5s ease-in-out infinite alternate`,
+                                    animationDelay: `${i * 0.15}s`
+                                  }}
+                                ></div>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-zinc-400">{index + 1}</span>
+                          )}
+                        </div>
+
+                        <div className="flex-1 min-w-0 overflow-hidden">
+                          <p className={` text-sm font-medium
+                            ${currentTrackIndex === index 
+                              ? 'text-[#73c33e]' 
+                              : 'text-zinc-300 group-hover:text-white'
+                            }`}
+                          >
+                            {toSentenceCase(track.track)}
+                          </p>
+                          
+                          {Object.entries(counts).some(([_, count]) => count > 0) && (
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {counts.text > 0 && (
+                                <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                  <FaComment className="w-3 h-3" />
+                                  <span>{counts.text}</span>
+                                </div>
+                              )}
+                              {counts.sticker > 0 && (
+                                <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                  <FaHeart className="w-3 h-3" />
+                                  <span>{counts.sticker}</span>
+                                </div>
+                              )}
+                              {counts.voice > 0 && (
+                                <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                  <MdMic className="w-3 h-3" />
+                                  <span>{counts.voice}</span>
+                                </div>
+                              )}
+                              {counts.poll > 0 && (
+                                <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                  <MdPoll className="w-3 h-3" />
+                                  <span>{counts.poll}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {currentTrackIndex === index && (
+                          <div className="flex-shrink-0">
+                            {/* Large Screens */}
+                            <span className="hidden sm:inline-block text-xs font-medium px-2 py-1 rounded-full bg-[#73c33e]/20 text-[#73c33e] border border-[#73c33e]/20 whitespace-nowrap">
+                              NOW PLAYING
+                            </span>
+
                           </div>
                         )}
-                      </div>
 
-                      {currentTrackIndex === index && (
-                        <span className="text-xs font-medium px-2 py-1 rounded-full bg-[#73c33e]/20 text-[#73c33e] border border-[#73c33e]/20">
-                          NOW PLAYING
-                        </span>
-                      )}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
           
           <div className='flex items-center gap-2 mt-3 mb-3'>
             <button onClick={handleDownloadImage} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
