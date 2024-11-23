@@ -18,7 +18,7 @@ import {IoRocketSharp} from 'react-icons/io5'
 import { FaArrowDownLong } from "react-icons/fa6";
 import  Player  from '@vimeo/player';
 import {PasswordProtectedPlayer} from "@/utils/PlayerLockOverlay";
-import { Play, SkipBack, SkipForward } from 'lucide-react'; // Add this import
+import { Play, SkipBack, SkipForward, Pause } from 'lucide-react'; // Add this import
 import { FaComment, FaHeart } from 'react-icons/fa'; // Add this import
 import { MdMic, MdPoll } from 'react-icons/md'; // Add this import
 import MixtapeCard from '@/utils/MixtapeCard';
@@ -73,6 +73,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [player, setPlayer] = useState(null);
   const [isLocked, setIsLocked] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const loadVimeoPlayer = () => {
@@ -205,8 +206,10 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       player.getPaused().then(paused => {
         if (paused) {
           player.play();
+          setIsPlaying(true);
         } else {
           player.pause();
+          setIsPlaying(false);
         }
       });
     }
@@ -391,7 +394,11 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
                   onClick={handlePlay}
                   className="p-4 rounded-full bg-gradient-to-r from-[#73c33e] to-[#8ed654] hover:from-[#8ed654] hover:to-[#73c33e] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
                 >
-                  <Play className="w-8 h-8 text-black" fill="black" />
+                  {isPlaying ? (
+                    <Pause className="w-8 h-8 text-black" fill="black" />
+                  ) : (
+                    <Play className="w-8 h-8 text-black" fill="black" />
+                  )}
                 </button>
 
                 <button
