@@ -12,11 +12,11 @@ import { ExternalLink } from 'lucide-react';
 
 const images = [
   {
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2FMiny%20Vinyl%20Record%20Playlists%20Mixtapes%20for%20Artist%20Track.webp?alt=media&token=a4349d55-e1a5-4bd3-990f-4805e4c90f5f',
-    link: 'https://go.minyvinyl.com/aclfestanthem',
-    MixtapeId: 'Qe6nRzVhSPWd0IhSsP4g',
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny%20Vinyl%20Playlist%20(Mixtape)%20featuring%20tracks%20-%20AJR---World's-Smallest-Violin-(Lyrics)---Eurythmics---Sweet-Dreams-(Lyrics)---Dua-Lipa---Levitating-(Lyrics-video)---Maroon-5---Animals-(Lyrics).webp?alt=media&token=8fddb3c1-b562-447e-83e0-9f0672e8218e",
+    link: 'https://go.minyvinyl.com/reelmix',
+    MixtapeId: 'zQCsfUXQRz8Y4FtV9t1W',
     label: 'Top Mixtape 1',
-    name: 'ACL : Festival Anthems'
+    name: 'Top Reels Mix'
 
   },
   {
