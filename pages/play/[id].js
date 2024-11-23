@@ -361,7 +361,6 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const handleTrackChange = (index) => {
     setCurrentTrackIndex(index);
     setCurrentTrackName(docData.tracks[index]?.track || '');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBuyNowClick = async () => {
