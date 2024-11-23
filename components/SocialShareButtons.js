@@ -36,13 +36,10 @@ const SocialShareButtons = ({ shareUrl, title }) => {
     <>
       <div className="w-full max-w-sm mt-4 mb-2">
         <div className="flex items-center">
-          <span className="inline-flex items-center h-12 py-2.5 px-4 text-sm font-medium bg-lime-400 border border-lime-600 rounded-l-lg">
-            <IoIosLink className="text-xl text-black"/>
-          </span>
           <input
             id="share-url"
             type="text"
-            className="w-full h-12 p-2.5 text-sm bg-black text-lime-400 font-jakarta border border-lime-600 "
+            className="w-full h-12 p-2.5 text-sm bg-black text-lime-400 rounded-l-lg font-jakarta border border-lime-600 "
             value={shareUrl}
             readOnly
           />

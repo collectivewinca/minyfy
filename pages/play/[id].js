@@ -19,7 +19,8 @@ import {TbLogin} from 'react-icons/tb'
 import {IoRocketSharp} from 'react-icons/io5'
 import { FaArrowDownLong } from "react-icons/fa6";
 import MixtapeCard from '@/utils/MixtapeCard';
-import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, Search, Share, Share2 } from 'lucide-react';
+import { IoShareSocialOutline } from "react-icons/io5";
 
 
 
@@ -89,6 +90,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showShareOptions, setShowShareOptions] = useState(false);
   
   console.log("docData", docData);
 
@@ -402,6 +404,10 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
     }
   };
 
+  const handleShareClick = () => {
+    setShowShareOptions(!showShareOptions);
+  };
+
   if (!docData) {
     return <div>Loading...</div>;
   }
@@ -493,53 +499,66 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         </Head>
 
 
-        <header className="w-full flex items-center justify-between py-2 px-4">
-            <div className="cursor-pointer" onClick={() => router.push('/')}>
-              <Image 
-                src="/Logo.png" 
-                alt="Icon" 
-                width={140} 
-                height={100} 
-                className="w-20 sm:w-24 md:w-28 lg:w-28"
-              />
-            </div>
+        <header className="w-full flex absolute top-0 z-50  justify-between py-2 px-2 md:px-4">
+          <div className="cursor-pointer" onClick={() => router.push('/')}>
+            <Image 
+              src="/Logo.png" 
+              alt="Icon" 
+              width={140} 
+              height={100} 
+              className="w-20 sm:w-24 md:w-28 lg:w-28"
+            />
+          </div>
 
-            <div>
-              {user ? (
-                <button 
-                  onClick={handleLogout} 
-                  className="text-black border-r-4 border-b-4 border-black bg-[#d6d6d6] hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 "
-                >
-                  <TbLogin className="text-xl" /> Log out
-                </button>
-              ) : (
-                <button 
-                  onClick={handleLogin} 
-                  className="text-black border-r-4 border-b-4 border-black bg-[#73c33e] hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 "
-                >
-                  <TbLogin className="text-xl" /> Log in
-                </button>
+          <div className="flex items-start pt-1 gap-2">
+            <button 
+              onClick={handleBuyNowClick}
+              className="bg-[#73c33e] cursor-pointer font-jakarta hover:bg-[#65ae35] text-black font-semibold rounded-full text-sm px-4 py-2"
+            >
+              Claim MINY
+            </button>
+
+            <div className="relative">
+              <button 
+                onClick={handleShareClick}
+                className="text-[#fff] cursor-pointer bg-zinc-800 hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-full text-sm px-2 py-2"
+              >
+                <IoShareSocialOutline className="text-xl" /> 
+              </button>
+              
+              {showShareOptions && (
+                <div className="absolute right-[-35px] mt-2 bg-zinc-800 rounded-lg shadow-lg p-3 z-50">
+                  <SocialShareButtons 
+                    shareUrl={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+                    title="Check out my Latest Mixtape on Miny Vinyl"
+                  />
+                </div>
               )}
             </div>
-          </header>
+
+            {user ? (
+              <button 
+                onClick={handleLogout} 
+                className="text-[#fff] cursor-pointer bg-zinc-800 hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-full text-sm px-2 py-2"
+              >
+                <TbLogin className="text-xl" /> 
+              </button>
+            ) : (
+              <button 
+                onClick={handleLogin} 
+                className="text-[#73c33e] cursor-pointer bg-zinc-800 hover:opacity-80 focus:ring-4 flex gap-1 items-center focus:ring-primary-300 font-medium rounded-full text-sm px-2 py-2"
+              >
+                <TbLogin className="text-xl" />
+              </button>
+            )}
+          </div>
+        </header>
 
 
-        <div className='py-4 px-2 bg-black text-white md:w-2/3 min-h-screen flex flex-col justify-center relative items-center'>
-          <button onClick={handleBuyNowClick} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-2xl text-lg md:px-6 px-4 md:py-3 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-3 items-center cursor-pointer">
-            <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
-            <FaShoppingCart className='md:text-3xl text-xl' /> Claim MINY Collectible
-          </button>
+        <div className='py-4 px-2 bg-black text-white md:w-2/3 flex flex-col justify-center relative items-center'>
+
 
           
-
-          <SocialShareButtons 
-            shareUrl={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
-            title="Check out my Latest Mixtape on Miny Vinyl"
-          />
-
-          <div id="player" className='w-full max-w-4xl mx-auto aspect-video mb-6 mt-2 shadow shadow-neutral-600'>
-            {!isYouTubeApiReady && <div>Loading player...</div>}
-          </div> 
 
           <div className='grid grid-cols-1 '>
             <MixtapeCard imageUrl={backgroundImage} />
@@ -743,6 +762,9 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             
           </div>
 
+          <div id="player" className='w-full max-w-4xl mx-auto aspect-video mb-6 mt-2 shadow shadow-neutral-600'>
+            {!isYouTubeApiReady && <div>Loading player...</div>}
+          </div> 
           
 
           <div>
