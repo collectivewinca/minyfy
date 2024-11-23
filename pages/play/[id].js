@@ -598,12 +598,12 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             {!isYouTubeApiReady && <div>Loading player...</div>}
           </div> 
 
-          {/* <div className='grid grid-cols-1 '>
+          <div className='grid grid-cols-1 '>
             <MixtapeCard imageUrl={backgroundImage} />
-          </div> */}
+          </div>
 
          
-            <div className="w-full p-4 md:p-8 bg-gradient-to-b from-zinc-900 via-zinc-900 to-black rounded-2xl border border-zinc-800/50 shadow-2xl">
+            <div className="w-full p-4 md:p-8 font-jakarta bg-gradient-to-b from-zinc-900 via-zinc-900 to-black rounded-2xl border border-zinc-800/50 shadow-2xl">
               <div className="relative mb-8">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#73c33e]/10 via-[#8ed654]/10 to-[#73c33e]/10 blur-xl"></div>
                 <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">

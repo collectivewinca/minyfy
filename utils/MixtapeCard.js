@@ -81,13 +81,17 @@ const HexagonMesh = React.memo(({ imageUrl, isPlaying }) => {
 
 const MixtapeCard = React.memo(({ imageUrl }) => {
   return (
-    <div className="w-full max-w-[500px] aspect-square mx-auto">
+    <div className="w-full max-w-[500px]  mx-auto">
       <div className="relative h-full w-full bg-black rounded-xl overflow-hidden shadow-xl">
         <Canvas 
           gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
           shadows 
           dpr={[1, 2]}
           className="h-full w-full"
+          style={{
+            width: '100%',
+            height: '430px'
+          }} 
         >
           <PerspectiveCamera makeDefault position={[0, 0, 3]} />
           <OrbitControls
