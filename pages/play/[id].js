@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { db, auth } from '@/firebase/config';
 import { onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaPlay, FaStepForward, FaStepBackward, FaHeart, FaComment } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
 import SocialShareButtons from '@/components/SocialShareButtons';
 import BuyNow from '@/components/BuyNow';
 import PledgeForm from '@/components/PledgeForm';
-import { MdFileDownload } from "react-icons/md";
+import { MdFileDownload, MdPoll, MdMic } from "react-icons/md";
 import { toBlob, toCanvas } from 'html-to-image';
 import { toPng } from 'html-to-image';
 import download from 'downloadjs';
@@ -21,6 +21,10 @@ import { NextSeo } from 'next-seo';
 import {TbLogin} from 'react-icons/tb'
 import {IoRocketSharp} from 'react-icons/io5'
 import { FaArrowDownLong } from "react-icons/fa6";
+import MixtapeCard from '@/utils/MixtapeCard';
+import { Play, SkipBack, SkipForward, Volume2 } from 'lucide-react';
+
+
 
 
 export async function getServerSideProps(context) {
@@ -354,9 +358,9 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
     }
   };
 
-  const handleTrackClick = (index) => {
+  const handleTrackChange = (index) => {
     setCurrentTrackIndex(index);
-    setCurrentTrackName(docData.tracks[index]?.track || ''); // Update current track name
+    setCurrentTrackName(docData.tracks[index]?.track || '');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -459,6 +463,33 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const description = `Check out ${toSentenceCase(name)}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
   const topValue = 42 - name.length * 0.4;
 
+  const handlePlay = () => {
+    try {
+      if (playerRef.current && playerRef.current.getPlayerState) {
+        const playerState = playerRef.current.getPlayerState();
+        if (playerState === window.YT.PlayerState.PLAYING) {
+          playerRef.current.pauseVideo();
+        } else {
+          playerRef.current.playVideo();
+        }
+      }
+    } catch (error) {
+      console.error('Error in handlePlay:', error);
+    }
+  };
+
+  // Add this CSS animation keyframes to your global CSS file or as a style tag in the component
+  const animationStyles = `
+    @keyframes waveform {
+      0% { height: 15%; }
+      100% { height: 85%; }
+    }
+    
+    @keyframes equalizer {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
+  `;
 
   return (
     <>
@@ -567,71 +598,167 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             {!isYouTubeApiReady && <div>Loading player...</div>}
           </div> 
 
-          <div className='font-bold mb-3 text-lg md:text-xl  text-[#f48531] font-jakarta flex items-center gap-1'>
-          <FaArrowDownLong className='md:text-2xl text-xl' />
-          Tap Track Names to Listen
-          <FaArrowDownLong className='md:text-2xl text-xl' />
+          <div className='w-full  overflow-hidden mx-auto'>
+            <MixtapeCard imageUrl={backgroundImage} />
           </div>
 
-          <div className="relative w-full  md:px-0  md:w-[60%]">
-          <div className="absolute left-0 md:left-5 top-0 w-full h-full bg-transparent rounded-lg">
-          <div className="absolute  z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-[2.15rem]">
-              <TrackList
-                tracks={tracks}
-                currentTrackIndex={currentTrackIndex}
-                handleTrackClick={handleTrackClick}
-                comments={comments}
-              />
-          </div>
-          </div>
-          <div ref={trackDataContainerRef} className='relative pr-12 md:pr-0 z-10 overflow-y-auto w-full '>
-            <div className="relative cursor-pointer hex-alt ">
-              <div className="overlay"></div>
-              <img  className="w-full h-full object-cover" src={backgroundImage} alt="Background"  />
-              <div className="absolute z-10 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2">
-                <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
-                {tracks.map((track, index) => (
-                        <div
-                          key={index}
-                          className={`cursor-pointer ${currentTrackIndex === index ? 'font-bold text-[#f48531]' : ''}`}
-                          onClick={() => handleTrackClick(index)}
-                        >
-                          {toSentenceCase(track.track.length > 33 ? `${track.track.slice(0, 33)}..` : track.track)}
-                        </div>
-                      ))}
-                </div>
+          <style jsx>{animationStyles}</style>
+
+          <div className="w-full max-w-2xl mx-auto p-8 bg-gradient-to-b from-zinc-900 via-zinc-900 to-black rounded-2xl border border-zinc-800/50 shadow-2xl">
+            <div className="relative mb-8">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#73c33e]/10 via-[#8ed654]/10 to-[#73c33e]/10 blur-xl"></div>
+              <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
+                <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-[#73c33e] to-[#8ed654] bg-clip-text text-transparent">
+                  {toSentenceCase(tracks[currentTrackIndex]?.track || '')}
+                </h2>
               </div>
-              
-              <div className="absolute z-10 left-[8.5%] top-[21.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform -rotate-30 origin-top-left" style={{ transform: "rotate(-30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
-              <div>TURN IT UP. MAKE IT A MINY MOMENT.</div>
             </div>
-            
-            {/* Middle-left text */}
-            <div 
-                      className="absolute z-10 left-2 top-1/2 text-[1.7vw] md:text-[0.75vw] font-medium text-white origin-left"
-                      style={{ 
-                        top: `${topValue}%`,
-                        transform: "translateY(-50%) rotate(-90deg) translateX(-100%)",
-                        transformOrigin: "",
-                        textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)"
-                      }}
-                    >
-                      <div className="whitespace-nowrap">
-                        MINY MIXTAPE :
-                        <strong className='text-[#f48531] ml-1 uppercase'>{toSentenceCase(name)}</strong>
+
+            <div className="relative h-24 mb-8">
+              <div className="absolute inset-0 flex items-center justify-center gap-[2px] px-4">
+                {Array.from({ length: 64 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-1 bg-gradient-to-t from-[#73c33e] to-[#8ed654] rounded-full transform-gpu"
+                    style={{
+                      height: `${15 + Math.random() * 70}%`,
+                      animation: `waveform ${0.2 + Math.random() * 0.3}s ease-in-out infinite alternate`,
+                      animationDelay: `${i * 0.02}s`,
+                    }}
+                  ></div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-center items-center mb-8">
+              <div className="flex items-center justify-center gap-8">
+                <button
+                  onClick={() => currentTrackIndex > 0 && handleTrackChange(currentTrackIndex - 1)}
+                  className={`p-2 transition-colors ${
+                    currentTrackIndex === 0 ? 'text-zinc-600 cursor-not-allowed' : 'text-zinc-400 hover:text-white'
+                  }`}
+                  disabled={currentTrackIndex === 0}
+                >
+                  <SkipBack className="w-6 h-6" />
+                </button>
+
+                <button
+                  onClick={handlePlay}
+                  className="p-4 rounded-full bg-gradient-to-r from-[#73c33e] to-[#8ed654] hover:from-[#8ed654] hover:to-[#73c33e] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+                >
+                  <Play className="w-8 h-8 text-black" fill="black" />
+                </button>
+
+                <button
+                  onClick={() => currentTrackIndex < tracks.length - 1 && handleTrackChange(currentTrackIndex + 1)}
+                  className={`p-2 transition-colors ${
+                    currentTrackIndex === tracks.length - 1 ? 'text-zinc-600 cursor-not-allowed' : 'text-zinc-400 hover:text-white'
+                  }`}
+                  disabled={currentTrackIndex === tracks.length - 1}
+                >
+                  <SkipForward className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar bg-zinc-900/50 p-4">
+              {tracks.map((track, index) => {
+                // Get comment counts for this track
+                const trackComments = comments.filter(comment => comment.trackRefer === track.track);
+                const counts = {
+                  text: trackComments.reduce((sum, c) => sum + (c.commentType === 'text' ? 1 + (c.replies?.length || 0) : 0), 0),
+                  sticker: trackComments.reduce((sum, c) => sum + (c.commentType === 'sticker' ? 1 + (c.replies?.length || 0) : 0), 0),
+                  voice: trackComments.reduce((sum, c) => sum + (c.commentType === 'voice' ? 1 + (c.replies?.length || 0) : 0), 0),
+                  poll: trackComments.reduce((sum, c) => sum + (c.commentType === 'poll' ? 1 + (c.replies?.length || 0) : 0), 0),
+                };
+
+                return (
+                  <div
+                    key={index}
+                    onClick={() => handleTrackChange(index)}
+                    className={`group relative p-4 rounded-lg cursor-pointer transition-all duration-300
+                      ${currentTrackIndex === index 
+                        ? 'bg-gradient-to-r from-[#73c33e]/20 to-[#8ed654]/20 border border-[#73c33e]/20' 
+                        : 'hover:bg-white/5'
+                      }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`relative w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center
+                        ${currentTrackIndex === index 
+                          ? 'bg-gradient-to-r from-[#73c33e] to-[#8ed654]' 
+                          : 'bg-zinc-800'
+                        }`}
+                      >
+                        {currentTrackIndex === index ? (
+                          <div className="flex gap-0.5">
+                            {Array.from({ length: 3 }).map((_, i) => (
+                              <div
+                                key={i}
+                                className="w-0.5 h-4 bg-black rounded-full"
+                                style={{
+                                  animation: `equalizer 0.5s ease-in-out infinite alternate`,
+                                  animationDelay: `${i * 0.15}s`
+                                }}
+                              ></div>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-zinc-400">{index + 1}</span>
+                        )}
                       </div>
+
+                      <div className="flex-1 min-w-0">
+                        <p className={`truncate text-sm font-medium
+                          ${currentTrackIndex === index 
+                            ? 'text-[#73c33e]' 
+                            : 'text-zinc-300 group-hover:text-white'
+                          }`}
+                        >
+                          {toSentenceCase(track.track)}
+                        </p>
+                        
+                        {/* Comment icons section */}
+                        {Object.entries(counts).some(([_, count]) => count > 0) && (
+                          <div className="flex gap-2 mt-1">
+                            {counts.text > 0 && (
+                              <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                <FaComment className="w-3 h-3" />
+                                <span>{counts.text}</span>
+                              </div>
+                            )}
+                            {counts.sticker > 0 && (
+                              <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                <FaHeart className="w-3 h-3" />
+                                <span>{counts.sticker}</span>
+                              </div>
+                            )}
+                            {counts.voice > 0 && (
+                              <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                <MdMic className="w-3 h-3" />
+                                <span>{counts.voice}</span>
+                              </div>
+                            )}
+                            {counts.poll > 0 && (
+                              <div className="flex items-center gap-1 text-xs text-zinc-500">
+                                <MdPoll className="w-3 h-3" />
+                                <span>{counts.poll}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {currentTrackIndex === index && (
+                        <span className="text-xs font-medium px-2 py-1 rounded-full bg-[#73c33e]/20 text-[#73c33e] border border-[#73c33e]/20">
+                          NOW PLAYING
+                        </span>
+                      )}
                     </div>
-            {/* Bottom-left text */}
-            <div className="absolute z-10 left-[7%] bottom-[22.5%] text-[1.7vw] md:text-[0.75vw] font-medium text-white transform rotate-30 origin-bottom-left" style={{ transform: "rotate(30deg) ", textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)" }}>
-              <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
+                  </div>
+                );
+              })}
             </div>
-              
-            </div>
-            
           </div>
-          </div>
-          
-          
           
           <div className='flex items-center gap-2 mt-3 mb-3'>
             <button onClick={handleDownloadImage} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
@@ -639,7 +766,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               <MdFileDownload className='md:text-2xl text-base' /> Download Image
             </button>
 
-            <button onClick={handleDownloadImage} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
+            <button onClick={() => (router.push("/makeaminy"))} className="bg-lime-950 relative z-20 text-lime-400 border border-lime-400 border-b-4 font-medium overflow-hidden md:text-lg text-sm md:px-2 px-2 md:py-2 font-jakarta py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group flex gap-1 items-center cursor-pointer">
               <span className="bg-lime-400 shadow-lime-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] cursor-pointer"></span>
               <IoRocketSharp className='md:text-xl text-base' /> Create A MINY
             </button>
