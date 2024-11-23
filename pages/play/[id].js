@@ -550,7 +550,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               <div className="relative mb-8">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#73c33e]/10 via-[#8ed654]/10 to-[#73c33e]/10 blur-xl"></div>
                 <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
-                  <h2 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-[#73c33e] to-[#8ed654] bg-clip-text text-transparent break-words">
+                  <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-[#73c33e] to-[#8ed654] bg-clip-text text-transparent break-words">
                     {toSentenceCase(tracks[currentTrackIndex]?.track || '')}
                   </h2>
                 </div>
