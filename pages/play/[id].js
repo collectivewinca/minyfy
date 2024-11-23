@@ -19,7 +19,7 @@ import {TbLogin} from 'react-icons/tb'
 import {IoRocketSharp} from 'react-icons/io5'
 import { FaArrowDownLong } from "react-icons/fa6";
 import MixtapeCard from '@/utils/MixtapeCard';
-import { Play, SkipBack, SkipForward, Volume2 } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
 
 
 
@@ -88,6 +88,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const trackDataContainerRef = useRef(null);
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
   
   console.log("docData", docData);
 
@@ -421,8 +422,10 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         const playerState = playerRef.current.getPlayerState();
         if (playerState === window.YT.PlayerState.PLAYING) {
           playerRef.current.pauseVideo();
+          setIsPlaying(false);
         } else {
           playerRef.current.playVideo();
+          setIsPlaying(true);
         }
       }
     } catch (error) {
@@ -588,7 +591,11 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
                     onClick={handlePlay}
                     className="p-4 rounded-full bg-gradient-to-r from-[#73c33e] to-[#8ed654] hover:from-[#8ed654] hover:to-[#73c33e] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
                   >
-                    <Play className="w-8 h-8 text-black" fill="black" />
+                    {isPlaying ? (
+                      <Pause className="w-8 h-8 text-black" fill="black" />
+                    ) : (
+                      <Play className="w-8 h-8 text-black" fill="black" />
+                    )}
                   </button>
 
                   <button
