@@ -7,7 +7,6 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 const ImportRedditPlaylist = ({ onTracksChange }) => {
   const [redditUrl, setRedditUrl] = useState('');
   const [allTracks, setAllTracks] = useState([]);
-  const [selectedTracks, setSelectedTracks] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +44,7 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
       const generationConfig = {
         temperature: 1,
         topP: 0.95,
-        topK: 64,
+        topK: 40,
         maxOutputTokens: 8192,
         responseMimeType: "application/json",
       };
@@ -155,11 +154,7 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
         // Remove duplicates and store unique tracks
         const uniqueTracks = [...new Set(processedData.tracks)];
         setAllTracks(uniqueTracks);
-
-        // Select first 10 tracks by default
-        const initialSelectedTracks = uniqueTracks.slice(0, 10);
-        setSelectedTracks(initialSelectedTracks);
-        onTracksChange(initialSelectedTracks);
+        onTracksChange(uniqueTracks);
       } else {
         setError('No tracks found in the content. Please Try Importing Again.');
       }
@@ -171,31 +166,9 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
     }
   };
 
-
-  
-
-  const toggleTrack = (track) => {
-    setSelectedTracks(prevSelected => {
-      if (prevSelected.includes(track)) {
-        // Remove track if already selected
-        const updatedTracks = prevSelected.filter(t => t !== track);
-        onTracksChange(updatedTracks);
-        return updatedTracks;
-      } else if (prevSelected.length < 10) {
-        // Add track if less than 10 tracks are selected
-        const updatedTracks = [...prevSelected, track];
-        onTracksChange(updatedTracks);
-        return updatedTracks;
-      }
-      return prevSelected;
-    });
-  };
-
-  // Function to delete a track from both allTracks and selectedTracks
   const deleteTrack = (track) => {
-    setAllTracks(prevAllTracks => prevAllTracks.filter(t => t !== track));
-    setSelectedTracks(prevSelected => {
-      const updatedTracks = prevSelected.filter(t => t !== track);
+    setAllTracks(prevAllTracks => {
+      const updatedTracks = prevAllTracks.filter(t => t !== track);
       onTracksChange(updatedTracks);
       return updatedTracks;
     });
@@ -227,26 +200,16 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
       {allTracks.length > 0 && (
         <div className="mt-5">
           <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Playlist Tracks</h2>
-          <p className="text-sm text-gray-700">Select up to 10 tracks. Currently selected: {selectedTracks.length}</p>
-          <p className="mb-2 text-base font-medium text-gray-900">Click on the track to select or unselect</p>
           <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {allTracks.map((track) => (
               <li 
                 key={track} 
-                className="flex justify-between items-center cursor-pointer mb-2 w-full"
+                className="flex justify-between items-center mb-2 w-full"
               >
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    className={`p-2 rounded-md ${
-                      selectedTracks.includes(track) 
-                        ? 'bg-[#A18249] text-white' 
-                        : 'bg-[#F4EFE6] text-black'
-                    } font-extrabold`}
-                    onClick={() => toggleTrack(track)}
-                  >
+                  <div className="p-2 rounded-md bg-[#A18249] text-white font-extrabold">
                     <PiMusicNoteFill className="md:text-2xl text-lg" />
-                  </button>
+                  </div>
                   <div className="font-base font-jakarta md:text-xl text-sm">{track}</div>
                 </div>
                 <button

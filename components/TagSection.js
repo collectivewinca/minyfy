@@ -25,7 +25,7 @@ const TagSection = ({ onTracksChange }) => {
   };
 
   const fetchTopTracksByTag = async (tagName) => {
-    const url = `https://ws.audioscrobbler.com/2.0/?method=tag.getTopTracks&tag=${encodeURIComponent(tagName)}&api_key=913f1b2c2126b54f985407d31d49da12&limit=10&format=json`;
+    const url = `https://ws.audioscrobbler.com/2.0/?method=tag.getTopTracks&tag=${encodeURIComponent(tagName)}&limit=50&api_key=913f1b2c2126b54f985407d31d49da12&format=json`;
 
     try {
       const response = await fetch(url);

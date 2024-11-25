@@ -105,23 +105,90 @@ const ArtistSection = ({ onTracksChange, artist }) => {
       return;
     }
 
-    const topTracksUrl = `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`;
-
     try {
+      // 1. First get top tracks
+      const topTracksUrl = `https://api.spotify.com/v1/artists/${artistId}/top-tracks`;
       const topTracksResponse = await axios.get(topTracksUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const trackList = topTracksResponse.data.tracks.map(
-        (track) => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artists[0].name)}`
-      );
-      setTopTracks(trackList);
-      onTracksChange(trackList); // Notify parent about the new tracks
+      // Create a Set to track unique track names
+      const uniqueTrackNames = new Set();
+      const topTracksList = topTracksResponse.data.tracks
+        .filter(track => {
+          const trackKey = `${track.name.toLowerCase()} - ${track.artists[0].name.toLowerCase()}`;
+          if (uniqueTrackNames.has(trackKey)) return false;
+          uniqueTrackNames.add(trackKey);
+          return true;
+        })
+        .map(track => ({
+          name: track.name,
+          artist: track.artists[0].name,
+          id: track.id
+        }));
+
+      // If we already have 50 tracks, no need to fetch albums
+      if (topTracksList.length >= 50) {
+        const finalTracks = topTracksList
+          .slice(0, 50)
+          .map(track => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist)}`);
+        setTopTracks(finalTracks);
+        onTracksChange(finalTracks);
+        return;
+      }
+
+      // 2. Then get albums and their tracks if we need more
+      const albumsUrl = `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album,single&limit=10`;
+      const albumsResponse = await axios.get(albumsUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (albumsResponse.data.items.length === 0) {
+        // If no albums, just return top tracks
+        const finalTracks = topTracksList
+          .map(track => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist)}`);
+        setTopTracks(finalTracks);
+        onTracksChange(finalTracks);
+        return;
+      }
+
+      const albumIds = albumsResponse.data.items.map(album => album.id);
+      const tracksUrl = `https://api.spotify.com/v1/albums?ids=${albumIds.join(',')}`;
+      const tracksResponse = await axios.get(tracksUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Get album tracks, excluding duplicates
+      const albumTracks = tracksResponse.data.albums
+        .flatMap(album => album.tracks.items)
+        .filter(track => {
+          const trackKey = `${track.name.toLowerCase()} - ${track.artists[0].name.toLowerCase()}`;
+          if (uniqueTrackNames.has(trackKey)) return false;
+          uniqueTrackNames.add(trackKey);
+          return true;
+        })
+        .map(track => ({
+          name: track.name,
+          artist: track.artists[0].name,
+          id: track.id
+        }));
+
+      // Combine top tracks with album tracks and limit to 50 total
+      const combinedTracks = [...topTracksList, ...albumTracks]
+        .slice(0, 50)
+        .map(track => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist)}`);
+
+      setTopTracks(combinedTracks);
+      onTracksChange(combinedTracks);
       setError('');
     } catch (error) {
-      console.error('Error fetching top tracks from Spotify:', error);
+      console.error('Error fetching tracks from Spotify:', error);
       setError('Error fetching tracks from Spotify.');
     }
   };

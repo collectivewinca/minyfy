@@ -8,7 +8,6 @@ const ImportAppleMusicPlaylist = ({ onTracksChange }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [allTracks, setAllTracks] = useState([]);
-  const [selectedTracks, setSelectedTracks] = useState([]);
   const [error, setError] = useState('');
   const [appleMusicToken, setAppleMusicToken] = useState('');
 
@@ -78,27 +77,11 @@ const ImportAppleMusicPlaylist = ({ onTracksChange }) => {
       const tracks = await fetchPlaylistTracks(`${playlist.id}`);
       console.log('Fetched Tracks:', tracks); 
       setAllTracks(tracks);
-      
-      const initialSelectedTracks = tracks.slice(0, 10);
-      setSelectedTracks(initialSelectedTracks);
-      onTracksChange(initialSelectedTracks);
-      
+      onTracksChange(tracks);
       setError('');
     } catch (error) {
       console.error('Error fetching playlist:', error);
       setError('Failed to import playlist. Please try again.');
-    }
-  };
-
-  const toggleTrack = (track) => {
-    if (selectedTracks.includes(track)) {
-      const updatedTracks = selectedTracks.filter(t => t !== track);
-      setSelectedTracks(updatedTracks);
-      onTracksChange(updatedTracks);
-    } else if (selectedTracks.length < 10) {
-      const updatedTracks = [...selectedTracks, track];
-      setSelectedTracks(updatedTracks);
-      onTracksChange(updatedTracks);
     }
   };
 
@@ -153,7 +136,6 @@ const ImportAppleMusicPlaylist = ({ onTracksChange }) => {
       );
   
       const trackList = response.data.data
-        .slice(0, 30)  // Ensure we only take the first 10 tracks
         .map(track => 
           `${capitalizeWords(track.attributes.name)} - ${capitalizeWords(track.attributes.artistName)}`
         );
@@ -230,19 +212,16 @@ const ImportAppleMusicPlaylist = ({ onTracksChange }) => {
       {allTracks.length > 0 && (
         <div className="mt-5">
           <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Playlist Tracks</h2>
-          <p className="text-sm text-gray-700">Selected tracks: {selectedTracks.length}/10</p>
-          <p className="mb-2 text-base font-medium text-gray-900">Click on the track to select or unselect</p>
           <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {allTracks.map((track, index) => {
               const [name, artist] = track.split(' - ');
               return (
                 <li 
-                  key={index} 
-                  onClick={() => toggleTrack(track)} 
-                  className="cursor-pointer flex md:gap-4 gap-2 mb-2 w-full items-center"
+                  key={index}
+                  className="flex md:gap-4 gap-2 mb-2 w-full items-center"
                 >
                   <button
-                    className={`p-2 rounded-md ${selectedTracks.includes(track) ? 'bg-[#A18249] text-white' : 'bg-[#F4EFE6] text-black'} font-extrabold`}
+                    className="p-2 rounded-md bg-[#F4EFE6] text-black font-extrabold"
                   >
                     <PiMusicNoteFill className='md:text-2xl text-lg' />
                   </button>

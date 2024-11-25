@@ -18,13 +18,7 @@ const CustomSection = ({ onTracksChange }) => {
   };
 
   const handleBulkInputChange = (event) => {
-    const lines = event.target.value.split('\n');
-    if (lines.length > 11) {
-      alert('Please limit your input to 10 lines.');
-      setBulkInput(lines.slice(0, 10).join('\n'));
-    } else {
-      setBulkInput(event.target.value);
-    }
+    setBulkInput(event.target.value);
   };
 
   const capitalizeWords = (str) => {
@@ -91,14 +85,12 @@ const CustomSection = ({ onTracksChange }) => {
 
   const addToTrackList = (track) => {
     const formattedTrack = `${track.name} - ${track.artist}`;
-    if (trackList.length < 10 && !trackList.includes(formattedTrack)) {
+    if (!trackList.includes(formattedTrack)) {
       const updatedTrackList = [...trackList, formattedTrack];
       setTrackList(updatedTrackList);
       onTracksChange(updatedTrackList);
-    } else if (trackList.includes(formattedTrack)) {
-      alert('This track is already in your list.');
     } else {
-      alert('You can only add up to 10 unique tracks.');
+      alert('This track is already in your list.');
     }
   };
 
@@ -110,23 +102,21 @@ const CustomSection = ({ onTracksChange }) => {
 
   const handleBulkAdd = async () => {
     setLoading(true);
-  
-    // Clean the bulk input by removing unnecessary quotes and trimming whitespace
+
     const tracks = bulkInput
       .split('\n')
-      .map(line => line.replace(/["']/g, '').trim())  // Remove quotes and trim whitespace
+      .map(line => line.replace(/["']/g, '').trim())
       .filter(track => track !== '');
-  
+
     const updatedTrackList = [...trackList];
     const skippedTracks = [];
     const invalidTracks = [];
-  
-  
-    for (let i = 0; i < tracks.length && updatedTrackList.length < 10; i++) {
+
+    for (let i = 0; i < tracks.length; i++) {
       setLoadingProgress(`${i + 1}/${tracks.length}`);
-  
+
       const track = tracks[i];
-  
+
       try {
         const searchResults = await searchTrack(track);
         if (searchResults.length > 0) {
@@ -143,28 +133,21 @@ const CustomSection = ({ onTracksChange }) => {
         skippedTracks.push(track);
       }
     }
-  
+
     setTrackList(updatedTrackList);
     onTracksChange(updatedTrackList);
     setBulkInput('');
     setLoading(false);
     setLoadingProgress('');
-  
-    // Notify the user about invalid format tracks
+
     if (invalidTracks.length > 0) {
       alert(`The following tracks were in the wrong format and skipped:\n${invalidTracks.join('\n')}\nPlease use the format: trackName - artistName for accurate results.`);
     }
-  
-    // Notify the user about skipped tracks that weren't found
+
     if (skippedTracks.length > 0) {
       alert(`The following tracks were not found and skipped:\n${skippedTracks.join('\n')}`);
     }
-  
-    if (updatedTrackList.length === 10) {
-      alert('Maximum of 10 tracks reached. Some tracks may not have been added.');
-    }
   };
-  
 
   return (
     <div className="my-5 flex flex-col justify-start w-full">

@@ -8,7 +8,6 @@ const ImportPlaylist = ({ onTracksChange }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [allTracks, setAllTracks] = useState([]);
-  const [selectedTracks, setSelectedTracks] = useState([]);
   const [error, setError] = useState('');
 
   const handlePlaylistUrlChange = (event) => {
@@ -59,30 +58,13 @@ const ImportPlaylist = ({ onTracksChange }) => {
     setSelectedPlaylist(playlist);
     try {
       const tracks = await fetchYouTubePlaylistTracks(playlist.id);
-
       const formattedTracks = tracks.map(track => track.name);
       setAllTracks(formattedTracks);
-
-      const initialSelectedTracks = formattedTracks.slice(0, 10);
-      setSelectedTracks(initialSelectedTracks);
-      onTracksChange(initialSelectedTracks);
-
+      onTracksChange(formattedTracks);
       setError('');
     } catch (error) {
       console.error('Error fetching playlist:', error);
       setError('Failed to import playlist. Please try again.');
-    }
-  };
-
-  const toggleTrack = (track) => {
-    if (selectedTracks.includes(track)) {
-      const updatedTracks = selectedTracks.filter(t => t !== track);
-      setSelectedTracks(updatedTracks);
-      onTracksChange(updatedTracks);
-    } else if (selectedTracks.length < 10) {
-      const updatedTracks = [...selectedTracks, track];
-      setSelectedTracks(updatedTracks);
-      onTracksChange(updatedTracks);
     }
   };
 
@@ -174,14 +156,10 @@ const ImportPlaylist = ({ onTracksChange }) => {
       {allTracks.length > 0 && (
         <div className="mt-5">
           <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Playlist Tracks</h2>
-          <p className="text-sm text-gray-700">Select up to 10 tracks. Currently selected: {selectedTracks.length}</p>
-          <p className="mb-2 text-base font-medium text-gray-900">Click on the track to select or unselect</p>
           <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
             {allTracks.map((track) => (
-              <li key={track} onClick={() => toggleTrack(track)} className="cursor-pointer flex md:gap-4 gap-2 mb-2 w-full items-center">
-                <button
-                  className={`p-2 rounded-md ${selectedTracks.includes(track) ? 'bg-[#A18249] text-white' : 'bg-[#F4EFE6] text-black'} font-extrabold`}
-                >
+              <li key={track} className="flex md:gap-4 gap-2 mb-2 w-full items-center">
+                <button className="p-2 rounded-md bg-[#F4EFE6] text-black font-extrabold">
                   <PiMusicNoteFill className='md:text-2xl text-lg' />
                 </button>
                 <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
