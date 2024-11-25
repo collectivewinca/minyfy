@@ -87,10 +87,22 @@ const ImportPlaylist = ({ onTracksChange }) => {
 
   const fetchYouTubePlaylistTracks = async (playlistId) => {
     const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`
-    );
-    return response.data.items.map(item => ({
+    let allItems = [];
+    let nextPageToken = '';
+    let pageCount = 0;
+    const MAX_PAGES = 2; // Will fetch up to 100 tracks (2 pages × 50 tracks)
+
+    do {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}${nextPageToken ? `&pageToken=${nextPageToken}` : ''}`
+      );
+      
+      allItems = [...allItems, ...response.data.items];
+      nextPageToken = response.data.nextPageToken;
+      pageCount++;
+    } while (nextPageToken && pageCount < MAX_PAGES);
+
+    return allItems.map(item => ({
       name: item.snippet.title
     }));
   };
