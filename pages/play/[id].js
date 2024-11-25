@@ -89,7 +89,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const trackDataContainerRef = useRef(null);
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [showShareOptions, setShowShareOptions] = useState(false);
   
   console.log("docData", docData);
@@ -581,12 +581,13 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
                       key={i}
                       className="w-1 bg-gradient-to-t from-[#73c33e] to-[#8ed654] rounded-full transform-gpu"
                       style={{
-                        animationName: 'waveform',
+                        animationName: isPlaying ? 'waveform' : 'none',  // Stop animation if not playing
                         animationDuration: `${0.2 + Math.random() * 0.3}s`,
                         animationTimingFunction: 'ease-in-out',
                         animationIterationCount: 'infinite',
                         animationDirection: 'alternate',
-                        animationDelay: `${i * 0.02}s`,
+                        animationDelay: `${i * 0.01}s`,
+                        height: !isPlaying ? '4px' : '0.6px',  // Set a fixed small height when paused
                       }}
                     ></div>
                   ))}

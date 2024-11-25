@@ -73,7 +73,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [player, setPlayer] = useState(null);
   const [isLocked, setIsLocked] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     const loadVimeoPlayer = () => {
@@ -366,12 +366,13 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
                     key={i}
                     className="w-1 bg-gradient-to-t from-[#73c33e] to-[#8ed654] rounded-full transform-gpu"
                     style={{
-                      animationName: 'waveform',
+                      animationName: isPlaying ? 'waveform' : 'none',  // Stop animation if not playing
                       animationDuration: `${0.2 + Math.random() * 0.3}s`,
                       animationTimingFunction: 'ease-in-out',
                       animationIterationCount: 'infinite',
                       animationDirection: 'alternate',
                       animationDelay: `${i * 0.02}s`,
+                      height: !isPlaying ? '4px' : undefined,  // Set a fixed small height when paused
                     }}
                   ></div>
                 ))}

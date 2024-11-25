@@ -62,7 +62,7 @@ function Lastfm() {
 
   const handleButtonClick = async (period) => {
     const apiKey = '913f1b2c2126b54f985407d31d49da12';
-    const limit = 10;
+    const limit = 50;
     const page = 1;
 
     let periodParam;
@@ -88,6 +88,7 @@ function Lastfm() {
     }
 
     setSelectedPeriod(period);
+    setLoading(true);
 
     const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${apiKey}&period=${periodParam}&limit=${limit}&page=${page}&format=json`;
 
@@ -96,13 +97,17 @@ function Lastfm() {
       const data = await response.json();
 
       if (data.toptracks && data.toptracks.track) {
-        setTrackData(data.toptracks.track.map(track => `${track.name} - ${track.artist.name}`));
+        setTrackData(data.toptracks.track.map(track => 
+          `${track.name} - ${track.artist.name} (${track.playcount} plays)`
+        ));
       } else {
         setTrackData([]);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
       setTrackData([]);
+    } finally {
+      setLoading(false);
     }
   };
 
