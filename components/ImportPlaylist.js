@@ -76,16 +76,32 @@ const ImportPlaylist = ({ onTracksChange }) => {
   };
 
   const searchPlaylists = async (query) => {
-    const accessToken = await getAccessToken();
-    const response = await axios.get(
-      `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=5`,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
+    try {
+      const accessToken = await getAccessToken();
+      const encodedQuery = encodeURIComponent(query.trim());
+  
+      const response = await axios.get(
+        `https://api.spotify.com/v1/search?q=${encodedQuery}&type=playlist&limit=10&market=US`,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
         }
+      );
+  
+      const playlists = response.data.playlists.items.filter(playlist => playlist !== null);
+      
+      if (playlists.length === 0) {
+        setError('No playlists found. Try searching on Spotify directly: ' +
+          `https://open.spotify.com/search/${encodedQuery}/playlists`);
+        return [];
       }
-    );
-    return response.data.playlists.items;
+  
+      return playlists;
+    } catch (error) {
+      console.error('Error in searchPlaylists:', error.response ? error.response.data : error.message);
+      throw error;
+    }
   };
 
   const fetchPlaylistTracks = async (playlistId) => {
@@ -167,16 +183,33 @@ const ImportPlaylist = ({ onTracksChange }) => {
           <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Search Results</h2>
           <ul className="md:pl-5 pl-2 list-disc text-lg">
             {searchResults.map((playlist) => (
-              <li key={playlist.id} onClick={() => handlePlaylistSelect(playlist)} className="cursor-pointer flex md:gap-4 gap-2 mb-2 w-full items-center">
-                <button className="p-2 rounded-md bg-[#F4EFE6] text-black font-extrabold">
-                  <PiMusicNoteFill className='md:text-2xl text-lg' />
-                </button>
-                <div className='font-base font-jakarta md:text-xl text-sm'>{playlist.name} - {playlist.owner.display_name}</div>
-              </li>
+              playlist && (
+                <li key={playlist.id} onClick={() => handlePlaylistSelect(playlist)} className="cursor-pointer flex md:gap-4 gap-2 mb-2 w-full items-center">
+                  <button className="p-2 rounded-md bg-[#F4EFE6] text-black font-extrabold">
+                    <PiMusicNoteFill className='md:text-2xl text-lg' />
+                  </button>
+                  <div className='font-base font-jakarta md:text-xl text-sm'>
+                    {playlist?.name || 'Untitled Playlist'} - {playlist?.owner?.display_name || 'Unknown Artist'}
+                  </div>
+                </li>
+              )
             ))}
           </ul>
+          <p className="mt-4 text-neutral-600">
+            Can't find your playlist. Get playlist url from {' '}
+            <a 
+              href={`https://open.spotify.com/search/${encodeURIComponent(searchQuery)}/playlists`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#A18249] font-bold underline"
+            >
+              Spotify
+            </a>
+          </p>
         </div>
       )}
+      
+
       
       {allTracks.length > 0 && (
         <div className="mt-5">
