@@ -12,25 +12,24 @@ import { ExternalLink } from 'lucide-react';
 
 const images = [
   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny%20Vinyl%20Playlist%20(Mixtape)%20featuring%20tracks%20-%20AJR---World's-Smallest-Violin-(Lyrics)---Eurythmics---Sweet-Dreams-(Lyrics)---Dua-Lipa---Levitating-(Lyrics-video)---Maroon-5---Animals-(Lyrics).webp?alt=media&token=8fddb3c1-b562-447e-83e0-9f0672e8218e",
-    link: 'https://go.minyvinyl.com/reelmix',
-    MixtapeId: 'zQCsfUXQRz8Y4FtV9t1W',
-    label: 'Top Mixtape 1',
-    name: 'Top Reels Mix'
-
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-b76b3879-93df-4284-87b4-e38c514a68d7?alt=media&token=6d7fda4f-2856-41db-8c97-fea4ef5f736a",
+    link: 'https://go.minyvinyl.com/hvshiband',
+    MixtapeId: 'SjoEtYtFo2u0tNzrvXwZ',
+    name: 'hvshi band',
+    label: 'Top Mixtape 1'
   },
   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Mystery-Of-Love---Sufjan-Stevens---You-Stepped-Out-Of-A-Dream---Samara-Joy---Stereo-Hearts---Maroon-5---Break-Up-Song---Veruca-Salt?alt=media&token=652fd8ad-5cad-47fc-af58-599108bc7723",
-    link: 'https://go.minyvinyl.com/offplaylist1',
-    MixtapeId: 'zMUT6FyJ4Vt9qwlurF4Y',
-    name: 'off playlist',
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-1b3812f8-334c-4c94-baae-67350c8b2978?alt=media&token=14a30de9-1fa5-46fa-9727-967dd7c45ca6",
+    link: 'https://go.minyvinyl.com/true',
+    MixtapeId: 'aqNGPbYWZ2xhlHQUAQv1', 
+    name: 'true by rachel bard',
     label: 'Top Mixtape 2'
   },
   {
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/a-mixtapes%2FMiny-Vinyl-Playlist-(Mixtape)-featuring-tracks---Yeh-Ishq-Hai---Sanaea-Bubber---Hum---Sanaea-Bubber---%E2%9C%A8Literally%E2%9C%A8-Translating-Indian-Songs-(Compilation-1-25)---Sanaea-Bubber---%E2%9C%A8Literally%E2%9C%A8-Translating-Indian-Songs-%7C-Achacho-Punnagi-%7C-Transcribed-By-Sutharv---Sanaea-Bubber?alt=media&token=41147bfa-3260-4f1b-a3ae-bce3ca9096a4",
-    link: 'https://go.minyvinyl.com/thebubberfiles',
-    MixtapeId: 'KRFMPPUluUbvoGQzg0V4',
-    name: 'the bubber files',
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/subway-musician-564bd.appspot.com/o/aminy-generation%2Fminy-b97ee15f-5b58-4f34-b818-a72b5c22110c?alt=media&token=68d94993-8c8d-4768-bd8b-59e1739db091",
+    link: 'https://go.minyvinyl.com/regemerging',
+    MixtapeId: '6uVMF89rKo6U6U5UtLaw', 
+    name: "reg's emerging picks",
     label: 'Top Mixtape 3'
   },
   {
