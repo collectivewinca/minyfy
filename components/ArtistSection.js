@@ -15,7 +15,7 @@ const ArtistSection = ({ onTracksChange, artist }) => {
 
   useEffect(() => {
     if (artist) {
-      
+
       // If artistName is provided as a prop, fetch Spotify artist and their top tracks
       handleArtistSelection(artist);
       // Fetch the top artists when no artistName prop is passed
@@ -113,6 +113,17 @@ const ArtistSection = ({ onTracksChange, artist }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      
+      // Add console log to see the full response
+      console.log('Spotify top tracks response:', topTracksResponse.data);
+
+      // Check if there are any tracks
+      if (topTracksResponse.data.tracks.length === 0) {
+        setError('No tracks found on Spotify for this artist.');
+        setTopTracks([]);
+        onTracksChange([]);
+        return;
+      }
 
       // Create a Set to track unique track names
       const uniqueTrackNames = new Set();
@@ -195,6 +206,9 @@ const ArtistSection = ({ onTracksChange, artist }) => {
 
   // Handle artist selection or artistName prop flow
   const handleArtistSelection = async (artistName) => {
+    
+    setSearchedArtist(artistName);
+
     const token = await getAccessToken();
     if (!token) {
       setError('Unable to get Spotify access token.');
@@ -248,6 +262,32 @@ const ArtistSection = ({ onTracksChange, artist }) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
+  // Add new function for Last.fm track search
+  const fetchLastFmTracks = async (artistName) => {
+    const url = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${encodeURIComponent(artistName)}&api_key=913f1b2c2126b54f985407d31d49da12&format=json&limit=50`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.error) {
+        setError('No tracks found on Last.fm');
+        return;
+      }
+
+      const tracks = data.toptracks.track.map(track => 
+        `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist.name)}`
+      );
+      
+      setTopTracks(tracks);
+      onTracksChange(tracks);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching Last.fm tracks:', error);
+      setError('Error fetching tracks from Last.fm');
+    }
+  };
+
   return (
     <div className="my-5 flex flex-col justify-start w-full">
       {/* Top Artists Section */}
@@ -272,20 +312,36 @@ const ArtistSection = ({ onTracksChange, artist }) => {
       {/* Search for Artist Section */}
       <div className="mt-5">
         <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Search for Artist</h2>
-        <div className="flex items-center">
-          <input
-            type="text"
-            className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] text-sm md:text-lg rounded-l-xl"
-            placeholder="Enter artist name..."
-            value={searchedArtist}
-            onChange={handleInputChange}
-          />
-          <button
-            className="bg-[#A18249] px-5 py-3 rounded-r-xl text-sm md:text-lg font-medium text-white hover:opacity-80"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center">
+            <input
+              type="text"
+              className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] text-sm md:text-lg rounded-l-xl"
+              placeholder="Enter artist name..."
+              value={searchedArtist}
+              onChange={handleInputChange}
+            />
+            <button
+              className="bg-[#A18249] px-5 py-3 rounded-r-xl text-sm md:text-lg font-medium text-white hover:opacity-80"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <button
+              className="bg-[#1DB954] px-5 py-2 rounded-xl text-sm md:text-lg font-medium text-white hover:opacity-80 flex-1"
+              onClick={() => handleArtistSelection(searchedArtist)}
+            >
+              Search Spotify Tracks
+            </button>
+            <button
+              className="bg-[#D51007] px-5 py-2 rounded-xl text-sm md:text-lg font-medium text-white hover:opacity-80 flex-1"
+              onClick={() => fetchLastFmTracks(searchedArtist)}
+            >
+              Search Last.fm Tracks
+            </button>
+          </div>
         </div>
         {error && <p className="text-red-600 mt-2">{error}</p>}
       </div>
