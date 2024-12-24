@@ -23,6 +23,7 @@ const config = {
   changefreq: 'daily',
   priority: 0.8,
   sitemapSize: 7000,
+  generateIndexSitemap: false,
   exclude: ['/server', '/server/*', '/private', '/private/*'],
   additionalPaths: async (config) => {
     const result = [
