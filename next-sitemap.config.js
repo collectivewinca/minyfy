@@ -18,7 +18,7 @@ console.log('Firebase initialized');
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://minyfy.subwaymusician.xyz',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://minyfy.minyvinyl.com',
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.8,

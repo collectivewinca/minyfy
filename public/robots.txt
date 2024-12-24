@@ -3,8 +3,8 @@ User-agent: *
 Disallow: /admin
 
 # Host declaration (primary domain)
-Host: https://minyfy.subwaymusician.xyz
+Host: https://minyfy.minyvinyl.com
 
 # Sitemap locations
-Sitemap: https://minyfy.subwaymusician.xyz/sitemap.xml
-Sitemap: https://minyfy.subwaymusician.xyz/sitemap-0.xml
+Sitemap: https://minyfy.minyvinyl.com/sitemap.xml
+Sitemap: https://minyfy.minyvinyl.com/sitemap-0.xml

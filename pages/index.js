@@ -15,14 +15,14 @@ function Home() {
       <NextSeo
         title="Miny Vinyl - Create and Discover Awesome Music Playlists"
         description="Create and discover cool music playlists and mixtapes for any artist. Design your own mixtapes/playlist or explore curated collections from Spotify, Discogs, Apple Music, YouTube Music, and more!."
-        canonical="https://minyfy.subwaymusician.xyz/"
+        canonical="https://minyfy.minyvinyl.com/"
         openGraph={{
-          url: 'https://minyfy.subwaymusician.xyz/',
+          url: 'https://minyfy.minyvinyl.com/',
           title: 'Miny Vinyl - Create and Discover Awesome Music Playlists',
           description: 'Create and discover cool music playlists and mixtapes for any artist. Design your own mixtapes/playlist or explore curated collections from Spotify, Discogs, Apple Music, YouTube Music, and more!',
           images: [
             {
-              url: 'https://minyfy.subwaymusician.xyz/vinyl.png',
+              url: 'https://minyfy.minyvinyl.com/vinyl.png',
               width: 1200,
               height: 630,
               alt: 'Miny Vinyl - Music Playlist Creator',
@@ -40,7 +40,7 @@ function Home() {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'Miny Vinyl',
-            url: 'https://minyfy.subwaymusician.xyz/',
+            url: 'https://minyfy.minyvinyl.com/',
           },
         ]}
       />

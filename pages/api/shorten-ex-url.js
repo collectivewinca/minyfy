@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         'authorization': `Bearer ${process.env.NEXT_PUBLIC_SINK_KEY}`
       },
       body: JSON.stringify({
-        url: `https://minyfy.subwaymusician.xyz/exclusive/${docId}`,
+        url: `https://minyfy.minyvinyl.com/exclusive/${docId}`,
         ...(customUrl && { slug: customUrl })
       })
     };

@@ -282,7 +282,7 @@ function Admin() {
           </button>
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
-        <h1 className="text-xs font-semibold mb-1">Use link like https://minyfy.subwaymusician.xyz/play/JLoRn9KQkc73B7ELFZCB</h1>
+        <h1 className="text-xs font-semibold mb-1">Use link like https://minyfy.minyvinyl.com/play/JLoRn9KQkc73B7ELFZCB</h1>
         
 
         <table className="min-w-full bg-white">
@@ -300,7 +300,7 @@ function Admin() {
           <tbody>
             {mixtapes.map((mixtape) => (
               <tr key={mixtape.id}>
-                <td className="py-2 px-4 border-b underline cursor-pointer" onClick={() => window.open(`https://minyfy.subwaymusician.xyz/play/${mixtape.id}`, '_blank')}>Visit</td>
+                <td className="py-2 px-4 border-b underline cursor-pointer" onClick={() => window.open(`https://minyfy.minyvinyl.com/play/${mixtape.id}`, '_blank')}>Visit</td>
                 <td className="py-2 px-4 border-b">{mixtape.name.toUpperCase()}</td>
                 <td className="py-2 px-4 border-b">{mixtape.date}</td>
                 <td className="py-2 px-4 border-b">{mixtape.userEmail}</td>

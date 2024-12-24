@@ -455,9 +455,9 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       <NextSeo
         title={`${toSentenceCase(name)}'s Mixtape - Listen, Comment & Share | Miny Vinyl`}
         description={`${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
-        canonical={`https://minyfy.subwaymusician.xyz${router.asPath}`}
+        canonical={`https://minyfy.minyvinyl.com${router.asPath}`}
         openGraph={{
-          url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
+          url: `https://minyfy.minyvinyl.com${router.asPath}`,
           title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
           description: `${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!.`,
           images: [
@@ -487,7 +487,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             description: `Listen to ${toSentenceCase(
               name
             )}'s custom mixtape on Miny Vinyl. Discover unique tracks, join the conversation, and share your thoughts!`, 
-            url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
+            url: `https://minyfy.minyvinyl.com${router.asPath}`,
             image: backgroundImage,
           },
         ]}
@@ -528,7 +528,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               {showShareOptions && (
                 <div className="absolute right-[-35px] mt-2 bg-zinc-800 rounded-lg shadow-lg p-3 z-50">
                   <SocialShareButtons 
-                    shareUrl={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+                    shareUrl={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
                     title="Check out my Latest Mixtape on Miny Vinyl"
                   />
                 </div>
@@ -743,7 +743,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             </button>
 
             {/* <PinterestShareButton
-              url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+              url={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
               media={imageUrl}
               description="Check out my Latest Mixtape on Miny Vinyl"
             >
@@ -752,7 +752,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             <PWAShare 
               title="Check out my Latest Mixtape on Miny Vinyl"
               text={`Check out ${toSentenceCase(name)}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`}
-              url={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+              url={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
               imageUrl={imageUrl}
             />
 

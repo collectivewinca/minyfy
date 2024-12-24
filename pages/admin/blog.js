@@ -167,7 +167,7 @@ function Blog() {
                       href="https://minyvinyl.com/"
                       >
                       <div class="size-12 mr-3">
-                            <img src="https://minyfy.subwaymusician.xyz/Minylogo.png" alt="Miny Vinyl Logo" className=" h-12" />
+                            <img src="https://minyfy.minyvinyl.com/Minylogo.png" alt="Miny Vinyl Logo" className=" h-12" />
                         </div>
                       </a>
                 </div>
@@ -205,12 +205,12 @@ function Blog() {
                 >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://minyfy.subwaymusician.xyz/catalog"
+                    href="https://minyfy.minyvinyl.com/catalog"
                     >View Catalog</a
                   >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://minyfy.subwaymusician.xyz/makeaminy"
+                    href="https://minyfy.minyvinyl.com/makeaminy"
                     >Create MINY</a
                   >
                   <a
@@ -278,7 +278,7 @@ function Blog() {
                         </h2>
                         <div class="flex justify-center items-center w-full">
                           <a
-                          href="https://minyfy.subwaymusician.xyz/makeaminy"
+                          href="https://minyfy.minyvinyl.com/makeaminy"
                           class="bg-[#1919e6] text-white px-4 py-3 rounded-full text-lg font-bold text-center hero-button"
                           >Create a MINY mixtape</a>
                         </div>
@@ -555,7 +555,7 @@ function Blog() {
                       href="https://minyvinyl.com/"
                       >
                       <div class="size-12 mr-3">
-                            <img src="https://minyfy.subwaymusician.xyz/Minylogo.png" alt="Miny Vinyl Logo" className=" h-12" />
+                            <img src="https://minyfy.minyvinyl.com/Minylogo.png" alt="Miny Vinyl Logo" className=" h-12" />
                         </div>
                       </a>
                 </div>
@@ -593,12 +593,12 @@ function Blog() {
                 >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://minyfy.subwaymusician.xyz/catalog"
+                    href="https://minyfy.minyvinyl.com/catalog"
                     >View Catalog</a
                   >
                   <a
                     class="text-white text-xs md:text-sm font-medium leading-normal"
-                    href="https://minyfy.subwaymusician.xyz/makeaminy"
+                    href="https://minyfy.minyvinyl.com/makeaminy"
                     >Create MINY</a
                   >
                   <a
@@ -666,7 +666,7 @@ function Blog() {
                         </h2>
                         <div class="flex justify-center items-center w-full">
                           <a
-                          href="https://minyfy.subwaymusician.xyz/makeaminy"
+                          href="https://minyfy.minyvinyl.com/makeaminy"
                           class="bg-[#1919e6] text-white px-4 py-3 rounded-full text-lg font-bold text-center hero-button"
                           >Create a MINY mixtape</a>
                         </div>

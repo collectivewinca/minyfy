@@ -129,14 +129,14 @@ function Crates() {
         <NextSeo
           title="My Crates - View Your Miny Vinyl Purchase History | Miny Vinyl"
           description="Keep track of your musical treasures! Your Miny Vinyl 'Crates' section lets you view your purchased MINY history, easily access your downloads, and rediscover your favorite sonic gems."
-          canonical="https://minyfy.subwaymusician.xyz/crates" 
+          canonical="https://minyfy.minyvinyl.com/crates" 
           openGraph={{
-            url: 'https://minyfy.subwaymusician.xyz/crates', 
+            url: 'https://minyfy.minyvinyl.com/crates', 
             title: 'My Miny Crates: Your Music Collection Awaits | Miny Vinyl', 
             description: "Never lose track of a beat! Your Miny Vinyl 'Crates' provide easy access to your purchased mixtapes. Rediscover, download, and enjoy your music anytime.",
             images: [
               {
-                url: 'https://minyfy.subwaymusician.xyz/vinyl.png', 
+                url: 'https://minyfy.minyvinyl.com/vinyl.png', 
                 width: 1200,
                 height: 630,
                 alt: 'Miny Vinyl - Your Music Purchase History and Downloads',
@@ -157,7 +157,7 @@ function Crates() {
               '@type': 'WebPage',
               name: 'My Crates - View Your Miny Vinyl Purchase History',
               description: "Keep track of your musical treasures! Your Miny Vinyl 'Crates' section lets you view your purchased MINY history, easily access your downloads, and rediscover your favorite sonic gems.",
-              url: 'https://minyfy.subwaymusician.xyz/crates', 
+              url: 'https://minyfy.minyvinyl.com/crates', 
             },
           ]}
         />
@@ -199,10 +199,10 @@ function Crates() {
           content="Never lose track of a beat! Your Miny Vinyl 'Crates' provide easy access to your purchased mixtapes. Rediscover, download, and enjoy your music anytime."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://minyfy.subwaymusician.xyz/crates" /> 
+        <meta property="og:url" content="https://minyfy.minyvinyl.com/crates" /> 
         <meta
           property="og:image"
-          content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+          content="https://minyfy.minyvinyl.com/vinyl.png" 
         />
         <meta property="og:image:alt" content="Miny Vinyl - Your Music Purchase History and Downloads" />
         <meta property="og:image:type" content="image/png" />
@@ -223,20 +223,20 @@ function Crates() {
         />
         <meta
           name="twitter:image"
-          content="https://minyfy.subwaymusician.xyz/vinyl.png" 
+          content="https://minyfy.minyvinyl.com/vinyl.png" 
         />
       </Head>
       <NextSeo
         title="My Crates - View Your Miny Vinyl Purchase History | Miny Vinyl"
         description="Keep track of your musical treasures! Your Miny Vinyl 'Crates' section lets you view your purchased MINY history, easily access your downloads, and rediscover your favorite sonic gems."
-        canonical="https://minyfy.subwaymusician.xyz/crates" 
+        canonical="https://minyfy.minyvinyl.com/crates" 
         openGraph={{
-          url: 'https://minyfy.subwaymusician.xyz/crates', 
+          url: 'https://minyfy.minyvinyl.com/crates', 
           title: 'My Miny Crates: Your Music Collection Awaits | Miny Vinyl', 
           description: "Never lose track of a beat! Your Miny Vinyl 'Crates' provide easy access to your purchased mixtapes. Rediscover, download, and enjoy your music anytime.",
           images: [
             {
-              url: 'https://minyfy.subwaymusician.xyz/vinyl.png', 
+              url: 'https://minyfy.minyvinyl.com/vinyl.png', 
               width: 1200,
               height: 630,
               alt: 'Miny Vinyl - Your Music Purchase History and Downloads',
@@ -257,7 +257,7 @@ function Crates() {
             '@type': 'WebPage',
             name: 'My Crates - View Your Miny Vinyl Purchase History',
             description: "Keep track of your musical treasures! Your Miny Vinyl 'Crates' section lets you view your purchased MINY history, easily access your downloads, and rediscover your favorite sonic gems.",
-            url: 'https://minyfy.subwaymusician.xyz/crates', 
+            url: 'https://minyfy.minyvinyl.com/crates', 
           },
         ]}
       />

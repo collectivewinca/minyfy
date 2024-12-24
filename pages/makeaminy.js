@@ -289,15 +289,15 @@ const Custom = () => {
       <NextSeo
         title="Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl"
         description="Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Spotify, Apple Music, YouTube, Discogs, and more."
-        canonical="https://minyfy.subwaymusician.xyz/makeaminy"
+        canonical="https://minyfy.minyvinyl.com/makeaminy"
         openGraph={{
-          url: 'https://minyfy.subwaymusician.xyz/makeaminy',
+          url: 'https://minyfy.minyvinyl.com/makeaminy',
           title: 'Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl',
           description:
             "Customize your mixtape with AI-generated backgrounds, import playlists from Spotify, YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world!",
           images: [
             {
-              url: 'https://minyfy.subwaymusician.xyz/vinyl.png',
+              url: 'https://minyfy.minyvinyl.com/vinyl.png',
               width: 1200,
               height: 630,
               alt: 'Miny Vinyl - Music Playlist(Mixtape) Creation Page',
@@ -320,7 +320,7 @@ const Custom = () => {
             name: 'Make A Miny - Craft Your Custom Music Playlist',
             description:
               "Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Spotify, Apple Music, YouTube, Discogs, and more.",
-            url: 'https://minyfy.subwaymusician.xyz/makeaminy',
+            url: 'https://minyfy.minyvinyl.com/makeaminy',
           },
         ]}
       />

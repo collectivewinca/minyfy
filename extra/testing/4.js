@@ -32,7 +32,7 @@ const MinySection = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const trackDataContainerRef = useRef(null);
 
-  const backgroundImage = 'https://minyfy.subwaymusician.xyz/4.png';
+  const backgroundImage = 'https://minyfy.minyvinyl.com/4.png';
   const tracks = [
     "A Bar Song (Tipsy) - Shaboozey",
     "I Had Some Help (Feat. Morgan Wallen) - Post Malone",

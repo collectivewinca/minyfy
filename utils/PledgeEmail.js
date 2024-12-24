@@ -48,8 +48,8 @@ import {
                 </Button>
                 <Text style={paragraph}>
                   For more details about your our website and to stay updated, visit{" "}
-                  <Link style={link} href="https://minyfy.subwaymusician.xyz/">
-                    minyfy.subwaymusician.xyz
+                  <Link style={link} href="https://minyfy.minyvinyl.com/">
+                    minyfy.minyvinyl.com
                   </Link>
                 </Text>
               </Row>

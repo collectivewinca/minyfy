@@ -51,7 +51,7 @@ import {
                 </Button>
                 <Text style={paragraph}>
                   Visit{" "}
-                  <Link style={link} href="https://minyfy.subwaymusician.xyz/crates">
+                  <Link style={link} href="https://minyfy.minyvinyl.com/crates">
                     your crates
                   </Link>{" "}
                   to view more details of your order.

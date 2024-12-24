@@ -239,15 +239,15 @@ export default function Catalog() {
     <NextSeo
       title="Mixtape Catalog - Discover Trending Music Playlists | Miny Vinyl"
       description="Explore the Miny Vinyl mixtape / playlist gallery(Catalog)! Discover new music and trending playlists, filter by upvotes, comments, or tags like Halloween, ACL Festival and many more. Find your next sonic obsession. Also Suppurt your favorite mixtapes by upvoting them!"
-      canonical="https://minyfy.subwaymusician.xyz/catalog" 
+      canonical="https://minyfy.minyvinyl.com/catalog" 
       openGraph={{
-        url: 'https://minyfy.subwaymusician.xyz/catalog',
+        url: 'https://minyfy.minyvinyl.com/catalog',
         title: 'Dive into the Miny Vinyl Mixtape Catalog! 🔥 Discover Trending Playlists Now!',
         description:
           "Explore a world of curated music! Discover new playlists, filter by trending tags, or see what's hot in the Miny Vinyl community. Your next favorite song awaits!",
         images: [
           {
-            url: 'https://minyfy.subwaymusician.xyz/vinyl.png', 
+            url: 'https://minyfy.minyvinyl.com/vinyl.png', 
             width: 1200,
             height: 630,
             alt: 'Miny Vinyl - Explore the Mixtape Catalog', 
@@ -270,7 +270,7 @@ export default function Catalog() {
           '@type': 'WebPage',
           name: 'Mixtape Catalog - Discover Trending Music Playlists',
           description: "Explore the Miny Vinyl mixtape / playlist gallery(Catalog)! Discover new music and trending playlists, filter by upvotes, comments, or tags like Halloween, ACL Festival and many more. Find your next sonic obsession. Also Suppurt your favorite mixtapes by upvoting them!",
-          url: 'https://minyfy.subwaymusician.xyz/catalog',
+          url: 'https://minyfy.minyvinyl.com/catalog',
         },
       ]}
     />

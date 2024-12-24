@@ -322,14 +322,14 @@ function Reddit() {
       <NextSeo
         title="Reddit Playlist Generator - Create a Playlist from Reddit Posts | Miny Vinyl"
         description="Transform Reddit music discussions into custom playlists! Extract tracks from Reddit posts, generate AI-powered backgrounds, and share with a personalized URL."
-        canonical="https://minyfy.subwaymusician.xyz/reddit"
+        canonical="https://minyfy.minyvinyl.com/reddit"
         openGraph={{
-          url: 'https://minyfy.subwaymusician.xyz/reddit',
+          url: 'https://minyfy.minyvinyl.com/reddit',
           title: 'Reddit Playlist Generator - Create Playlists from Reddit Posts | Miny Vinyl',
           description: 'Transform Reddit music discussions into custom playlists! Extract tracks from Reddit posts, generate AI-powered backgrounds, and share with a personalized URL.',
           images: [
             {
-              url: 'https://minyfy.subwaymusician.xyz/vinyl.png',
+              url: 'https://minyfy.minyvinyl.com/vinyl.png',
               width: 1200,
               height: 630,
               alt: 'Miny Vinyl - Create Playlists from Reddit Posts',

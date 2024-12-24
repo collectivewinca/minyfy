@@ -1,10 +1,10 @@
 const MakeAMinyImages = [
-    "https://minyfy.subwaymusician.xyz/bestof24.png",
-    "https://minyfy.subwaymusician.xyz/miny2025.png",
-    "https://minyfy.subwaymusician.xyz/minybeat.png",
-    "https://minyfy.subwaymusician.xyz/minyworld.png",
-    "https://minyfy.subwaymusician.xyz/mixtape.png",
-    "https://minyfy.subwaymusician.xyz/1.png"
+    "https://minyfy.minyvinyl.com/bestof24.png",
+    "https://minyfy.minyvinyl.com/miny2025.png",
+    "https://minyfy.minyvinyl.com/minybeat.png",
+    "https://minyfy.minyvinyl.com/minyworld.png",
+    "https://minyfy.minyvinyl.com/mixtape.png",
+    "https://minyfy.minyvinyl.com/1.png"
 ];
 
 // Export the array

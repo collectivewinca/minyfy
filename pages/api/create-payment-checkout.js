@@ -38,7 +38,7 @@ export default async function handler(req, res) {
               product_data: {
                 name: productName,
                 description: productDescription,
-                images: ["https://minyfy.subwaymusician.xyz/9.png", DesignUrl],
+                images: ["https://minyfy.minyvinyl.com/9.png", DesignUrl],
                 metadata: {
                   dropType: dropType,
                   quantity: quantity,

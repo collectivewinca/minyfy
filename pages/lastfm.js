@@ -246,14 +246,14 @@ function Lastfm() {
       <NextSeo
       title="Last.fm Mixtape - Create a Playlist from Your Listens | Miny Vinyl"
       description="Relive your favorite tracks! Create a Miny Vinyl playlist from your Last.fm listening history. Choose a duration, generate an AI-powered background, customize your playlist, and share with a personalized URL."
-      canonical="https://minyfy.subwaymusician.xyz/lastfm" 
+      canonical="https://minyfy.minyvinyl.com/lastfm" 
       openGraph={{
-        url: 'https://minyfy.subwaymusician.xyz/lastfm',
+        url: 'https://minyfy.minyvinyl.com/lastfm',
         title: 'Last.fm Mixtape - Create a Playlist from Your Listens | Miny Vinyl',
         description: 'Relive your favorite tracks! Create a Miny Vinyl playlist from your Last.fm listening history. Choose a duration, generate an AI-powered background, customize your playlist, and share with a personalized URL.',
         images: [
           {
-            url: 'https://minyfy.subwaymusician.xyz/vinyl.png',
+            url: 'https://minyfy.minyvinyl.com/vinyl.png',
             width: 1200,
             height: 630,
             alt: 'Miny Vinyl - Create a Playlist from Your Last.fm History',
@@ -274,7 +274,7 @@ function Lastfm() {
           '@type': 'WebPage',
           name: 'Last.fm Mixtape - Create a Playlist from Your Listens',
           description: 'Relive your favorite tracks! Create a Miny Vinyl playlist from your Last.fm listening history. Choose a duration, generate an AI-powered background, customize your playlist, and share with a personalized URL.',
-          url: 'https://minyfy.subwaymusician.xyz/lastfm',
+          url: 'https://minyfy.minyvinyl.com/lastfm',
         },
       ]}
     />

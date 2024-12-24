@@ -71,7 +71,7 @@ import {
                 
                 <Text style={paragraph}>
                   Visit{" "}
-                  <Link style={link} href="https://minyfy.subwaymusician.xyz/collections">
+                  <Link style={link} href="https://minyfy.minyvinyl.com/collections">
                     your collection
                   </Link>{" "}
                   to view more details of your mixtape.

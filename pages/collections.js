@@ -56,16 +56,16 @@ function Collections() {
       <NextSeo
         title="Your Mixtape Collection | Miny Vinyl - View and Manage Your Creations"
         description="Explore your personal collection of Miny Vinyl playlists! Rediscover your curated music mixes, share your favorites with friends, and relive your best musical moments."
-        canonical="https://minyfy.subwaymusician.xyz/collections"
+        canonical="https://minyfy.minyvinyl.com/collections"
         openGraph={{
-          url: 'https://minyfy.subwaymusician.xyz/collections',
+          url: 'https://minyfy.minyvinyl.com/collections',
           title:
             'Your Mixtape Collection | Miny Vinyl - View and Manage Your Creations',
           description:
             'Explore your personal collection of Miny Vinyl playlists! Rediscover your curated music mixes, share your favorites with friends, and relive your best musical moments.',
           images: [
             {
-              url: 'https://minyfy.subwaymusician.xyz/vinyl.png',
+              url: 'https://minyfy.minyvinyl.com/vinyl.png',
               width: 1200,
               height: 630,
               alt: 'Miny Vinyl - Your Personal Music Playlist Collection', 
@@ -90,7 +90,7 @@ function Collections() {
               'Your Mixtape Collection | Miny Vinyl - View and Manage Your Creations',
             description:
               'Explore your personal collection of Miny Vinyl playlists! Rediscover your curated music mixes, share your favorites with friends, and relive your best musical moments.',
-            url: 'https://minyfy.subwaymusician.xyz/collections',
+            url: 'https://minyfy.minyvinyl.com/collections',
           },
         ]}
       />

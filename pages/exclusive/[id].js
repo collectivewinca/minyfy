@@ -254,9 +254,9 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
       <NextSeo
         title={`${toSentenceCase(name)}'s Mixtape - Listen, Comment & Share | Miny Vinyl`}
         description={`${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.title).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!`}
-        canonical={`https://minyfy.subwaymusician.xyz${router.asPath}`}
+        canonical={`https://minyfy.minyvinyl.com${router.asPath}`}
         openGraph={{
-          url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
+          url: `https://minyfy.minyvinyl.com${router.asPath}`,
           title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
           description: `${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.title).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!.`,
           images: [
@@ -286,7 +286,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             description: `Listen to ${toSentenceCase(
               name
             )}'s custom mixtape on Miny Vinyl. Discover unique tracks, join the conversation, and share your thoughts!`,
-            url: `https://minyfy.subwaymusician.xyz${router.asPath}`,
+            url: `https://minyfy.minyvinyl.com${router.asPath}`,
             image: backgroundImage,
           },
         ]}
@@ -328,7 +328,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
       <div className='py-4 px-2 bg-black text-white flex flex-col justify-center items-center'>
         <SocialShareButtons
-          shareUrl={shortenedLink || `https://minyfy.subwaymusician.xyz${router.asPath}`}
+          shareUrl={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
           title="Check out my Latest Mixtape on Miny Vinyl"
         />
 
