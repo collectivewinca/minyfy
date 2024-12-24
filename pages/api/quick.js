@@ -1,49 +1,51 @@
-import { collection, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
+  if (req.method === 'GET') {
+    const url = 'https://go.minyvinyl.com/api/link/list';
+    const options = {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${process.env.NEXT_PUBLIC_SINK_KEY}`
+      }
+    };
 
-  const { collectionName } = req.body;
-
-  if (!collectionName) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
-  try {
-    const collectionRef = collection(db, collectionName);
-    const querySnapshot = await getDocs(collectionRef);
-
-    let updatedDocs = 0;
-
-    // Iterate through each document in the collection
-    for (const docSnapshot of querySnapshot.docs) {
-      const docData = docSnapshot.data();
-      console.log(`Processing document ${docSnapshot.id}`);
-
-      const updates = {};
-
-      // Check if commentCount exists, if not, calculate and set it
-      if (docData.commentCount === undefined) {
-        if (Array.isArray(docData.comments)) {
-          updates.commentCount = docData.comments.length; // Set to the length of the comments array
-        } else {
-          updates.commentCount = 0; // Set to 0 if comments field doesn't exist or is not an array
+    try {
+      // Fetch all links with limit 1000
+      const response = await fetch(`${url}?limit=1000`, options);
+      const data = await response.json();
+      
+      // Filter and update links containing subwaymusician.xyz
+      for (const link of data.links) {
+        if (link.url.includes('miny.')) {
+          const updatedUrl = link.url.replace('miny.', 'rapidconnect.');
+          
+          // Call edit API for each matching link
+          const editResponse = await fetch('https://go.minyvinyl.com/api/link/edit', {
+            method: 'PUT',
+            headers: {
+              'content-type': 'application/json',
+              'authorization': `Bearer ${process.env.NEXT_PUBLIC_SINK_KEY}`
+            },
+            body: JSON.stringify({
+              slug: link.slug,
+              url: updatedUrl
+            })
+          });
+          
+          console.log(`Updated ${link.slug}: ${link.url} -> ${updatedUrl}`);
         }
       }
-
-      // If there are any updates, apply them
-      if (Object.keys(updates).length > 0) {
-        await updateDoc(docSnapshot.ref, updates);
-        console.log(`Document ${docSnapshot.id} updated`);
-        updatedDocs++;
-      }
+      
+      console.log('Update process completed');
+      res.status(200).end();
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Error processing links' });
     }
-
-    return res.status(200).json({ message: `Processed all documents. Updated ${updatedDocs} documents.` });
-  } catch (error) {
-    return res.status(500).json({ error: "Failed to process and update documents", details: error.message });
+  } else {
+    res.setHeader('Allow', ['GET']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

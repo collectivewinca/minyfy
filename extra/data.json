@@ -1,76 +1,5340 @@
 {
-    "album": {
-      "album_type": "single",
-      "artists": [
-        {
-          "external_urls": {
-            "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-          },
-          "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-          "id": "6sFIWsNpZYqfjUpaCgueju",
-          "name": "Carly Rae Jepsen",
-          "type": "artist",
-          "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
-        }
-      ],
-      "available_markets": [],
-      "external_urls": {
-        "spotify": "https://open.spotify.com/album/0tGPJ0bkWOUmH7MEOR77qc"
-      },
-      "href": "https://api.spotify.com/v1/albums/0tGPJ0bkWOUmH7MEOR77qc",
-      "id": "0tGPJ0bkWOUmH7MEOR77qc",
-      "images": [
-        {
-          "url": "https://i.scdn.co/image/ab67616d0000b2737359994525d219f64872d3b1",
-          "width": 640,
-          "height": 640
-        },
-        {
-          "url": "https://i.scdn.co/image/ab67616d00001e027359994525d219f64872d3b1",
-          "width": 300,
-          "height": 300
-        },
-        {
-          "url": "https://i.scdn.co/image/ab67616d000048517359994525d219f64872d3b1",
-          "width": 64,
-          "height": 64
-        }
-      ],
-      "name": "Cut To The Feeling",
-      "release_date": "2017-05-26",
-      "release_date_precision": "day",
-      "total_tracks": 1,
-      "type": "album",
-      "uri": "spotify:album:0tGPJ0bkWOUmH7MEOR77qc"
-    },
-    "artists": [
+  "list_complete": true,
+  "cacheStatus": null,
+  "links": [
       {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-        },
-        "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-        "id": "6sFIWsNpZYqfjUpaCgueju",
-        "name": "Carly Rae Jepsen",
-        "type": "artist",
-        "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
+          "id": "qye4h7497v",
+          "url": "https://minyfy.minyvinyl.com/play/oj9WyA7HGL7R9ysfrcSX",
+          "slug": "0RwCgM",
+          "createdAt": 1725185225,
+          "updatedAt": 1735048356
+      },
+      {
+          "id": "bzxxkvew2r",
+          "url": "https://minyfy.minyvinyl.com/play/ZiQZE90CmqekWibLfqMh",
+          "slug": "1612",
+          "createdAt": 1725185316,
+          "updatedAt": 1735048356
+      },
+      {
+          "id": "b6gz6a892b",
+          "url": "https://minyfy.minyvinyl.com/play/j1I0AVWm8boalnze6Ene",
+          "slug": "1qF6tq",
+          "createdAt": 1725185407,
+          "updatedAt": 1735048356
+      },
+      {
+          "id": "2v9688pms3",
+          "url": "https://minyfy.minyvinyl.com/play/K7izHm84ity30okzq4TH",
+          "slug": "1zFqds",
+          "createdAt": 1725185143,
+          "updatedAt": 1735048534
+      },
+      {
+          "id": "4w3dg2pegc",
+          "url": "https://minyfy.minyvinyl.com/play/U0FqinIBAGeKQybtSIw2",
+          "slug": "2erjdO",
+          "createdAt": 1725185393,
+          "updatedAt": 1735048534
+      },
+      {
+          "id": "qfj3kar6y3",
+          "url": "https://minyfy.minyvinyl.com/play/QfrZWIVq7eIHQJQG86s8",
+          "slug": "344oAw",
+          "createdAt": 1725185132,
+          "updatedAt": 1735048534
+      },
+      {
+          "id": "tbkz3qvsv9",
+          "url": "https://minyfy.minyvinyl.com/play/nkaQh3hdkcw2H9ZyjzgQ",
+          "slug": "36za33",
+          "createdAt": 1727172676,
+          "updatedAt": 1735048765
+      },
+      {
+          "id": "4znp9wy5f7",
+          "url": "https://minyfy.minyvinyl.com/play/iKIBPX5QUIrCwPUbfJEg",
+          "slug": "3cduz7",
+          "createdAt": 1727174500,
+          "updatedAt": 1735048766
+      },
+      {
+          "id": "4k5hu5eaw5",
+          "url": "https://minyfy.minyvinyl.com/play/K8RYR4ROz5wg6fDE7r9Q",
+          "slug": "3scy2w",
+          "createdAt": 1728658878,
+          "updatedAt": 1735048766
+      },
+      {
+          "id": "wdgzvn2mkg",
+          "url": "https://minyfy.minyvinyl.com/play/uoZQhSzkQCQfowGChAT9",
+          "slug": "3vzwb6",
+          "createdAt": 1726139770,
+          "updatedAt": 1735048767
+      },
+      {
+          "id": "avsm25st33",
+          "url": "https://minyfy.minyvinyl.com/play/NvOH6b5NvvViuW4Zx0ah",
+          "slug": "4Vpt2z",
+          "createdAt": 1725185344,
+          "updatedAt": 1735048767
+      },
+      {
+          "id": "45axfjgaez",
+          "url": "https://minyfy.minyvinyl.com/play/PPxZldcB9nLOL6DM7Wxy",
+          "slug": "50americamusicaward",
+          "createdAt": 1730723353,
+          "updatedAt": 1735048768
+      },
+      {
+          "id": "3pda9q657r",
+          "url": "https://minyfy.minyvinyl.com/play/pD8yGaMwU5sQLBh8o0vt",
+          "slug": "55bwhw",
+          "createdAt": 1727174954,
+          "updatedAt": 1735048768
+      },
+      {
+          "id": "rrc9vmrw2w",
+          "url": "https://minyfy.minyvinyl.com/play/xgd5hAA9nZos7olG4S5K",
+          "slug": "55r5us",
+          "createdAt": 1727169794,
+          "updatedAt": 1735048769
+      },
+      {
+          "id": "dcdpknmwnn",
+          "url": "https://minyfy.minyvinyl.com/play/7bFmuftvNr60AzCJfOAl",
+          "slug": "58j2d6",
+          "createdAt": 1727265813,
+          "updatedAt": 1735048769
+      },
+      {
+          "id": "xfncxw7c6u",
+          "url": "https://minyfy.minyvinyl.com/exclusive/g9b8a73IrMp87xXL5jCq",
+          "slug": "5pyygz",
+          "createdAt": 1731391891,
+          "updatedAt": 1735048770
+      },
+      {
+          "id": "nbdwmzbdg7",
+          "url": "https://minyfy.minyvinyl.com/play/EzaFU3pDAFna2kef16Xa",
+          "slug": "5xeGuI",
+          "createdAt": 1725185218,
+          "updatedAt": 1735048770
+      },
+      {
+          "id": "t36fzjqc9c",
+          "url": "https://minyfy.minyvinyl.com/play/aeUnADBuqYPUJBRmfKwO",
+          "slug": "62gvhq",
+          "createdAt": 1727266225,
+          "updatedAt": 1735048771
+      },
+      {
+          "id": "7bqgnk4vqf",
+          "url": "https://minyfy.minyvinyl.com/play/M5B344T5XdmdygsCpzq5",
+          "slug": "64w68p",
+          "createdAt": 1725185243,
+          "updatedAt": 1735048771
+      },
+      {
+          "id": "crzzbg3k53",
+          "url": "https://miny.minyvinyl.com/artists/6417-mac-miller",
+          "slug": "6dd5wx",
+          "createdAt": 1730144063,
+          "updatedAt": 1735048772
+      },
+      {
+          "id": "p5sssbnwbm",
+          "url": "https://minyfy.minyvinyl.com/exclusive/iZT1GbhLqk4kf4DW6gjW",
+          "slug": "6n8k2c",
+          "createdAt": 1731392167,
+          "updatedAt": 1735048773
+      },
+      {
+          "id": "4eyj5my7zu",
+          "url": "https://minyfy.minyvinyl.com/play/vdXsqKn2dKotjrJJVazz",
+          "slug": "7euxFA",
+          "createdAt": 1725185290,
+          "updatedAt": 1735048774
+      },
+      {
+          "id": "mpwx3chmdc",
+          "url": "https://minyfy.minyvinyl.com/play/S1kZ6ODae0nBUrkbzklC",
+          "slug": "89p8h5",
+          "createdAt": 1727696758,
+          "updatedAt": 1735048775
+      },
+      {
+          "id": "trxs4zvhyt",
+          "url": "https://minyfy.minyvinyl.com/play/hepzv92C0W5ABM3vaU2p",
+          "slug": "8hf9ke",
+          "createdAt": 1727168272,
+          "updatedAt": 1735048775
+      },
+      {
+          "id": "upfz78ux8t",
+          "url": "https://minyfy.minyvinyl.com/play/jshjNsuhMX0awi0KSrLh",
+          "slug": "9Bp9ZH",
+          "createdAt": 1725185332,
+          "updatedAt": 1735048776
+      },
+      {
+          "id": "hb7788hwmh",
+          "url": "https://minyfy.minyvinyl.com/play/QajDyUUog5Pt6zsU1CQ8",
+          "slug": "AE4kit",
+          "createdAt": 1725185148,
+          "updatedAt": 1735048777
+      },
+      {
+          "id": "j3aaqjae5f",
+          "url": "https://minyfy.minyvinyl.com/play/D4oIknyO2IBUbtisJRN3",
+          "slug": "Abjr",
+          "createdAt": 1725185325,
+          "updatedAt": 1735048777
+      },
+      {
+          "id": "hu9pa7fkp2",
+          "url": "https://minyfy.minyvinyl.com/play/Bruym7FCgHKrk2w9LvSg",
+          "slug": "Arjithsinghplaylistbyashu",
+          "createdAt": 1726313001,
+          "updatedAt": 1735048778
+      },
+      {
+          "id": "wcpezdy7rr",
+          "url": "https://minyfy.minyvinyl.com/play/LScP0kaQScWoBf9cTsXb",
+          "slug": "Ashraffirst",
+          "createdAt": 1725185211,
+          "updatedAt": 1735048778
+      },
+      {
+          "id": "ga986bdc9g",
+          "url": "https://minyfy.minyvinyl.com/play/dZYTa38FQbH732c7bCDM",
+          "slug": "Atet",
+          "createdAt": 1733797385,
+          "updatedAt": 1735048779
+      },
+      {
+          "id": "aeuv4asw4z",
+          "url": "https://minyfy.minyvinyl.com/play/bX87GJyesFjDbSjWqO21",
+          "slug": "Atifaslamplaylistbyashu",
+          "createdAt": 1726313165,
+          "updatedAt": 1735048779
+      },
+      {
+          "id": "5vhnyzagcd",
+          "url": "https://minyfy.minyvinyl.com/play/iNQkBFInHMBzkFx8KxtW",
+          "slug": "B5dWci",
+          "createdAt": 1725185129,
+          "updatedAt": 1735048780
+      },
+      {
+          "id": "wc6svbg4jm",
+          "url": "https://minyfy.minyvinyl.com",
+          "slug": "BURNmixtape",
+          "createdAt": 1725185381,
+          "updatedAt": 1735048780
+      },
+      {
+          "id": "xbuh29gcn3",
+          "url": "https://minyfy.minyvinyl.com/play/WZJg8T5kxIeZNU0LaFVM",
+          "slug": "BXSOLO",
+          "createdAt": 1728001549,
+          "updatedAt": 1735048781
+      },
+      {
+          "id": "b6vs685ve3",
+          "url": "https://minyfy.minyvinyl.com/play/9mTBHbXSPxK50gMAJm4d",
+          "slug": "Baby",
+          "createdAt": 1725890766,
+          "updatedAt": 1735048781
+      },
+      {
+          "id": "xrtj5mzfjs",
+          "url": "https://minyfy.minyvinyl.com/play/zIIeXOeegkFNO8NjToF1",
+          "slug": "BedroomBeats",
+          "createdAt": 1725566041,
+          "updatedAt": 1735048782
+      },
+      {
+          "id": "6aqhm7zvpt",
+          "url": "https://minyfy.minyvinyl.com/play/fu70HysqDbqy4ZevqmHr",
+          "slug": "Bigdawg1",
+          "createdAt": 1725185188,
+          "updatedAt": 1735048782
+      },
+      {
+          "id": "ucu2gp625r",
+          "url": "https://minyfy.minyvinyl.com/play/Rngv5ixbhogoz6YJHmQ0",
+          "slug": "Boho",
+          "createdAt": 1725185164,
+          "updatedAt": 1735048783
+      },
+      {
+          "id": "64xpdwt558",
+          "url": "https://minyfy.minyvinyl.com/play/lgoGOg6xbsjYRT1Pn2tL",
+          "slug": "CDk0WS",
+          "createdAt": 1725185279,
+          "updatedAt": 1735048784
+      },
+      {
+          "id": "mqeparzu9u",
+          "url": "https://minyfy.minyvinyl.com/play/eit3BJrOhobpJiPq4kjt",
+          "slug": "CP8Jk7",
+          "createdAt": 1725185216,
+          "updatedAt": 1735048785
+      },
+      {
+          "id": "pw5yzyzpa7",
+          "url": "https://minyfy.minyvinyl.com/play/PaYtyka1CuEQGmceVmxd",
+          "slug": "Christmaaas",
+          "createdAt": 1730724946,
+          "updatedAt": 1735048785
+      },
+      {
+          "id": "hxanupmxgh",
+          "url": "https://minyfy.minyvinyl.com/play/PaYtyka1CuEQGmceVmxd",
+          "slug": "Christmas2024",
+          "createdAt": 1730724913,
+          "updatedAt": 1735048786
+      },
+      {
+          "id": "tnu82ygcuz",
+          "url": "https://minyfy.minyvinyl.com/play/BvC35PZGwb1wGIgs4zdj",
+          "slug": "Colacoop",
+          "createdAt": 1725185388,
+          "updatedAt": 1735048786
+      },
+      {
+          "id": "xg4e4v3r27",
+          "url": "https://minyfy.minyvinyl.com/play/juFDPROnU2I44kkZBOet",
+          "slug": "CoreyFrancis",
+          "createdAt": 1725185363,
+          "updatedAt": 1735048787
+      },
+      {
+          "id": "3vmz7xsd9w",
+          "url": "https://minyfy.minyvinyl.com/play/Any30d6aDtDQ1NxBIVsH",
+          "slug": "Dennyvibes",
+          "createdAt": 1726437217,
+          "updatedAt": 1735048787
+      },
+      {
+          "id": "a9dwwvz4mp",
+          "url": "https://minyfy.minyvinyl.com/play/wQ3LSjYBXxNB7K22Agpg",
+          "slug": "Discogsplaylistbyashu",
+          "createdAt": 1726313633,
+          "updatedAt": 1735048788
+      },
+      {
+          "id": "e6c7ttfx26",
+          "url": "https://minyfy.minyvinyl.com/",
+          "slug": "E2xJNL",
+          "createdAt": 1725185412,
+          "updatedAt": 1735048788
+      },
+      {
+          "id": "75phpcxak7",
+          "url": "https://minyfy.minyvinyl.com/play/smm2LLIFDaTR9G9TUfTu",
+          "slug": "E9URjg",
+          "createdAt": 1725185136,
+          "updatedAt": 1735048789
+      },
+      {
+          "id": "275s3u3ufb",
+          "url": "https://minyfy.minyvinyl.com/play/mNjU06cNluE9S2sbZ5pw",
+          "slug": "EICOpP",
+          "createdAt": 1725185286,
+          "updatedAt": 1735048789
+      },
+      {
+          "id": "f9cmb7ezbr",
+          "url": "https://minyfy.minyvinyl.com/play/KcCWXAugB6JAM2fihjmr",
+          "slug": "Estela",
+          "createdAt": 1730401485,
+          "updatedAt": 1735048790
+      },
+      {
+          "id": "cfvfgaqstp",
+          "url": "https://minyfy.minyvinyl.com/play/1XFWAFNbDAqF24lISGHw",
+          "slug": "Fr70PT",
+          "createdAt": 1725185174,
+          "updatedAt": 1735048791
+      },
+      {
+          "id": "bwxtpkk6u7",
+          "url": "https://miny.minyvinyl.com/artists/6425-freddie-makenzie",
+          "slug": "FreddieMakenzks",
+          "createdAt": 1734933478,
+          "updatedAt": 1735048791
+      },
+      {
+          "id": "2qcg5ba3tz",
+          "url": "https://minyfy.minyvinyl.com/play/Zx7Maypt8cNe5sgEM1oQ",
+          "slug": "Free",
+          "createdAt": 1725185356,
+          "updatedAt": 1735048792
+      },
+      {
+          "id": "jykn4h24wh",
+          "url": "https://minyfy.minyvinyl.com/play/9XBbbtcgsUGMJ52QuuRX",
+          "slug": "Gen1",
+          "createdAt": 1725185328,
+          "updatedAt": 1735048792
+      },
+      {
+          "id": "5zpwz9nkbq",
+          "url": "https://minyfy.minyvinyl.com/play/nog2USjLo7zW6CKHjhuo",
+          "slug": "Genreindeibyashu",
+          "createdAt": 1726313421,
+          "updatedAt": 1735048792
+      },
+      {
+          "id": "2sd9mtxhn5",
+          "url": "https://minyfy.minyvinyl.com/play/C8ETCT51sy8j1Sy4N9aJ",
+          "slug": "Genreplaylistbyashu",
+          "createdAt": 1726313323,
+          "updatedAt": 1735048793
+      },
+      {
+          "id": "xpb5q4xxpn",
+          "url": "https://minyfy.minyvinyl.com/play/ShG0qeugzeggOA5Y513Y",
+          "slug": "GqBg0l",
+          "createdAt": 1725185153,
+          "updatedAt": 1735048794
+      },
+      {
+          "id": "c4vzmszb8b",
+          "url": "https://miny.minyvinyl.com/artists/8135-hanumankind",
+          "slug": "Hanuman",
+          "createdAt": 1725213536,
+          "updatedAt": 1735048794
+      },
+      {
+          "id": "zaff48fsdb",
+          "url": "https://minyfy.minyvinyl.com/play/ZKZyOGQ399mbNxo2DhXk",
+          "slug": "HduX2X",
+          "createdAt": 1725185330,
+          "updatedAt": 1735048795
+      },
+      {
+          "id": "hwckkwb58m",
+          "url": "https://minyfy.minyvinyl.com/play/SGw3QGcHxTvQ6E3NeyFw",
+          "slug": "Hexone",
+          "createdAt": 1725185167,
+          "updatedAt": 1735048795
+      },
+      {
+          "id": "sskw8gjcu9",
+          "url": "https://minyfy.minyvinyl.com/play/jF4aR3JbwvwrlhaoPF4e",
+          "slug": "Indi-Mix",
+          "createdAt": 1725185917,
+          "updatedAt": 1735048796
+      },
+      {
+          "id": "me8rnzffzq",
+          "url": "https://miny.minyvinyl.com/artists/1074-kaj-jones",
+          "slug": "Kajejonesepk",
+          "createdAt": 1734946834,
+          "updatedAt": 1735048796
+      },
+      {
+          "id": "9bwgbeuwmm",
+          "url": "https://minyfy.minyvinyl.com/play/4XZa7uXYkOvjne4qnHKM",
+          "slug": "Kanye",
+          "createdAt": 1725185255,
+          "updatedAt": 1735048797
+      },
+      {
+          "id": "sdwf4ahwsp",
+          "url": "https://minyfy.minyvinyl.com/play/tRJyZ9uXlP9rBJRZlzaU",
+          "slug": "KoolG",
+          "createdAt": 1725185232,
+          "updatedAt": 1735048797
+      },
+      {
+          "id": "gke7kvmvxu",
+          "url": "https://minyfy.minyvinyl.com/play/rvIuL3f98e2KuZX23a8l",
+          "slug": "Kuki",
+          "createdAt": 1725185108,
+          "updatedAt": 1735048798
+      },
+      {
+          "id": "fs6jx5ynez",
+          "url": "https://minyfy.minyvinyl.com/play/NuIFWBD857RqwIBsXgQ5",
+          "slug": "Lastfm12",
+          "createdAt": 1725185192,
+          "updatedAt": 1735048798
+      },
+      {
+          "id": "ywfq5krsh9",
+          "url": "https://minyfy.minyvinyl.com/play/jV1OQPoqcjxhd0q1x6kG",
+          "slug": "Lastfm13",
+          "createdAt": 1725185190,
+          "updatedAt": 1735048799
+      },
+      {
+          "id": "39cyk3kzdg",
+          "url": "https://minyfy.minyvinyl.com/play/nANbFsXd6W7aNcdealqT",
+          "slug": "M82oyx",
+          "createdAt": 1725185125,
+          "updatedAt": 1735048799
+      },
+      {
+          "id": "wnr68qu7cr",
+          "url": "https://minyfy.minyvinyl.com/play/SFHuwp2F2EgVyijxZkjK",
+          "slug": "Millind",
+          "createdAt": 1725185169,
+          "updatedAt": 1735048800
+      },
+      {
+          "id": "x9mx38zf5j",
+          "url": "https://minyfy.minyvinyl.com/play/qJhSbr4HQDWS9VPE5I5k",
+          "slug": "Moon",
+          "createdAt": 1725185162,
+          "updatedAt": 1735048800
+      },
+      {
+          "id": "77vxt3uk5b",
+          "url": "https://miny.minyvinyl.com/",
+          "slug": "NUza6Q",
+          "createdAt": 1725213665,
+          "updatedAt": 1735048801
+      },
+      {
+          "id": "dcahe3zq2h",
+          "url": "https://minyfy.minyvinyl.com/play/aBmVAHTdZlqMpFvdcv6J",
+          "slug": "Newyearplaylist",
+          "createdAt": 1730724062,
+          "updatedAt": 1735048801
+      },
+      {
+          "id": "9z4cmtcphd",
+          "url": "https://minyfy.minyvinyl.com/play/vo9eQWbnwD4IaUDXLrWk",
+          "slug": "Omkarminytest",
+          "createdAt": 1725185318,
+          "updatedAt": 1735048802
+      },
+      {
+          "id": "cjqrwpmgmk",
+          "url": "https://minyfy.minyvinyl.com/play/inALcNBD5MwZ0Ai8cydC",
+          "slug": "Q63d28",
+          "createdAt": 1725185230,
+          "updatedAt": 1735048802
+      },
+      {
+          "id": "bkf8g634tq",
+          "url": "https://minyfy.minyvinyl.com/play/QYNHXxaO6bWqF05KNeH2",
+          "slug": "Remote",
+          "createdAt": 1725185251,
+          "updatedAt": 1735048803
+      },
+      {
+          "id": "gh6xrxyxat",
+          "url": "https://minyfy.minyvinyl.com/play/30FGHLOzvfDcMYcVqTsN",
+          "slug": "Reteee",
+          "createdAt": 1725185402,
+          "updatedAt": 1735048803
+      },
+      {
+          "id": "hh4f3kdmeq",
+          "url": "https://minyfy.minyvinyl.com/play/thyMIUENJ5eqWmYqKiSF",
+          "slug": "Ritviz",
+          "createdAt": 1725185269,
+          "updatedAt": 1735048804
+      },
+      {
+          "id": "j6d8erc2yf",
+          "url": "https://minyfy.minyvinyl.com/play/5irG4mgWIiGf5beTrEVR",
+          "slug": "Roo",
+          "createdAt": 1725185146,
+          "updatedAt": 1735048804
+      },
+      {
+          "id": "g8rmj7wqac",
+          "url": "https://minyfy.minyvinyl.com/play/dEFbifEpPn8sJzPFefXx",
+          "slug": "Rty",
+          "createdAt": 1725185272,
+          "updatedAt": 1735048805
+      },
+      {
+          "id": "5zbkh24n9e",
+          "url": "https://minyfy.minyvinyl.com/play/5zUL6GyCDx0A9D2fqpGf",
+          "slug": "Sam",
+          "createdAt": 1725185082,
+          "updatedAt": 1735048805
+      },
+      {
+          "id": "y9tqnt9xjk",
+          "url": "https://minyfy.minyvinyl.com/play/xMhkaBzMGBeB3DJtgVam",
+          "slug": "Super20",
+          "createdAt": 1725185176,
+          "updatedAt": 1735048806
+      },
+      {
+          "id": "zb82b8k5ed",
+          "url": "https://minyfy.minyvinyl.com/play/Ii90Hz8ERlphXHX4IihR",
+          "slug": "TMlaQI",
+          "createdAt": 1725185428,
+          "updatedAt": 1735048807
+      },
+      {
+          "id": "8sweb2sd8g",
+          "url": "https://minyfy.minyvinyl.com/play/eCsRAucVpvamnAPOQyvy",
+          "slug": "TRAVELVIBESBYASHRAF",
+          "createdAt": 1725817900,
+          "updatedAt": 1735048807
+      },
+      {
+          "id": "9t592s785f",
+          "url": "https://minyfy.minyvinyl.com/play/3szPJoLg4dHh8rKltXU2",
+          "slug": "Teeta",
+          "createdAt": 1725185274,
+          "updatedAt": 1735048808
+      },
+      {
+          "id": "pcf8b7zrs7",
+          "url": "https://minyfy.minyvinyl.com/play/Nh2nqIh6xkYjQWyHaYGf",
+          "slug": "ThisShould",
+          "createdAt": 1725185353,
+          "updatedAt": 1735048808
+      },
+      {
+          "id": "xdhf97na4j",
+          "url": "https://minyfy.minyvinyl.com/play/hDiSB7SjHgdA5DCUEF34",
+          "slug": "Tneo",
+          "createdAt": 1728754473,
+          "updatedAt": 1735048809
+      },
+      {
+          "id": "5k2cggxcvp",
+          "url": "https://minyfy.minyvinyl.com/play/PYNXQWPjzijnJsGRIW3e",
+          "slug": "Top20discogs",
+          "createdAt": 1726313863,
+          "updatedAt": 1735048809
+      },
+      {
+          "id": "kbyrfu8ueg",
+          "url": "https://minyfy.minyvinyl.com/play/h3s6JjHvl8JpPtNVA5b0",
+          "slug": "Topzen",
+          "createdAt": 1725185134,
+          "updatedAt": 1735048810
+      },
+      {
+          "id": "emusk6e4av",
+          "url": "https://minyfy.minyvinyl.com/play/gXJoQ8Egl1yuUHvtQNBS",
+          "slug": "Trapking",
+          "createdAt": 1725890432,
+          "updatedAt": 1735048810
+      },
+      {
+          "id": "8hvj3xqajq",
+          "url": "https://minyfy.minyvinyl.com/play/Yaiita0akB0gnwjNjXaR",
+          "slug": "Udit",
+          "createdAt": 1725185386,
+          "updatedAt": 1735048811
+      },
+      {
+          "id": "ne38vpm7nu",
+          "url": "https://minyfy.minyvinyl.com/play/HBrENUemFl25wWSGt5DO",
+          "slug": "Ultramusic",
+          "createdAt": 1725185314,
+          "updatedAt": 1735048811
+      },
+      {
+          "id": "tpatkrareh",
+          "url": "https://minyfy.minyvinyl.com/play/JQB6eF1Rvn0karl46nOM",
+          "slug": "VZr4Gd",
+          "createdAt": 1725185227,
+          "updatedAt": 1735048812
+      },
+      {
+          "id": "sn6m7jb5y8",
+          "url": "https://minyfy.minyvinyl.com/play/GVsoAudpROFpFsmBRjIh",
+          "slug": "WqzjCQ",
+          "createdAt": 1725185160,
+          "updatedAt": 1735048813
+      },
+      {
+          "id": "kd6zxmdzvm",
+          "url": "https://minyfy.minyvinyl.com/play/PsGlXC3okmPBthFtGi1r",
+          "slug": "Wuxi",
+          "createdAt": 1725185117,
+          "updatedAt": 1735048813
+      },
+      {
+          "id": "dnrtkq89d2",
+          "url": "https://minyfy.minyvinyl.com/play/chuMe17XVTuYLKmGxoit",
+          "slug": "XRl0KB",
+          "createdAt": 1725185311,
+          "updatedAt": 1735048814
+      },
+      {
+          "id": "c2d59nt98g",
+          "url": "https://minyfy.minyvinyl.com/play/C8xb86u8oQPLG8br3eQ1",
+          "slug": "XTM2oH",
+          "createdAt": 1725185223,
+          "updatedAt": 1735048814
+      },
+      {
+          "id": "45nhksrnwt",
+          "url": "https://minyfy.minyvinyl.com/play/klD2QxkG4DRGZQ6cGjqa",
+          "slug": "Xaramix",
+          "createdAt": 1733442598,
+          "updatedAt": 1735048815
+      },
+      {
+          "id": "96t76ttksw",
+          "url": "https://minyfy.minyvinyl.com/play/klD2QxkG4DRGZQ6cGjqa",
+          "slug": "Xaramix1",
+          "createdAt": 1733442635,
+          "updatedAt": 1735048815
+      },
+      {
+          "id": "2qy7xxgtvu",
+          "url": "https://minyfy.minyvinyl.com/play/KIoSoyNYXwOHhvW1rvBG",
+          "slug": "Yoyo",
+          "createdAt": 1725185110,
+          "updatedAt": 1735048816
+      },
+      {
+          "id": "8nh34hdk7r",
+          "url": "https://minyfy.minyvinyl.com/play/YpsnHfA47RapMNpLy4AM",
+          "slug": "ZC2GKl",
+          "createdAt": 1725185246,
+          "updatedAt": 1735048816
+      },
+      {
+          "id": "ayaf2qn8fv",
+          "url": "https://minyfy.minyvinyl.com/play/s3GK0eKyuNuIQSmqNbEo",
+          "slug": "a2NnxQ",
+          "createdAt": 1725185150,
+          "updatedAt": 1735048817
+      },
+      {
+          "id": "j5wvzg2mkr",
+          "url": "https://minyfy.minyvinyl.com/play/75c2jQVezsGYkC5qS6TH",
+          "slug": "abdoo",
+          "createdAt": 1725717808,
+          "updatedAt": 1735048817
+      },
+      {
+          "id": "ckcj65g2r9",
+          "url": "https://minyfy.minyvinyl.com/play/F2Pa5FjDRZgHisTpuM96",
+          "slug": "aclLatenights",
+          "createdAt": 1725421559,
+          "updatedAt": 1735048818
+      },
+      {
+          "id": "3a23xuc5u7",
+          "url": "https://minyfy.minyvinyl.com/play/w8Jk0AwU8N4gQ738sL9U",
+          "slug": "aclaltsoul",
+          "createdAt": 1725394788,
+          "updatedAt": 1735048818
+      },
+      {
+          "id": "tnvsakq7px",
+          "url": "https://minyfy.minyvinyl.com/play/YWSXwxSTGQKgIRcBkcgP",
+          "slug": "aclbnr",
+          "createdAt": 1725389144,
+          "updatedAt": 1735048819
+      },
+      {
+          "id": "2jarp3m4fw",
+          "url": "https://miny.minyvinyl.com/blog/aclbounty",
+          "slug": "aclbounty",
+          "createdAt": 1727205048,
+          "updatedAt": 1735048819
+      },
+      {
+          "id": "4e7dzwz892",
+          "url": "https://minyfy.minyvinyl.com/play/jJpYlLoqelt0dLWXzp2t",
+          "slug": "aclbreakout",
+          "createdAt": 1725392241,
+          "updatedAt": 1735048820
+      },
+      {
+          "id": "6q65czhxy8",
+          "url": "https://miny.minyvinyl.com/blog/acl",
+          "slug": "aclcrate",
+          "createdAt": 1725547533,
+          "updatedAt": 1735048820
+      },
+      {
+          "id": "5bf9qmy2nn",
+          "url": "https://miny.minyvinyl.com/blog/aclbounty",
+          "slug": "aclcreate",
+          "createdAt": 1727215756,
+          "updatedAt": 1735048821
+      },
+      {
+          "id": "p56hpgv52a",
+          "url": "https://minyfy.minyvinyl.com/play/mcjmSitN7ZJdbSjahr74",
+          "slug": "aclcrossover",
+          "createdAt": 1725386754,
+          "updatedAt": 1735048821
+      },
+      {
+          "id": "ge5fxxn9h2",
+          "url": "https://minyfy.minyvinyl.com/play/u8q8m9WNGd6k8DIoFy8o",
+          "slug": "acldancetent",
+          "createdAt": 1725388605,
+          "updatedAt": 1735048822
+      },
+      {
+          "id": "9g6e4c3ht5",
+          "url": "https://minyfy.minyvinyl.com/play/Qe6nRzVhSPWd0IhSsP4g",
+          "slug": "aclfestanthem",
+          "createdAt": 1725423167,
+          "updatedAt": 1735048822
+      },
+      {
+          "id": "gzxky9rf38",
+          "url": "https://minyfy.minyvinyl.com/play/M6TGhCO45YKgJY6awI6K",
+          "slug": "aclgoldenhr",
+          "createdAt": 1725395201,
+          "updatedAt": 1735048823
+      },
+      {
+          "id": "4xy77e4uxu",
+          "url": "https://minyfy.minyvinyl.com/play/SsdEYSWjXO88y1WgA0zK",
+          "slug": "aclindiefusion",
+          "createdAt": 1725421819,
+          "updatedAt": 1735048823
+      },
+      {
+          "id": "hzxkb7vcpu",
+          "url": "https://minyfy.minyvinyl.com/play/H5O3aOEpien2fisJ0c3t",
+          "slug": "aclindies",
+          "createdAt": 1725392953,
+          "updatedAt": 1735048824
+      },
+      {
+          "id": "x4kyggc7qd",
+          "url": "https://minyfy.minyvinyl.com/play/CJIKbuDNB8qMSIabJjVi",
+          "slug": "aclpopcountry",
+          "createdAt": 1725423005,
+          "updatedAt": 1735048824
+      },
+      {
+          "id": "833fg29e95",
+          "url": "https://minyfy.minyvinyl.com/play/Knlb0wLTUphn92UCVtEH",
+          "slug": "aclsunsetone",
+          "createdAt": 1725386414,
+          "updatedAt": 1735048825
+      },
+      {
+          "id": "64xcka4awb",
+          "url": "https://minyfy.minyvinyl.com/play/pV6ogKnxjSIPXCTABAjR",
+          "slug": "aclweekend",
+          "createdAt": 1725387272,
+          "updatedAt": 1735048825
+      },
+      {
+          "id": "jvbcansb3a",
+          "url": "https://minyfy.minyvinyl.com/play/R6AQEBdO9MAWcSi6mAWo",
+          "slug": "aclweekendtwo",
+          "createdAt": 1725394261,
+          "updatedAt": 1735048826
+      },
+      {
+          "id": "h34draemq9",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "adu",
+          "createdAt": 1725185087,
+          "updatedAt": 1725185087
+      },
+      {
+          "id": "x9xyxymbea",
+          "url": "https://miny.minyvinyl.com/artists/9313-afro-dominicano",
+          "slug": "afro",
+          "createdAt": 1725774191,
+          "updatedAt": 1735048826
+      },
+      {
+          "id": "k243zfzt3e",
+          "url": "https://minyfy.minyvinyl.com/play/UxxXRfy1UKN2wx6I4j7P",
+          "slug": "afrodomini",
+          "createdAt": 1725718029,
+          "updatedAt": 1735048827
+      },
+      {
+          "id": "fds8xpen63",
+          "url": "https://minyfy.minyvinyl.com/play/NAgk6fTImaywbFWjptci",
+          "slug": "afrolatinmix",
+          "createdAt": 1728684938,
+          "updatedAt": 1735048827
+      },
+      {
+          "id": "pbgp4r897d",
+          "url": "https://miny.minyvinyl.com/artists/5474-aj-mitchell",
+          "slug": "ajmitchell",
+          "createdAt": 1727883659,
+          "updatedAt": 1735048828
+      },
+      {
+          "id": "y7mc3wwmys",
+          "url": "https://miny.minyvinyl.com/artists/9239-alan-walker",
+          "slug": "alanwalker",
+          "createdAt": 1728173217,
+          "updatedAt": 1735048829
+      },
+      {
+          "id": "tv3a82jzvv",
+          "url": "https://minyfy.minyvinyl.com/play/k8kwc0UlYNZPxt0Gtf6f",
+          "slug": "aldortmix",
+          "createdAt": 1730136210,
+          "updatedAt": 1735048829
+      },
+      {
+          "id": "4exqcbds6j",
+          "url": "https://miny.minyvinyl.com/artists/1520-alex-cano",
+          "slug": "alexcano",
+          "createdAt": 1725729228,
+          "updatedAt": 1735048830
+      },
+      {
+          "id": "gz99pwtpff",
+          "url": "https://minyfy.minyvinyl.com/play/zL6VmyEDLEQj4yVpudFJ",
+          "slug": "allin1",
+          "createdAt": 1732539795,
+          "updatedAt": 1735048830
+      },
+      {
+          "id": "w83kdexzkh",
+          "url": "https://minyfy.minyvinyl.com/play/0KfKtuZIwSKHkkHN4vRw",
+          "slug": "allthingsdnb",
+          "createdAt": 1727879284,
+          "updatedAt": 1735048831
+      },
+      {
+          "id": "3544s97ww8",
+          "url": "https://minyfy.minyvinyl.com/play/lMYHJdd2UG5CyRsGT8fZ",
+          "slug": "ambientdub",
+          "createdAt": 1725666643,
+          "updatedAt": 1735048831
+      },
+      {
+          "id": "jwz3a3hp3e",
+          "url": "https://miny.minyvinyl.com/blog/americanidol",
+          "slug": "americanidol",
+          "createdAt": 1727275853,
+          "updatedAt": 1735048832
+      },
+      {
+          "id": "aebfpqjwg2",
+          "url": "https://minyfy.minyvinyl.com/play/rsAumLZZOQfGpecOIQx6",
+          "slug": "americanidolmix",
+          "createdAt": 1727048696,
+          "updatedAt": 1735048833
+      },
+      {
+          "id": "n5h7hmaw9w",
+          "url": "https://minyfy.minyvinyl.com/play/VKJU8OV6vjFCZ83eMzzs",
+          "slug": "americanidolone",
+          "createdAt": 1727048008,
+          "updatedAt": 1735048833
+      },
+      {
+          "id": "3afpr2z5w4",
+          "url": "https://minyfy.minyvinyl.com/play/aGaQzcnbHXZIZkaS2esS",
+          "slug": "amhere",
+          "createdAt": 1733770198,
+          "updatedAt": 1735048833
+      },
+      {
+          "id": "rqsesqg2hj",
+          "url": "https://minyfy.minyvinyl.com/play/LlHSFNjiqjGTw6cne3qv",
+          "slug": "amrit",
+          "createdAt": 1725185234,
+          "updatedAt": 1735048834
+      },
+      {
+          "id": "2y3s5mva8w",
+          "url": "https://miny.minyvinyl.com/artists/4215-andy-darling",
+          "slug": "andydarling",
+          "createdAt": 1727700969,
+          "updatedAt": 1735048834
+      },
+      {
+          "id": "mk5tawy2fa",
+          "url": "https://minyfy.minyvinyl.com/play/TYatEHyrIBez2y6LwtGd",
+          "slug": "andymixone",
+          "createdAt": 1732031975,
+          "updatedAt": 1735048835
+      },
+      {
+          "id": "mabjdaers4",
+          "url": "https://minyfy.minyvinyl.com/play/TsndaLuKV4FoO1boOvj7",
+          "slug": "antidrug",
+          "createdAt": 1725986224,
+          "updatedAt": 1735048835
+      },
+      {
+          "id": "9d2txwa3a9",
+          "url": "https://miny.minyvinyl.com/artists/8817-apashe",
+          "slug": "apashemix",
+          "createdAt": 1732462068,
+          "updatedAt": 1735048836
+      },
+      {
+          "id": "nxckksgdz3",
+          "url": "https://minyfy.minyvinyl.com/play/yIhWG5m1TBu77zzvnE2G",
+          "slug": "apasheone",
+          "createdAt": 1732462316,
+          "updatedAt": 1735048836
+      },
+      {
+          "id": "85nqjfr9m8",
+          "url": "https://minyfy.minyvinyl.com/play/cmpQ96dsBvYIiDikvMut",
+          "slug": "arabanthem",
+          "createdAt": 1726141988,
+          "updatedAt": 1735048837
+      },
+      {
+          "id": "ua3u9e62d6",
+          "url": "https://miny.minyvinyl.com/blog/Arabic",
+          "slug": "arabic",
+          "createdAt": 1726164120,
+          "updatedAt": 1735048837
+      },
+      {
+          "id": "5dv8qvs4c7",
+          "url": "https://minyfy.minyvinyl.com/play/s8KFASOvN8xc54cRiDHY",
+          "slug": "arablegends",
+          "createdAt": 1726148340,
+          "updatedAt": 1735048838
+      },
+      {
+          "id": "2aj76sc5xn",
+          "url": "https://minyfy.minyvinyl.com/play/bBoVrWeaBxJePZQLHhs8",
+          "slug": "arabpop",
+          "createdAt": 1726149821,
+          "updatedAt": 1735048838
+      },
+      {
+          "id": "j76cre7hej",
+          "url": "https://minyfy.minyvinyl.com/play/oYtcWFpD7R4jr1j2bUcs",
+          "slug": "arabsoma",
+          "createdAt": 1726148570,
+          "updatedAt": 1735048839
+      },
+      {
+          "id": "8y8vdn3dz3",
+          "url": "https://minyfy.minyvinyl.com/play/utddcWM2CGKMysyqcjhI",
+          "slug": "arbes",
+          "createdAt": 1732744425,
+          "updatedAt": 1735048839
+      },
+      {
+          "id": "htqgqvztwd",
+          "url": "https://miny.minyvinyl.com/artists/3024-ariana-grande",
+          "slug": "arianagrande",
+          "createdAt": 1726588258,
+          "updatedAt": 1735048840
+      },
+      {
+          "id": "vdfzdvwzdy",
+          "url": "https://minyfy.minyvinyl.com/play/SCCPEIA0FxG679LnKl7O",
+          "slug": "arjithemotionalplaylistsbyashraf",
+          "createdAt": 1725814298,
+          "updatedAt": 1735048840
+      },
+      {
+          "id": "u5ynxp7ya9",
+          "url": "https://minyfy.minyvinyl.com/play/aUYStrBY8NsQyIU7HvpR",
+          "slug": "armix",
+          "createdAt": 1730040940,
+          "updatedAt": 1735048841
+      },
+      {
+          "id": "wavbdhs8fp",
+          "url": "https://miny.minyvinyl.com/artists/1112-arooj-aftab",
+          "slug": "aroojaftab",
+          "createdAt": 1728406429,
+          "updatedAt": 1735048841
+      },
+      {
+          "id": "f4a9rr9a4c",
+          "url": "https://minyfy.minyvinyl.com/play/P9Ri5OJUOA8X00tPRk7e",
+          "slug": "aroojmix",
+          "createdAt": 1728406517,
+          "updatedAt": 1735048842
+      },
+      {
+          "id": "7jbebeqehp",
+          "url": "https://docs.google.com/document/d/1qgR0jwbqgfsDIKHvqsbal5z5j3-7UmpXW1UhNQgw_QU/edit?usp=sharing",
+          "slug": "artistcollab",
+          "createdAt": 1730380940,
+          "updatedAt": 1730380940
+      },
+      {
+          "id": "n8hdx9g42v",
+          "url": "https://minyfy.minyvinyl.com/play/lICm2rILfERmUI3GZBae",
+          "slug": "ashdrift",
+          "createdAt": 1728406051,
+          "updatedAt": 1735048843
+      },
+      {
+          "id": "zxs3rk7cey",
+          "url": "https://miny.minyvinyl.com/artists/4612-ashwarya",
+          "slug": "ashwarya",
+          "createdAt": 1728405980,
+          "updatedAt": 1735048843
+      },
+      {
+          "id": "c9j38y8rmd",
+          "url": "https://miny.minyvinyl.com/artists/3067-alexandra-starr",
+          "slug": "astar",
+          "createdAt": 1727720766,
+          "updatedAt": 1735048843
+      },
+      {
+          "id": "ar7cj6ky9t",
+          "url": "https://minyfy.minyvinyl.com/play/7vvyH181H7vl7C6mq5tk",
+          "slug": "atq1872",
+          "createdAt": 1725185349,
+          "updatedAt": 1735048844
+      },
+      {
+          "id": "ydenwcfk3j",
+          "url": "https://minyfy.minyvinyl.com/play/nGvBUEZvPHJ3251xj6dB",
+          "slug": "avarafusion",
+          "createdAt": 1725728811,
+          "updatedAt": 1735048844
+      },
+      {
+          "id": "hz2hgdqf92",
+          "url": "https://minyfy.minyvinyl.com/play/GtytMMfoTzwykJh0FiJd",
+          "slug": "awfcmw",
+          "createdAt": 1732526798,
+          "updatedAt": 1735048845
+      },
+      {
+          "id": "s9avcgqt58",
+          "url": "https://minyfy.minyvinyl.com/play/5UqUIoRC1ILQdQVinWk5",
+          "slug": "azraten",
+          "createdAt": 1730038404,
+          "updatedAt": 1735048845
+      },
+      {
+          "id": "ujgpd9att2",
+          "url": "https://minyfy.minyvinyl.com/play/uNkQdtyzOJMMFRQeBete",
+          "slug": "bacardi",
+          "createdAt": 1725185307,
+          "updatedAt": 1735048846
+      },
+      {
+          "id": "w5jvzvwb9g",
+          "url": "https://miny.minyvinyl.com/artists/2936-bad-bunny",
+          "slug": "badbunny",
+          "createdAt": 1726589051,
+          "updatedAt": 1735048846
+      },
+      {
+          "id": "jdh9caqvcj",
+          "url": "https://minyfy.minyvinyl.com/play/Tn0JQx0mfngJI4jp1BDb",
+          "slug": "bardmix",
+          "createdAt": 1729955165,
+          "updatedAt": 1735048847
+      },
+      {
+          "id": "jdpxgv9zvq",
+          "url": "https://minyfy.minyvinyl.com/play/KdzBdJaXZ20dlwDpewL5",
+          "slug": "beatsv1",
+          "createdAt": 1725185204,
+          "updatedAt": 1735048847
+      },
+      {
+          "id": "3v5zpam8tr",
+          "url": "https://minyfy.minyvinyl.com/play/ksRoyAUolmAIny4oRBeS",
+          "slug": "beatsv2",
+          "createdAt": 1725185202,
+          "updatedAt": 1735048848
+      },
+      {
+          "id": "rthawmqm8r",
+          "url": "https://minyfy.minyvinyl.com/play/ShOazHE8zBuCRccAPUpJ",
+          "slug": "bedroomindie",
+          "createdAt": 1725994469,
+          "updatedAt": 1735048848
+      },
+      {
+          "id": "vqk4qm5eqt",
+          "url": "https://minyfy.minyvinyl.com/play/zxAlfO7nyqZ4GHmYptO3",
+          "slug": "ben",
+          "createdAt": 1725185379,
+          "updatedAt": 1735048849
+      },
+      {
+          "id": "ssnwxtyje9",
+          "url": "https://miny.minyvinyl.com/artists/9315-benson-boone",
+          "slug": "bensonboone",
+          "createdAt": 1726589928,
+          "updatedAt": 1735048849
+      },
+      {
+          "id": "c3z7w4qfx6",
+          "url": "https://minyfy.minyvinyl.com/play/jy0Kjz4GzygidhbuUKsg",
+          "slug": "bestartdirect",
+          "createdAt": 1726593905,
+          "updatedAt": 1735048850
+      },
+      {
+          "id": "pshr5y8hkp",
+          "url": "https://minyfy.minyvinyl.com/play/2mhgAG3qaRuZKY0UtiEU",
+          "slug": "bestofeurodance",
+          "createdAt": 1725553483,
+          "updatedAt": 1735048850
+      },
+      {
+          "id": "cb4w28jdtg",
+          "url": "https://minyfy.minyvinyl.com/play/caxi5H0AQgMSmc4jpWWp",
+          "slug": "beyondh",
+          "createdAt": 1728611195,
+          "updatedAt": 1735048851
+      },
+      {
+          "id": "fhw29j6txu",
+          "url": "https://minyfy.minyvinyl.com/play/sTy9szwaHR3PFm3caDsf",
+          "slug": "beyondthegrave",
+          "createdAt": 1727206314,
+          "updatedAt": 1735048851
+      },
+      {
+          "id": "f9v7yurcf8",
+          "url": "https://minyfy.minyvinyl.com/play/6t2Q3LDiTdZ1lgt5EQ7a",
+          "slug": "billie",
+          "createdAt": 1727308993,
+          "updatedAt": 1735048852
+      },
+      {
+          "id": "xukmgw9rhe",
+          "url": "https://minyfy.minyvinyl.com/play/DGWUqpK9cHSVct3st8Zb",
+          "slug": "bio",
+          "createdAt": 1725188252,
+          "updatedAt": 1735048852
+      },
+      {
+          "id": "823pqdh72a",
+          "url": "https://minyfy.minyvinyl.com/play/7Cr5q05zem6l2zgZ6PG4",
+          "slug": "bizarro",
+          "createdAt": 1725704647,
+          "updatedAt": 1735048853
+      },
+      {
+          "id": "we6b27uysq",
+          "url": "https://minyfy.minyvinyl.com/play/6iUnjN7Q4Y4WPOIz0ZvT",
+          "slug": "black-pink",
+          "createdAt": 1725185302,
+          "updatedAt": 1735048853
+      },
+      {
+          "id": "ab2y9mx4w6",
+          "url": "https://minyfy.minyvinyl.com/play/EUABXw6inF623rqKXsig",
+          "slug": "blakeblitz",
+          "createdAt": 1727709478,
+          "updatedAt": 1735048854
+      },
+      {
+          "id": "f6bgq3d9pa",
+          "url": "https://miny.minyvinyl.com/artists/3943-blake-gordon",
+          "slug": "blakegordon",
+          "createdAt": 1725213505,
+          "updatedAt": 1735048854
+      },
+      {
+          "id": "g3uuxpgbqh",
+          "url": "https://miny.minyvinyl.com/artists/7575-blake-robert",
+          "slug": "blakerobert",
+          "createdAt": 1727708815,
+          "updatedAt": 1735048855
+      },
+      {
+          "id": "eyu566emkh",
+          "url": "https://minyfy.minyvinyl.com/play/cUR7lrLCLdIBR0JhOXhY",
+          "slug": "blazed",
+          "createdAt": 1726275230,
+          "updatedAt": 1735048855
+      },
+      {
+          "id": "pagwq6wbjk",
+          "url": "https://minyfy.minyvinyl.com/play/z3NYJs43RxCv1BdmV0ri",
+          "slug": "bmk177",
+          "createdAt": 1733356384,
+          "updatedAt": 1735048856
+      },
+      {
+          "id": "mm46xdj4ws",
+          "url": "https://minyfy.minyvinyl.com/play/QJNvhVrbs9Oj5Q89Ry4S",
+          "slug": "bochnerblend",
+          "createdAt": 1725988595,
+          "updatedAt": 1735048856
+      },
+      {
+          "id": "acmnzn976j",
+          "url": "https://minyfy.minyvinyl.com/play/Ea5jIQzwij9jnob2SdMO",
+          "slug": "bounce",
+          "createdAt": 1725666965,
+          "updatedAt": 1735048857
+      },
+      {
+          "id": "dpse8z7brt",
+          "url": "https://minyfy.minyvinyl.com/play/Vay3uNiaNfbcE2SK23an",
+          "slug": "brian",
+          "createdAt": 1725534520,
+          "updatedAt": 1735048857
+      },
+      {
+          "id": "699299f24t",
+          "url": "https://miny.minyvinyl.com/artists/6472-brother",
+          "slug": "brother",
+          "createdAt": 1725989090,
+          "updatedAt": 1735048861
+      },
+      {
+          "id": "9yekhy5c82",
+          "url": "https://minyfy.minyvinyl.com/play/P5pjwN7KUB9THpAg0UdM",
+          "slug": "brotherdot",
+          "createdAt": 1725988885,
+          "updatedAt": 1735048862
+      },
+      {
+          "id": "shz4nnwzze",
+          "url": "https://miny.minyvinyl.com/artists/3625-sanaea-bubber",
+          "slug": "bubber",
+          "createdAt": 1725630186,
+          "updatedAt": 1735048862
+      },
+      {
+          "id": "862suzgyvv",
+          "url": "https://minyfy.minyvinyl.com/play/OrwCqXDmwN60yOzXFsFs",
+          "slug": "buggin",
+          "createdAt": 1725735870,
+          "updatedAt": 1735048863
+      },
+      {
+          "id": "239bf7ene8",
+          "url": "https://minyfy.minyvinyl.com/play/T9UKGb5PO16oIhFD55oQ",
+          "slug": "bulla",
+          "createdAt": 1725185267,
+          "updatedAt": 1735048863
+      },
+      {
+          "id": "j55uks8rnj",
+          "url": "https://minyfy.minyvinyl.com/play/K1YwLFFyfCUNclRZo8kv",
+          "slug": "buyteeta",
+          "createdAt": 1725185258,
+          "updatedAt": 1735048864
+      },
+      {
+          "id": "6sqss55ncw",
+          "url": "https://minyfy.minyvinyl.com/play/TVDYxaR4idnWro6vujzU",
+          "slug": "bvngdrift",
+          "createdAt": 1728056411,
+          "updatedAt": 1735048864
+      },
+      {
+          "id": "4j8ffc8zu2",
+          "url": "https://miny.minyvinyl.com/artists/7954-bvng-hvze",
+          "slug": "bvnghvze",
+          "createdAt": 1728056321,
+          "updatedAt": 1735048865
+      },
+      {
+          "id": "nvtspvvcrv",
+          "url": "https://minyfy.minyvinyl.com/play/7bFmuftvNr60AzCJfOAl",
+          "slug": "c26vym",
+          "createdAt": 1727265856,
+          "updatedAt": 1735048865
+      },
+      {
+          "id": "s5qrn6wb4g",
+          "url": "https://miny.minyvinyl.com/artists/2651-camila-cabello",
+          "slug": "camilacabello",
+          "createdAt": 1726594248,
+          "updatedAt": 1735048866
+      },
+      {
+          "id": "x8pnpqknjr",
+          "url": "https://minyfy.minyvinyl.com/play/hYhs8x3NTxa7KIjhLRWJ",
+          "slug": "canorush",
+          "createdAt": 1725726738,
+          "updatedAt": 1735048866
+      },
+      {
+          "id": "yqbqtxtcqs",
+          "url": "https://miny.minyvinyl.com/artists/4230-canvas",
+          "slug": "canvas",
+          "createdAt": 1728655922,
+          "updatedAt": 1735048867
+      },
+      {
+          "id": "y938ug8hjr",
+          "url": "https://minyfy.minyvinyl.com/play/cHitL9uBapDzDv8jICTK",
+          "slug": "canvasburnout",
+          "createdAt": 1728659781,
+          "updatedAt": 1735048867
+      },
+      {
+          "id": "2yvmbpwe43",
+          "url": "https://minyfy.minyvinyl.com/play/sBdHBJ491pF6xP6uyl7E",
+          "slug": "canvasmix",
+          "createdAt": 1728658635,
+          "updatedAt": 1735048868
+      },
+      {
+          "id": "2p3u4mdvmk",
+          "url": "https://minyfy.minyvinyl.com/play/V1Nwhyf2Q3cbWszFewIM",
+          "slug": "casinomix",
+          "createdAt": 1733321939,
+          "updatedAt": 1735048868
+      },
+      {
+          "id": "46kcebmg3y",
+          "url": "https://miny.minyvinyl.com/artists/1716-casino-people",
+          "slug": "casinopeople",
+          "createdAt": 1733331309,
+          "updatedAt": 1735048869
+      },
+      {
+          "id": "rf76y92w7r",
+          "url": "https://minyfy.minyvinyl.com/play/BXjlxfDlJZOfG5AJ10im",
+          "slug": "cavein",
+          "createdAt": 1728687493,
+          "updatedAt": 1735048869
+      },
+      {
+          "id": "v65g8js8sf",
+          "url": "https://minyfy.minyvinyl.com/play/4b8Hs2YKrfzSmiRsCK6k",
+          "slug": "cc4ksd",
+          "createdAt": 1727166920,
+          "updatedAt": 1735048870
+      },
+      {
+          "id": "85633jfuks",
+          "url": "https://minyfy.minyvinyl.com/play/h4NgVUaWtg3PRrOTXq2d",
+          "slug": "ceemix",
+          "createdAt": 1728056736,
+          "updatedAt": 1735048870
+      },
+      {
+          "id": "k5679bj927",
+          "url": "https://miny.minyvinyl.com/artists/2986-cee-nyle",
+          "slug": "ceenyle",
+          "createdAt": 1728056671,
+          "updatedAt": 1735048871
+      },
+      {
+          "id": "ne3emmgpxh",
+          "url": "https://minyfy.minyvinyl.com/play/F6RUUW5qrJG8ChxCQ23M",
+          "slug": "cemetery",
+          "createdAt": 1727206630,
+          "updatedAt": 1735048871
+      },
+      {
+          "id": "rn3uxznxjs",
+          "url": "https://minyfy.minyvinyl.com/play/dkQT0TtstanC9lE99XGM",
+          "slug": "chakeeta",
+          "createdAt": 1725729057,
+          "updatedAt": 1735048872
+      },
+      {
+          "id": "e54n2sr78n",
+          "url": "https://minyfy.minyvinyl.com/play/uet2dmGsJ5egx61BXqot",
+          "slug": "chaphop",
+          "createdAt": 1725666554,
+          "updatedAt": 1735048872
+      },
+      {
+          "id": "fuxcv5smxx",
+          "url": "https://miny.minyvinyl.com/artists/1535-chappell-roan",
+          "slug": "chappellroan",
+          "createdAt": 1726590042,
+          "updatedAt": 1735048873
+      },
+      {
+          "id": "cfzfntaw3z",
+          "url": "https://minyfy.minyvinyl.com/play/NksiW8DluayjikUhcz8J",
+          "slug": "chemborhythm",
+          "createdAt": 1726090323,
+          "updatedAt": 1735048873
+      },
+      {
+          "id": "vv6q4kmrq6",
+          "url": "https://minyfy.minyvinyl.com/play/orzlAmR44mEugidHIEf7",
+          "slug": "chillwave",
+          "createdAt": 1725657935,
+          "updatedAt": 1735048874
+      },
+      {
+          "id": "j7b5648yrv",
+          "url": "https://minyfy.minyvinyl.com/play/lX4PWw1RBJo1mKfCHhCo",
+          "slug": "chpeople",
+          "createdAt": 1733135987,
+          "updatedAt": 1735048874
+      },
+      {
+          "id": "vc2jyume6t",
+          "url": "https://miny.minyvinyl.com/artists/8862-chris-distefano",
+          "slug": "chrisdcomedy",
+          "createdAt": 1730122516,
+          "updatedAt": 1735048875
+      },
+      {
+          "id": "qnsmkawyw8",
+          "url": "https://minyfy.minyvinyl.com/play/7H9XI7aMsHoUWuFsqM6g",
+          "slug": "chrisloaded",
+          "createdAt": 1730122719,
+          "updatedAt": 1735048875
+      },
+      {
+          "id": "tmhcq8emmw",
+          "url": "https://minyfy.minyvinyl.com/play/eOi7ctXqew7RFHjdrRaA",
+          "slug": "chvideo",
+          "createdAt": 1733137340,
+          "updatedAt": 1735048876
+      },
+      {
+          "id": "kxtw5qq2nk",
+          "url": "https://minyfy.minyvinyl.com/play/HU1VS3N43NSoMAE61RSs",
+          "slug": "clean",
+          "createdAt": 1726078050,
+          "updatedAt": 1735048876
+      },
+      {
+          "id": "hmrkac2vdh",
+          "url": "https://minyfy.minyvinyl.com/play/BYKQPLUuNa8KLP778kL3",
+          "slug": "cmix",
+          "createdAt": 1730330931,
+          "updatedAt": 1735048877
+      },
+      {
+          "id": "5tzybbvtkg",
+          "url": "https://minyfy.minyvinyl.com/play/av7YvDN7rzbK8wwLI35N",
+          "slug": "colamixphish",
+          "createdAt": 1727883340,
+          "updatedAt": 1735048878
+      },
+      {
+          "id": "39hjna84z7",
+          "url": "https://minyfy.minyvinyl.com/play/jFKPBF7sgbhKtPh195pn",
+          "slug": "colespain",
+          "createdAt": 1732744190,
+          "updatedAt": 1735048878
+      },
+      {
+          "id": "qxjj7nrc59",
+          "url": "https://miny.minyvinyl.com/blog/collect",
+          "slug": "collectminy",
+          "createdAt": 1726269391,
+          "updatedAt": 1735048879
+      },
+      {
+          "id": "dkjsedynmb",
+          "url": "https://dapper-gelato-ef8bb6.netlify.app/",
+          "slug": "comedy",
+          "createdAt": 1730733218,
+          "updatedAt": 1730733218
+      },
+      {
+          "id": "pp6mfcqkcc",
+          "url": "https://minyfy.minyvinyl.com/play/n7ff7fFKLVIRl7ITw8n2",
+          "slug": "coomix",
+          "createdAt": 1725478404,
+          "updatedAt": 1735048879
+      },
+      {
+          "id": "b7w7ng87rd",
+          "url": "https://miny.minyvinyl.com/artists/7087-coota-brown",
+          "slug": "cootabrown",
+          "createdAt": 1725479463,
+          "updatedAt": 1735048880
+      },
+      {
+          "id": "5b2bd9x9sy",
+          "url": "https://minyfy.minyvinyl.com/play/aEPaRcaWMCrO32VdQ7oV",
+          "slug": "cootamix",
+          "createdAt": 1725478330,
+          "updatedAt": 1735048880
+      },
+      {
+          "id": "q6gzunu7zb",
+          "url": "https://minyfy.minyvinyl.com/play/m38zcKqYA8VLm5czfUuT",
+          "slug": "countryone",
+          "createdAt": 1726080291,
+          "updatedAt": 1735048881
+      },
+      {
+          "id": "6h7qsvhwvw",
+          "url": "https://minyfy.minyvinyl.com/play/rRggT9RdLtFKmJucRgzd",
+          "slug": "creedplayo",
+          "createdAt": 1726080041,
+          "updatedAt": 1735048881
+      },
+      {
+          "id": "sycxu8jfbc",
+          "url": "https://minyfy.minyvinyl.com/play/NV4EuS6LKWyuCHoefbsi",
+          "slug": "cryinryan",
+          "createdAt": 1725988677,
+          "updatedAt": 1735048882
+      },
+      {
+          "id": "ctu52zam4x",
+          "url": "https://miny.minyvinyl.com/artists/8805-ryan-wright",
+          "slug": "cryinryanw",
+          "createdAt": 1725989297,
+          "updatedAt": 1735048882
+      },
+      {
+          "id": "bja376xgr5",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "curry",
+          "createdAt": 1725185089,
+          "updatedAt": 1725185089
+      },
+      {
+          "id": "rptv8a7jen",
+          "url": "https://minyfy.minyvinyl.com/play/WDyNIO3B3fb5XZBQ2f1N",
+          "slug": "curtis",
+          "createdAt": 1725729518,
+          "updatedAt": 1735048883
+      },
+      {
+          "id": "x69fwbvdjb",
+          "url": "https://minyfy.minyvinyl.com/play/v7h3qkwtWQ3sqwl3aiSY",
+          "slug": "customNewURL",
+          "createdAt": 1734119440,
+          "updatedAt": 1735048883
+      },
+      {
+          "id": "65jwedda43",
+          "url": "https://minyfy.minyvinyl.com/play/FgpRjzoIgG6v4mCsrNAC",
+          "slug": "d6BXTk",
+          "createdAt": 1725185115,
+          "updatedAt": 1735048884
+      },
+      {
+          "id": "qpb9mmcmf9",
+          "url": "https://minyfy.minyvinyl.com/play/tNaMNO1UK8unWLWbqMjt",
+          "slug": "d7a3xM",
+          "createdAt": 1725185155,
+          "updatedAt": 1735048884
+      },
+      {
+          "id": "58yknnecee",
+          "url": "https://miny.minyvinyl.com/artists/5046-the-blue-dahlia",
+          "slug": "dahliadumont",
+          "createdAt": 1725720002,
+          "updatedAt": 1735048885
+      },
+      {
+          "id": "vxruajkwd8",
+          "url": "https://minyfy.minyvinyl.com/play/QEyFrnGceavJHPi9eQq6",
+          "slug": "darlingbeats",
+          "createdAt": 1727701082,
+          "updatedAt": 1735048885
+      },
+      {
+          "id": "wave9hx4gd",
+          "url": "https://minyfy.minyvinyl.com/play/bFryVh4yE1QRcavet9ry",
+          "slug": "darrisdrift",
+          "createdAt": 1725715916,
+          "updatedAt": 1735048886
+      },
+      {
+          "id": "fn5gdgrznm",
+          "url": "https://minyfy.minyvinyl.com/play/jbaD0ZAktlgo1vAuEpMW",
+          "slug": "daster",
+          "createdAt": 1725185416,
+          "updatedAt": 1735048886
+      },
+      {
+          "id": "n8sgsvenrv",
+          "url": "https://minyfy.minyvinyl.com/play/YXIXa0jfXWBIbeq6HG2a",
+          "slug": "dawnmix",
+          "createdAt": 1726161308,
+          "updatedAt": 1735048887
+      },
+      {
+          "id": "mm3j2pafah",
+          "url": "https://minyfy.minyvinyl.com/play/Tm6iZmcXPms99hI26jn3",
+          "slug": "dazebeats",
+          "createdAt": 1727108995,
+          "updatedAt": 1735048887
+      },
+      {
+          "id": "cgq6tb2s4s",
+          "url": "https://minyfy.minyvinyl.com/play/Cl67jj9Z3pMsjboYxvCp",
+          "slug": "dbmpc5",
+          "createdAt": 1727306471,
+          "updatedAt": 1735048888
+      },
+      {
+          "id": "3rjf6mq3gz",
+          "url": "https://miny.minyvinyl.com/artists/6022-green-day",
+          "slug": "dcq7b6",
+          "createdAt": 1727865976,
+          "updatedAt": 1735048888
+      },
+      {
+          "id": "nek2fsun3w",
+          "url": "https://minyfy.minyvinyl.com/play/fwm1vaF2LhxatxVOQ5Cd",
+          "slug": "ddex",
+          "createdAt": 1725716560,
+          "updatedAt": 1735048889
+      },
+      {
+          "id": "njm944cwx9",
+          "url": "https://minyfy.minyvinyl.com/play/lU5qoYn4bQD8QFFsGvkx",
+          "slug": "ddownunder",
+          "createdAt": 1725715151,
+          "updatedAt": 1735048889
+      },
+      {
+          "id": "6k7hvnuxtf",
+          "url": "https://minyfy.minyvinyl.com/play/LhHT89dk323vboplh7TB",
+          "slug": "deadmanparty",
+          "createdAt": 1727206458,
+          "updatedAt": 1735048890
+      },
+      {
+          "id": "f9vdc5kpz6",
+          "url": "https://minyfy.minyvinyl.com/exclusive/iCWwrSaufgcDvsh3qMpj",
+          "slug": "ded",
+          "createdAt": 1731068285,
+          "updatedAt": 1735048890
+      },
+      {
+          "id": "h44nvaucpe",
+          "url": "https://minyfy.minyvinyl.com/exclusive/mqkJitJ9uggvmRtIFSW1",
+          "slug": "dede",
+          "createdAt": 1731068339,
+          "updatedAt": 1735048891
+      },
+      {
+          "id": "3fh7dptsh5",
+          "url": "https://minyfy.minyvinyl.com/exclusive/1",
+          "slug": "dedeq",
+          "createdAt": 1731147843,
+          "updatedAt": 1735048891
+      },
+      {
+          "id": "gx36ug7n8y",
+          "url": "https://miny.minyvinyl.com/artists/5732-deorro",
+          "slug": "deorro",
+          "createdAt": 1728170688,
+          "updatedAt": 1735048892
+      },
+      {
+          "id": "pbtuwwd3yr",
+          "url": "https://minyfy.minyvinyl.com/play/eaaxiIzET3KY8szqIbLi",
+          "slug": "deorrorush",
+          "createdAt": 1728170746,
+          "updatedAt": 1735048892
+      },
+      {
+          "id": "dnbs96m5wt",
+          "url": "https://minyfy.minyvinyl.com/play/Ad515VFChBE0gsESO8xO",
+          "slug": "desihiphop",
+          "createdAt": 1727269457,
+          "updatedAt": 1735048893
+      },
+      {
+          "id": "vkc42scd2f",
+          "url": "https://minyfy.minyvinyl.com/play/vsnGFkJcrk0CuuCbyVp2",
+          "slug": "desirewind",
+          "createdAt": 1728314597,
+          "updatedAt": 1735048893
+      },
+      {
+          "id": "7m8fsbuyzy",
+          "url": "https://minyfy.minyvinyl.com/play/q91E94UM8E8lVdZ3DSTv",
+          "slug": "dest",
+          "createdAt": 1725267661,
+          "updatedAt": 1735048894
+      },
+      {
+          "id": "v3dtb37buq",
+          "url": "https://minyfy.minyvinyl.com/play/Fr34Cdl2FckRzdd6Ssni",
+          "slug": "destinyggsept",
+          "createdAt": 1727053622,
+          "updatedAt": 1735048894
+      },
+      {
+          "id": "u8dhq8cjjh",
+          "url": "https://miny.minyvinyl.com/artists/2992-dhee",
+          "slug": "dhee",
+          "createdAt": 1725457989,
+          "updatedAt": 1735048895
+      },
+      {
+          "id": "qhb8x44uja",
+          "url": "https://miny.minyvinyl.com/blog/dhiphop",
+          "slug": "dhiphop",
+          "createdAt": 1727441777,
+          "updatedAt": 1735048895
+      },
+      {
+          "id": "4w5g7yxszr",
+          "url": "https://miny.minyvinyl.com/artists/9221-dhruv",
+          "slug": "dhruv",
+          "createdAt": 1728408116,
+          "updatedAt": 1735048896
+      },
+      {
+          "id": "2hvxf6kqgc",
+          "url": "https://minyfy.minyvinyl.com/play/SyDtmvIgRSDT1JCYp0jL",
+          "slug": "dhruvgroov",
+          "createdAt": 1728408192,
+          "updatedAt": 1735048896
+      },
+      {
+          "id": "xjek8u8e65",
+          "url": "https://minyfy.minyvinyl.com/play/Ix77f4pEaCOMjEIBppNg",
+          "slug": "dieseldust",
+          "createdAt": 1728334402,
+          "updatedAt": 1735048897
+      },
+      {
+          "id": "7w3njd6dsq",
+          "url": "https://minyfy.minyvinyl.com/play/mmit2EAmVLmnEdnVrmxr",
+          "slug": "dilanmix",
+          "createdAt": 1728932867,
+          "updatedAt": 1735048898
+      },
+      {
+          "id": "3dj8pyubca",
+          "url": "https://minyfy.minyvinyl.com/play/PANiGKxuyDngdXhL5697",
+          "slug": "dilanmix24",
+          "createdAt": 1733174307,
+          "updatedAt": 1735048898
+      },
+      {
+          "id": "kgumsqwncv",
+          "url": "https://minyfy.minyvinyl.com/play/Snv8zwlBizrJl5xyaEHP",
+          "slug": "discoverrhythmone",
+          "createdAt": 1727279382,
+          "updatedAt": 1735048899
+      },
+      {
+          "id": "dcvrquaxxs",
+          "url": "https://minyfy.minyvinyl.com/play/dceh8yCbCpwKTSnOCLL6",
+          "slug": "discoverrhythmtwo",
+          "createdAt": 1727279552,
+          "updatedAt": 1735048899
+      },
+      {
+          "id": "kbjkktywmb",
+          "url": "https://minyfy.minyvinyl.com/exclusive/o79BebSYyneLFXxMBhVJ",
+          "slug": "discy",
+          "createdAt": 1731166118,
+          "updatedAt": 1735048900
+      },
+      {
+          "id": "6kh77z7k7m",
+          "url": "https://miny.minyvinyl.com/blog/diwali.html",
+          "slug": "diwali",
+          "createdAt": 1728328701,
+          "updatedAt": 1735048900
+      },
+      {
+          "id": "3hennbvpn2",
+          "url": "https://minyfy.minyvinyl.com/play/Kx22UvDFEUHFKhUPvlya",
+          "slug": "diwaliecho",
+          "createdAt": 1728303535,
+          "updatedAt": 1735048901
+      },
+      {
+          "id": "ek9hgj79c5",
+          "url": "https://miny.minyvinyl.com/artists/9208-diesel",
+          "slug": "djdiesel",
+          "createdAt": 1728321845,
+          "updatedAt": 1735048901
+      },
+      {
+          "id": "sbkp2rky86",
+          "url": "https://djcalvinh.minyvinyl.com/",
+          "slug": "djharris",
+          "createdAt": 1733136772,
+          "updatedAt": 1733136772
+      },
+      {
+          "id": "8sdeb3d3vv",
+          "url": "https://minyfy.minyvinyl.com/play/RucQF3yK4s2Hjih5ezdn",
+          "slug": "djnicole",
+          "createdAt": 1725469226,
+          "updatedAt": 1735048902
+      },
+      {
+          "id": "y3aykuawcr",
+          "url": "https://miny.minyvinyl.com/artists/4256-nicole-otero",
+          "slug": "djnicoleotero",
+          "createdAt": 1725469541,
+          "updatedAt": 1735048903
+      },
+      {
+          "id": "zvk84wextv",
+          "url": "https://minyfy.minyvinyl.com/play/ew7wHcxVfXUb3E0BK2Ca",
+          "slug": "dnctopten",
+          "createdAt": 1725807729,
+          "updatedAt": 1735048903
+      },
+      {
+          "id": "82vd88dck6",
+          "url": "https://minyfy.minyvinyl.com/play/dsDnof6X8R3bQHgWZhRg",
+          "slug": "downcrypt",
+          "createdAt": 1727200636,
+          "updatedAt": 1735048904
+      },
+      {
+          "id": "657vaen6gh",
+          "url": "https://minyfy.minyvinyl.com/play/6qrrRdjQyyW5H0hDYVsM",
+          "slug": "drivemix",
+          "createdAt": 1732566179,
+          "updatedAt": 1735048904
+      },
+      {
+          "id": "sba9yy7v59",
+          "url": "https://miny.minyvinyl.com/artists/4900-dua-lipa",
+          "slug": "dualipa",
+          "createdAt": 1726594379,
+          "updatedAt": 1735048905
+      },
+      {
+          "id": "kn5rszfvv2",
+          "url": "https://minyfy.minyvinyl.com/play/gevx2Mot3cDwI0CMCWbH",
+          "slug": "eRUu1u",
+          "createdAt": 1725185239,
+          "updatedAt": 1735048905
+      },
+      {
+          "id": "mwz4rdenbx",
+          "url": "https://minyfy.minyvinyl.com/play/DmVeQoiKppZDeSpE2a6a",
+          "slug": "eastmix",
+          "createdAt": 1728314437,
+          "updatedAt": 1735048906
+      },
+      {
+          "id": "fs8mfydrh6",
+          "url": "https://minyfy.minyvinyl.com/play/bB4RCD8mhGL4eu4adKra",
+          "slug": "edream",
+          "createdAt": 1726096837,
+          "updatedAt": 1735048906
+      },
+      {
+          "id": "crduug2pb7",
+          "url": "https://minyfy.minyvinyl.com/play/p9xD7j2XwWFR1bPVm9UU",
+          "slug": "ef6Jpd",
+          "createdAt": 1725185276,
+          "updatedAt": 1735048907
+      },
+      {
+          "id": "c3mb3p7pwc",
+          "url": "https://minyfy.minyvinyl.com/play/SYBrS08BI83FMZh0FPqS",
+          "slug": "electricdreams",
+          "createdAt": 1726268364,
+          "updatedAt": 1735048907
+      },
+      {
+          "id": "56p5qza4vr",
+          "url": "https://minyfy.minyvinyl.com/play/ATTMaKEtIy8EKpSdYlQu",
+          "slug": "elektrik",
+          "createdAt": 1726077894,
+          "updatedAt": 1735048908
+      },
+      {
+          "id": "pd5zw87ydn",
+          "url": "https://miny.minyvinyl.com/blog/groww",
+          "slug": "elevated",
+          "createdAt": 1726512415,
+          "updatedAt": 1735048908
+      },
+      {
+          "id": "6xegq6dkk5",
+          "url": "https://minyfy.minyvinyl.com/play/3pQvdBIfBTxNhbcVsVpJ",
+          "slug": "elevator",
+          "createdAt": 1725667081,
+          "updatedAt": 1735048909
+      },
+      {
+          "id": "kjzs5wqtng",
+          "url": "https://minyfy.minyvinyl.com/play/kDE2NolDzRgLyOKhbX8E",
+          "slug": "elo",
+          "createdAt": 1725185178,
+          "updatedAt": 1735048909
+      },
+      {
+          "id": "kemxqwgucu",
+          "url": "https://minyfy.minyvinyl.com/play/JLoRn9KQkc73B7ELFZCB",
+          "slug": "ember",
+          "createdAt": 1725185421,
+          "updatedAt": 1735048909
+      },
+      {
+          "id": "efquwmykpx",
+          "url": "https://miny.minyvinyl.com/artists/3824-eminem",
+          "slug": "eminem",
+          "createdAt": 1726589351,
+          "updatedAt": 1735048910
+      },
+      {
+          "id": "2wpzvnnf8a",
+          "url": "https://miny.minyvinyl.com/artists/9223-eminem",
+          "slug": "eminemr",
+          "createdAt": 1734127173,
+          "updatedAt": 1735048910
+      },
+      {
+          "id": "87w5t7v682",
+          "url": "https://minyfy.minyvinyl.com/play/x3qGN72EIBn0z87EkXs0",
+          "slug": "erh2d9",
+          "createdAt": 1729517455,
+          "updatedAt": 1735048911
+      },
+      {
+          "id": "9y4t7br7rh",
+          "url": "https://minyfy.minyvinyl.com/play/XJtphxAzYWqLjNCvvOx5",
+          "slug": "esper",
+          "createdAt": 1725185426,
+          "updatedAt": 1735048911
+      },
+      {
+          "id": "3mmdk9tqwk",
+          "url": "https://minyfy.minyvinyl.com/play/2SlHKrT6SqDqmR7kitwp",
+          "slug": "ethio",
+          "createdAt": 1725666484,
+          "updatedAt": 1735048912
+      },
+      {
+          "id": "9r4upbc4rp",
+          "url": "https://minyfy.minyvinyl.com/play/liMLByMHSxuUDk5wqJ28",
+          "slug": "fHK0fV",
+          "createdAt": 1725185367,
+          "updatedAt": 1735048912
+      },
+      {
+          "id": "8dx9yn4595",
+          "url": "https://minyfy.minyvinyl.com/play/HocRnnL6UcLtazcne3uQ",
+          "slug": "fallmix",
+          "createdAt": 1729957867,
+          "updatedAt": 1735048913
+      },
+      {
+          "id": "jk3nk32c37",
+          "url": "https://miny.minyvinyl.com/artists/3576-fantasia",
+          "slug": "fantasia",
+          "createdAt": 1727053291,
+          "updatedAt": 1735048913
+      },
+      {
+          "id": "a3pzwpmxww",
+          "url": "https://minyfy.minyvinyl.com/play/mViFcKcXKO2EX1R6gfOj",
+          "slug": "fat",
+          "createdAt": 1725185400,
+          "updatedAt": 1735048914
+      },
+      {
+          "id": "syh7ax2hfs",
+          "url": "https://minyfy.minyvinyl.com/play/uvwFLXmNsO4Qe9j10ge0",
+          "slug": "favartist",
+          "createdAt": 1725185321,
+          "updatedAt": 1735048914
+      },
+      {
+          "id": "tgrb6ar8dc",
+          "url": "https://miny.minyvinyl.com/play/4524-fede-vigevani",
+          "slug": "fede",
+          "createdAt": 1725214770,
+          "updatedAt": 1735048915
+      },
+      {
+          "id": "d2hj8kukfv",
+          "url": "https://minyfy.minyvinyl.com/play/NRWGc5xNXUF1viOXBBEn",
+          "slug": "feelsr",
+          "createdAt": 1727878901,
+          "updatedAt": 1735048916
+      },
+      {
+          "id": "7jxzc33ajc",
+          "url": "https://minyfy.minyvinyl.com/exclusive/fIvh6bqmU7bncdf9b37z",
+          "slug": "feeq",
+          "createdAt": 1731067760,
+          "updatedAt": 1735048916
+      },
+      {
+          "id": "494r7xkjkw",
+          "url": "https://minyfy.minyvinyl.com/play/f0n6QcLkJ0zYmRGMNv10",
+          "slug": "felipemix",
+          "createdAt": 1730138001,
+          "updatedAt": 1735048917
+      },
+      {
+          "id": "xr7ea9zrae",
+          "url": "https://miny.minyvinyl.com/artists/5817-felipe-pavani",
+          "slug": "felipepavani",
+          "createdAt": 1730137930,
+          "updatedAt": 1735048917
+      },
+      {
+          "id": "x7ajzedhba",
+          "url": "https://minyfy.minyvinyl.com/play/lEHaR8cr9emhyFucUjGz",
+          "slug": "fiftycentplaylistsbyashraf",
+          "createdAt": 1725815331,
+          "updatedAt": 1735048918
+      },
+      {
+          "id": "at2k2c3rna",
+          "url": "https://comfy-alfajores-4823c5.netlify.app/",
+          "slug": "fin",
+          "createdAt": 1731357228,
+          "updatedAt": 1731357228
+      },
+      {
+          "id": "a6kmgzjmae",
+          "url": "https://miny.minyvinyl.com/blog/firemixtapes",
+          "slug": "firemixtapes",
+          "createdAt": 1728334046,
+          "updatedAt": 1735048918
+      },
+      {
+          "id": "z3s529nbcm",
+          "url": "https://minyfy.minyvinyl.com/play/IOU9iw37LnapgTdN2mQn",
+          "slug": "flossone",
+          "createdAt": 1726107931,
+          "updatedAt": 1735048919
+      },
+      {
+          "id": "xjz2dwjgu9",
+          "url": "https://minyfy.minyvinyl.com/play/h6qlbhRC3UMEvsV2NRE7",
+          "slug": "fnmix",
+          "createdAt": 1728668482,
+          "updatedAt": 1735048919
+      },
+      {
+          "id": "sy64apvg3k",
+          "url": "https://minyfy.minyvinyl.com/play/tIOpGjqg8qFT5V9CTXVC",
+          "slug": "folktronica",
+          "createdAt": 1725663167,
+          "updatedAt": 1735048920
+      },
+      {
+          "id": "x9abhvs2gd",
+          "url": "https://minyfy.minyvinyl.com/play/XeE9O3OFRN5A33qlJjsy",
+          "slug": "forking",
+          "createdAt": 1726079917,
+          "updatedAt": 1735048920
+      },
+      {
+          "id": "5qfaybupfg",
+          "url": "https://minyfy.minyvinyl.com/play/YPDA71HIQOpuYnNsU9eE",
+          "slug": "fortheculture",
+          "createdAt": 1727645827,
+          "updatedAt": 1735048921
+      },
+      {
+          "id": "8z7sf3rdqj",
+          "url": "https://minyfy.minyvinyl.com/play/GZKqXIIsRxwc5X0JwfMs",
+          "slug": "free",
+          "createdAt": 1725257996,
+          "updatedAt": 1735048921
+      },
+      {
+          "id": "3pqqnthztg",
+          "url": "https://miny.minyvinyl.com/artists/3600-afro-dominicano",
+          "slug": "freed",
+          "createdAt": 1725799691,
+          "updatedAt": 1735048922
+      },
+      {
+          "id": "k2zbfbdwmu",
+          "url": "https://minyfy.minyvinyl.com/play/NihacBESk3yZv7883LEH",
+          "slug": "french",
+          "createdAt": 1725185395,
+          "updatedAt": 1735048922
+      },
+      {
+          "id": "vu873jqzbz",
+          "url": "https://minyfy.minyvinyl.com/play/wxX429NIYC3lgfhXacuN",
+          "slug": "freybigtoo",
+          "createdAt": 1727707649,
+          "updatedAt": 1735048923
+      },
+      {
+          "id": "wx8yqfmjhw",
+          "url": "https://miny.minyvinyl.com/artists/9236-frey",
+          "slug": "freymp3",
+          "createdAt": 1727707456,
+          "updatedAt": 1735048923
+      },
+      {
+          "id": "75kzsztvv9",
+          "url": "https://minyfy.minyvinyl.com/play/dtjcHnjJOPyBExMVOL7c",
+          "slug": "fu8dcv",
+          "createdAt": 1727174354,
+          "updatedAt": 1735048924
+      },
+      {
+          "id": "8uusyqpxd3",
+          "url": "https://minyfy.minyvinyl.com/play/NgomEB6BpA5NynO1f2he",
+          "slug": "g25aoty",
+          "createdAt": 1731390388,
+          "updatedAt": 1735048924
+      },
+      {
+          "id": "wfj9ceqywd",
+          "url": "https://minyfy.minyvinyl.com/play/Pxc08evKFV2ZwzvlhC7Q",
+          "slug": "g25bdema",
+          "createdAt": 1731434725,
+          "updatedAt": 1735048925
+      },
+      {
+          "id": "ehb4fvmbdm",
+          "url": "https://minyfy.minyvinyl.com/play/bn2UGYK36rXkQWg9seOi",
+          "slug": "g25bder",
+          "createdAt": 1731433263,
+          "updatedAt": 1735048925
+      },
+      {
+          "id": "qrv374eztm",
+          "url": "https://minyfy.minyvinyl.com/play/liSygEVyoIruf88sOsY4",
+          "slug": "g25bpdugp",
+          "createdAt": 1731429404,
+          "updatedAt": 1735048926
+      },
+      {
+          "id": "8bg3cpjzub",
+          "url": "https://minyfy.minyvinyl.com/play/7pjk96MRYPqj7N4r7eVz",
+          "slug": "g25bpsp",
+          "createdAt": 1731428759,
+          "updatedAt": 1735048926
+      },
+      {
+          "id": "9vdasnq6v5",
+          "url": "https://minyfy.minyvinyl.com/play/AjkkMEb8d9vhYaJpYiqF",
+          "slug": "g25soty",
+          "createdAt": 1731390920,
+          "updatedAt": 1735048927
+      },
+      {
+          "id": "m5r4gxxuvp",
+          "url": "https://minyfy.minyvinyl.com/play/fR9d9eRkrHKdXV5EIGPi",
+          "slug": "g26bpvca",
+          "createdAt": 1731430930,
+          "updatedAt": 1735048927
+      },
+      {
+          "id": "y7ykpx2u7h",
+          "url": "https://minyfy.minyvinyl.com/play/nsrhnmcoxcjMveXmGcRX",
+          "slug": "g7mUEy",
+          "createdAt": 1725185120,
+          "updatedAt": 1735048928
+      },
+      {
+          "id": "54gf658j2q",
+          "url": "https://minyfy.minyvinyl.com/play/lDaaygVztLMn3jGfXIAm",
+          "slug": "g8MKEB",
+          "createdAt": 1725185127,
+          "updatedAt": 1735048928
+      },
+      {
+          "id": "stkt6jcban",
+          "url": "https://minyfy.minyvinyl.com/play/83YsYzejtnGv7jDKjQRt",
+          "slug": "galdort",
+          "createdAt": 1725667464,
+          "updatedAt": 1735048929
+      },
+      {
+          "id": "u4ngy7hnjg",
+          "url": "https://miny.minyvinyl.com/artists/5508-gabriel-aldort",
+          "slug": "galdortmusic",
+          "createdAt": 1725667347,
+          "updatedAt": 1735048929
+      },
+      {
+          "id": "67j38ywv22",
+          "url": "https://miny.minyvinyl.com/blog/genre",
+          "slug": "genrex",
+          "createdAt": 1726072867,
+          "updatedAt": 1735048930
+      },
+      {
+          "id": "wre4xjp86w",
+          "url": "https://minyfy.minyvinyl.com/play/j7hF7m3BaDbRaZoqn5DF",
+          "slug": "gleex",
+          "createdAt": 1727090929,
+          "updatedAt": 1735048930
+      },
+      {
+          "id": "8kqu7dkhjj",
+          "url": "https://miny.minyvinyl.com/",
+          "slug": "goEPK",
+          "createdAt": 1725185384,
+          "updatedAt": 1735048931
+      },
+      {
+          "id": "d9qkte5vz5",
+          "url": "https://minyfy.minyvinyl.com/play/EgwqN54McEmztlxk6U0I",
+          "slug": "gogo",
+          "createdAt": 1725666803,
+          "updatedAt": 1735048931
+      },
+      {
+          "id": "upemquhwr5",
+          "url": "https://minyfy.minyvinyl.com/play/a9rdiOJ3WGuw5oAYh205",
+          "slug": "goodone",
+          "createdAt": 1725185323,
+          "updatedAt": 1735048932
+      },
+      {
+          "id": "aagay3uxce",
+          "url": "https://minyfy.minyvinyl.com/play/lw31VyDEmLjxHHtN379U",
+          "slug": "grAq8R",
+          "createdAt": 1725185141,
+          "updatedAt": 1735048932
+      },
+      {
+          "id": "n7g7ubswfm",
+          "url": "https://miny.minyvinyl.com/artists/1097-gracie-abrams",
+          "slug": "gracieabrams",
+          "createdAt": 1726593990,
+          "updatedAt": 1735048933
+      },
+      {
+          "id": "qcppdqy6jn",
+          "url": "https://minyfy.minyvinyl.com/play/GuBrCaXmrbMgQ222iuKq",
+          "slug": "grammy25roty",
+          "createdAt": 1731390250,
+          "updatedAt": 1735048933
+      },
+      {
+          "id": "kd27d7kphf",
+          "url": "https://miny.minyvinyl.com/artists/8447-granger-smith",
+          "slug": "granger-smith",
+          "createdAt": 1725213581,
+          "updatedAt": 1735048934
+      },
+      {
+          "id": "kbf6h7rka9",
+          "url": "https://minyfy.minyvinyl.com/play/8f8flrCT5k4ykMHDnQ58",
+          "slug": "graveyardbash",
+          "createdAt": 1727178448,
+          "updatedAt": 1735048934
+      },
+      {
+          "id": "yzgwhmr3f9",
+          "url": "https://minyfy.minyvinyl.com/play/APHnppuFqSzhg4f9YKq1",
+          "slug": "greeksxsw",
+          "createdAt": 1727180296,
+          "updatedAt": 1735048935
+      },
+      {
+          "id": "dcv77yrp7e",
+          "url": "https://minyfy.minyvinyl.com/play/aqdwYtHGKbLJ65Y94v2g",
+          "slug": "green",
+          "createdAt": 1725185248,
+          "updatedAt": 1735048935
+      },
+      {
+          "id": "fu9v3v4jab",
+          "url": "https://minyfy.minyvinyl.com/play/dtjcHnjJOPyBExMVOL7c",
+          "slug": "h7hd2w",
+          "createdAt": 1727174337,
+          "updatedAt": 1735048936
+      },
+      {
+          "id": "vycvgu59pm",
+          "url": "https://minyfy.minyvinyl.com/play/1OtJTKOl8XMMIF6pmScD",
+          "slug": "h9Bh8n",
+          "createdAt": 1725185195,
+          "updatedAt": 1735048936
+      },
+      {
+          "id": "g78zv96u2u",
+          "url": "https://miny.minyvinyl.com/blog/halloween",
+          "slug": "halloween",
+          "createdAt": 1727216303,
+          "updatedAt": 1735048937
+      },
+      {
+          "id": "uxupjwwhwn",
+          "url": "https://minyfy.minyvinyl.com/play/b7nGl7QNrsAL9cWDFrbX",
+          "slug": "handpickinten",
+          "createdAt": 1725472457,
+          "updatedAt": 1735048937
+      },
+      {
+          "id": "5aqdfhc6v3",
+          "url": "https://miny.minyvinyl.com/blog/hwr",
+          "slug": "handwritten",
+          "createdAt": 1726158150,
+          "updatedAt": 1735048938
+      },
+      {
+          "id": "rtbud8n2k2",
+          "url": "https://miny.minyvinyl.com/blog/hwr",
+          "slug": "handwrittenrecords",
+          "createdAt": 1726061854,
+          "updatedAt": 1735048938
+      },
+      {
+          "id": "egvvw25daq",
+          "url": "https://minyfy.minyvinyl.com/play/5BdBDxBUs4KC4LLezIHv",
+          "slug": "harrisblend",
+          "createdAt": 1725727270,
+          "updatedAt": 1735048939
+      },
+      {
+          "id": "hf3fq496y7",
+          "url": "https://minyfy.minyvinyl.com/play/LqsHn4fYSn9KyaFla9WF",
+          "slug": "harrishits",
+          "createdAt": 1733000177,
+          "updatedAt": 1735048939
+      },
+      {
+          "id": "qrfkad65yu",
+          "url": "https://fanone.minyvinyl.com/",
+          "slug": "harryone",
+          "createdAt": 1732138968,
+          "updatedAt": 1732213379
+      },
+      {
+          "id": "sf7yr6dpqu",
+          "url": "https://cootab.minyvinyl.com/",
+          "slug": "harrytwo",
+          "createdAt": 1732139010,
+          "updatedAt": 1732213442
+      },
+      {
+          "id": "psg84bqvs8",
+          "url": "https://minyfy.minyvinyl.com/play/vy12CtmoKUj5OGgCxgij",
+          "slug": "hauntedhouse",
+          "createdAt": 1727206111,
+          "updatedAt": 1735048940
+      },
+      {
+          "id": "djeb64zvys",
+          "url": "https://minyfy.minyvinyl.com/play/OHJO9TqL1pqXFZkflmH2",
+          "slug": "hauntedjukebox",
+          "createdAt": 1727205963,
+          "updatedAt": 1735048940
+      },
+      {
+          "id": "vq7g5byqg8",
+          "url": "https://minyfy.minyvinyl.com/play/7VS8PkbeG16zzixoM0TQ",
+          "slug": "hbdruku",
+          "createdAt": 1725185103,
+          "updatedAt": 1735048941
+      },
+      {
+          "id": "3k8zyz9mvg",
+          "url": "https://minyfy.minyvinyl.com/play/tKHnioDVIRFlCk1zWIuE",
+          "slug": "hblend",
+          "createdAt": 1729023787,
+          "updatedAt": 1735048941
+      },
+      {
+          "id": "ph3w646p8h",
+          "url": "https://minyfy.minyvinyl.com/play/ZMdKjyi7Cw2fg5FRcbs9",
+          "slug": "heartbreakhotel",
+          "createdAt": 1726141306,
+          "updatedAt": 1735048942
+      },
+      {
+          "id": "rrsy3b25ju",
+          "url": "https://minyfy.minyvinyl.com/play/pD7DT4gca2XUaFWwBVdh",
+          "slug": "heatwavehits",
+          "createdAt": 1727700404,
+          "updatedAt": 1735048942
+      },
+      {
+          "id": "9s4q29nc7u",
+          "url": "https://minyfy.minyvinyl.com/play/QwfHVg8iY8M4uINlj7fZ",
+          "slug": "hendelsam",
+          "createdAt": 1729179769,
+          "updatedAt": 1735048943
+      },
+      {
+          "id": "uy7sxcrx48",
+          "url": "https://miny.minyvinyl.com/artists/7337-highly-suspect",
+          "slug": "highly-suspect",
+          "createdAt": 1725213636,
+          "updatedAt": 1735048943
+      },
+      {
+          "id": "7rbvup7krt",
+          "url": "https://minyfy.minyvinyl.com/play/YQb9EXdZhFnrQULphSWt",
+          "slug": "highvibes",
+          "createdAt": 1726270764,
+          "updatedAt": 1735048944
+      },
+      {
+          "id": "ng78wcf4n7",
+          "url": "https://miny.minyvinyl.com/blog/hiphop",
+          "slug": "hiphop",
+          "createdAt": 1727969443,
+          "updatedAt": 1735048944
+      },
+      {
+          "id": "a63dfzbwcv",
+          "url": "https://minyfy.minyvinyl.com/play/dL9OTORimq2ZV60plb62",
+          "slug": "hiphoplegends",
+          "createdAt": 1727700497,
+          "updatedAt": 1735048945
+      },
+      {
+          "id": "85295t28h5",
+          "url": "https://minyfy.minyvinyl.com/play/G2vXi77zq961n10NlU9G",
+          "slug": "hitparade",
+          "createdAt": 1727273853,
+          "updatedAt": 1735048945
+      },
+      {
+          "id": "xge7y5pyd5",
+          "url": "https://minyfy.minyvinyl.com/play/I0iKmJiC3rHubxUyZyBH",
+          "slug": "hokumblues",
+          "createdAt": 1725667007,
+          "updatedAt": 1735048946
+      },
+      {
+          "id": "tdjny4vyhe",
+          "url": "https://minyfy.minyvinyl.com/play/YqT1gpx4xttD720lvBbe",
+          "slug": "holy",
+          "createdAt": 1732745055,
+          "updatedAt": 1735048946
+      },
+      {
+          "id": "ph9ejb5b2s",
+          "url": "https://minyfy.minyvinyl.com/play/SSJ8G8Uq6WhCB5eb30jg",
+          "slug": "hone",
+          "createdAt": 1726078406,
+          "updatedAt": 1735048947
+      },
+      {
+          "id": "kkakqemtjz",
+          "url": "https://miny.minyvinyl.com/blog/gtrend",
+          "slug": "hotsept24",
+          "createdAt": 1726244669,
+          "updatedAt": 1735048948
+      },
+      {
+          "id": "p92gt4pbsh",
+          "url": "https://minyfy.minyvinyl.com/play/XQ0PmBeh3k3Ja6hXyVT3",
+          "slug": "huntemix",
+          "createdAt": 1729092504,
+          "updatedAt": 1735048948
+      },
+      {
+          "id": "du35pa43t9",
+          "url": "https://minyfy.minyvinyl.com/play/SjoEtYtFo2u0tNzrvXwZ",
+          "slug": "hvshiband",
+          "createdAt": 1732720350,
+          "updatedAt": 1735048949
+      },
+      {
+          "id": "ehedz6h54h",
+          "url": "https://minyfy.minyvinyl.com/play/i2HDHwgEt89KxPfbGtsU",
+          "slug": "hvzevibes",
+          "createdAt": 1728320522,
+          "updatedAt": 1735048949
+      },
+      {
+          "id": "zd5vt9x7bg",
+          "url": "https://minyfy.minyvinyl.com/play/RoNJGcsbbA2B4oDLaVqu",
+          "slug": "icultv",
+          "createdAt": 1727894145,
+          "updatedAt": 1735048950
+      },
+      {
+          "id": "8euer98aj4",
+          "url": "https://minyfy.minyvinyl.com/play/j1I0AVWm8boalnze6Ene",
+          "slug": "imagine",
+          "createdAt": 1725185409,
+          "updatedAt": 1735048950
+      },
+      {
+          "id": "ucde4u4ybw",
+          "url": "https://minyfy.minyvinyl.com/play/ztbcCmlP1Vdd26gH7ZWI",
+          "slug": "impressivefuel",
+          "createdAt": 1729868415,
+          "updatedAt": 1735048951
+      },
+      {
+          "id": "25cvq7crd8",
+          "url": "https://minyfy.minyvinyl.com/play/SLpctRRyiozCA9aCy059",
+          "slug": "indiamix",
+          "createdAt": 1726065386,
+          "updatedAt": 1735048951
+      },
+      {
+          "id": "p7f6zh6mph",
+          "url": "https://minyfy.minyvinyl.com/play/932pnezz0FNURyCogbfm",
+          "slug": "indianplaylistsbyashraf",
+          "createdAt": 1725816189,
+          "updatedAt": 1735048952
+      },
+      {
+          "id": "53sbz7jsar",
+          "url": "https://minyfy.minyvinyl.com/play/KSk9pu0aNIYHFxN3rl2J",
+          "slug": "indiefolk",
+          "createdAt": 1725661782,
+          "updatedAt": 1735048952
+      },
+      {
+          "id": "5vpfaajwmc",
+          "url": "https://minyfy.minyvinyl.com/play/CYUWYoDHqJGiKtpZFmiq",
+          "slug": "indybali",
+          "createdAt": 1729197625,
+          "updatedAt": 1735048953
+      },
+      {
+          "id": "d86zn5ucdj",
+          "url": "https://minyfy.minyvinyl.com/play/U77owymlp0Qkx3prXaTE",
+          "slug": "indypulse",
+          "createdAt": 1726268732,
+          "updatedAt": 1735048953
+      },
+      {
+          "id": "h3w7w8gqsh",
+          "url": "https://miny.minyvinyl.com/blog/ingen",
+          "slug": "ingen",
+          "createdAt": 1726247346,
+          "updatedAt": 1735048954
+      },
+      {
+          "id": "bwmrhyu6ae",
+          "url": "https://minyfy.minyvinyl.com/play/owVp0mt7uVFKAaJSnWBH",
+          "slug": "ingentyler",
+          "createdAt": 1725731354,
+          "updatedAt": 1735048954
+      },
+      {
+          "id": "yb9tx6ght6",
+          "url": "https://minyfy.minyvinyl.com/play/5lJNZuxKYErpIYfQX1zY",
+          "slug": "inmemoryofthomone",
+          "createdAt": 1727090647,
+          "updatedAt": 1735048955
+      },
+      {
+          "id": "tpy96kk4a4",
+          "url": "https://minyfy.minyvinyl.com/play/Ti2NGyLvG7g6eWGgFO3a",
+          "slug": "itscharliebrown",
+          "createdAt": 1732462936,
+          "updatedAt": 1735048955
+      },
+      {
+          "id": "9f4tu34h2h",
+          "url": "https://minyfy.minyvinyl.com/play/uo5f1iFpMSeWo8QqxXhX",
+          "slug": "iyiH8i",
+          "createdAt": 1725185335,
+          "updatedAt": 1735048956
+      },
+      {
+          "id": "6fb3hccjkf",
+          "url": "https://minyfy.minyvinyl.com/play/OLRZshI2SjjhBNoiB9F4",
+          "slug": "j5kgr9",
+          "createdAt": 1727172375,
+          "updatedAt": 1735048956
+      },
+      {
+          "id": "mx5ca8y43v",
+          "url": "https://minyfy.minyvinyl.com/play/3zujUdrkn7WqJyv3MWHq",
+          "slug": "jV6gxs",
+          "createdAt": 1725185213,
+          "updatedAt": 1735048957
+      },
+      {
+          "id": "qxpthjzz42",
+          "url": "https://minyfy.minyvinyl.com/play/sozJ8frXpUcaIaQASkHU",
+          "slug": "jade",
+          "createdAt": 1725792066,
+          "updatedAt": 1735048957
+      },
+      {
+          "id": "kvhsqcmg66",
+          "url": "https://miny.minyvinyl.com/artists/3769-jade-juda",
+          "slug": "jadejuda",
+          "createdAt": 1725791939,
+          "updatedAt": 1735048958
+      },
+      {
+          "id": "57m78gjpzr",
+          "url": "https://miny.minyvinyl.com/artists/2418-james-kennedy",
+          "slug": "jameskennedy",
+          "createdAt": 1728170005,
+          "updatedAt": 1735048958
+      },
+      {
+          "id": "t92fxdqvy3",
+          "url": "https://miny.minyvinyl.com/artists/3589-jay-mumford",
+          "slug": "jaymumfordmusic",
+          "createdAt": 1733503923,
+          "updatedAt": 1735048959
+      },
+      {
+          "id": "udn3hqvuwz",
+          "url": "https://minyfy.minyvinyl.com/play/JsMTPCBa5YoglpX5y2Oq",
+          "slug": "jayzmi",
+          "createdAt": 1732653029,
+          "updatedAt": 1735048959
+      },
+      {
+          "id": "rbcke3fuqr",
+          "url": "https://minyfy.minyvinyl.com/play/Ao1XTMZdZ38FCZrzrW20",
+          "slug": "jazmynone",
+          "createdAt": 1726089602,
+          "updatedAt": 1735048960
+      },
+      {
+          "id": "cvjw2nnzer",
+          "url": "https://minyfy.minyvinyl.com/play/CBo9C2PqzCVwmGMKj8E3",
+          "slug": "jazza",
+          "createdAt": 1725717433,
+          "updatedAt": 1735048960
+      },
+      {
+          "id": "knp8g399ts",
+          "url": "https://minyfy.minyvinyl.com/play/7ibqsIltSqMYTWNNHYb5",
+          "slug": "jazzajilo",
+          "createdAt": 1725717566,
+          "updatedAt": 1735048961
+      },
+      {
+          "id": "5dngktg7fa",
+          "url": "https://minyfy.minyvinyl.com/play/ao8VsgYPfyuw1Ja6uXdU",
+          "slug": "jbeats",
+          "createdAt": 1727828420,
+          "updatedAt": 1735048961
+      },
+      {
+          "id": "qdc9cq7nky",
+          "url": "https://minyfy.minyvinyl.com/play/eL2ER31kJCREfKNzJGls",
+          "slug": "jblend",
+          "createdAt": 1726096759,
+          "updatedAt": 1735048962
+      },
+      {
+          "id": "caq5eqbm3c",
+          "url": "https://minyfy.minyvinyl.com/play/yAysaojyDWNSgopVbmg1",
+          "slug": "jc455f",
+          "createdAt": 1732959629,
+          "updatedAt": 1735048962
+      },
+      {
+          "id": "defnhj6mht",
+          "url": "https://miny.minyvinyl.com/artists/9923-jelly-roll",
+          "slug": "jellyroll",
+          "createdAt": 1726437574,
+          "updatedAt": 1735048963
+      },
+      {
+          "id": "2w66xes99p",
+          "url": "https://minyfy.minyvinyl.com/play/N1PzomtNxufXueq1QX2V",
+          "slug": "jennyone",
+          "createdAt": 1732139037,
+          "updatedAt": 1735048963
+      },
+      {
+          "id": "rpssbzmtjc",
+          "url": "https://minyfy.minyvinyl.com/play/7bpWfTNa23feYNegBZvb",
+          "slug": "jennyowen",
+          "createdAt": 1732744338,
+          "updatedAt": 1735048964
+      },
+      {
+          "id": "ekhey25372",
+          "url": "https://minyfy.minyvinyl.com/play/N1PzomtNxufXueq1QX2V",
+          "slug": "jennytwo",
+          "createdAt": 1732140252,
+          "updatedAt": 1735048964
+      },
+      {
+          "id": "86z652m4v8",
+          "url": "https://miny.minyvinyl.com/artists/6149-jesse-malin",
+          "slug": "jessemalin",
+          "createdAt": 1730477167,
+          "updatedAt": 1735048965
+      },
+      {
+          "id": "xqy5kcfq3q",
+          "url": "https://minyfy.minyvinyl.com/play/VkLCMQVLqy63QuvKSDeg",
+          "slug": "jesseonminy",
+          "createdAt": 1730476926,
+          "updatedAt": 1735048965
+      },
+      {
+          "id": "jcyxbvpec7",
+          "url": "https://minyfy.minyvinyl.com/play/KHKvNjbzQnf7fTFzjK61",
+          "slug": "jesuslistens",
+          "createdAt": 1727056352,
+          "updatedAt": 1735048966
+      },
+      {
+          "id": "v5va4zceru",
+          "url": "https://minyfy.minyvinyl.com/play/6nr7xLfMme1HudaU77Ge",
+          "slug": "jgzw2u",
+          "createdAt": 1732519526,
+          "updatedAt": 1735048966
+      },
+      {
+          "id": "8spvtdeqrj",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "jizling",
+          "createdAt": 1725185101,
+          "updatedAt": 1725185101
+      },
+      {
+          "id": "reg6mdtz3z",
+          "url": "https://minyfy.minyvinyl.com/play/2apoXHu7vpaIY666DyRE",
+          "slug": "jkmix",
+          "createdAt": 1728170052,
+          "updatedAt": 1735048967
+      },
+      {
+          "id": "8nhtxh5cpe",
+          "url": "https://subtle-naiad-8ab68f.netlify.app/",
+          "slug": "jmbeacon",
+          "createdAt": 1730579478,
+          "updatedAt": 1730579478
+      },
+      {
+          "id": "bv82f57hzg",
+          "url": "https://minyfy.minyvinyl.com/play/jP9kdll0gVbgXKLeXWiK",
+          "slug": "jo",
+          "createdAt": 1725185260,
+          "updatedAt": 1735048967
+      },
+      {
+          "id": "x2p4uyw68b",
+          "url": "https://go.minyvinyl.com/randomfavs",
+          "slug": "john",
+          "createdAt": 1728341263,
+          "updatedAt": 1728341263
+      },
+      {
+          "id": "z69ubx7wfh",
+          "url": "https://minyfy.minyvinyl.com/play/gbFOlpDRT2f4ckQM0hYV",
+          "slug": "john1",
+          "createdAt": 1728519631,
+          "updatedAt": 1735048968
+      },
+      {
+          "id": "3bxehndzzh",
+          "url": "https://miny.minyvinyl.com/artists/1804-joy-crookes",
+          "slug": "joycrookes",
+          "createdAt": 1728354889,
+          "updatedAt": 1735048968
+      },
+      {
+          "id": "3pntx5dpbh",
+          "url": "https://minyfy.minyvinyl.com/play/Qru9nMTD5boU9xmdItCh",
+          "slug": "joymix",
+          "createdAt": 1728355092,
+          "updatedAt": 1735048969
+      },
+      {
+          "id": "jx3uwwmcnq",
+          "url": "https://minyfy.minyvinyl.com/play/CTStQM6ioQDoAHPGcQpk",
+          "slug": "jpcc",
+          "createdAt": 1726089945,
+          "updatedAt": 1735048969
+      },
+      {
+          "id": "5bt8ugcunx",
+          "url": "https://minyfy.minyvinyl.com/play/51LlL2Uw9dVMQbGjPxc5",
+          "slug": "jullive20",
+          "createdAt": 1725185372,
+          "updatedAt": 1735048970
+      },
+      {
+          "id": "hd8xauqt7u",
+          "url": "https://minyfy.minyvinyl.com/play/4jA0aeOE95Z65HIPX21Z",
+          "slug": "julumixy",
+          "createdAt": 1725455998,
+          "updatedAt": 1735048971
+      },
+      {
+          "id": "k4vkzbnaxd",
+          "url": "https://minyfy.minyvinyl.com/play/8FTCRiadpVG08Jb2bG8E",
+          "slug": "july21",
+          "createdAt": 1725185360,
+          "updatedAt": 1735048971
+      },
+      {
+          "id": "kje3fmbfqx",
+          "url": "https://minyfy.minyvinyl.com/exclusive/PK3PUQsenk2AIDYSNwYJ",
+          "slug": "juqmxa",
+          "createdAt": 1731392192,
+          "updatedAt": 1735048972
+      },
+      {
+          "id": "5qj5evu6tz",
+          "url": "https://minyfy.minyvinyl.com/play/WAX6t5TonTOc1rpIuN1x",
+          "slug": "jusskeorigin",
+          "createdAt": 1727834010,
+          "updatedAt": 1735048972
+      },
+      {
+          "id": "cyg6nrbg8f",
+          "url": "https://minyfy.minyvinyl.com/play/yGc0uH3UXKrBjxZ5gNd5",
+          "slug": "jyotione",
+          "createdAt": 1727090528,
+          "updatedAt": 1735048973
+      },
+      {
+          "id": "vpwg6qyn8a",
+          "url": "https://minyfy.minyvinyl.com/play/OzRYgeqKFWWMLhhlBs4d",
+          "slug": "jzone",
+          "createdAt": 1733519004,
+          "updatedAt": 1735048973
+      },
+      {
+          "id": "7knfduth39",
+          "url": "https://minyfy.minyvinyl.com/play/2OH49qpQ5swBMeN5B04o",
+          "slug": "k7unqg",
+          "createdAt": 1729780783,
+          "updatedAt": 1735048974
+      },
+      {
+          "id": "cqynbrkdtw",
+          "url": "https://minyfy.minyvinyl.com/play/lWpdRLewgRSppNR2ZS50",
+          "slug": "kIOB5k",
+          "createdAt": 1725185288,
+          "updatedAt": 1735048974
+      },
+      {
+          "id": "z6kcw2rjmx",
+          "url": "https://minyfy.minyvinyl.com/play/wi2rNQHGxraflVR7Ttzv",
+          "slug": "kajemix",
+          "createdAt": 1728415748,
+          "updatedAt": 1735048975
+      },
+      {
+          "id": "2w5ayugg4b",
+          "url": "https://minyfy.minyvinyl.com/play/Zaj0i5xkVWDfoirn6a85",
+          "slug": "kathleen",
+          "createdAt": 1732744874,
+          "updatedAt": 1735048975
+      },
+      {
+          "id": "5sz53jvt89",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "katta",
+          "createdAt": 1725185092,
+          "updatedAt": 1725185092
+      },
+      {
+          "id": "6rsttsrtgg",
+          "url": "https://minyfy.minyvinyl.com/play/A42zYBUqPkfjAt8LElla",
+          "slug": "kbeats",
+          "createdAt": 1727814357,
+          "updatedAt": 1735048976
+      },
+      {
+          "id": "saywx7cp48",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdeight",
+          "createdAt": 1730830021,
+          "updatedAt": 1730830021
+      },
+      {
+          "id": "f6wjhmzh2u",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdfive",
+          "createdAt": 1730830004,
+          "updatedAt": 1730830004
+      },
+      {
+          "id": "dzs9z4f8zf",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdfour",
+          "createdAt": 1730829997,
+          "updatedAt": 1730829997
+      },
+      {
+          "id": "zd9wt4rwzh",
+          "url": "https://miny.minyvinyl.com/artists/5882-kevin-diamond",
+          "slug": "kdiamond",
+          "createdAt": 1729910362,
+          "updatedAt": 1735048976
+      },
+      {
+          "id": "9z3xwycp28",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdnine",
+          "createdAt": 1730830038,
+          "updatedAt": 1730830038
+      },
+      {
+          "id": "ncakp9aww7",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdone",
+          "createdAt": 1730829968,
+          "updatedAt": 1730829968
+      },
+      {
+          "id": "7hahn6wdfy",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdseven",
+          "createdAt": 1730830029,
+          "updatedAt": 1730830029
+      },
+      {
+          "id": "538zfpdfta",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdsix",
+          "createdAt": 1730830010,
+          "updatedAt": 1730830010
+      },
+      {
+          "id": "x27u9vn8fw",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdten",
+          "createdAt": 1730830044,
+          "updatedAt": 1730830044
+      },
+      {
+          "id": "u539mjtpve",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdthree",
+          "createdAt": 1730829982,
+          "updatedAt": 1730829982
+      },
+      {
+          "id": "asy5y4mny2",
+          "url": "https://kdiamond.minyvinyl.com/",
+          "slug": "kdtwo",
+          "createdAt": 1730829976,
+          "updatedAt": 1730829976
+      },
+      {
+          "id": "pwyh32wzgq",
+          "url": "https://miny.minyvinyl.com/artists/2392-keith-juluka",
+          "slug": "keithjuluka",
+          "createdAt": 1725455178,
+          "updatedAt": 1735048977
+      },
+      {
+          "id": "h5yfw6arwd",
+          "url": "https://miny.minyvinyl.com/artists/5660-kelly-clarkson",
+          "slug": "kellyc",
+          "createdAt": 1727036016,
+          "updatedAt": 1735048978
+      },
+      {
+          "id": "e55amy9yxd",
+          "url": "https://miny.minyvinyl.com/artists/5285-kelly-clarkson",
+          "slug": "kellyclarkson",
+          "createdAt": 1727232155,
+          "updatedAt": 1735048978
+      },
+      {
+          "id": "wsvdsnu9y9",
+          "url": "https://minyfy.minyvinyl.com/play/zZCu2nzLeP3wCnQiM9NL",
+          "slug": "kellymix",
+          "createdAt": 1727036153,
+          "updatedAt": 1735048979
+      },
+      {
+          "id": "7wpf3xr63e",
+          "url": "https://minyfy.minyvinyl.com/play/ZZOV7zjKhx2AStp1Ye9p",
+          "slug": "kennyr",
+          "createdAt": 1726857914,
+          "updatedAt": 1735048979
+      },
+      {
+          "id": "hcj8xnmh9d",
+          "url": "https://miny.minyvinyl.com/artists/5427-kerala-dust",
+          "slug": "keraladust",
+          "createdAt": 1727109535,
+          "updatedAt": 1735048980
+      },
+      {
+          "id": "ukqqecg78g",
+          "url": "https://minyfy.minyvinyl.com/play/2XvFuKX2y52YqxOtFGxN",
+          "slug": "keraladustone",
+          "createdAt": 1727108828,
+          "updatedAt": 1735048980
+      },
+      {
+          "id": "x5mpunjqme",
+          "url": "https://minyfy.minyvinyl.com/play/3T9idvhAGJ5N76PR4TGL",
+          "slug": "kerrmix",
+          "createdAt": 1730070869,
+          "updatedAt": 1735048981
+      },
+      {
+          "id": "zb75vuswty",
+          "url": "https://docs.google.com/document/d/1dkHomrx0H8SGLdzEoR-ESeQTmk89OTAZ4A44rr2KXEs/edit?usp=sharing",
+          "slug": "kerroffer",
+          "createdAt": 1730071191,
+          "updatedAt": 1730071191
+      },
+      {
+          "id": "grehk32nt5",
+          "url": "https://minyfy.minyvinyl.com/play/hDiSB7SjHgdA5DCUEF34",
+          "slug": "kfpvgz",
+          "createdAt": 1728754479,
+          "updatedAt": 1735048981
+      },
+      {
+          "id": "49bc8hrgnr",
+          "url": "https://minyfy.minyvinyl.com/play/a5qrosx3xIArbwHRtMjP",
+          "slug": "kmix",
+          "createdAt": 1729910615,
+          "updatedAt": 1735048982
+      },
+      {
+          "id": "uqe4w99dnk",
+          "url": "https://minyfy.minyvinyl.com/play/YxVtFJqvVEK4C0DMf34A",
+          "slug": "kna2024",
+          "createdAt": 1725185262,
+          "updatedAt": 1735048982
+      },
+      {
+          "id": "em4cvyas3h",
+          "url": "https://minyfy.minyvinyl.com/play/iDVw14iA1cLw1vl0MdwD",
+          "slug": "kojimasanone",
+          "createdAt": 1727090729,
+          "updatedAt": 1735048983
+      },
+      {
+          "id": "ebega45u3n",
+          "url": "https://minyfy.minyvinyl.com/play/sAspKGuutqxxYKivjuw7",
+          "slug": "kollergroove",
+          "createdAt": 1726090073,
+          "updatedAt": 1735048983
+      },
+      {
+          "id": "r565wseqqz",
+          "url": "https://miny.minyvinyl.com/artists/9044-kolo",
+          "slug": "kolo",
+          "createdAt": 1727715799,
+          "updatedAt": 1735048984
+      },
+      {
+          "id": "madezqq4p2",
+          "url": "https://minyfy.minyvinyl.com/play/gIML74RD7CrK3qDdyZyw",
+          "slug": "komal",
+          "createdAt": 1733673539,
+          "updatedAt": 1735048984
+      },
+      {
+          "id": "twzy4u5u59",
+          "url": "https://minyfy.minyvinyl.com/play/K6vp0l4vEeggkIzDS9I8",
+          "slug": "ksZxD3",
+          "createdAt": 1725185241,
+          "updatedAt": 1735048985
+      },
+      {
+          "id": "t9j3kxwbdt",
+          "url": "https://miny.minyvinyl.com/artists/1044-kshmr",
+          "slug": "kshmr",
+          "createdAt": 1728173381,
+          "updatedAt": 1735048985
+      },
+      {
+          "id": "v3wjzddayq",
+          "url": "https://minyfy.minyvinyl.com/play/pOXl1mFba0nnpKmxasOO",
+          "slug": "kshmrmix",
+          "createdAt": 1728173436,
+          "updatedAt": 1735048986
+      },
+      {
+          "id": "7jntbnnxqm",
+          "url": "https://minyfy.minyvinyl.com/play/TveEZlCGLYB5YAOXkIOS",
+          "slug": "ksrB0q",
+          "createdAt": 1725185281,
+          "updatedAt": 1735048986
+      },
+      {
+          "id": "pqgeq4xvy5",
+          "url": "https://minyfy.minyvinyl.com/play/tjzL6PLpJEhqng3UPrSL",
+          "slug": "lBld5v",
+          "createdAt": 1725185113,
+          "updatedAt": 1735048987
+      },
+      {
+          "id": "quth58gsgh",
+          "url": "https://miny.minyvinyl.com/artists/5931-lachi",
+          "slug": "lachi24",
+          "createdAt": 1729882082,
+          "updatedAt": 1735048987
+      },
+      {
+          "id": "adv2nu4hz9",
+          "url": "https://minyfy.minyvinyl.com/play/dTuqHjmtQc3NxdiMXojB",
+          "slug": "lachimix",
+          "createdAt": 1729882571,
+          "updatedAt": 1735048988
+      },
+      {
+          "id": "5d2mqzw6f7",
+          "url": "https://minyfy.minyvinyl.com/play/8Xcu8h60b8OFCSACtbIU",
+          "slug": "lana",
+          "createdAt": 1725185297,
+          "updatedAt": 1735048988
+      },
+      {
+          "id": "2umrbg769d",
+          "url": "https://miny.minyvinyl.com/blog/lastfm",
+          "slug": "lastfm",
+          "createdAt": 1728324374,
+          "updatedAt": 1735048989
+      },
+      {
+          "id": "ay3wj4tbyb",
+          "url": "https://miny.minyvinyl.com/artists/6807-lavaud",
+          "slug": "lavaud",
+          "createdAt": 1725458459,
+          "updatedAt": 1735048989
+      },
+      {
+          "id": "mwujsb7y2a",
+          "url": "https://minyfy.minyvinyl.com/play/k0KjOatJ2lZG7oxQ83W6",
+          "slug": "lavosmix",
+          "createdAt": 1725464744,
+          "updatedAt": 1735048990
+      },
+      {
+          "id": "y7bspt3v27",
+          "url": "https://minyfy.minyvinyl.com/play/DDLUnl19Yu40PQ49brGu",
+          "slug": "leftturn",
+          "createdAt": 1725985648,
+          "updatedAt": 1735048991
+      },
+      {
+          "id": "pm588spagm",
+          "url": "https://minyfy.minyvinyl.com/play/9rlEI14VIkDgMOihB4fa",
+          "slug": "legacylines",
+          "createdAt": 1727277338,
+          "updatedAt": 1735048991
+      },
+      {
+          "id": "qs5q9kc799",
+          "url": "https://minyfy.minyvinyl.com/play/aWxFbyzSpJBWNJTmQBNp",
+          "slug": "lightnsdance",
+          "createdAt": 1728314894,
+          "updatedAt": 1735048992
+      },
+      {
+          "id": "qabh7qu3xj",
+          "url": "https://minyfy.minyvinyl.com/play/8gyjtlBYPVWzIBYbLT3D",
+          "slug": "litpartymix",
+          "createdAt": 1728315352,
+          "updatedAt": 1735048993
+      },
+      {
+          "id": "5p49rnm9ex",
+          "url": "https://minyfy.minyvinyl.com/play/JLoRn9KQkc73B7ELFZCB",
+          "slug": "loa2qe",
+          "createdAt": 1725185424,
+          "updatedAt": 1735048993
+      },
+      {
+          "id": "v639xvpk56",
+          "url": "https://minyfy.minyvinyl.com/play/EkTrFaQx8aM7DKiBdbl5",
+          "slug": "lofi",
+          "createdAt": 1725666324,
+          "updatedAt": 1735048994
+      },
+      {
+          "id": "75dd8tba83",
+          "url": "https://minyfy.minyvinyl.com/play/OOgUR2AsRu0kJAG7K0SV",
+          "slug": "lofione",
+          "createdAt": 1726085944,
+          "updatedAt": 1735048994
+      },
+      {
+          "id": "2jjdrmfewe",
+          "url": "https://minyfy.minyvinyl.com/play/QsYxdOEZsAWwX6bSDRoR",
+          "slug": "lovetohate",
+          "createdAt": 1725987368,
+          "updatedAt": 1735048995
+      },
+      {
+          "id": "v27dst83fy",
+          "url": "https://minyfy.minyvinyl.com/play/I86ci8Uz4bMnrdAcxedB",
+          "slug": "lowercase",
+          "createdAt": 1725663478,
+          "updatedAt": 1735048995
+      },
+      {
+          "id": "tpatruwytk",
+          "url": "https://miny.minyvinyl.com/artists/6470-loxandra-ensemble",
+          "slug": "loxandra",
+          "createdAt": 1725719742,
+          "updatedAt": 1735048996
+      },
+      {
+          "id": "7y5ayngzmq",
+          "url": "https://minyfy.minyvinyl.com/play/hO63NQcUCtyAterhspM0",
+          "slug": "ltohartists",
+          "createdAt": 1725987559,
+          "updatedAt": 1735048996
+      },
+      {
+          "id": "juxtxnj8sf",
+          "url": "https://minyfy.minyvinyl.com/play/yy6M0KU225XeOVU2kFE5",
+          "slug": "ltoone",
+          "createdAt": 1728598342,
+          "updatedAt": 1735048997
+      },
+      {
+          "id": "tc3hzq49nu",
+          "url": "https://minyfy.minyvinyl.com/play/QJMxxhUZwRLkeZi4Zgc6",
+          "slug": "luminary1",
+          "createdAt": 1732140001,
+          "updatedAt": 1735048997
+      },
+      {
+          "id": "pcbu5948yy",
+          "url": "https://miny.minyvinyl.com/artists/5098-luxury-skin",
+          "slug": "luxuryskin",
+          "createdAt": 1727653606,
+          "updatedAt": 1735048998
+      },
+      {
+          "id": "v46x9z8y7h",
+          "url": "https://minyfy.minyvinyl.com/play/Dr8XxAeWYvezn8aEw51Y",
+          "slug": "lynnmix",
+          "createdAt": 1733346763,
+          "updatedAt": 1735048998
+      },
+      {
+          "id": "uaw9usygjk",
+          "url": "https://minyfy.minyvinyl.com/play/Cl67jj9Z3pMsjboYxvCp",
+          "slug": "m",
+          "createdAt": 1727306475,
+          "updatedAt": 1735048999
+      },
+      {
+          "id": "c2v23jfhhj",
+          "url": "https://minyfy.minyvinyl.com/play/MyS09qv4LTTFIGIaU1rr",
+          "slug": "mD5YeK",
+          "createdAt": 1725185339,
+          "updatedAt": 1735048999
+      },
+      {
+          "id": "ssc2jb9ztr",
+          "url": "https://minyfy.minyvinyl.com/exclusive/9hr4Z9PliLZvxAWTuS1s",
+          "slug": "madness",
+          "createdAt": 1731168130,
+          "updatedAt": 1735049000
+      },
+      {
+          "id": "8rq2vekedk",
+          "url": "https://minyfy.minyvinyl.com/play/uPmSDulJLY518kkjFYSz",
+          "slug": "mantramix",
+          "createdAt": 1725984131,
+          "updatedAt": 1735049000
+      },
+      {
+          "id": "7ss6zuvfeb",
+          "url": "https://minyfy.minyvinyl.com/play/zemcMoAWOQOmAwDl9LeK",
+          "slug": "mariamimix",
+          "createdAt": 1731538309,
+          "updatedAt": 1735049001
+      },
+      {
+          "id": "cfkem7j3ck",
+          "url": "https://minyfy.minyvinyl.com/play/V0e9JLEyptZ6BlF2SVRD",
+          "slug": "mariasomerville",
+          "createdAt": 1732744280,
+          "updatedAt": 1735049001
+      },
+      {
+          "id": "dwr8ypxyvv",
+          "url": "https://miny.minyvinyl.com/blog/marquee",
+          "slug": "marquee",
+          "createdAt": 1728328439,
+          "updatedAt": 1735049002
+      },
+      {
+          "id": "zp6m7jh5zj",
+          "url": "https://miny.minyvinyl.com/blog/marquee",
+          "slug": "marqueenyc",
+          "createdAt": 1728320135,
+          "updatedAt": 1735049002
+      },
+      {
+          "id": "6rfjcmb6af",
+          "url": "https://minyfy.minyvinyl.com/play/4FCHddxCw7Yzo3BGUaqV",
+          "slug": "marqueeoct",
+          "createdAt": 1728173758,
+          "updatedAt": 1735049003
+      },
+      {
+          "id": "ck4v3yn8bc",
+          "url": "https://miny.minyvinyl.com/artists/4475-matoma",
+          "slug": "matoma",
+          "createdAt": 1728169162,
+          "updatedAt": 1735049003
+      },
+      {
+          "id": "w7bwztu2b8",
+          "url": "https://minyfy.minyvinyl.com/play/5YBh27jbjugMBMGsY6RI",
+          "slug": "mcigone",
+          "createdAt": 1726101484,
+          "updatedAt": 1735049004
+      },
+      {
+          "id": "fwh2umcz8a",
+          "url": "https://minyfy.minyvinyl.com/play/VTkwvcGxBW9LroIyF8yW",
+          "slug": "metal",
+          "createdAt": 1725185405,
+          "updatedAt": 1735049004
+      },
+      {
+          "id": "uhpz85m9zr",
+          "url": "https://minyfy.minyvinyl.com/play/X5x65JkqjCBmGqd3JPOf",
+          "slug": "mfcjvq",
+          "createdAt": 1725884315,
+          "updatedAt": 1735049004
+      },
+      {
+          "id": "unkgbjqcxr",
+          "url": "https://minyfy.minyvinyl.com/play/Y3MVidgqw5k4n2sxAe05",
+          "slug": "mhjo3L",
+          "createdAt": 1725185139,
+          "updatedAt": 1735049005
+      },
+      {
+          "id": "7fujkjvybq",
+          "url": "https://minyfy.minyvinyl.com/play/HQO3GnrPZ3olyP0PsnXi",
+          "slug": "mikemix",
+          "createdAt": 1729261849,
+          "updatedAt": 1735049005
+      },
+      {
+          "id": "nuw2y8nexv",
+          "url": "https://minyfy.minyvinyl.com/",
+          "slug": "minyfy",
+          "createdAt": 1725185199,
+          "updatedAt": 1735049006
+      },
+      {
+          "id": "v3pbwyg23g",
+          "url": "https://miny.minyvinyl.com/blog/moffer",
+          "slug": "minyoffer",
+          "createdAt": 1726272595,
+          "updatedAt": 1735049006
+      },
+      {
+          "id": "nauyh4au9q",
+          "url": "https://miny.minyvinyl.com/blog/collect",
+          "slug": "minysept",
+          "createdAt": 1726244807,
+          "updatedAt": 1735049007
+      },
+      {
+          "id": "j6uvj2s9fg",
+          "url": "https://minyfy.minyvinyl.com/play/6M7fJiQU1brHlydwHdgM",
+          "slug": "mixone",
+          "createdAt": 1734127204,
+          "updatedAt": 1735049007
+      },
+      {
+          "id": "5ghfvs5em9",
+          "url": "https://minyfy.minyvinyl.com/play/v5kkvGSBec67KG5zn44u",
+          "slug": "mixtapeone",
+          "createdAt": 1729882460,
+          "updatedAt": 1735049008
+      },
+      {
+          "id": "dgryz2ks7g",
+          "url": "https://minyfy.minyvinyl.com/play/ZSqEFYQZEPfwpUDq3dCH",
+          "slug": "mmmmix",
+          "createdAt": 1726163860,
+          "updatedAt": 1735049008
+      },
+      {
+          "id": "e429k3gnqk",
+          "url": "https://minyfy.minyvinyl.com/play/y0H6BdhwUKZR5f1uPK2T",
+          "slug": "mnthz8",
+          "createdAt": 1727697111,
+          "updatedAt": 1735049009
+      },
+      {
+          "id": "dhancd8ywe",
+          "url": "https://minyfy.minyvinyl.com/play/s0y6SD8DAVqB3UAhTg6h",
+          "slug": "monoplymoves",
+          "createdAt": 1727276927,
+          "updatedAt": 1735049009
+      },
+      {
+          "id": "fhstknthu5",
+          "url": "https://rss.com/podcasts/minymusicmoments/",
+          "slug": "musicmoments",
+          "createdAt": 1725185365,
+          "updatedAt": 1725185365
+      },
+      {
+          "id": "jd7jqn5b64",
+          "url": "https://minyfy.minyvinyl.com/play/WVP2NrJCVaprvo1bRKiP",
+          "slug": "mustlisten",
+          "createdAt": 1725805347,
+          "updatedAt": 1735049010
+      },
+      {
+          "id": "rbjkevq3hy",
+          "url": "https://minyfy.minyvinyl.com/play/jOPfH05MQTUX6OedVkLp",
+          "slug": "muzak",
+          "createdAt": 1725667160,
+          "updatedAt": 1735049012
+      },
+      {
+          "id": "865f5yxsqh",
+          "url": "https://minyfy.minyvinyl.com/play/rV7OlY1rBJUpC7Wki8C4",
+          "slug": "myllck24",
+          "createdAt": 1725622216,
+          "updatedAt": 1735049015
+      },
+      {
+          "id": "9awuw4ez7z",
+          "url": "https://minyfy.minyvinyl.com/play/EwpYyK4VjEFlkkDkXWGu",
+          "slug": "nayana",
+          "createdAt": 1725185106,
+          "updatedAt": 1735049018
+      },
+      {
+          "id": "hfa3ggjvr2",
+          "url": "https://minyfy.minyvinyl.com/play/Av26KmpifU3CAZp2DoxQ",
+          "slug": "neilhimselfone",
+          "createdAt": 1727090357,
+          "updatedAt": 1735049021
+      },
+      {
+          "id": "9f4u5cd6de",
+          "url": "https://miny.minyvinyl.com/artists/1875-neil-jackson",
+          "slug": "neiljackson",
+          "createdAt": 1728169568,
+          "updatedAt": 1735049024
+      },
+      {
+          "id": "b4tnab788g",
+          "url": "https://minyfy.minyvinyl.com/play/cjjF4KvAI8RAjVylgbG7",
+          "slug": "neonnoise",
+          "createdAt": 1725559686,
+          "updatedAt": 1735049028
+      },
+      {
+          "id": "bj82rerwn8",
+          "url": "https://minyfy.minyvinyl.com/play/rmvymhmNovgW6qDcdnhB",
+          "slug": "newsept",
+          "createdAt": 1727792421,
+          "updatedAt": 1735049031
+      },
+      {
+          "id": "2eejxrzyfv",
+          "url": "https://minyfy.minyvinyl.com/play/MEmEnDDCEmSzn9TsIvOX",
+          "slug": "newtwentyfour",
+          "createdAt": 1730587851,
+          "updatedAt": 1735049034
+      },
+      {
+          "id": "r3vzfmeud3",
+          "url": "https://miny.minyvinyl.com/artists/2906-nia-marie",
+          "slug": "niamarie",
+          "createdAt": 1733330749,
+          "updatedAt": 1735049037
+      },
+      {
+          "id": "krxabc9et9",
+          "url": "https://minyfy.minyvinyl.com/play/7l4IcYAoU5T94nWbkUNc",
+          "slug": "niamix",
+          "createdAt": 1733335806,
+          "updatedAt": 1735049040
+      },
+      {
+          "id": "rnrgs9scch",
+          "url": "https://minyfy.minyvinyl.com/play/G47E5zo8YyYJOQFsmH3P",
+          "slug": "nightsintomorn",
+          "createdAt": 1725476142,
+          "updatedAt": 1735049043
+      },
+      {
+          "id": "46ftm7ukwv",
+          "url": "https://go.minyvinyl.com/BURNmixtape",
+          "slug": "nlBwlU",
+          "createdAt": 1725213696,
+          "updatedAt": 1725213696
+      },
+      {
+          "id": "xd3ragde3e",
+          "url": "https://minyfy.minyvinyl.com/play/IGUlAMqD3rRJU5OxhJ0b",
+          "slug": "novabyharris",
+          "createdAt": 1733000278,
+          "updatedAt": 1735049046
+      },
+      {
+          "id": "sdarnnwy48",
+          "url": "https://minyfy.minyvinyl.com/play/oVAvCY08aTNfMkx1Q367",
+          "slug": "novseventeen",
+          "createdAt": 1732547619,
+          "updatedAt": 1735049049
+      },
+      {
+          "id": "mpw8xnhemd",
+          "url": "https://minyfy.minyvinyl.com/play/0j3WulNAq4dfzA3oGG51",
+          "slug": "nq7g93",
+          "createdAt": 1727168488,
+          "updatedAt": 1735049052
+      },
+      {
+          "id": "4rymfrepje",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "numberone",
+          "createdAt": 1725185094,
+          "updatedAt": 1725185094
+      },
+      {
+          "id": "w7jnb5azkp",
+          "url": "https://minyfy.minyvinyl.com/play/XwNyk5iHBP79FGrf93KO",
+          "slug": "nvmone",
+          "createdAt": 1732396834,
+          "updatedAt": 1735049055
+      },
+      {
+          "id": "c8kr4qn4pk",
+          "url": "https://minyfy.minyvinyl.com/play/OWyAUl30jxKF1B69TCNr",
+          "slug": "nyblendone",
+          "createdAt": 1727447404,
+          "updatedAt": 1735049058
+      },
+      {
+          "id": "5qe6fbf9x7",
+          "url": "https://minyfy.minyvinyl.com/play/UpVwoTAloXrt8iPGZ0jH",
+          "slug": "nycmusicianssideb",
+          "createdAt": 1726072290,
+          "updatedAt": 1735049061
+      },
+      {
+          "id": "zrq4nz9ax3",
+          "url": "https://minyfy.minyvinyl.com/play/xf6sLuvBPrwFMAv2rLoG",
+          "slug": "nyrush",
+          "createdAt": 1726852313,
+          "updatedAt": 1735049064
+      },
+      {
+          "id": "3emnnfvuq9",
+          "url": "https://minyfy.minyvinyl.com/play/hpzAs7S0g91IfenQSCpP",
+          "slug": "obama1",
+          "createdAt": 1725185185,
+          "updatedAt": 1735049067
+      },
+      {
+          "id": "et7fqywy4x",
+          "url": "https://minyfy.minyvinyl.com/play/1xvI3Caw6YWOW2hICtnj",
+          "slug": "obama2",
+          "createdAt": 1725185183,
+          "updatedAt": 1735049070
+      },
+      {
+          "id": "ct3wkxkqpc",
+          "url": "https://minyfy.minyvinyl.com/play/EpyMhrEcZ9LVmuAmpMXu",
+          "slug": "obama3",
+          "createdAt": 1725185181,
+          "updatedAt": 1735049074
+      },
+      {
+          "id": "axddr5hryz",
+          "url": "https://minyfy.minyvinyl.com/play/M1ucGQBYvNFFqN32Pva1",
+          "slug": "octselect",
+          "createdAt": 1732733015,
+          "updatedAt": 1735049077
+      },
+      {
+          "id": "6nbcf9bh5k",
+          "url": "https://minyfy.minyvinyl.com/play/abqoVF3KLDO3e5cmWFPA",
+          "slug": "odalys",
+          "createdAt": 1727828254,
+          "updatedAt": 1735049080
+      },
+      {
+          "id": "uwsknzbxnq",
+          "url": "https://minyfy.minyvinyl.com/play/zMUT6FyJ4Vt9qwlurF4Y",
+          "slug": "offplaylist1",
+          "createdAt": 1725649509,
+          "updatedAt": 1735049084
+      },
+      {
+          "id": "mk6vw5hf8k",
+          "url": "https://minyfy.minyvinyl.com/play/1d24hRryDkl8sxHJ9ChD",
+          "slug": "ohflow",
+          "createdAt": 1726090932,
+          "updatedAt": 1735049087
+      },
+      {
+          "id": "rb36b3hyud",
+          "url": "https://miny.minyvinyl.com/artists/7621-olivia-rodrigo",
+          "slug": "oliviarodrigo",
+          "createdAt": 1726594502,
+          "updatedAt": 1735049090
+      },
+      {
+          "id": "295zbqcksf",
+          "url": "https://minyfy.minyvinyl.com/exclusive/eVZyz9gIxtIumOmO5wIU",
+          "slug": "omjdemo",
+          "createdAt": 1731343664,
+          "updatedAt": 1735049094
+      },
+      {
+          "id": "7jgbhwx3db",
+          "url": "https://miny.minyvinyl.com/artists/8143-outerworld",
+          "slug": "outerworldband",
+          "createdAt": 1725470662,
+          "updatedAt": 1735049097
+      },
+      {
+          "id": "8jq5x4dp4s",
+          "url": "https://minyfy.minyvinyl.com/play/0ElKb6TVkpIDfV9vRCVz",
+          "slug": "outlaw",
+          "createdAt": 1725666898,
+          "updatedAt": 1735049100
+      },
+      {
+          "id": "b78etdfjxj",
+          "url": "https://miny.minyvinyl.com/artists/9268-parvyn",
+          "slug": "parvyn",
+          "createdAt": 1728403589,
+          "updatedAt": 1735049104
+      },
+      {
+          "id": "h5vpf4m7es",
+          "url": "https://minyfy.minyvinyl.com/play/YU7bk8Myhj3BDu5PkoCF",
+          "slug": "parvynmix",
+          "createdAt": 1728404864,
+          "updatedAt": 1735049108
+      },
+      {
+          "id": "9222h9d3fx",
+          "url": "https://minyfy.minyvinyl.com/play/x4RHvlfu3L6nQ4hirj1r",
+          "slug": "patituccione",
+          "createdAt": 1726088785,
+          "updatedAt": 1735049111
+      },
+      {
+          "id": "4dqrprbfa2",
+          "url": "https://minyfy.minyvinyl.com/play/bAXIAnMnipl7DpIk4uog",
+          "slug": "patreontoo",
+          "createdAt": 1728672429,
+          "updatedAt": 1735049114
+      },
+      {
+          "id": "3epx49bdz4",
+          "url": "https://minyfy.minyvinyl.com/play/8my7iCQgGFJ3XWKFAn8Q",
+          "slug": "perfectred",
+          "createdAt": 1727878663,
+          "updatedAt": 1735049117
+      },
+      {
+          "id": "n6xd96acvc",
+          "url": "https://minyfy.minyvinyl.com/play/Xttv5KRqARbgqfRvuTgm",
+          "slug": "personalplaylistbyashu",
+          "createdAt": 1725818431,
+          "updatedAt": 1735049120
+      },
+      {
+          "id": "43xk4txqyj",
+          "url": "https://minyfy.minyvinyl.com/play/8gfivz00YxdweVxUEH1O",
+          "slug": "pinkone",
+          "createdAt": 1726080208,
+          "updatedAt": 1735049124
+      },
+      {
+          "id": "kray2gyau7",
+          "url": "https://minyfy.minyvinyl.com/play/k8Rbngc5osD1FCXclhGR",
+          "slug": "pirate",
+          "createdAt": 1725666256,
+          "updatedAt": 1735049127
+      },
+      {
+          "id": "4vnq9xnwv5",
+          "url": "https://docs.google.com/document/d/1dxaB-M8ZPjzUEPtAOCikkw8icgivEwm23WOrOr6Zn7Q/edit?tab=t.0",
+          "slug": "playaone",
+          "createdAt": 1730317937,
+          "updatedAt": 1730317937
+      },
+      {
+          "id": "nazatf4tnq",
+          "url": "https://minyvinyl.com/playerone",
+          "slug": "player1",
+          "createdAt": 1725213730,
+          "updatedAt": 1725213730
+      },
+      {
+          "id": "6m4yebzwrr",
+          "url": "https://minyvinyl.com/playerone",
+          "slug": "playerone",
+          "createdAt": 1725213754,
+          "updatedAt": 1725213754
+      },
+      {
+          "id": "jhwc3wk68e",
+          "url": "https://minyfy.minyvinyl.com/play/4MG31R1a2WctzahEKIsk",
+          "slug": "poojamix",
+          "createdAt": 1728315161,
+          "updatedAt": 1735049130
+      },
+      {
+          "id": "yj6ryfhjzk",
+          "url": "https://minyfy.minyvinyl.com/play/TNU76v77NJk1CdQe6YR7",
+          "slug": "poppunkers7",
+          "createdAt": 1725185197,
+          "updatedAt": 1735049133
+      },
+      {
+          "id": "zqa957tzqt",
+          "url": "https://miny.minyvinyl.com/blog/prezmix",
+          "slug": "prezmix",
+          "createdAt": 1725977512,
+          "updatedAt": 1735049136
+      },
+      {
+          "id": "raztvm75pu",
+          "url": "https://minyfy.minyvinyl.com/play/D1oruTiXlKBh01bZpWzU",
+          "slug": "prezmixkone",
+          "createdAt": 1725904261,
+          "updatedAt": 1735049140
+      },
+      {
+          "id": "xceagawd4g",
+          "url": "https://minyfy.minyvinyl.com/play/pwYCvBAWui6lRmVDhmvy",
+          "slug": "prezmixktree",
+          "createdAt": 1725905016,
+          "updatedAt": 1735049143
+      },
+      {
+          "id": "s5t2qxxk47",
+          "url": "https://minyfy.minyvinyl.com/play/oUBxmELMYkUNzv9b0NTX",
+          "slug": "prezmixktwo",
+          "createdAt": 1725904778,
+          "updatedAt": 1735049146
+      },
+      {
+          "id": "f6qdc2gxz4",
+          "url": "https://minyfy.minyvinyl.com/play/P6vNTN7HLZa76Z8Any42",
+          "slug": "prezmixtfour",
+          "createdAt": 1725908113,
+          "updatedAt": 1735049150
+      },
+      {
+          "id": "q7sqkzsj6w",
+          "url": "https://minyfy.minyvinyl.com/play/jETrcgM5lz8qCgktArvC",
+          "slug": "prezmixtone",
+          "createdAt": 1725906056,
+          "updatedAt": 1735049153
+      },
+      {
+          "id": "hq27yrdcxd",
+          "url": "https://minyfy.minyvinyl.com/play/0Sr0mBPMdbSfjva9t0M4",
+          "slug": "prezmixtthree",
+          "createdAt": 1725907641,
+          "updatedAt": 1735049157
+      },
+      {
+          "id": "fw62437sf7",
+          "url": "https://minyfy.minyvinyl.com/play/4VyM122Ymt4S2UQMVcEq",
+          "slug": "prezmixttwo",
+          "createdAt": 1725906631,
+          "updatedAt": 1735049160
+      },
+      {
+          "id": "rgad5zjwej",
+          "url": "https://minyfy.minyvinyl.com/play/hGcArdQtnYguKIqcZgzH",
+          "slug": "prezohone",
+          "createdAt": 1727090790,
+          "updatedAt": 1735049164
+      },
+      {
+          "id": "zcsfy4knmv",
+          "url": "https://miny.minyvinyl.com/artists/8483-priya-ragu",
+          "slug": "priyaragu",
+          "createdAt": 1728402730,
+          "updatedAt": 1735049167
+      },
+      {
+          "id": "cgbjzfkg98",
+          "url": "https://minyfy.minyvinyl.com/play/ev5LGgw2GiUjedXa7XoG",
+          "slug": "q3h2hb",
+          "createdAt": 1727266625,
+          "updatedAt": 1735049171
+      },
+      {
+          "id": "nbz3k6kmq6",
+          "url": "https://miny.minyvinyl.com/artists/3391-lady-gaga",
+          "slug": "q79e4p",
+          "createdAt": 1727869963,
+          "updatedAt": 1735049175
+      },
+      {
+          "id": "6rncynjdb3",
+          "url": "https://minyfy.minyvinyl.com/play/TPgvS4PVtZyWrMoGWCth",
+          "slug": "qHksLh",
+          "createdAt": 1725185220,
+          "updatedAt": 1735049179
+      },
+      {
+          "id": "6tep3bzczk",
+          "url": "https://minyfy.minyvinyl.com/play/l3K9L16r4Rh3k3VutidP",
+          "slug": "qhac6j",
+          "createdAt": 1727174385,
+          "updatedAt": 1735049183
+      },
+      {
+          "id": "k7p8qv2arh",
+          "url": "https://minyfy.minyvinyl.com/play/z3aXQXPf0TFo9OGBH44a",
+          "slug": "quincytribute",
+          "createdAt": 1730755244,
+          "updatedAt": 1735049186
+      },
+      {
+          "id": "jzbb2e4buw",
+          "url": "https://minyfy.minyvinyl.com/play/XsyolUFAdriDm7jB1Wvw",
+          "slug": "qwe",
+          "createdAt": 1731063886,
+          "updatedAt": 1735049188
+      },
+      {
+          "id": "mc8hktrnru",
+          "url": "https://minyfy.minyvinyl.com/play/ItnuNim1y0UgNpkXeSb5",
+          "slug": "qwerty",
+          "createdAt": 1725185419,
+          "updatedAt": 1735049189
+      },
+      {
+          "id": "aswxqrhpbz",
+          "url": "https://minyfy.minyvinyl.com/play/Y282eh9qGLihPaS2AnIc",
+          "slug": "qwerty123",
+          "createdAt": 1725185358,
+          "updatedAt": 1735049191
+      },
+      {
+          "id": "knr8bhk4y6",
+          "url": "https://miny.minyvinyl.com/artists/5340-r3hab",
+          "slug": "r3hab",
+          "createdAt": 1728169692,
+          "updatedAt": 1735049195
+      },
+      {
+          "id": "wxq67yn8v8",
+          "url": "https://minyfy.minyvinyl.com/play/WhVuCY3p2rFcfIZcosGT",
+          "slug": "r3habvibes",
+          "createdAt": 1728169757,
+          "updatedAt": 1735049198
+      },
+      {
+          "id": "frmuj4mb8y",
+          "url": "https://minyfy.minyvinyl.com/play/F5lOzHTnYIqti8oQ9Q4F",
+          "slug": "r95uyx",
+          "createdAt": 1727697677,
+          "updatedAt": 1735049201
+      },
+      {
+          "id": "9kaejy6vu3",
+          "url": "https://minyfy.minyvinyl.com/play/tvof65n8CPWnN699BbIz",
+          "slug": "racciecho",
+          "createdAt": 1726090555,
+          "updatedAt": 1735049205
+      },
+      {
+          "id": "jn46mh37v4",
+          "url": "https://miny.minyvinyl.com/artists/1762-rachel-bochner",
+          "slug": "rachel",
+          "createdAt": 1725989387,
+          "updatedAt": 1735049208
+      },
+      {
+          "id": "g3yb8kpdnz",
+          "url": "https://miny.minyvinyl.com/artists/7017-rachel-lynn",
+          "slug": "rachellynnsings",
+          "createdAt": 1733335437,
+          "updatedAt": 1735049212
+      },
+      {
+          "id": "58v9e26ew6",
+          "url": "https://minyfy.minyvinyl.com/play/GQcuXYXAGK0U5kMjT1zc",
+          "slug": "racionaisg",
+          "createdAt": 1726099917,
+          "updatedAt": 1735049214
+      },
+      {
+          "id": "8umtwrw9e5",
+          "url": "https://minyfy.minyvinyl.com/play/gk3YJfuVWKNDDGaHInlJ",
+          "slug": "ragurush",
+          "createdAt": 1728402840,
+          "updatedAt": 1735049215
+      },
+      {
+          "id": "2pfjhb3ku4",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "ramya",
+          "createdAt": 1725185096,
+          "updatedAt": 1725185096
+      },
+      {
+          "id": "tnv3wahwn9",
+          "url": "https://minyfy.minyvinyl.com/play/wLH9b5TE0FiRlWlb5yBv",
+          "slug": "randomfavs",
+          "createdAt": 1728341155,
+          "updatedAt": 1735049216
+      },
+      {
+          "id": "h94s8brx8q",
+          "url": "https://miny.minyvinyl.com/artists/6234-rashmeet-kaur",
+          "slug": "rashmeetkaur",
+          "createdAt": 1729984678,
+          "updatedAt": 1735049216
+      },
+      {
+          "id": "uvjj5ggkvh",
+          "url": "https://minyfy.minyvinyl.com/play/mKbaOX3UOSMoojOOf1zY",
+          "slug": "rawnreal",
+          "createdAt": 1725985988,
+          "updatedAt": 1735049217
+      },
+      {
+          "id": "jz8s9cc98p",
+          "url": "https://minyfy.minyvinyl.com/play/1LjYFjxm6wgjSHP1AslE",
+          "slug": "rblend",
+          "createdAt": 1729020605,
+          "updatedAt": 1735049217
+      },
+      {
+          "id": "m573uc4ggw",
+          "url": "https://minyfy.minyvinyl.com/play/0GjhuwrNi5pkOUgEJ6JE",
+          "slug": "rbmix",
+          "createdAt": 1732652732,
+          "updatedAt": 1735049218
+      },
+      {
+          "id": "jrau5bcv89",
+          "url": "https://miny.minyvinyl.com/artists/3098-darris",
+          "slug": "realdarris",
+          "createdAt": 1725715777,
+          "updatedAt": 1735049218
+      },
+      {
+          "id": "9avagpu2vy",
+          "url": "https://miny.minyvinyl.com/artists/3145-red-hot-chili-peppers",
+          "slug": "red",
+          "createdAt": 1725718694,
+          "updatedAt": 1735049219
+      },
+      {
+          "id": "mqv4bj9qu2",
+          "url": "https://minyfy.minyvinyl.com/play/PfGP0oJxh49f0FIG3K6B",
+          "slug": "reddde",
+          "createdAt": 1731063750,
+          "updatedAt": 1735049219
+      },
+      {
+          "id": "fk258dqcsz",
+          "url": "https://miny.minyvinyl.com/blog/iykyk",
+          "slug": "redditmix",
+          "createdAt": 1726240886,
+          "updatedAt": 1735049220
+      },
+      {
+          "id": "8yuy39awe2",
+          "url": "https://minyfy.minyvinyl.com/play/6p61lRDmHuhE9uPjOsRc",
+          "slug": "redrap",
+          "createdAt": 1730168765,
+          "updatedAt": 1735049220
+      },
+      {
+          "id": "c57rd2e45h",
+          "url": "https://minyfy.minyvinyl.com/play/zQCsfUXQRz8Y4FtV9t1W",
+          "slug": "reelmix",
+          "createdAt": 1732372350,
+          "updatedAt": 1735049221
+      },
+      {
+          "id": "5cy2awy4rs",
+          "url": "https://minyfy.minyvinyl.com/play/JLoRn9KQkc73B7ELFZCB",
+          "slug": "reels",
+          "createdAt": 1725185304,
+          "updatedAt": 1735049221
+      },
+      {
+          "id": "sjhccds33m",
+          "url": "https://minyfy.minyvinyl.com/play/03U42DLFtq23DmVL3rLf",
+          "slug": "regannie",
+          "createdAt": 1732733332,
+          "updatedAt": 1735049222
+      },
+      {
+          "id": "hzp7chjj39",
+          "url": "https://regs.minyvinyl.com/",
+          "slug": "regdec",
+          "createdAt": 1733322868,
+          "updatedAt": 1733322868
+      },
+      {
+          "id": "v2j25unt6w",
+          "url": "https://minyfy.minyvinyl.com/play/YDyxEJMcBaSe1rBwWvER",
+          "slug": "regeclec",
+          "createdAt": 1732735059,
+          "updatedAt": 1735049223
+      },
+      {
+          "id": "buvcedj87q",
+          "url": "https://minyfy.minyvinyl.com/play/6uVMF89rKo6U6U5UtLaw",
+          "slug": "regemerging",
+          "createdAt": 1732733240,
+          "updatedAt": 1735049223
+      },
+      {
+          "id": "39bs9s4p38",
+          "url": "https://store.minyvinyl.com/",
+          "slug": "regretaill",
+          "createdAt": 1733136672,
+          "updatedAt": 1733136672
+      },
+      {
+          "id": "wg4rwp38hw",
+          "url": "https://regs.minyvinyl.com/",
+          "slug": "regsdec",
+          "createdAt": 1733135499,
+          "updatedAt": 1733135499
+      },
+      {
+          "id": "28qx2vxv94",
+          "url": "https://minyfy.minyvinyl.com/play/sjGMvvx45O5eHM0wT0nF",
+          "slug": "regspecial",
+          "createdAt": 1732751708,
+          "updatedAt": 1735049224
+      },
+      {
+          "id": "w5w2bu6r7d",
+          "url": "https://minyfy.minyvinyl.com/play/NDNtcpAjLRzClqlh7nLX",
+          "slug": "renorush",
+          "createdAt": 1726092308,
+          "updatedAt": 1735049224
+      },
+      {
+          "id": "rwcdcsc83g",
+          "url": "https://miny.minyvinyl.com/blog/revel",
+          "slug": "revel",
+          "createdAt": 1727964255,
+          "updatedAt": 1735049225
+      },
+      {
+          "id": "2ep4h35yfc",
+          "url": "https://minyfy.minyvinyl.com/play/r35CpWB6jf6AkYihpPXE",
+          "slug": "revelrymix",
+          "createdAt": 1727883176,
+          "updatedAt": 1735049225
+      },
+      {
+          "id": "c3tsg9h775",
+          "url": "https://minyfy.minyvinyl.com/play/l06BbFV7QtBl67c3xpxJ",
+          "slug": "rf",
+          "createdAt": 1731063938,
+          "updatedAt": 1735049226
+      },
+      {
+          "id": "vwsdu4byqt",
+          "url": "https://minyfy.minyvinyl.com/play/NiaJ9tus6z1CoT6S8E0l",
+          "slug": "ringo",
+          "createdAt": 1732744972,
+          "updatedAt": 1735049226
+      },
+      {
+          "id": "sv68y2ubu4",
+          "url": "https://miny.minyvinyl.com/artists/1271-rizzo-frenzy",
+          "slug": "rizzo",
+          "createdAt": 1727652909,
+          "updatedAt": 1735049227
+      },
+      {
+          "id": "ks5zh858ey",
+          "url": "https://minyfy.minyvinyl.com/play/ztNArC2jKvvza6ZPtt98",
+          "slug": "rkmix",
+          "createdAt": 1730028043,
+          "updatedAt": 1735049227
+      },
+      {
+          "id": "u8a68hw3zz",
+          "url": "https://minyfy.minyvinyl.com/play/pLpulfRTHb4rmSAnNdY2",
+          "slug": "robsmix",
+          "createdAt": 1729613462,
+          "updatedAt": 1735049228
+      },
+      {
+          "id": "dbyfy2jgw3",
+          "url": "https://minyfy.minyvinyl.com/play/O6by6qcLUGVHgrWgUn44",
+          "slug": "rock",
+          "createdAt": 1725185293,
+          "updatedAt": 1735049228
+      },
+      {
+          "id": "3fj39vrqup",
+          "url": "https://minyfy.minyvinyl.com/play/rw1HsBGAcb9DkqYwFZXT",
+          "slug": "rondemo",
+          "createdAt": 1731680023,
+          "updatedAt": 1735049229
+      },
+      {
+          "id": "fcxfepg895",
+          "url": "https://minyfy.minyvinyl.com/play/v7h3qkwtWQ3sqwl3aiSY",
+          "slug": "rrsnew",
+          "createdAt": 1734119424,
+          "updatedAt": 1735049229
+      },
+      {
+          "id": "5zkwt9suj8",
+          "url": "https://miny.minyvinyl.com/artists/8220-eminem",
+          "slug": "rrsomane",
+          "createdAt": 1734119357,
+          "updatedAt": 1735049230
+      },
+      {
+          "id": "sks993ejp5",
+          "url": "https://minyfy.minyvinyl.com/play/v7h3qkwtWQ3sqwl3aiSY",
+          "slug": "rrsomane1",
+          "createdAt": 1734119414,
+          "updatedAt": 1735049230
+      },
+      {
+          "id": "s9jhgqpqh5",
+          "url": "https://minyfy.minyvinyl.com/play/v7h3qkwtWQ3sqwl3aiSY",
+          "slug": "rrsomane123",
+          "createdAt": 1734119408,
+          "updatedAt": 1735049231
+      },
+      {
+          "id": "tusz67fj3d",
+          "url": "https://minyfy.minyvinyl.com/play/cpCiZR9eGescu6BIvbPk",
+          "slug": "rsupbZ",
+          "createdAt": 1725185283,
+          "updatedAt": 1735049232
+      },
+      {
+          "id": "j3wnv94j3w",
+          "url": "https://minyfy.minyvinyl.com/play/4mG85ScJidJYEvWSGGLn",
+          "slug": "rtunesone",
+          "createdAt": 1725988237,
+          "updatedAt": 1735049232
+      },
+      {
+          "id": "tz3zhmy9ej",
+          "url": "https://minyfy.minyvinyl.com/play/1AkGlrC3T7xM4y8GIZBM",
+          "slug": "rtunestwo",
+          "createdAt": 1725988366,
+          "updatedAt": 1735049233
+      },
+      {
+          "id": "9v86h2dpc7",
+          "url": "https://miny.minyvinyl.com/artists/3820-ruben-studdard",
+          "slug": "ruben",
+          "createdAt": 1727052949,
+          "updatedAt": 1735049233
+      },
+      {
+          "id": "g89ase9nj2",
+          "url": "https://minyfy.minyvinyl.com/play/oHFMxv8rOT7tfk1l6hrT",
+          "slug": "rubygroove",
+          "createdAt": 1726075302,
+          "updatedAt": 1735049234
+      },
+      {
+          "id": "tvxvgupw3g",
+          "url": "https://minyfy.minyvinyl.com/play/fOxHqxhnve7VtcliDyZV",
+          "slug": "s2uqha",
+          "createdAt": 1725189216,
+          "updatedAt": 1735049234
+      },
+      {
+          "id": "xrkwgm5x67",
+          "url": "https://minyfy.minyvinyl.com/play/vsFSnHChEoMW5D4u6yWo",
+          "slug": "s8fa83",
+          "createdAt": 1727164178,
+          "updatedAt": 1735049235
+      },
+      {
+          "id": "83hnn83wu8",
+          "url": "https://miny.minyvinyl.com/artists/5653-sabrina-carpenter",
+          "slug": "sabrinacarpenter",
+          "createdAt": 1726589595,
+          "updatedAt": 1735049235
+      },
+      {
+          "id": "p2dhubumbu",
+          "url": "https://minyfy.minyvinyl.com/play/toS9rCSoRj2cuoegqrRK",
+          "slug": "sadindies",
+          "createdAt": 1725559035,
+          "updatedAt": 1735049236
+      },
+      {
+          "id": "dsy9sf5ptt",
+          "url": "https://minyfy.minyvinyl.com/play/P7G67bNnh8uVHn3xlm9A",
+          "slug": "sanderspulse",
+          "createdAt": 1726094466,
+          "updatedAt": 1735049236
+      },
+      {
+          "id": "xswe275v9t",
+          "url": "https://go.minyvinyl.com/",
+          "slug": "sandy",
+          "createdAt": 1725185085,
+          "updatedAt": 1725185085
+      },
+      {
+          "id": "7n8qmbgde5",
+          "url": "https://minyfy.minyvinyl.com/play/SOXWA55VfXBecfzIBjo4",
+          "slug": "scaleaddict",
+          "createdAt": 1725986393,
+          "updatedAt": 1735049237
+      },
+      {
+          "id": "c9d9rsg4mr",
+          "url": "https://minyfy.minyvinyl.com/play/UuHQog6i4unCEmIIBhND",
+          "slug": "seeberflow",
+          "createdAt": 1726090198,
+          "updatedAt": 1735049237
+      },
+      {
+          "id": "p48ewjadb6",
+          "url": "https://minyfy.minyvinyl.com/play/Ood52yS3ib9qHfPpC8hA",
+          "slug": "selwynsoulful",
+          "createdAt": 1726090451,
+          "updatedAt": 1735049238
+      },
+      {
+          "id": "e5hcs9ddzp",
+          "url": "https://miny.minyvinyl.com/artists/6835-senses-fail",
+          "slug": "senses-fail",
+          "createdAt": 1725213650,
+          "updatedAt": 1735049239
+      },
+      {
+          "id": "2u7yqyxjux",
+          "url": "https://minyfy.minyvinyl.com/play/hR4s0Xgbt4JhbZIOI01X",
+          "slug": "septpick",
+          "createdAt": 1725464778,
+          "updatedAt": 1735049239
+      },
+      {
+          "id": "bqvprufkxe",
+          "url": "https://miny.minyvinyl.com/artists/3933-shaboozey",
+          "slug": "shaboozey",
+          "createdAt": 1726594047,
+          "updatedAt": 1735049240
+      },
+      {
+          "id": "t9ux63x85a",
+          "url": "https://minyfy.minyvinyl.com/play/unYlicGe6mVJIdG212yY",
+          "slug": "shibuya",
+          "createdAt": 1725663425,
+          "updatedAt": 1735049240
+      },
+      {
+          "id": "39b2mg2g3a",
+          "url": "https://minyfy.minyvinyl.com/play/3vlVmjNOu0Sh0VgJhG90",
+          "slug": "showfour",
+          "createdAt": 1728056012,
+          "updatedAt": 1735049241
+      },
+      {
+          "id": "3wb64m2u9h",
+          "url": "https://minyfy.minyvinyl.com/play/GbWwWSAO9yHUHrkYVbXu",
+          "slug": "showone",
+          "createdAt": 1728055012,
+          "updatedAt": 1735049241
+      },
+      {
+          "id": "bc277nem4j",
+          "url": "https://minyfy.minyvinyl.com/play/4pMeWTBfa8B9rLly30GG",
+          "slug": "showthree",
+          "createdAt": 1728055521,
+          "updatedAt": 1735049242
+      },
+      {
+          "id": "kf3fqwt3km",
+          "url": "https://minyfy.minyvinyl.com/play/QVH2yebAUJKwUYRMRugj",
+          "slug": "showtwo",
+          "createdAt": 1728055767,
+          "updatedAt": 1735049242
+      },
+      {
+          "id": "8nxuzvm44r",
+          "url": "https://minyfy.minyvinyl.com/play/f4t6o0vHBA9Ztcp4keFS",
+          "slug": "sidea",
+          "createdAt": 1726065885,
+          "updatedAt": 1735049243
+      },
+      {
+          "id": "kszs68jzhj",
+          "url": "https://miny.minyvinyl.com/artists/5197-sid-kingsley",
+          "slug": "sidking",
+          "createdAt": 1732463777,
+          "updatedAt": 1735049243
+      },
+      {
+          "id": "3m9g2dv5g6",
+          "url": "https://minyfy.minyvinyl.com/play/yDLoKb5XTpWXzZpAl4w2",
+          "slug": "sidmixone",
+          "createdAt": 1732463820,
+          "updatedAt": 1735049244
+      },
+      {
+          "id": "hmt355qhav",
+          "url": "https://minyfy.minyvinyl.com/play/mWXC4AsVTdQX2iVzeBIT",
+          "slug": "skzplay",
+          "createdAt": 1726078568,
+          "updatedAt": 1735049244
+      },
+      {
+          "id": "2f38hsvxhe",
+          "url": "https://miny.minyvinyl.com/artists/3512-ar-rahman",
+          "slug": "slumdog",
+          "createdAt": 1730040882,
+          "updatedAt": 1735049245
+      },
+      {
+          "id": "75zj6gp5b6",
+          "url": "https://minyfy.minyvinyl.com/play/yfgvZP3G8myxMpalPTYN",
+          "slug": "sm",
+          "createdAt": 1725185265,
+          "updatedAt": 1735049245
+      },
+      {
+          "id": "xybjtszqez",
+          "url": "https://minyfy.minyvinyl.com/play/qDqhAbSSHQlMmGXougNq",
+          "slug": "sodapoppin123",
+          "createdAt": 1727090866,
+          "updatedAt": 1735049246
+      },
+      {
+          "id": "rhm29ya2wb",
+          "url": "https://minyfy.minyvinyl.com/play/bmiLKx9AInBy0bSlTSme",
+          "slug": "soreygroove",
+          "createdAt": 1726090841,
+          "updatedAt": 1735049246
+      },
+      {
+          "id": "m4d38t8rur",
+          "url": "https://minyfy.minyvinyl.com/play/zqsLoFQjgSo7nOavUYEX",
+          "slug": "soulsongs",
+          "createdAt": 1725985813,
+          "updatedAt": 1735049247
+      },
+      {
+          "id": "qxaedb8hna",
+          "url": "https://minyfy.minyvinyl.com/play/ruM5IsWSiCapxE4zKQ8d",
+          "slug": "spaceman",
+          "createdAt": 1725185002,
+          "updatedAt": 1735049247
+      },
+      {
+          "id": "mj6xqwuu3e",
+          "url": "https://minyfy.minyvinyl.com/play/sGKoS4k3OWIzbOA7bPUO",
+          "slug": "spartamix",
+          "createdAt": 1727892919,
+          "updatedAt": 1735049248
+      },
+      {
+          "id": "72g89g5qew",
+          "url": "https://miny.minyvinyl.com/artists/6970-spartaque",
+          "slug": "spartaque",
+          "createdAt": 1727893079,
+          "updatedAt": 1735049248
+      },
+      {
+          "id": "2qcjda62ck",
+          "url": "https://minyfy.minyvinyl.com/play/jjcjKorXiookmHrAdFmN",
+          "slug": "spellbound",
+          "createdAt": 1727205628,
+          "updatedAt": 1735049249
+      },
+      {
+          "id": "b685kgvyrh",
+          "url": "https://minyfy.minyvinyl.com/play/jGwwQovjElpQlBs89PjE",
+          "slug": "spotold",
+          "createdAt": 1732455270,
+          "updatedAt": 1735049249
+      },
+      {
+          "id": "gjjtb83gs6",
+          "url": "https://minyfy.minyvinyl.com/play/uneDgPALQoTOzMPex0s7",
+          "slug": "sprawlsidea",
+          "createdAt": 1731716947,
+          "updatedAt": 1735049250
+      },
+      {
+          "id": "erreg3egd3",
+          "url": "https://minyfy.minyvinyl.com/play/Ub2WTvOGrH23AOAKjmR2",
+          "slug": "starr",
+          "createdAt": 1727720124,
+          "updatedAt": 1735049250
+      },
+      {
+          "id": "h4fxbrd4de",
+          "url": "https://minyfy.minyvinyl.com/play/8nWb5s8aZcfsWZoIlokL",
+          "slug": "starsreco",
+          "createdAt": 1727900343,
+          "updatedAt": 1735049251
+      },
+      {
+          "id": "4rjtvhn7j7",
+          "url": "https://minyfy.minyvinyl.com/play/c8UGltRVNdqXcFtCt4uD",
+          "slug": "streetdreams",
+          "createdAt": 1727277093,
+          "updatedAt": 1735049251
+      },
+      {
+          "id": "8aw3p4gjh2",
+          "url": "https://creative-dango-ec516b.netlify.app/",
+          "slug": "subwaymusician",
+          "createdAt": 1730761562,
+          "updatedAt": 1730761562
+      },
+      {
+          "id": "rvsqzp35x8",
+          "url": "https://minyfy.minyvinyl.com/play/VJ0tKDoSQ9Tdp4JOF0d1",
+          "slug": "supernova",
+          "createdAt": 1728586252,
+          "updatedAt": 1735049252
+      },
+      {
+          "id": "gx98fpxsd8",
+          "url": "https://minyfy.minyvinyl.com/play/PitFVS70Z5jl0mwiGRxJ",
+          "slug": "swd123",
+          "createdAt": 1725185346,
+          "updatedAt": 1735049252
+      },
+      {
+          "id": "ssknjjjb9j",
+          "url": "https://minyfy.minyvinyl.com/play/4cqkbBGC7SovpwPqMx9p",
+          "slug": "sweetrap",
+          "createdAt": 1725557635,
+          "updatedAt": 1735049253
+      },
+      {
+          "id": "qj8wv8mmfv",
+          "url": "https://miny.minyvinyl.com/artists/6999-taylor-swift",
+          "slug": "swift",
+          "createdAt": 1727874087,
+          "updatedAt": 1735049253
+      },
+      {
+          "id": "bc3eey5t9a",
+          "url": "https://minyfy.minyvinyl.com/play/xIZr3VYNvKJ0A6x9s8l9",
+          "slug": "swifter",
+          "createdAt": 1725185300,
+          "updatedAt": 1735049254
+      },
+      {
+          "id": "g35q55wd6v",
+          "url": "https://minyfy.minyvinyl.com/play/ETnKBsyK2VxsMXjEgGe8",
+          "slug": "swiftierush",
+          "createdAt": 1726081625,
+          "updatedAt": 1735049254
+      },
+      {
+          "id": "yztv9rm56f",
+          "url": "https://minyfy.minyvinyl.com/play/kikvuKxM5Emt5s7YjQ5e",
+          "slug": "sx5bgs",
+          "createdAt": 1728658830,
+          "updatedAt": 1735049255
+      },
+      {
+          "id": "24jfu9pp34",
+          "url": "https://minyfy.minyvinyl.com/play/mnVL8Hny3NR608FPePGh",
+          "slug": "sxswOTR",
+          "createdAt": 1725185209,
+          "updatedAt": 1735049255
+      },
+      {
+          "id": "gznbh79m2k",
+          "url": "https://minyfy.minyvinyl.com/play/X5x65JkqjCBmGqd3JPOf",
+          "slug": "sy5j5e",
+          "createdAt": 1725884312,
+          "updatedAt": 1735049256
+      },
+      {
+          "id": "4nvq6q5a2b",
+          "url": "https://minyfy.minyvinyl.com/play/rBGGiasgx8MuDZl18Fpu",
+          "slug": "synthpulse",
+          "createdAt": 1725661546,
+          "updatedAt": 1735049256
+      },
+      {
+          "id": "2vm3anva67",
+          "url": "https://miny.minyvinyl.com/artists/3524-sza",
+          "slug": "sza",
+          "createdAt": 1726589693,
+          "updatedAt": 1735049257
+      },
+      {
+          "id": "umcg8s3zs2",
+          "url": "https://minyfy.minyvinyl.com/play/h0TmSfgBYacukGpkShOx",
+          "slug": "szaone",
+          "createdAt": 1726077789,
+          "updatedAt": 1735049257
+      },
+      {
+          "id": "bmtfhu6j4q",
+          "url": "https://miny.minyvinyl.com/artists/5103-tai-mistyque",
+          "slug": "tai",
+          "createdAt": 1725734665,
+          "updatedAt": 1735049258
+      },
+      {
+          "id": "4y6dkxrymw",
+          "url": "https://minyfy.minyvinyl.com/play/FfiZ8lrmj7cjrxv1xsWW",
+          "slug": "taiingen",
+          "createdAt": 1725733999,
+          "updatedAt": 1735049258
+      },
+      {
+          "id": "9cn3nmdeec",
+          "url": "https://miny.minyvinyl.com/artists/6018-taija-kerr",
+          "slug": "taijakerr",
+          "createdAt": 1730070460,
+          "updatedAt": 1735049259
+      },
+      {
+          "id": "4q2yu79hdp",
+          "url": "https://miny.minyvinyl.com/artists/8503-tate-mcrae",
+          "slug": "tatemcrae",
+          "createdAt": 1726594566,
+          "updatedAt": 1735049259
+      },
+      {
+          "id": "7a9z934n2y",
+          "url": "https://minyfy.minyvinyl.com/play/turdH3vREWXeFSCj3kg6",
+          "slug": "taylor101",
+          "createdAt": 1725185237,
+          "updatedAt": 1735049260
+      },
+      {
+          "id": "4cj56fx5nz",
+          "url": "https://miny.minyvinyl.com/artists/2041-taylor-hicks",
+          "slug": "taylorhicks",
+          "createdAt": 1727052191,
+          "updatedAt": 1735049260
+      },
+      {
+          "id": "vf6v9a5vg2",
+          "url": "https://miny.minyvinyl.com/artists/3101-taylor-swift",
+          "slug": "taylorswift",
+          "createdAt": 1726589850,
+          "updatedAt": 1735049261
+      },
+      {
+          "id": "3xxeg5k78c",
+          "url": "https://miny.minyvinyl.com/artists/2124-teddy-swims",
+          "slug": "teddyswims",
+          "createdAt": 1726594087,
+          "updatedAt": 1735049261
+      },
+      {
+          "id": "rng6ty4jn5",
+          "url": "https://miny.minyvinyl.com/artists/7332-teen-daze",
+          "slug": "teendaze",
+          "createdAt": 1727109635,
+          "updatedAt": 1735049262
+      },
+      {
+          "id": "rnfefwabyq",
+          "url": "https://miny.minyvinyl.com/artists/7181-the-teeta",
+          "slug": "teeta",
+          "createdAt": 1730137406,
+          "updatedAt": 1735049262
+      },
+      {
+          "id": "bt4vazhe4g",
+          "url": "https://minyfy.minyvinyl.com/play/DS1EbPTL0mOv4zFVsQFb",
+          "slug": "tesmix",
+          "createdAt": 1733355263,
+          "updatedAt": 1735049263
+      },
+      {
+          "id": "u63wn8dn7u",
+          "url": "https://miny.minyvinyl.com/artists/3136-tess-elena",
+          "slug": "tesselenamusic",
+          "createdAt": 1733335580,
+          "updatedAt": 1735049263
+      },
+      {
+          "id": "shyevwrxby",
+          "url": "https://minyfy.minyvinyl.com/play/QbDCyRWwpgBE7h818243",
+          "slug": "thealgorithm",
+          "createdAt": 1725559539,
+          "updatedAt": 1735049264
+      },
+      {
+          "id": "dyuyjndv8d",
+          "url": "https://miny.minyvinyl.com/artists/9498-rachel-bard",
+          "slug": "thebardrachel",
+          "createdAt": 1729954582,
+          "updatedAt": 1735049264
+      },
+      {
+          "id": "8erzy2vjvb",
+          "url": "https://minyfy.minyvinyl.com/play/x90HQK8w6SW5lqa53sc1",
+          "slug": "thebluedalhia",
+          "createdAt": 1725722004,
+          "updatedAt": 1735049265
+      },
+      {
+          "id": "ngryssmkq3",
+          "url": "https://minyfy.minyvinyl.com/play/KRFMPPUluUbvoGQzg0V4",
+          "slug": "thebubberfiles",
+          "createdAt": 1725630497,
+          "updatedAt": 1735049265
+      },
+      {
+          "id": "jj9h7qhvpc",
+          "url": "https://minyfy.minyvinyl.com/play/TlaDNUDuASPZhTqpJ8Ok",
+          "slug": "thegreepsept",
+          "createdAt": 1727089975,
+          "updatedAt": 1735049266
+      },
+      {
+          "id": "7mkdzqtc9m",
+          "url": "https://minyfy.minyvinyl.com/play/2RTSHUOUitZKHPe5tHz3",
+          "slug": "thinkindie",
+          "createdAt": 1725471847,
+          "updatedAt": 1735049266
+      },
+      {
+          "id": "nx47swaaxn",
+          "url": "https://minyfy.minyvinyl.com/play/Kz8HTzDViCdJPl2QSees",
+          "slug": "thisishalloween",
+          "createdAt": 1727205774,
+          "updatedAt": 1735049267
+      },
+      {
+          "id": "ghvkfaw6k2",
+          "url": "https://minyfy.minyvinyl.com/play/9g0NVBklE6VzmNiV58pe",
+          "slug": "thrashmetalmix",
+          "createdAt": 1728767542,
+          "updatedAt": 1735049267
+      },
+      {
+          "id": "rqfyh2ewxq",
+          "url": "https://minyfy.minyvinyl.com/play/22tIPgFGNOIB9gtxzCEh",
+          "slug": "throwdown",
+          "createdAt": 1728609614,
+          "updatedAt": 1735049268
+      },
+      {
+          "id": "nc39feh3g6",
+          "url": "https://miny.minyvinyl.com/artists/6716-tim-young",
+          "slug": "timyung",
+          "createdAt": 1728420577,
+          "updatedAt": 1735049268
+      },
+      {
+          "id": "jm6af4suj4",
+          "url": "https://minyfy.minyvinyl.com/play/Su1in28MindsDuZueYnD",
+          "slug": "tink",
+          "createdAt": 1725189152,
+          "updatedAt": 1735049269
+      },
+      {
+          "id": "yh595w5b9g",
+          "url": "https://minyfy.minyvinyl.com/play/OWTMDYi3NB5sbsx8wJz4",
+          "slug": "topNov",
+          "createdAt": 1731761509,
+          "updatedAt": 1735049269
+      },
+      {
+          "id": "phjdjup494",
+          "url": "https://minyfy.minyvinyl.com/play/Q5tdskRf9wHJAMhvOctL",
+          "slug": "topUSJul20",
+          "createdAt": 1725185377,
+          "updatedAt": 1735049270
+      },
+      {
+          "id": "3dcmvkxhtf",
+          "url": "https://minyfy.minyvinyl.com/play/d6uajpcMxLD5vITsGonz",
+          "slug": "topfiftycentplaylistsbyashraf",
+          "createdAt": 1725813950,
+          "updatedAt": 1735049270
+      },
+      {
+          "id": "vgw878w5er",
+          "url": "https://minyfy.minyvinyl.com/play/AZt6jmRX9i0C7oLaHfTt",
+          "slug": "tophoneysinghplatlistsbyashraf",
+          "createdAt": 1725814469,
+          "updatedAt": 1735049271
+      },
+      {
+          "id": "34dfe99g83",
+          "url": "https://minyfy.minyvinyl.com/play/MVpD6wM1JaY3qgPLVxI4",
+          "slug": "tracyten",
+          "createdAt": 1725470286,
+          "updatedAt": 1735049271
+      },
+      {
+          "id": "2ubsqcuzqu",
+          "url": "https://minyfy.minyvinyl.com/play/nQr8Xz0vMYQYDXmE5Hqg",
+          "slug": "tree",
+          "createdAt": 1725185398,
+          "updatedAt": 1735049272
+      },
+      {
+          "id": "jxj5b6x6rd",
+          "url": "https://miny.minyvinyl.com/blog/gtrend",
+          "slug": "trendsofsept",
+          "createdAt": 1726171037,
+          "updatedAt": 1735049272
+      },
+      {
+          "id": "gawtrwysu8",
+          "url": "https://minyfy.minyvinyl.com/exclusive/UM80DiFeOU7OJ4vmzZ6d",
+          "slug": "trew",
+          "createdAt": 1731148041,
+          "updatedAt": 1735049273
+      },
+      {
+          "id": "fvhzf2r89b",
+          "url": "https://minyfy.minyvinyl.com/play/6AAft3Ua0SoWXFUMdNVI",
+          "slug": "triadbrass",
+          "createdAt": 1725716758,
+          "updatedAt": 1735049273
+      },
+      {
+          "id": "x3tdm8zwfd",
+          "url": "https://minyfy.minyvinyl.com/play/hCLX5jgeWFyNp3JVVarb",
+          "slug": "trish",
+          "createdAt": 1725185253,
+          "updatedAt": 1735049274
+      },
+      {
+          "id": "s8wyedfnsw",
+          "url": "https://minyfy.minyvinyl.com/play/iG45KBOxCRzXwqxzSw69",
+          "slug": "trubzmix",
+          "createdAt": 1728171052,
+          "updatedAt": 1735049274
+      },
+      {
+          "id": "6cj8nq24wn",
+          "url": "https://minyfy.minyvinyl.com/play/aqNGPbYWZ2xhlHQUAQv1",
+          "slug": "true",
+          "createdAt": 1733136959,
+          "updatedAt": 1735049275
+      },
+      {
+          "id": "vbspc4mnva",
+          "url": "https://minyfy.minyvinyl.com/play/Zv67mM4fOYnGWxuPD1oL",
+          "slug": "trulymafiamix",
+          "createdAt": 1727968124,
+          "updatedAt": 1735049275
+      },
+      {
+          "id": "xp29bhn5ea",
+          "url": "https://minyfy.minyvinyl.com/play/SjYr8dlowTgXBvu96R0g",
+          "slug": "tuesdaymix",
+          "createdAt": 1728672901,
+          "updatedAt": 1735049276
+      },
+      {
+          "id": "2r32mk94kg",
+          "url": "https://minyfy.minyvinyl.com/play/04vsAt9dF6S4SJeUwz5I",
+          "slug": "tupactribute",
+          "createdAt": 1725912110,
+          "updatedAt": 1735049276
+      },
+      {
+          "id": "sjebjjvtkn",
+          "url": "https://miny.minyvinyl.com/artists/6566-turbz-music",
+          "slug": "turbz",
+          "createdAt": 1728170989,
+          "updatedAt": 1735049277
+      },
+      {
+          "id": "maxy4u8wks",
+          "url": "https://minyfy.minyvinyl.com/play/Cu8DOREcThT9VIVRn9OS",
+          "slug": "twcyft",
+          "createdAt": 1730429787,
+          "updatedAt": 1735049277
+      },
+      {
+          "id": "6nuty3gcu8",
+          "url": "https://miny.minyvinyl.com/artists/6317-tyla",
+          "slug": "tyla",
+          "createdAt": 1726594140,
+          "updatedAt": 1735049278
+      },
+      {
+          "id": "74e5bs9cz6",
+          "url": "https://miny.minyvinyl.com/artists/8124-troy-tyler",
+          "slug": "tyler",
+          "createdAt": 1725730547,
+          "updatedAt": 1735049278
+      },
+      {
+          "id": "8ufhhsjea9",
+          "url": "https://miny.minyvinyl.com/artists/3156-green-day",
+          "slug": "u2e4hn",
+          "createdAt": 1727873135,
+          "updatedAt": 1735049278
+      },
+      {
+          "id": "c9hx5u8qt5",
+          "url": "https://miny.minyvinyl.com/artists/2227-fiona-apple",
+          "slug": "u898gg",
+          "createdAt": 1727869164,
+          "updatedAt": 1735049279
+      },
+      {
+          "id": "6bztbp3ehg",
+          "url": "https://minyfy.minyvinyl.com/play/lnbvUPOrHZKvnW5nDt1P",
+          "slug": "undergroundanthems",
+          "createdAt": 1727700598,
+          "updatedAt": 1735049279
+      },
+      {
+          "id": "eu75vn2bfj",
+          "url": "https://miny.minyvinyl.com/artists/9512-uniq-being",
+          "slug": "uniqbeing",
+          "createdAt": 1728417747,
+          "updatedAt": 1735049280
+      },
+      {
+          "id": "2f8gv7eebh",
+          "url": "https://minyfy.minyvinyl.com/play/T8TzzNJIVDHrkVl32OIH",
+          "slug": "uniqmix",
+          "createdAt": 1728417856,
+          "updatedAt": 1735049280
+      },
+      {
+          "id": "p6qzegdq6m",
+          "url": "https://minyfy.minyvinyl.com/play/EykR3RrnxKHe2oIQwnct",
+          "slug": "unsigned24a",
+          "createdAt": 1727791951,
+          "updatedAt": 1735049281
+      },
+      {
+          "id": "j4gkwcafnb",
+          "url": "https://minyfy.minyvinyl.com/play/FvfJnBBZS6SCatEcBX8i",
+          "slug": "unsigned24b",
+          "createdAt": 1727803781,
+          "updatedAt": 1735049281
+      },
+      {
+          "id": "8y749hxj86",
+          "url": "https://minyfy.minyvinyl.com/play/dhVxd3hW5AfmcCHRIkiX",
+          "slug": "unsignedroots",
+          "createdAt": 1727804166,
+          "updatedAt": 1735049282
+      },
+      {
+          "id": "jwpeqe5a7c",
+          "url": "https://minyfy.minyvinyl.com/play/Cu8DOREcThT9VIVRn9OS",
+          "slug": "usghnp",
+          "createdAt": 1730429786,
+          "updatedAt": 1735049282
+      },
+      {
+          "id": "x73mtz9p2a",
+          "url": "https://minyfy.minyvinyl.com/play/sA7tfMLuWVUp5M9PYH22",
+          "slug": "usgllI",
+          "createdAt": 1725185342,
+          "updatedAt": 1735049283
+      },
+      {
+          "id": "x5bd3kygug",
+          "url": "https://miny.minyvinyl.com/artists/3363-usher",
+          "slug": "usher",
+          "createdAt": 1725213570,
+          "updatedAt": 1735049283
+      },
+      {
+          "id": "t9sga8wsmr",
+          "url": "https://minyfy.minyvinyl.com/play/sBdHBJ491pF6xP6uyl7E",
+          "slug": "v8pq4u",
+          "createdAt": 1728659368,
+          "updatedAt": 1735049284
+      },
+      {
+          "id": "xaytupsfmp",
+          "url": "https://minyfy.minyvinyl.com/play/kO3LQRS5bkgbJshVkXOv",
+          "slug": "vaporrush",
+          "createdAt": 1725662966,
+          "updatedAt": 1735049284
+      },
+      {
+          "id": "r3mq4try84",
+          "url": "https://minyfy.minyvinyl.com/play/YPM7PiIm5H7TIMf6n9ja",
+          "slug": "vbbg7u",
+          "createdAt": 1726849026,
+          "updatedAt": 1735049285
+      },
+      {
+          "id": "nshqe9pw5b",
+          "url": "https://miny.minyvinyl.com/artists/7924-vengaboys",
+          "slug": "vengaboys",
+          "createdAt": 1725215934,
+          "updatedAt": 1735049285
+      },
+      {
+          "id": "4h8gejrmcn",
+          "url": "https://miny.minyvinyl.com/artists/4283-vicetone",
+          "slug": "vicetone",
+          "createdAt": 1728170558,
+          "updatedAt": 1735049286
+      },
+      {
+          "id": "8gx9zj3nz8",
+          "url": "https://minyfy.minyvinyl.com/play/Bjw2LfBjhcH0yGx3X0ib",
+          "slug": "victor",
+          "createdAt": 1725185295,
+          "updatedAt": 1735049286
+      },
+      {
+          "id": "gmcvn9ej5z",
+          "url": "https://miny.minyvinyl.com/artists/5582-viepsa-arora",
+          "slug": "viepsa",
+          "createdAt": 1725470346,
+          "updatedAt": 1735049287
+      },
+      {
+          "id": "hpnd55tm9k",
+          "url": "https://minyfy.minyvinyl.com/play/Y8gzr3Mid7DI0OqaRV73",
+          "slug": "viepsamix",
+          "createdAt": 1725471319,
+          "updatedAt": 1735049287
+      },
+      {
+          "id": "pz6ucrzqnj",
+          "url": "https://minyfy.minyvinyl.com/play/HQQgBFmt0snW8LZ4DQpA",
+          "slug": "vijayflow",
+          "createdAt": 1726090771,
+          "updatedAt": 1735049288
+      },
+      {
+          "id": "65rdvn3mtr",
+          "url": "https://minyfy.minyvinyl.com/exclusive/d5kNiQ3eBMtpF1whThi2",
+          "slug": "vimedemo",
+          "createdAt": 1731343076,
+          "updatedAt": 1735049288
+      },
+      {
+          "id": "mdwerww3rk",
+          "url": "https://minyfy.minyvinyl.com/play/VXqNCuPTMrZTBj2Fmp7z",
+          "slug": "visarjanmix",
+          "createdAt": 1725977319,
+          "updatedAt": 1735049289
+      },
+      {
+          "id": "wpwucq7ukn",
+          "url": "https://monumental-madeleine-34651d.netlify.app/",
+          "slug": "viv24",
+          "createdAt": 1731196978,
+          "updatedAt": 1731196978
+      },
+      {
+          "id": "y3vmzrz3mb",
+          "url": "https://miny.minyvinyl.com/blog/vma",
+          "slug": "vma24",
+          "createdAt": 1726845934,
+          "updatedAt": 1735049289
+      },
+      {
+          "id": "66dt3p6376",
+          "url": "https://minyfy.minyvinyl.com/play/EwEZTziQdM0aCAd9nIS8",
+          "slug": "vmaalternative",
+          "createdAt": 1726591658,
+          "updatedAt": 1735049290
+      },
+      {
+          "id": "52hmc3pbtw",
+          "url": "https://minyfy.minyvinyl.com/play/CQKMfKzaaIx0GVWm4zmu",
+          "slug": "vmabestafro",
+          "createdAt": 1726592669,
+          "updatedAt": 1735049290
+      },
+      {
+          "id": "5wv4vzvmdc",
+          "url": "https://minyfy.minyvinyl.com/play/dkrINRs9I05WyxFp40ZO",
+          "slug": "vmabestdirect",
+          "createdAt": 1726593251,
+          "updatedAt": 1735049291
+      },
+      {
+          "id": "a7gqut4mbp",
+          "url": "https://minyfy.minyvinyl.com/play/TlWZzOxspLVAlu9s5Oe2",
+          "slug": "vmabestlatin",
+          "createdAt": 1726592379,
+          "updatedAt": 1735049291
+      },
+      {
+          "id": "aqc7npqypw",
+          "url": "https://minyfy.minyvinyl.com/play/lelMb3bamRnF3YWAOzHh",
+          "slug": "vmabestrock",
+          "createdAt": 1726591791,
+          "updatedAt": 1735049292
+      },
+      {
+          "id": "adngask5bx",
+          "url": "https://minyfy.minyvinyl.com/play/h25RYDJq0kraUSptO7ye",
+          "slug": "vmachoreo",
+          "createdAt": 1726593669,
+          "updatedAt": 1735049292
+      },
+      {
+          "id": "epdy32gzhs",
+          "url": "https://minyfy.minyvinyl.com/play/HAgZQj4NdTxHmaroherF",
+          "slug": "vmacinema",
+          "createdAt": 1726593379,
+          "updatedAt": 1735049293
+      },
+      {
+          "id": "twvqvjh7gs",
+          "url": "https://minyfy.minyvinyl.com/play/RrCMjiA05zDB47QRyl7n",
+          "slug": "vmacollab",
+          "createdAt": 1726589520,
+          "updatedAt": 1735049293
+      },
+      {
+          "id": "3zunuqwq7f",
+          "url": "https://minyfy.minyvinyl.com/play/aZ76RkB0vzyHDbLTSVrN",
+          "slug": "vmaediting",
+          "createdAt": 1726593510,
+          "updatedAt": 1735049294
+      },
+      {
+          "id": "a2n5xkcg4x",
+          "url": "https://minyfy.minyvinyl.com/play/lqXcC7y9ammYqwnxtJhN",
+          "slug": "vmahiphop",
+          "createdAt": 1726591328,
+          "updatedAt": 1735049294
+      },
+      {
+          "id": "hvd93gmqu5",
+          "url": "https://minyfy.minyvinyl.com/play/xxphbR0JksUSSXbr6wew",
+          "slug": "vmakpop",
+          "createdAt": 1726592948,
+          "updatedAt": 1735049295
+      },
+      {
+          "id": "8rzxexsy2v",
+          "url": "https://minyfy.minyvinyl.com/play/54gK7PuWXyL1ZK0byKaN",
+          "slug": "vmarnb",
+          "createdAt": 1726591494,
+          "updatedAt": 1735049295
+      },
+      {
+          "id": "yfyg9jqdxx",
+          "url": "https://minyfy.minyvinyl.com/play/VfFeAnlhzYu6C9KfMYxs",
+          "slug": "vmasoty",
+          "createdAt": 1726589321,
+          "updatedAt": 1735049296
+      },
+      {
+          "id": "48vfnptun9",
+          "url": "https://minyfy.minyvinyl.com/play/RiAGjnbYYIWYwQGuHUc1",
+          "slug": "vmavfg",
+          "createdAt": 1726593149,
+          "updatedAt": 1735049296
+      },
+      {
+          "id": "qhag8g7wsz",
+          "url": "https://minyfy.minyvinyl.com/play/KbIMOQFm9BwAVmbiCpzT",
+          "slug": "vmavisuale",
+          "createdAt": 1726593782,
+          "updatedAt": 1735049297
+      },
+      {
+          "id": "h8wenxffja",
+          "url": "https://minyfy.minyvinyl.com/play/uzrcRRN18BFE3csEXtUK",
+          "slug": "vmavoty",
+          "createdAt": 1726588143,
+          "updatedAt": 1735049297
+      },
+      {
+          "id": "awbseedfbs",
+          "url": "https://minyfy.minyvinyl.com/play/Cl67jj9Z3pMsjboYxvCp",
+          "slug": "vpm8p3",
+          "createdAt": 1727306470,
+          "updatedAt": 1735049298
+      },
+      {
+          "id": "sd3k9hteuc",
+          "url": "https://minyfy.minyvinyl.com/play/v297rLJiyeiAmMQ10Pq4",
+          "slug": "vtone",
+          "createdAt": 1728170608,
+          "updatedAt": 1735049298
+      },
+      {
+          "id": "fnq6yywkmu",
+          "url": "https://minyfy.minyvinyl.com/play/Dzr64p0w7VF8WtTxvuWU",
+          "slug": "walkermix",
+          "createdAt": 1728173294,
+          "updatedAt": 1735049299
+      },
+      {
+          "id": "54prx5rtq2",
+          "url": "https://minyfy.minyvinyl.com/play/DWZD9Uk2u5Yx6TMXeUHO",
+          "slug": "warzo",
+          "createdAt": 1726078177,
+          "updatedAt": 1735049299
+      },
+      {
+          "id": "6ytkm3x29y",
+          "url": "https://minyfy.minyvinyl.com/play/yAMppNdlqOApnKXxHubY",
+          "slug": "warzone",
+          "createdAt": 1726078106,
+          "updatedAt": 1735049300
+      },
+      {
+          "id": "9m5dyxryae",
+          "url": "https://minyfy.minyvinyl.com/play/SkGxPItg6G23TvVLzqji",
+          "slug": "wd25hp",
+          "createdAt": 1727173808,
+          "updatedAt": 1735049300
+      },
+      {
+          "id": "ayt5wp5knp",
+          "url": "https://minyfy.minyvinyl.com/play/BFE9csZHbHxCsgIcnU8B",
+          "slug": "weZpJi",
+          "createdAt": 1725185171,
+          "updatedAt": 1735049301
+      },
+      {
+          "id": "cwhrmvv26n",
+          "url": "https://minyfy.minyvinyl.com/play/5Ql9OmZiBRYstvlI5uKN",
+          "slug": "weekes",
+          "createdAt": 1725727533,
+          "updatedAt": 1735049301
+      },
+      {
+          "id": "cezsrbp4dt",
+          "url": "https://minyfy.minyvinyl.com/play/QX00e5RmQnw1OlxVRx9c",
+          "slug": "weirdcore",
+          "createdAt": 1726078704,
+          "updatedAt": 1735049302
+      },
+      {
+          "id": "azzkju7ta8",
+          "url": "https://minyfy.minyvinyl.com/play/2TmU0UtCUI2GZ1eZC5zS",
+          "slug": "wendywins",
+          "createdAt": 1725805684,
+          "updatedAt": 1735049302
+      },
+      {
+          "id": "xgudfntq5y",
+          "url": "https://minyfy.minyvinyl.com/play/9FRwhQNPsAGU7GCqFdJi",
+          "slug": "wer",
+          "createdAt": 1725185157,
+          "updatedAt": 1735049303
+      },
+      {
+          "id": "7pcf9523d5",
+          "url": "https://minyfy.minyvinyl.com/play/6gFreYkNSIDrEEk9tr02",
+          "slug": "wiNpFk",
+          "createdAt": 1725185370,
+          "updatedAt": 1735049303
+      },
+      {
+          "id": "2rhtu9t78e",
+          "url": "https://minyfy.minyvinyl.com/play/DwgKh8gY8UWvTpMufIzJ",
+          "slug": "woha",
+          "createdAt": 1725185391,
+          "updatedAt": 1735049304
+      },
+      {
+          "id": "95uygv37u3",
+          "url": "https://minyfy.minyvinyl.com/play/msc3jSZ8KvN3RCudeTs4",
+          "slug": "wolfnight",
+          "createdAt": 1727205375,
+          "updatedAt": 1735049304
+      },
+      {
+          "id": "djy5wk7vru",
+          "url": "https://miny.minyvinyl.com/blog/wpjazz",
+          "slug": "wpjazz",
+          "createdAt": 1726157377,
+          "updatedAt": 1735049305
+      },
+      {
+          "id": "c7un8afcaq",
+          "url": "https://minyfy.minyvinyl.com/play/xQnmJAQ1tkqaIkE7yKKY",
+          "slug": "wsxsw",
+          "createdAt": 1725185206,
+          "updatedAt": 1735049305
+      },
+      {
+          "id": "sxtdr9qm5f",
+          "url": "https://minyfy.minyvinyl.com/play/QvukfAM5MSuuJbwcx48g",
+          "slug": "wwtop10",
+          "createdAt": 1725185374,
+          "updatedAt": 1735049306
+      },
+      {
+          "id": "6zvtxyxtbp",
+          "url": "https://minyfy.minyvinyl.com/play/BpxmbngEhPKHV6CNDb53",
+          "slug": "youngecho",
+          "createdAt": 1726352541,
+          "updatedAt": 1735049306
+      },
+      {
+          "id": "hbmsvh3gfj",
+          "url": "https://minyfy.minyvinyl.com/play/cr2t2uGrehasq82SK6sN",
+          "slug": "youngmix",
+          "createdAt": 1728421232,
+          "updatedAt": 1735049307
+      },
+      {
+          "id": "ndyb7544dv",
+          "url": "https://minyfy.minyvinyl.com/play/3GFVA5zjGM12TjCArOp5",
+          "slug": "yungselects",
+          "createdAt": 1728405491,
+          "updatedAt": 1735049307
+      },
+      {
+          "id": "xu6wrquzh2",
+          "url": "https://minyfy.minyvinyl.com/play/oqAiYBmtzGmAzmUg4kyx",
+          "slug": "yxHGQq",
+          "createdAt": 1725185337,
+          "updatedAt": 1735049308
+      },
+      {
+          "id": "3v58f8nge4",
+          "url": "https://minyfy.minyvinyl.com/play/oqAiYBmtzGmAzmUg4kyx",
+          "slug": "yxHGQz",
+          "createdAt": 1725187303,
+          "updatedAt": 1735049308
+      },
+      {
+          "id": "cyv9dm5mkv",
+          "url": "https://www.instagram.com/p/C9gTh6gRnia/",
+          "slug": "z4gB58",
+          "createdAt": 1725185414,
+          "updatedAt": 1725185414
+      },
+      {
+          "id": "5hn3ps4aj3",
+          "url": "https://miny.minyvinyl.com/artists/7230-zach-bryan",
+          "slug": "zach",
+          "createdAt": 1726078270,
+          "updatedAt": 1735049309
+      },
+      {
+          "id": "6rddscrpy2",
+          "url": "https://minyfy.minyvinyl.com/play/2NtlUWAKAat9gCmzc49y",
+          "slug": "zachb",
+          "createdAt": 1726078342,
+          "updatedAt": 1735049309
+      },
+      {
+          "id": "cb6jqf6hr9",
+          "url": "https://minyfy.minyvinyl.com/play/yAysaojyDWNSgopVbmg1",
+          "slug": "zg3jxa",
+          "createdAt": 1732959627,
+          "updatedAt": 1735049309
+      },
+      {
+          "id": "nc48dkm7ch",
+          "url": "https://minyfy.minyvinyl.com/play/yYFEXGRTA9yqvTu0Bf2u",
+          "slug": "zydeco",
+          "createdAt": 1725666735,
+          "updatedAt": 1735049310
       }
-    ],
-    "available_markets": [],
-    "disc_number": 1,
-    "duration_ms": 207959,
-    "explicit": false,
-    "external_ids": {
-      "isrc": "USUM71703861"
-    },
-    "external_urls": {
-      "spotify": "https://open.spotify.com/track/11dFghVXANMlKmJXsNCbNl"
-    },
-    "href": "https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",
-    "id": "11dFghVXANMlKmJXsNCbNl",
-    "is_local": false,
-    "name": "Cut To The Feeling",
-    "popularity": 0,
-    "track_number": 1,
-    "type": "track",
-    "uri": "spotify:track:11dFghVXANMlKmJXsNCbNl"
-  }
+  ]
+}
