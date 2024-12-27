@@ -255,18 +255,21 @@ const MixtapeGrid3D = ({ mixtapes, handleUpvote, votes, user }) => {
               
               {handleUpvote && (
                 <div 
-                  className={`flex flex-col justify-center items-center border pb-1 rounded-md px-2 cursor-pointer transition-all duration-300 
+                  className={`flex flex-col justify-center items-center border-[1.5px] pb-2 pt-1 rounded-md px-2 cursor-pointer transition-all duration-300 
                     ${votes[mixtape.MixtapeId] > 0 
                       ? 'border-[#78bf45] text-[#78bf45] bg-[#78bf45]/10' 
-                      : 'border-gray-300 text-slate-600 hover:border-[#78bf45]/50'}`}
+                      : 'border-white text-white hover:border-[#78bf45]'}`}
                   onClick={() => handleUpvote(mixtape.MixtapeId)} 
                 >
                   <IoCaretUpSharp className={`text-xl leading-none 
                     ${votes[mixtape.MixtapeId] > 0 
                       ? 'text-[#78bf45]' 
-                      : 'text-gray-600 group-hover:text-[#78bf45]/50'}`} 
+                      : 'text-gray-200 group-hover:text-[#78bf45]'}`} 
                   />
-                  <span className="text-xs -mt-[1px]">{votes[mixtape.MixtapeId] || 0}</span>
+                  <span className={`text-xs  -mt-[1px] leading-none 
+                    ${votes[mixtape.MixtapeId] > 0 
+                      ? 'text-[#78bf45]' 
+                      : 'text-gray-200 group-hover:text-[#78bf45]'}`} >{votes[mixtape.MixtapeId] || 0}</span>
                 </div>
               )}
               
@@ -279,7 +282,7 @@ const MixtapeGrid3D = ({ mixtapes, handleUpvote, votes, user }) => {
 };
 
 const ImageGallery = () => {
-  const [voted, setVoted] = useState(false);
+  const [voted, setVoted] = useState({});
   const [votes, setVotes] = useState({});
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -287,27 +290,62 @@ const ImageGallery = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        fetchUserVotes(currentUser.uid);
+      }
       localStorage.setItem('user', JSON.stringify(currentUser));
     });
 
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const fetchVotes = async () => {
-      const newVotes = {};
+  const fetchUserVotes = async (userId) => {
+    try {
+      const newVoted = {};
       const votePromises = images.map(async (mixtape) => {
         const docRef = doc(db, "mixtapes", mixtape.MixtapeId);
         const docSnap = await getDoc(docRef);
-
+        
         if (docSnap.exists()) {
-          newVotes[mixtape.MixtapeId] = docSnap.data().voteCount || 0;
-        } else {
-          newVotes[mixtape.MixtapeId] = 0;
+          const data = docSnap.data();
+          const hasVotedToday = data.votedBy?.some(vote =>
+            vote.userId === userId &&
+            vote.date.toDate().toDateString() === new Date().toDateString()
+          );
+          newVoted[mixtape.MixtapeId] = hasVotedToday;
         }
       });
       await Promise.all(votePromises);
-      setVotes(newVotes);
+      setVoted(newVoted);
+    } catch (error) {
+      console.error('Error fetching user votes:', error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchVotes = async () => {
+      try {
+        const newVotes = {};
+        const votePromises = images.map(async (mixtape) => {
+          const docRef = doc(db, "mixtapes", mixtape.MixtapeId);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            newVotes[mixtape.MixtapeId] = docSnap.data().voteCount || 0;
+          } else {
+            await setDoc(docRef, {
+              mixtapeId: mixtape.MixtapeId,
+              voteCount: 0,
+              votedBy: []
+            });
+            newVotes[mixtape.MixtapeId] = 0;
+          }
+        });
+        await Promise.all(votePromises);
+        setVotes(newVotes);
+      } catch (error) {
+        console.error('Error fetching votes:', error);
+      }
     };
 
     fetchVotes();
@@ -320,6 +358,7 @@ const ImageGallery = () => {
       const user = result.user;
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
+      await fetchUserVotes(user.uid);
     } catch (error) {
       console.error("Error during sign-in:", error);
     }
@@ -331,27 +370,21 @@ const ImageGallery = () => {
       return;
     }
 
+    if (voted[mixtapeId]) {
+      alert("You've already voted today!");
+      return;
+    }
+
     try {
       const docRef = doc(db, 'mixtapes', mixtapeId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        const hasVotedToday = data.votedBy.some(vote =>
-          vote.userId === user.uid &&
-          vote.date.toDate().toDateString() === new Date().toDateString()
-        );
-
-        if (hasVotedToday) {
-          alert("You've already voted today!");
-          return;
-        }
-
         await updateDoc(docRef, {
           voteCount: increment(1),
-          votedBy: [...data.votedBy, { userId: user.uid, date: new Date() }]
+          votedBy: [...(data.votedBy || []), { userId: user.uid, date: new Date() }]
         });
-
       } else {
         await setDoc(docRef, {
           mixtapeId,
@@ -379,6 +412,7 @@ const ImageGallery = () => {
 
     } catch (error) {
       console.error('Error updating vote count: ', error);
+      alert('Failed to update vote. Please try again.');
     }
   };
 
