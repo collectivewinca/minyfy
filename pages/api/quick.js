@@ -1,51 +1,47 @@
-import fetch from 'node-fetch';
+import { collection, getDocs, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    const url = 'https://go.minyvinyl.com/api/link/list';
-    const options = {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        'authorization': `Bearer ${process.env.NEXT_PUBLIC_SINK_KEY}`
-      }
-    };
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
 
-    try {
-      // Fetch all links with limit 1000
-      const response = await fetch(`${url}?limit=1000`, options);
-      const data = await response.json();
-      
-      // Filter and update links containing subwaymusician.xyz
-      for (const link of data.links) {
-        if (link.url.includes('miny.')) {
-          const updatedUrl = link.url.replace('miny.', 'rapidconnect.');
-          
-          // Call edit API for each matching link
-          const editResponse = await fetch('https://go.minyvinyl.com/api/link/edit', {
-            method: 'PUT',
-            headers: {
-              'content-type': 'application/json',
-              'authorization': `Bearer ${process.env.NEXT_PUBLIC_SINK_KEY}`
-            },
-            body: JSON.stringify({
-              slug: link.slug,
-              url: updatedUrl
-            })
-          });
-          
-          console.log(`Updated ${link.slug}: ${link.url} -> ${updatedUrl}`);
-        }
+  const { collectionName } = req.query;
+
+  if (!collectionName) {
+    return res.status(400).json({ error: "Missing required query parameter: collectionName" });
+  }
+
+  try {
+    const collectionRef = collection(db, collectionName);
+    const querySnapshot = await getDocs(collectionRef);
+
+    let updatedDocs = 0;
+
+    // Iterate through each document in the collection
+    for (const docSnapshot of querySnapshot.docs) {
+      const docData = docSnapshot.data();
+      console.log(`Processing document ${docSnapshot.id}`);
+
+      const updates = {};
+
+      // Check if backgroundImage exists and contains "subwaymusician.xyz"
+      if (docData.backgroundImage && docData.backgroundImage.includes("subwaymusician.xyz")) {
+        const newBackgroundImage = docData.backgroundImage.replace("subwaymusician.xyz", "minyvinyl.com");
+        updates.backgroundImage = newBackgroundImage;
       }
-      
-      console.log('Update process completed');
-      res.status(200).end();
-    } catch (error) {
-      console.error('Error:', error);
-      res.status(500).json({ error: 'Error processing links' });
+
+      // If the backgroundImage is updated, update the document in Firestore
+      if (Object.keys(updates).length > 0) {
+        await updateDoc(docSnapshot.ref, updates);
+        updatedDocs++;
+      }
     }
-  } else {
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    return res.status(200).json({ message: `${updatedDocs} documents updated successfully` });
+
+  } catch (error) {
+    console.error("Error updating documents:", error);
+    return res.status(500).json({ error: "Failed to update documents" });
   }
 }
