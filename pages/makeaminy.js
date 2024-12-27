@@ -163,39 +163,39 @@ const Custom = () => {
       });
   
       // Send email with the shortened link
-      try {
-        const emailResponse = await fetch('/api/send-mixtape', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: inputValue,
-            imageUrl: pngImageUrl,
-            shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,
-            email: userHere.email,
-            displayName: userHere.displayName,
-            isFirstLogin: isFirstLogin
-          }),
-        });
+      // try {
+      //   const emailResponse = await fetch('/api/send-mixtape', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       name: inputValue,
+      //       imageUrl: pngImageUrl,
+      //       shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,
+      //       email: userHere.email,
+      //       displayName: userHere.displayName,
+      //       isFirstLogin: isFirstLogin
+      //     }),
+      //   });
   
-        const emailJson = await emailResponse.json();
-        if (!emailResponse.ok) {
-          console.error('Error sending email:', emailJson.error);
-          setErrorMessage('Error sending email. Please try again.');
-          return;
-        }
+      //   const emailJson = await emailResponse.json();
+      //   if (!emailResponse.ok) {
+      //     console.error('Error sending email:', emailJson.error);
+      //     setErrorMessage('Error sending email. Please try again.');
+      //     return;
+      //   }
   
-        // Update user's lastLoginAt in localStorage
-        user.lastLoginAt = new Date().getTime().toString();
-        localStorage.setItem('user', JSON.stringify(user));
+      //   // Update user's lastLoginAt in localStorage
+      //   user.lastLoginAt = new Date().getTime().toString();
+      //   localStorage.setItem('user', JSON.stringify(user));
   
-        // Redirect to the shortened URL
-        window.location.href = json.link.url;
-      } catch (emailError) {
-        console.error('Error sending email:', emailError);
-        setErrorMessage('Error sending email. Please try again.');
-      }
+      //   // Redirect to the shortened URL
+      //   window.location.href = json.link.url;
+      // } catch (emailError) {
+      //   console.error('Error sending email:', emailError);
+      //   setErrorMessage('Error sending email. Please try again.');
+      // }
     } catch (err) {
       console.error('Error creating short URL:', err);
       setErrorMessage('An unexpected error occurred. Please try again.');
