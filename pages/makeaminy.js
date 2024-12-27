@@ -196,6 +196,8 @@ const Custom = () => {
       //   console.error('Error sending email:', emailError);
       //   setErrorMessage('Error sending email. Please try again.');
       // }
+
+      window.location.href = json.link.url;
     } catch (err) {
       console.error('Error creating short URL:', err);
       setErrorMessage('An unexpected error occurred. Please try again.');
