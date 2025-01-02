@@ -1,39 +1,57 @@
+import { useState, useEffect } from 'react';
 import { supabase } from '@/supabase/config';
+import Head from 'next/head';
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+export default function VimeoPage() {
+  const [vimeoData, setVimeoData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchVimeoData() {
+      try {
+        const { data, error } = await supabase
+          .from('mixtapes')
+          .select('id, vimeo')
+          .not('vimeo', 'is', null);
+
+        if (error) throw error;
+        setVimeoData(data);
+      } catch (error) {
+        console.error('Error fetching Vimeo data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchVimeoData();
+  }, []);
+
+  if (loading) {
+    return <div className="container mx-auto p-4">Loading...</div>;
   }
 
-  const { id, vimeoData } = req.body;
-
-  if (!id || !vimeoData) {
-    return res.status(400).json({ message: 'Missing required fields' });
-  }
-
-  try {
-    // Get the current mixtape data
-    const { data: mixtape, error: fetchError } = await supabase
-      .from('mixtapes')
-      .select('vimeo')
-      .eq('id', id)
-      .single();
-
-    if (fetchError) throw fetchError;
-
-    // Update the mixtape with new Vimeo data
-    const { error: updateError } = await supabase
-      .from('mixtapes')
-      .update({
-        vimeo: vimeoData
-      })
-      .eq('id', id);
-
-    if (updateError) throw updateError;
-
-    return res.status(200).json({ message: 'Vimeo data updated successfully' });
-  } catch (error) {
-    console.error('Error updating Vimeo data:', error);
-    return res.status(500).json({ message: 'Error updating Vimeo data', error: error.message });
-  }
+  return (
+    <>
+      <Head>
+        <title>Vimeo Content | Minyfy</title>
+      </Head>
+      <div className="container mx-auto p-4">
+        <h1 className="text-3xl font-bold mb-6">Vimeo Content</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {vimeoData.map((item) => (
+            <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              {item.vimeo && (
+                <div 
+                  className="relative pb-[56.25%] h-0"
+                  dangerouslySetInnerHTML={{ 
+                    __html: item.vimeo 
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
