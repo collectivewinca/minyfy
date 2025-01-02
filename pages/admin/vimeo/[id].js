@@ -30,7 +30,6 @@ const Mixtape = () => {
 
           if (mixtape) {
             setMixtapeData(mixtape);
-            console.log('Mixtape Data:', mixtape);
           } else {
             console.log('No such document!');
           }

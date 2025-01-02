@@ -151,7 +151,6 @@ const Custom = () => {
         return;
       }
   
-      console.log('Short URL created successfully:', json);
   
       // Update Supabase document with the shortened link
       const { error } = await supabase
@@ -170,7 +169,6 @@ const Custom = () => {
   };
   
   const handleDocIdChange = (id) => {
-    console.log("handleDocIdChange called with ID:", id);
     setDocId(id);
     setShowUrlInput(true);
   };
@@ -195,12 +193,10 @@ const Custom = () => {
 
   const generateImage = async () => {
     if (!user) {
-      console.log('User not logged in. Redirecting to login');
       await handleLogin();
       return;
     }
     
-    console.log('Starting image generation');
     setLoading(true);
     const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
     try {
@@ -219,7 +215,6 @@ const Custom = () => {
       });
 
       const data = await response.json();
-      console.log('Generated image data:', data);
       if (data.data && data.data.length > 0) {
         const imageUrl = data.data[0].url;
         

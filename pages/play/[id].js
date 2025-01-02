@@ -103,7 +103,6 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [showShareOptions, setShowShareOptions] = useState(false);
   
-  console.log("docData", docData);
 
   const handleLogin = async () => {
     try {
@@ -168,7 +167,6 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
     return () => subscription.unsubscribe();
   }, []);
   
-  console.log(comments);
   
 
 

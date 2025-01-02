@@ -39,7 +39,6 @@ const PlaylistViewer = () => {
       }
       
       const data = await response.json();
-      console.log(data);
       setPlaylist(data);
       setCurrentTrack(null); // Reset current track when new playlist loads
     } catch (err) {

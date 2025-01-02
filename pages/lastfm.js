@@ -29,7 +29,6 @@ function Lastfm() {
   const [pngImageUrl, setPngImageUrl] = useState("");
 
   const handleDocIdChange = (id) => {
-    console.log("handleDocIdChange called with ID:", id);
     setDocId(id);
     setShowUrlInput(true);
   };
@@ -112,7 +111,6 @@ function Lastfm() {
   };
 
   const generateImage = async () => {
-    console.log('Starting image generation');
     setLoading(true);
     const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
     const response = await fetch('https://api.openai.com/v1/images/generations', {
@@ -130,7 +128,6 @@ function Lastfm() {
     });
 
     const data = await response.json();
-    console.log('Generated image data:', data);
     if (data.data && data.data.length > 0) {
       const imageUrl = data.data[0].url;
       try {
@@ -199,7 +196,6 @@ function Lastfm() {
         return;
       }
   
-      console.log('Short URL created successfully:', json);
   
       // Update Supabase document with the shortened link
       const { error } = await supabase

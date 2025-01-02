@@ -68,7 +68,6 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
 
       const result = await chatSession.sendMessage("Follow the format strictly please: {'tracks': ['Track Name - Artist Name', 'Track Name - Artist Name',...]} Also if there is No Track Name in content return Empty Array {'tracks': []}.");
       const aiResponse = await result.response.text().trim();
-      console.log('Gemini AI Response:', aiResponse);
       return cleanJSONResponse(aiResponse);
     } catch (error) {
       console.error('Error processing with Gemini:', error);
@@ -117,7 +116,6 @@ const ImportRedditPlaylist = ({ onTracksChange }) => {
         }
       });
 
-      console.log('Reddit Content:', content);
       
       return content;
     } catch (error) {

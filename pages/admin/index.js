@@ -33,7 +33,6 @@ const createCanvas = async (node) => {
 
     if (dataUrl.length > cycle[i - 1]) repeat = false;
   }
-  console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
   return canvas;
 };
 
@@ -57,7 +56,6 @@ function Admin() {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
-  console.log("Minys:", mixtapes.map(({ tracks, ...rest }) => rest));
 
 
   const handleDelete = async (mixtapeId) => {

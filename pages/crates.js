@@ -27,15 +27,12 @@ function Crates() {
       const user = session?.user;
       setUser(user);
       if (user) {
-        console.log("Fetching crates for user:", user.email);
         await fetchCrates(user.email);
       } else {
-        console.log("Fetching public crates");
         await fetchPublicCrates();
       }
 
       if (crateId && status === 'success') {
-        console.log("Updating crate status for ID:", crateId);
         setShowCongrats(true);
         await updateCrateStatus(crateId);
         setIsProcessing(false);
@@ -52,10 +49,8 @@ function Crates() {
       const user = session?.user;
       setUser(user);
       if (user) {
-        console.log("Fetching crates for user:", user.email);
         await fetchCrates(user.email);
       } else {
-        console.log("Fetching public crates");
         await fetchPublicCrates();
       }
     });
@@ -116,7 +111,6 @@ function Crates() {
         .eq('id', id);
 
       if (updateError) throw updateError;
-      console.log("Crate status updated for ID:", id);
 
       // Prepare data for the email API
       const emailData = {
@@ -126,7 +120,6 @@ function Crates() {
         email: crateData.email
       };
 
-      console.log(`Sending email to: ${emailData.email}`);
 
       // Send email using your Next.js API
       const response = await fetch('/api/send-email', {
@@ -142,7 +135,6 @@ function Crates() {
       }
 
       const result = await response.json();
-      console.log('Email sent successfully:', result.message);
     } catch (error) {
       console.error("Error updating crate status and sending email:", error);
     }
@@ -166,7 +158,6 @@ function Crates() {
     }
   };
 
-  console.log("crates:", crates);
 
   
 

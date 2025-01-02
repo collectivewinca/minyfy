@@ -24,7 +24,6 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
         e.preventDefault();
         // if (validateForm()) {
         //   handlePledgeFormClick();
-        //   // console.log("Form submitted:", formData);
         // }
         handlePledgeFormClick();
       };

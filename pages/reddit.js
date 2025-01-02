@@ -13,10 +13,6 @@ import { AiFillDelete } from "react-icons/ai"; // Import delete icon
 import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/supabase/config';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 function Reddit() {
   const [redditUrl, setRedditUrl] = useState('');
@@ -214,7 +210,6 @@ function Reddit() {
   };
 
   const generateImage = async () => {
-    console.log('Starting image generation');
     setLoading1(true);
     const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
     const response = await fetch('https://api.openai.com/v1/images/generations', {
@@ -291,7 +286,6 @@ function Reddit() {
         return;
       }
   
-      console.log('Short URL created successfully:', json);
   
       const { error } = await supabase
         .from('mixtapes')

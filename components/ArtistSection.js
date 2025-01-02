@@ -11,7 +11,6 @@ const ArtistSection = ({ onTracksChange, artist }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
 
-  console.log(artist);
 
   useEffect(() => {
     if (artist) {
@@ -114,8 +113,6 @@ const ArtistSection = ({ onTracksChange, artist }) => {
         },
       });
       
-      // Add console log to see the full response
-      console.log('Spotify top tracks response:', topTracksResponse.data);
 
       // Check if there are any tracks
       if (topTracksResponse.data.tracks.length === 0) {

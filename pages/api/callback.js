@@ -35,7 +35,6 @@ export default async function handler(req, res) {
 
       const { access_token, token_type, scope, expires_in, refresh_token } = response.data;
 
-      console.log({access_token, token_type, scope, expires_in, refresh_token});
     //   await getProfile(access_token);
       
 

@@ -42,7 +42,6 @@ const ImportAppleMusicPlaylist = ({ onTracksChange }) => {
 
     try {
       const playlistId = extractPlaylistId(playlistUrl);
-      console.log('Playlist ID:', playlistId);
       if (!playlistId) {
         setError('Invalid Apple Music playlist URL.');
         return;
@@ -75,7 +74,6 @@ const ImportAppleMusicPlaylist = ({ onTracksChange }) => {
     setSelectedPlaylist(playlist);
     try {
       const tracks = await fetchPlaylistTracks(`${playlist.id}`);
-      console.log('Fetched Tracks:', tracks); 
       setAllTracks(tracks);
       onTracksChange(tracks);
       setError('');
