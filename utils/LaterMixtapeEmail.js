@@ -14,7 +14,7 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  export const LaterMixtapeEmail = ({ imageUrl, name, shortenedLink, displayName }) => {
+  export const LaterMixtapeEmail = ({ image_url, name, shortened_link, displayName }) => {
     const previewText = ` Share Your Musical Creation!`;
 
   
@@ -40,7 +40,7 @@ import {
                 This is your musical masterpiece, so don’t be shy – share the love!
                 </Text>
                 <Link 
-                  href={shortenedLink}
+                  href={shortened_link}
                   style={{
                     backgroundColor: '#f0f0f0',
                     border: '2px solid #ff5722',
@@ -60,12 +60,12 @@ import {
                     color: '#333',
                     wordBreak: 'break-word' // Ensure the link breaks nicely on long URLs
                   }}>
-                    {shortenedLink}
+                    {shortened_link}
                   </span>
                 </Link>
-                <Img src={imageUrl} width="100%" alt="Mixtape Image" style={mixtapeImage} />
+                <Img src={image_url} width="100%" alt="Mixtape Image" style={mixtapeImage} />
                 
-                <Button style={button} href={shortenedLink}>
+                <Button style={button} href={shortened_link}>
                   Listen to Your {name} Mixtape
                 </Button>
                 

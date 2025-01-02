@@ -1,7 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { db, auth } from '@/firebase/config';
-import { onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
-import { doc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -18,41 +15,56 @@ import {IoRocketSharp} from 'react-icons/io5'
 import { FaArrowDownLong } from "react-icons/fa6";
 import  Player  from '@vimeo/player';
 import {PasswordProtectedPlayer} from "@/utils/PlayerLockOverlay";
-import { Play, SkipBack, SkipForward, Pause } from 'lucide-react'; // Add this import
-import { FaComment, FaHeart } from 'react-icons/fa'; // Add this import
-import { MdMic, MdPoll } from 'react-icons/md'; // Add this import
+import { Play, SkipBack, SkipForward, Pause } from 'lucide-react';
+import { FaComment, FaHeart } from 'react-icons/fa';
+import { MdMic, MdPoll } from 'react-icons/md';
 import MixtapeCard from '@/utils/MixtapeCard';
+import { supabase } from '@/supabase/config';
 
-export async function getServerSideProps(context) {
-  const { id } = context.params;
-  let docData = null;
-  let docId = null;
-  let initialComments = [];
+export async function getServerSideProps({ params }) {
+  const { id } = params;
 
   try {
-    // Fetch the main document
-    const docRef = doc(db, 'exclusives', id);
-    const docSnap = await getDoc(docRef);
+    const { data: exclusive, error: fetchError } = await supabase
+      .from('exclusives')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-    if (docSnap.exists()) {
-      const { createdAt, votedBy, comments: commentsData = [], ...rest } = docSnap.data(); // Destructure to exclude createdAt and get comments
-      docData = rest; // Assign everything except createdAt to docData
-      initialComments = commentsData; // Default to empty array if comments field is missing
-      docId = id;
-    } else {
-      console.error("No such document!");
+    if (fetchError) throw fetchError;
+    if (!exclusive) {
+      return {
+        notFound: true
+      };
     }
-  } catch (error) {
-    console.error("Error getting document:", error);
-  }
 
-  return {
-    props: {
-      docData,
-      docId,
-      initialComments,
-    },
-  };
+    return {
+      props: {
+        docData: {
+          ...exclusive,
+          image_url: exclusive.imageurl,
+          background_image: exclusive.backgroundimage,
+          user_display_name: exclusive.userdisplayname,
+          user_email: exclusive.useremail,
+          shortened_link: exclusive.shortenedlink,
+          tracks: exclusive.tracks,
+          vote_count: exclusive.votecount,
+          comment_count: exclusive.commentcount,
+          is_favorite: exclusive.isfavorite,
+          unlockPassword: exclusive.unlockpassword,
+          name: exclusive.name,
+          date: exclusive.date
+        },
+        docId: id,
+        initialComments: exclusive.comments || []
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching exclusive:', error);
+    return {
+      notFound: true
+    };
+  }
 }
 
 const PlaylistPage = ({ docData, docId, initialComments }) => {
@@ -77,7 +89,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
   useEffect(() => {
     const loadVimeoPlayer = () => {
-      if (docData?.tracks && docData?.tracks.length > 0 && playerRef.current) {
+      if (!isLocked && docData?.tracks && docData?.tracks.length > 0 && playerRef.current) {
         const iframe = document.createElement('iframe');
         iframe.src = `https://player.vimeo.com/video/${docData?.tracks[currentTrackIndex].id}?autoplay=1`;
         iframe.width = '100%';
@@ -144,44 +156,50 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   };
 
   const handleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
-
-      // Ensure user is not null before accessing its properties
-      if (user) {
-        setDisplayName(user.displayName || '');
-        setAvatarUrl(user.photoURL || '');
-      }
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+      if (error) throw error;
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during sign-in:", error.message);
     }
   };
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
       setUser(null);
       localStorage.removeItem('user');
     } catch (error) {
-      console.error("Error during sign-out:", error);
+      console.error("Error during sign-out:", error.message);
     }
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        // Update formData with user's name and email
-        setDisplayName(currentUser.displayName || '');
-        setAvatarUrl(currentUser.photoURL || '');
+    const checkUser = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error checking session:", error.message);
+        return;
       }
+      setUser(session?.user || null);
+    };
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
     });
 
-    return () => unsubscribe();
+    checkUser();
+    return () => subscription?.unsubscribe();
   }, []);
 
   const handleBuyNowClick = async () => {
@@ -223,7 +241,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
   const handleDownloadImage = async () => {
     try {
-      const response = await fetch(imageUrl);
+      const response = await fetch(image_url);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -246,7 +264,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
-  const { name, tracks, date, imageUrl, backgroundImage, unlockPassword, shortenedLink } = docData;
+  const { name, tracks, date, image_url, background_image, unlockPassword, shortened_link } = docData;
   const topValue = 42 - name.length * 0.4;
 
   return (
@@ -261,7 +279,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           description: `${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.title).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!.`,
           images: [
             {
-              url: backgroundImage,
+              url: background_image,
               alt: `${toSentenceCase(name)}'s Mixtape Cover`,
               width: 1200,
               height: 630,
@@ -276,7 +294,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           cardType: 'summary_large_image',
           title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
           description: `Listen to and comment on ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Share your thoughts with text, stickers, audio comments, and polls.`,
-          image: backgroundImage,
+          image: background_image,
         }}
         additionalJsonLd={[
           {
@@ -287,13 +305,13 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               name
             )}'s custom mixtape on Miny Vinyl. Discover unique tracks, join the conversation, and share your thoughts!`,
             url: `https://minyfy.minyvinyl.com${router.asPath}`,
-            image: backgroundImage,
+            image: background_image,
           },
         ]}
       />
       <Head>
-        <meta property="og:image" content={backgroundImage} />
-        <link rel="icon" href={backgroundImage} />
+        <meta property="og:image" content={background_image} />
+        <link rel="icon" href={background_image} />
       </Head>
 
       <header className="w-full bg-black flex items-center justify-between py-2 px-4">
@@ -328,7 +346,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
       <div className='py-4 px-2 bg-black text-white flex flex-col justify-center items-center'>
         <SocialShareButtons
-          shareUrl={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
+          shareUrl={shortened_link || `https://minyfy.minyvinyl.com${router.asPath}`}
           title="Check out my Latest Mixtape on Miny Vinyl"
         />
 
@@ -344,7 +362,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         </PasswordProtectedPlayer>
 
         <div className='grid grid-cols-1'>
-          <MixtapeCard imageUrl={backgroundImage} />
+          <MixtapeCard image_url={background_image} />
         </div>
 
         {/* Track Info - Only visible when unlocked */}

@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { collection, query, orderBy, limit, startAfter, getDocs, where, updateDoc, doc } from 'firebase/firestore';
-import { db, auth } from '@/firebase/config';
-import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { supabase } from '@/supabase/config';
 import Header from '@/components/Header';
-import { IoCaretUpSharp } from 'react-icons/io5';
 import Image from 'next/image';
-import { FaRegComment, FaSearch } from 'react-icons/fa';
-import confetti from 'canvas-confetti';
-import { useRouter } from 'next/navigation';
-import TagsComponent from '@/components/TagsComponent';
-import Head from 'next/head';
+import { FaRegHeart, FaHeart, FaSearch, FaRegComment } from 'react-icons/fa';
+import { MdModeEdit } from 'react-icons/md';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
+import { FaComment } from 'react-icons/fa';
+import { IoCaretUpSharp } from 'react-icons/io5';
+import TagsComponent from '@/components/TagsComponent';
 
-const BATCH_SIZE = 20;
+const BATCH_SIZE = 12;
 
 export default function Catalog() {
   const [mixtapes, setMixtapes] = useState([]);
@@ -28,16 +27,26 @@ export default function Catalog() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        localStorage.setItem('user', JSON.stringify(currentUser));
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setUser(session.user);
+        localStorage.setItem('user', JSON.stringify(session.user));
+      }
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setUser(session.user);
+        localStorage.setItem('user', JSON.stringify(session.user));
       } else {
+        setUser(null);
         localStorage.removeItem('user');
       }
     });
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -50,12 +59,20 @@ export default function Catalog() {
   }, [activeTab]);
 
   const handleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+      if (error) throw error;
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during sign-in:", error.message);
     }
   };
 
@@ -65,95 +82,70 @@ export default function Catalog() {
       return;
     }
 
-    const mixtape = mixtapes.find(m => m.id === mixtapeId);
-    const hasVotedToday = mixtape.votedBy?.some(vote =>
-      vote.userId === user.uid &&
-      vote.date.toDate().toDateString() === new Date().toDateString()
-    );
-
-    if (hasVotedToday) {
-      alert("You've already voted today!");
-      return;
-    }
-
     try {
-      const docRef = doc(db, 'mixtapes', mixtapeId);
-      await updateDoc(docRef, {
-        voteCount: (mixtape.voteCount || 0) + 1,
-        votedBy: [...(mixtape.votedBy || []), { userId: user.uid, date: new Date() }]
-      });
+      // First get the current mixtape
+      const { data: mixtape, error: fetchError } = await supabase
+        .from('mixtapes')
+        .select('vote_count')
+        .eq('id', mixtapeId)
+        .single();
 
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#78bf45', '#96ed58', '#4f9120'],
-      });
+      if (fetchError) throw fetchError;
 
-      setMixtapes(prevMixtapes => prevMixtapes.map(m => 
-        m.id === mixtapeId ? { ...m, voteCount: (m.voteCount || 0) + 1, votedBy: [...(m.votedBy || []), { userId: user.uid, date: new Date() }] } : m
-      ));
+      // Update the vote count
+      const { error: updateError } = await supabase
+        .from('mixtapes')
+        .update({ vote_count: (mixtape.vote_count || 0) + 1 })
+        .eq('id', mixtapeId);
 
-      setVoted((prevVoted) => ({
-        ...prevVoted,
-        [mixtapeId]: true,
-      }));
+      if (updateError) throw updateError;
+
+      // Update local state
+      setMixtapes(prevMixtapes =>
+        prevMixtapes.map(m =>
+          m.id === mixtapeId
+            ? { ...m, vote_count: (m.vote_count || 0) + 1 }
+            : m
+        )
+      );
     } catch (error) {
       console.error('Error updating vote count: ', error);
     }
   };
 
-  const fetchMixtapes = useCallback(async () => {
-    if (loading || !hasMore) return;
-
+  const fetchMixtapes = async () => {
+    if (loading) return;
     setLoading(true);
+
     try {
-      const mixtapesCollection = collection(db, 'mixtapes');
-      let sortField;
-      switch (activeTab) {
-        case 'Latest':
-          sortField = 'createdAt';
-          break;
-        case 'Most Upvotes':
-          sortField = 'voteCount';
-          break;
-        case 'Most Comments':
-          sortField = 'commentCount';
-          break;
-        default:
-          sortField = 'createdAt';
+      let query = supabase
+        .from('mixtapes')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (activeTab === 'popular') {
+        query = query.order('vote_count', { ascending: false });
       }
 
-      let mixtapesQuery = query(
-        mixtapesCollection,
-        orderBy(sortField, 'desc'),
-        limit(BATCH_SIZE)
+      if (searchQuery) {
+        query = query.ilike('name', `%${searchQuery}%`);
+      }
+
+      const { data: newMixtapes, error } = await query
+        .range(mixtapes.length, mixtapes.length + BATCH_SIZE - 1);
+
+      if (error) throw error;
+
+      setMixtapes(prevMixtapes => 
+        mixtapes.length === 0 ? newMixtapes : [...prevMixtapes, ...newMixtapes]
       );
-
-      if (lastDoc) {
-        mixtapesQuery = query(
-          mixtapesCollection,
-          orderBy(sortField, 'desc'),
-          startAfter(lastDoc),
-          limit(BATCH_SIZE)
-        );
-      }
-
-      const querySnapshot = await getDocs(mixtapesQuery);
-      const newMixtapes = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-
-      setMixtapes(prev => [...prev, ...newMixtapes]);
-      setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1]);
-      setHasMore(querySnapshot.docs.length === BATCH_SIZE);
+      setHasMore(newMixtapes.length === BATCH_SIZE);
     } catch (error) {
       console.error('Error fetching mixtapes:', error);
     } finally {
       setLoading(false);
     }
-  }, [lastDoc, loading, hasMore, activeTab]);
+  };
 
   const fetchMixtapesBySearch = useCallback(async () => {
     if (loading) return;
@@ -161,23 +153,19 @@ export default function Catalog() {
     setLoading(true);
     setIsSearching(true);
     try {
-      const mixtapesCollection = collection(db, 'mixtapes');
-      const mixtapesQuery = query(
-        mixtapesCollection,
-        where('name', '>=', searchQuery.toLowerCase()),
-        where('name', '<=', searchQuery.toLowerCase() + '\uf8ff'),
-        limit(20)
-      );
+      const { data: searchResults, error } = await supabase
+        .from('mixtapes')
+        .select('*')
+        .ilike('name', `%${searchQuery}%`)
+        .order('created_at', { ascending: false })
+        .limit(BATCH_SIZE);
 
-      const querySnapshot = await getDocs(mixtapesQuery);
-      const newMixtapes = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      if (error) throw error;
 
-      setSearchResults(newMixtapes);
+      setMixtapes(searchResults);
+      setHasMore(false); // Disable infinite scroll for search results
     } catch (error) {
-      console.error('Error fetching mixtapes by search:', error);
+      console.error('Error searching mixtapes:', error);
     } finally {
       setLoading(false);
     }
@@ -233,6 +221,37 @@ export default function Catalog() {
     setLastDoc(null);
     setHasMore(true);
   };
+
+  const renderMixtapeCard = (mixtape) => (
+    <div className="relative group">
+      <Link href={mixtape.shortened_link || `/play/${mixtape.id}`}>
+        <div className="relative overflow-hidden rounded-lg">
+          <Image
+            src={mixtape.image_url}
+            alt={mixtape.name}
+            width={300}
+            height={300}
+            className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+            quality={75}
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="text-white text-center">
+              <p className="font-bold text-lg">{mixtape.name}</p>
+              <p className="text-sm">by {mixtape.user_display_name}</p>
+              <div className="mt-2 flex items-center justify-center space-x-4">
+                <span className="flex items-center">
+                  <FaHeart className="mr-1" /> {mixtape.vote_count || 0}
+                </span>
+                <span className="flex items-center">
+                  <FaComment className="mr-1" /> {mixtape.comment_count || 0}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
 
   return (
     <>
@@ -318,7 +337,7 @@ export default function Catalog() {
                   alt={mixtape.name}
                   className="w-full rounded object-cover cursor-pointer hover:scale-95"
                   onClick={() => {router.push(`/play/${mixtape.id}`)}}
-                  src={mixtape.imageUrl}
+                  src={mixtape.image_url}
                   width={300}
                   height={300}
                   quality={75}
@@ -327,7 +346,7 @@ export default function Catalog() {
                 <div className="flex gap-1 mb-2 text-slate-600 hover:text-primary items-center cursor-pointer">
                   <FaRegComment className="text-base leading-none" />
                   <div className="text-xs leading-none">
-                    {mixtape.commentCount || 0} Comments
+                    {mixtape.comment_count || 0} Comments
                   </div>
                 </div>
 
@@ -336,7 +355,7 @@ export default function Catalog() {
                   onClick={() => handleUpvote(mixtape.id)} 
                 >
                   <IoCaretUpSharp className={`text-base leading-none ${voted[mixtape.id] ? 'text-[#78bf45]' : 'text-slate-600'}`} />
-                  <div className="text-[0.6rem] -mt-[1px] leading-none">{mixtape.voteCount || 0}</div>
+                  <div className="text-[0.6rem] -mt-[1px] leading-none">{mixtape.vote_count || 0}</div>
                 </div>
               </div>
             ))}

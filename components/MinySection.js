@@ -5,17 +5,10 @@ import html2canvas from "html2canvas";
 import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa6";
 import { MdRocketLaunch } from "react-icons/md";
 import { useRouter } from "next/router";
-import { db, auth, storage } from "@/firebase/config";
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-  serverTimestamp,
-} from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { storage } from "@/firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { supabase } from '@/supabase/config';
 
 const MinySection = ({
   name,
@@ -26,7 +19,7 @@ const MinySection = ({
   backgroundImageSrc,
   setPngImageUrl,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(true);
+  const [is_favorite, setIsFavorite] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const trackDataContainerRef = useRef(null);
@@ -45,24 +38,39 @@ const MinySection = ({
   };
   const dots = useLoadingDots();
 
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setUser(session.user);
+      }
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setUser(session.user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const handleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
+      if (error) throw error;
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during login:", error);
     }
   };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   const createCanvas = async (node) => {
     const canvas = await html2canvas(node, {
@@ -90,7 +98,7 @@ const MinySection = ({
     context.clip();
   };
 
-  const uploadImage = async (tracksWithYouTube) => {
+  const uploadImage = async () => {
     if (trackDataContainerRef.current === null) return;
 
     try {
@@ -110,66 +118,44 @@ const MinySection = ({
       // Draw the original canvas content into the hexagon-clipped canvas
       hexContext.drawImage(originalCanvas, 0, 0);
 
-      // Convert the hexagon-clipped canvas to WebP format using Canvas API
-      const webpDataUrl = hexCanvas.toDataURL("image/webp", 0.8); // Quality is set to 80% (0.8)
+      // Convert to WebP format
+      const webpDataUrl = hexCanvas.toDataURL("image/webp", 0.8);
+      const pngDataUrl = hexCanvas.toDataURL("image/png", 0.7);
 
       // Convert the WebP Data URL to Blob
       const webpBlob = await (await fetch(webpDataUrl)).blob();
-
-      // Create PNG Data URL
-      const pngDataUrl = hexCanvas.toDataURL("image/png", 0.7); // Create PNG data URL
-
-      // Convert the PNG Data URL to Blob
       const pngBlob = await (await fetch(pngDataUrl)).blob();
 
-      // Generate the track names for the filename
-      const trackNames = tracksWithYouTube
-        .slice(0, 4)
-        .map((t) => t.track)
-        .join(" - ");
+      // Generate filename and upload
+      const fileName = `miny-${uuidv4()}`;
+      const webpImageRef = ref(storage, `aminy-generation/${fileName}.webp`);
+      const pngImageRef = ref(storage, `email-mixtapes/${fileName}.png`);
 
-      // Generate the base file name
-      const baseFileName = trackNames
-        ? `Miny Vinyl Playlist (Mixtape) featuring tracks - ${trackNames.replace(
-            /\s+/g,
-            "-"
-          )}`
-        : `Miny Vinyl Playlist (Mixtape)`;
-
-      // Create references for both WebP and PNG uploads
-      const webpImageRef = ref(storage, `a-mixtapes/${baseFileName}.webp`);
-      const pngImageRef = ref(storage, `email-mixtapes/${baseFileName}.png`);
-
-      // Upload the WebP blob to Firebase Storage
+      // Upload both formats
       await uploadBytes(webpImageRef, webpBlob);
-      // Upload the PNG blob to Firebase Storage
       await uploadBytes(pngImageRef, pngBlob);
 
-      // Get download URLs for both formats
+      // Get download URLs
       const webpImageUrl = await getDownloadURL(webpImageRef);
       const pngImageUrl = await getDownloadURL(pngImageRef);
 
-      // Return both URLs (or choose how to handle them)
-      return { webpImageUrl, pngImageUrl };
+      setPngImageUrl(pngImageUrl);
+      return  { webpImageUrl, pngImageUrl };;
     } catch (error) {
       console.error("Error uploading image:", error);
-      throw new Error("Image upload failed");
+      return null;
     }
   };
 
-  const saveToFirestore = async () => {
+  const saveMixtape = async () => {
     if (!user) {
-      await handleLogin();
-      return;
-    }
-
-    if (!name) {
-      alert("Please enter mixtape name to watermark the MINY!");
+      handleLogin();
       return;
     }
 
     setLoading(true);
     try {
+      // Get YouTube data for tracks
       const tracksWithYouTube = await Promise.all(
         tracks.map(async (track) => {
           const youtubeData = await fetchYouTubeDataWithRetry(track);
@@ -180,32 +166,48 @@ const MinySection = ({
         })
       );
 
-      // Upload image and get URL
+      // Upload image and get URLs
       const { webpImageUrl, pngImageUrl } = await uploadImage(
         tracksWithYouTube
       );
       setPngImageUrl(pngImageUrl);
 
-      // Save to Firestore
-      const docRef = await addDoc(collection(db, "mixtapes"), {
+      // Prepare the data
+      const mixtapeData = {
         name: name.toLowerCase(),
-        backgroundImage,
+        image_url: webpImageUrl,
+        png_image_url: pngImageUrl,
+        background_image: backgroundImage,
         tracks: tracksWithYouTube,
         date: formattedDate,
-        isFavorite,
-        userDisplayName: user.displayName || "Anonymous",
-        userEmail: user.email,
-        imageUrl: webpImageUrl,
-        pngImageUrl,
-        createdAt: serverTimestamp(),
-        commentCount: 0,
-        voteCount: 0,
-      });
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        user_display_name: user.user_metadata.full_name,
+        user_email: user.email,
+        vote_count: 0,
+        comment_count: 0,
+        is_favorite: is_favorite,
+        shortened_link: null,
+        vimeo: [],
+        comments: [],
+        voted_by: []
+      };
 
-      setFinalImage(webpImageUrl);
-      onDocIdChange(docRef.id);
+      // Insert into Supabase
+      const { data: newMixtape, error } = await supabase
+        .from('mixtapes')
+        .insert([mixtapeData])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      if (onDocIdChange) {
+        onDocIdChange(newMixtape.id);
+      }
+      router.push(`/play/${newMixtape.id}`);
     } catch (error) {
-      console.error("Error saving image:", error);
+      console.error("Error saving mixtape:", error);
     } finally {
       setLoading(false);
     }
@@ -335,11 +337,11 @@ const MinySection = ({
         <div className="flex md:flex-row gap-3 flex-col justify-between items-center mt-4">
           <button
             onClick={() => {
-              setIsFavorite(!isFavorite);
+              setIsFavorite(!is_favorite);
             }}
             className="bg-[#F4EFE6] hover:opacity-80 text-sm shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-4 rounded-full"
           >
-            {isFavorite ? (
+            {is_favorite ? (
               <FaRegHeart className="text-lg" />
             ) : (
               <FaHeart className="text-xl" />
@@ -347,7 +349,7 @@ const MinySection = ({
             Add to Favorites
           </button>
           <button
-            onClick={saveToFirestore}
+            onClick={saveMixtape}
             className="bg-[#f48531] hover:opacity-80 text-sm shadow-custom flex items-center gap-2 text-black font-semibold py-3 px-7 rounded-full"
             disabled={loading}
           >

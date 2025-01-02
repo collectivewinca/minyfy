@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { db, auth, storage } from '@/firebase/config';
-import { collection, getDocs, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
-import { onAuthStateChanged } from 'firebase/auth';
+import { storage } from '@/firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import Header from '@/components/Header';
 import html2canvas from 'html2canvas';
 import { toCanvas } from 'html-to-image';
+import { supabase } from '@/supabase/config';
 
 const createCanvas = async (node) => {
   const isSafariOrChrome = /safari|chrome/i.test(navigator.userAgent) && !/android/i.test(navigator.userAgent);
@@ -63,12 +62,15 @@ function Admin() {
 
   const handleDelete = async (mixtapeId) => {
     try {
-      // Delete the document from Firestore
-      await deleteDoc(doc(db, 'mixtapes', mixtapeId));
+      const { error } = await supabase
+        .from('mixtapes')
+        .delete()
+        .eq('id', mixtapeId);
+
+      if (error) throw error;
 
       // Remove the deleted mixtape from the state
       setMixtapes(mixtapes.filter((mixtape) => mixtape.id !== mixtapeId));
-
     } catch (error) {
       console.error('Error deleting mixtape:', error);
       alert('Failed to delete mixtape.');
@@ -84,30 +86,36 @@ function Admin() {
   ];
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user && adminEmails.includes(user.email)) {
-        setUser(user);
-        fetchMixtapes(); // Fetch mixtapes once when the user is authenticated
-      } else {
-        router.push('/');
+    const checkUser = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error checking session:", error.message);
+        return;
       }
+      setUser(session?.user || null);
+    };
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
     });
 
-    return () => unsubscribe();
+    checkUser();
+    fetchMixtapes();
+    return () => subscription?.unsubscribe();
   }, []);
 
   const fetchMixtapes = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "mixtapes"));
-      const mixtapesData = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      // Sort mixtapesData by date
-      mixtapesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-      setMixtapes(mixtapesData);
+      const { data: mixtapes, error } = await supabase
+        .from('mixtapes')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      setMixtapes(mixtapes);
     } catch (error) {
-      console.error("Error fetching mixtapes: ", error);
+      console.error('Error fetching mixtapes:', error);
     }
   };
 
@@ -157,58 +165,53 @@ function Admin() {
     setName(mixtape.name || '');
   
     try {
-      const docRef = doc(db, "mixtapes", docID);
-      const docSnap = await getDoc(docRef);
+      if (selectedFile) {
+        setUploading(true);
   
-      if (docSnap.exists()) {
-        setError('');
-        if (selectedFile) {
-          setUploading(true);
+        // Convert to WebP
+        const convertToWebP = async (file) => {
+          const imageBitmap = await createImageBitmap(file);
+          const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(imageBitmap, 0, 0);
+          const webpBlob = await canvas.convertToBlob({ type: 'image/webp', quality: 0.8 });
+          return webpBlob;
+        };
   
-          // Create a function to convert the image file to WebP format
-          const convertToWebP = async (file) => {
-            const imageBitmap = await createImageBitmap(file);
-            const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(imageBitmap, 0, 0);
+        const webpBlob = await convertToWebP(selectedFile);
   
-            // Convert the canvas content to a WebP Blob
-            const webpBlob = await canvas.convertToBlob({ type: 'image/webp', quality: 0.8 });
-            return webpBlob;
-          };
+        // Upload to Firebase Storage
+        const storageRef = ref(storage, `images/${docID}/${selectedFile.name}.webp`);
+        await uploadBytes(storageRef, webpBlob);
+        const downloadURL = await getDownloadURL(storageRef);
   
-          // Convert the selected image file to WebP
-          const webpBlob = await convertToWebP(selectedFile);
+        setBackgroundImage(downloadURL || '');
   
-          // Now upload the WebP Blob to Firebase Storage
-          const storageRef = ref(storage, `images/${docID}/${selectedFile.name}.webp`);
-          await uploadBytes(storageRef, webpBlob);
+        const screenshotUrl = await uploadImage();
   
-          const downloadURL = await getDownloadURL(storageRef);
+        // Update mixtape in Supabase
+        const { error: updateError } = await supabase
+          .from('mixtapes')
+          .update({
+            background_image: downloadURL,
+            image_url: screenshotUrl,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', docID);
   
-          setBackgroundImage(downloadURL || '');
+        if (updateError) throw updateError;
   
-          const screenshotUrl = await uploadImage(); // Screenshot URL
-  
-          // Update the document with the new background image and screenshot URL
-          await updateDoc(docRef, {
-            backgroundImage: downloadURL,
-            imageUrl: screenshotUrl // Store the screenshot URL in Firestore
-          });
-  
-          setDocId('');
-          setSelectedFile(null);
-          setFileBlob(null);
-          if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-          }
-          setUploading(false);
-          alert('Background image and screenshot updated successfully!');
-        } else {
-          setError('Please select a file to upload.');
+        setDocId('');
+        setSelectedFile(null);
+        setFileBlob(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
         }
+        setUploading(false);
+        alert('Background image and screenshot updated successfully!');
+        fetchMixtapes(); // Refresh the mixtapes list
       } else {
-        setError('Document not found.');
+        setError('Please select a file to upload.');
       }
     } catch (error) {
       console.error("Error updating document: ", error);
@@ -221,6 +224,17 @@ function Admin() {
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
     setFileBlob(e.target.files[0]);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   if (!user) {
@@ -302,10 +316,10 @@ function Admin() {
               <tr key={mixtape.id}>
                 <td className="py-2 px-4 border-b underline cursor-pointer" onClick={() => window.open(`https://minyfy.minyvinyl.com/play/${mixtape.id}`, '_blank')}>Visit</td>
                 <td className="py-2 px-4 border-b">{mixtape.name.toUpperCase()}</td>
-                <td className="py-2 px-4 border-b">{mixtape.date}</td>
-                <td className="py-2 px-4 border-b">{mixtape.userEmail}</td>
-                <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.imageUrl} target="_blank">view</a></td>
-                <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.backgroundImage} target="_blank">view</a></td>
+                <td className="py-2 px-4 border-b">{formatDate(mixtape.created_at)}</td>
+                <td className="py-2 px-4 border-b">{mixtape.user_email}</td>
+                <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.image_url} target="_blank">view</a></td>
+                <td className="py-2 px-4 border-b underline cursor-pointer"><a href={mixtape.background_image} target="_blank">view</a></td>
                 <td className="py-2 px-4 border-b">
                   <button
                     onClick={() => handleDelete(mixtape.id)}
@@ -329,7 +343,7 @@ function Admin() {
 
                     <div className="absolute z-20 top-1/2 right-0 transform -translate-y-1/2 md:pr-1 pr-2 w-full">
                       <div className="flex flex-col md:gap-[6px] gap-[3.5px] items-end text-[2.1vw] md:text-[1vw] font-wittgenstein font-base md:px-3 px-2 text-neutral-300 tracking-wider">
-                        {tracks.map((track, index) => (
+                        {tracks.slice(0, 10).map((track, index) => (
                           <div key={index} className="w-full text-right">
                             {toSentenceCase(track.track.length > 35 ? `${track.track.slice(0, 35)}..` : track.track)}
                           </div>

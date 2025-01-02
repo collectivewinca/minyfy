@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
-import { storage, db } from '@/firebase/config';
+import { storage } from '@/firebase/config';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, doc, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { supabase } from '@/supabase/config';
 
 function Blog() {
   const [title, setTitle] = useState('50 Essential 21st-Century Arabic Pop Songs: A Celebration of Global Influence and Evolution');
@@ -10,7 +10,7 @@ function Blog() {
   const [backgroundImage, setBackgroundImage] = useState('https://miny.subwaymusician.xyz/images/arabbg.jpg');
   const [playlists, setPlaylists] = useState([
     {
-      imageUrl: 'https://miny.subwaymusician.xyz/images/pop.jpg',
+      image_url: 'https://miny.subwaymusician.xyz/images/pop.jpg',
       link: 'https://go.minyvinyl.com/arabpop',
       heading: '✨ Arab Pop Essentials ✨',
       subheading: 'From chart-toppers to viral sensations, this collection features a mix of essential tracks that define 21st-century Arabic pop. Get ready to discover a diverse range of styles and artists that represent the evolution and global influence of this vibrant genre.'
@@ -89,16 +89,15 @@ function Blog() {
   useEffect(() => {
     const fetchRecentMixtapes = async () => {
       try {
-        const mixtapesRef = collection(db, 'mixtapes');
-        const q = query(mixtapesRef, orderBy('createdAt', 'desc'), limit(30));
-        const querySnapshot = await getDocs(q);
+        const { data: mixtapes, error } = await supabase
+          .from('mixtapes')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(30);
 
-        const mixtapesData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+        if (error) throw error;
 
-        setRecentMixtapes(mixtapesData);
+        setRecentMixtapes(mixtapes);
       } catch (error) {
         console.error("Error fetching mixtapes: ", error);
       }
@@ -127,7 +126,7 @@ function Blog() {
         <title>${metaTitle}</title>
         <meta name="description" content="${metaDescription}" />
         <meta name="keywords" content="${metaKeywords}" />
-        <link rel="icon" type="image/x-icon" href="${playlists[0].imageUrl}" />
+        <link rel="icon" type="image/x-icon" href="${playlists[0].image_url}" />
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style>
@@ -300,7 +299,7 @@ function Blog() {
                     <a href="${playlist.link}" class="relative">
                       <div class="hexagon-container relative">
                         <img
-                          src="${playlist.imageUrl}"
+                          src="${playlist.image_url}"
                           alt="${playlist.heading}"
                           class="hexagon-image"
                         />
@@ -414,7 +413,7 @@ function Blog() {
     const downloadURL = await getDownloadURL(storageRef);
     setPlaylists(prevPlaylists => {
       const updatedPlaylists = [...prevPlaylists];
-      updatedPlaylists[index].imageUrl = downloadURL;
+      updatedPlaylists[index].image_url = downloadURL;
       return updatedPlaylists;
     });
   };
@@ -464,8 +463,8 @@ function Blog() {
     setPlaylists(prevPlaylists => [
         ...prevPlaylists, 
         {
-            imageUrl: selectedMixtape.backgroundImage,
-            link: selectedMixtape.shortenedLink,
+            image_url: selectedMixtape.image_url,
+            link: selectedMixtape.shortened_link,
             heading: `${randomEmoji} ${toSentenceCase(selectedMixtape.name)} ${randomEmoji}`, // Use the same random emoji
             subheading: combined_tracks // You can adjust this if needed
         }
@@ -515,7 +514,7 @@ function Blog() {
         <title>${metaTitle}</title>
         <meta name="description" content="${metaDescription}" />
         <meta name="keywords" content="${metaKeywords}" />
-        <link rel="icon" type="image/x-icon" href="${playlists[0].imageUrl}" />
+        <link rel="icon" type="image/x-icon" href="${playlists[0].image_url}" />
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style>
@@ -688,7 +687,7 @@ function Blog() {
                     <a href="${playlist.link}" class="relative">
                       <div class="hexagon-container relative">
                         <img
-                          src="${playlist.imageUrl}"
+                          src="${playlist.image_url}"
                           alt="${playlist.heading}"
                           class="hexagon-image"
                         />
@@ -850,8 +849,8 @@ function Blog() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   onChange={(event) => handlePlaylistImageUpload(index, event)}
                 />
-                {playlist.imageUrl && (
-                  <img src={playlist.imageUrl} alt="Playlist" style={{ maxWidth: '100px' }} />
+                {playlist.image_url && (
+                  <img src={playlist.image_url} alt="Playlist" style={{ maxWidth: '100px' }} />
                 )}
               </div>
               <div className="mb-4">
@@ -992,7 +991,7 @@ function Blog() {
                   onClick={() => handleSelectPlaylist(mixtape)}
                 >
                   <img 
-                    src={mixtape.imageUrl} 
+                    src={mixtape.image_url} 
                     alt={mixtape.name} 
                     className="w-full object-cover" 
                   />

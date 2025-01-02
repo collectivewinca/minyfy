@@ -11,14 +11,9 @@ import {
 } from 'react-icons/md';
 import { IoMusicalNotesSharp } from 'react-icons/io5';
 import WaveSurfer from 'wavesurfer.js';
-import { db, storage } from '@/firebase/config';
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-} from 'firebase/firestore';
+import { storage } from '@/firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { supabase } from '@/supabase/config';
 
 // Example stickers data
 const stickers = [
@@ -146,24 +141,22 @@ const CommentSection = ({
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
-  const updateFirestore = async (newComments) => {
+  const updateSupabase = async (newComments) => {
     try {
-      const docRef = doc(db, collection, docId);
-      
-      // Calculate the length of the comments array
-      const commentCount = newComments.length;
-  
-      // Update both the comments array and the commentCount field
-      await updateDoc(docRef, {
-        comments: newComments,
-        commentCount: commentCount, // Add commentCount field
-      });
-      
+      const { error } = await supabase
+        .from(collection)
+        .update({ 
+          comments: newComments,
+          comment_count: newComments.length + newComments.reduce((total, comment) => total + (comment.replies?.length || 0), 0)
+        })
+        .eq('id', docId);
+
+      if (error) throw error;
     } catch (error) {
-      console.error('Error updating Firestore: ', error);
+      console.error('Error updating comments:', error);
+      throw error;
     }
   };
-    
 
   const handleRemoveComment = async (commentId) => {
     if (!displayName) {
@@ -181,12 +174,9 @@ const CommentSection = ({
     setComments(updatedComments);
 
     try {
-      const docRef = doc(db, collection, docId);
-      await updateDoc(docRef, {
-        comments: updatedComments,
-      });
+      await updateSupabase(updatedComments);
     } catch (error) {
-      console.error('Error removing comment from Firestore: ', error);
+      console.error('Error removing comment:', error);
       alert('Failed to remove comment. Please try again.');
     }
   };
@@ -222,20 +212,24 @@ const CommentSection = ({
         if (comment.id === parentId) {
           return {
             ...comment,
-            replies: [...comment.replies, newCommentObj],
+            replies: [...(comment.replies || []), newCommentObj],
           };
         }
         return comment;
       });
     } else {
-      updatedComments = [...comments, newCommentObj];
+      updatedComments = [...(comments || []), newCommentObj];
     }
 
+    try {
+      await updateSupabase(updatedComments);
     setComments(updatedComments);
-    await updateFirestore(updatedComments);
-
     setNewComment('');
     setReplyingTo(null);
+    } catch (error) {
+      console.error('Error updating comments:', error);
+      alert('Failed to add comment. Please try again.');
+    }
   };
 
   const handleStickerClick = async (stickerUrl, parentId = null) => {
@@ -248,10 +242,10 @@ const CommentSection = ({
       id: Date.now(),
       author: displayName,
       avatar: avatarUrl,
-      trackRefer: currentTrackName,
       date: Date.now(),
       content: stickerUrl,
       replies: [],
+      trackRefer: currentTrackName,
       commentType: 'sticker',
     };
 
@@ -271,7 +265,7 @@ const CommentSection = ({
     }
 
     setComments(updatedComments);
-    await updateFirestore(updatedComments);
+    await updateSupabase(updatedComments);
   };
 
   const toggleDropdown = (id) => {
@@ -306,10 +300,8 @@ const CommentSection = ({
       return;
     }
 
-    const filledOptions = pollOptions.filter((option) => option.trim());
-
-    if (!pollQuestion.trim() || filledOptions.length < 2) {
-      alert('Please enter a poll question and at least two options.');
+    if (!pollQuestion.trim() || pollOptions.some(opt => !opt.trim())) {
+      alert('Please fill in all poll fields');
       return;
     }
 
@@ -318,25 +310,20 @@ const CommentSection = ({
       author: displayName,
       avatar: avatarUrl,
       date: Date.now(),
-      question: pollQuestion,
       trackRefer: currentTrackName,
-      options: filledOptions.map((option) => ({
-        text: option,
-        votes: 0,
-        votedBy: [], // Add votedBy array to track who voted
-      })),
-      totalVotes: 0,
       commentType: 'poll',
-      replies: [],
+      question: pollQuestion,
+      options: pollOptions.map(text => ({ text, votes: 0, voted_by: [] })),
+      totalVotes: 0,
     };
 
     const updatedComments = [...comments, newPoll];
     setComments(updatedComments);
-    await updateFirestore(updatedComments);
+    await updateSupabase(updatedComments);
 
-    setShowPollCreator(false);
     setPollQuestion('');
     setPollOptions(['', '']);
+    setShowPollCreator(false);
   };
 
   const handleVote = async (pollId, optionIndex) => {
@@ -345,25 +332,22 @@ const CommentSection = ({
       return;
     }
 
-    const updatedComments = comments.map((comment) => {
+    const updatedComments = comments.map(comment => {
       if (comment.id === pollId && comment.commentType === 'poll') {
-        // Check if the user already voted
-        if (
-          comment.options[optionIndex].votedBy?.includes(displayName)
-        ) {
-          return comment; // User already voted, do nothing
-        }
+        const hasVoted = comment.options.some(opt => opt.voted_by?.includes(displayName));
+        if (hasVoted) return comment;
 
-        const updatedOptions = comment.options.map((option, index) => {
-          if (index === optionIndex) {
+        const updatedOptions = comment.options.map((opt, idx) => {
+          if (idx === optionIndex) {
             return {
-              ...option,
-              votes: option.votes + 1,
-              votedBy: [...option.votedBy, displayName], // Add user to votedBy
+              ...opt,
+              votes: opt.votes + 1,
+              voted_by: [...(opt.voted_by || []), displayName],
             };
           }
-          return option;
+          return opt;
         });
+
         return {
           ...comment,
           options: updatedOptions,
@@ -374,7 +358,7 @@ const CommentSection = ({
     });
 
     setComments(updatedComments);
-    await updateFirestore(updatedComments);
+    await updateSupabase(updatedComments);
   };
 
   const PollDisplay = ({ poll, onVote }) => {
@@ -394,7 +378,7 @@ const CommentSection = ({
                 <button
                   onClick={() => handleVote(poll.id, index)}
                   className="w-full text-left bg-neutral-700 text-white px-3 py-2 rounded-full hover:bg-neutral-600 transition-colors duration-200"
-                  disabled={poll.options[index].votedBy?.includes(
+                  disabled={poll.options[index].voted_by?.includes(
                     displayName
                   )} // Disable button if user already voted
                 >
@@ -497,7 +481,7 @@ const CommentSection = ({
 
       const updatedComments = [...comments, newVoiceComment];
       setComments(updatedComments);
-      await updateFirestore(updatedComments);
+      await updateSupabase(updatedComments);
 
       setShowVoiceRecorder(false);
       setRecordingTime(0);
@@ -660,11 +644,7 @@ const CommentSection = ({
                     {comment.author}
                   </div>
                   <div className="text-sm text-gray-400">
-                    <time
-                      pubdate
-                      dateTime={comment.date}
-                      title={comment.date}
-                    >
+                    <time dateTime={new Date(comment.date).toISOString()} pubdate="true">
                       {formatDate(comment.date)}
                     </time>
                   </div>

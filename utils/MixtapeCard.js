@@ -7,9 +7,9 @@ import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 
 
-const HexagonMesh = React.memo(({ imageUrl, isPlaying }) => {
+const HexagonMesh = React.memo(({ image_url, isPlaying }) => {
   const meshRef = useRef(null);
-  const texture = useTexture(imageUrl);
+  const texture = useTexture(image_url);
 
   // Memoize shape and geometry creation
   const { shape, geometry } = useMemo(() => {
@@ -79,7 +79,7 @@ const HexagonMesh = React.memo(({ imageUrl, isPlaying }) => {
 });
 
 
-const MixtapeCard = React.memo(({ imageUrl }) => {
+const MixtapeCard = React.memo(({ image_url }) => {
   return (
     <div className="w-full max-w-[500px]  mx-auto">
       <div className="relative h-full w-full bg-black rounded-xl overflow-hidden shadow-xl">
@@ -111,7 +111,7 @@ const MixtapeCard = React.memo(({ imageUrl }) => {
           <Environment preset="studio" />
           <Suspense fallback={null}>
             <HexagonMesh
-              imageUrl={imageUrl}
+              image_url={image_url}
               isPlaying={true}
             />
           </Suspense>

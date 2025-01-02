@@ -1,45 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header';
-import { db, auth } from '@/firebase/config';
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { onAuthStateChanged } from 'firebase/auth';
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
+import { supabase } from '@/supabase/config';
 
 function Collections() {
   const [user, setUser] = useState(null);
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        fetchUserCollections(user.email);
-      } else {
-        setUser(null);
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setUser(session.user);
+        const userEmail = session.user.email;
+        fetchUserCollections(userEmail);
       }
     });
 
-    return () => unsubscribe();
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setUser(session.user);
+        const userEmail = session.user.email;
+        fetchUserCollections(userEmail);
+      } else {
+        setUser(null);
+        setImages([]);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const fetchUserCollections = async (userEmail) => {
     try {
-      const q = query(collection(db, "mixtapes"), where("userEmail", "==", userEmail));
-      const querySnapshot = await getDocs(q);
+      setLoading(true);
+      const { data: mixtapes, error } = await supabase
+        .from('mixtapes')
+        .select('id, image_url')
+        .eq('user_email', userEmail);
 
-      const imageUrls = querySnapshot.docs
-        .filter(doc => doc.data().imageUrl) // Filter out documents without imageUrl field
-        .map(doc => ({
-          id: doc.id,
-          url: doc.data().imageUrl
+      if (error) throw error;
+
+      const imageUrls = mixtapes
+        .filter(mixtape => mixtape.image_url)
+        .map(mixtape => ({
+          id: mixtape.id,
+          url: mixtape.image_url
         }));
 
       setImages(imageUrls);
     } catch (error) {
       console.error("Error fetching user collections: ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,9 +115,17 @@ function Collections() {
       <Header />
       <div className='flex mt-6 flex-col min-h-screen px-4 mb-10'>
         <h1 className='text-4xl text-center font-bold font-jakarta'>Collections</h1>
-        {!user ? (
+        {loading && (
+          <div className="flex justify-center items-center mb-2 mt-4">
+            <div className="relative">
+              <div className="h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-gray-600"></div>
+              <div className="absolute top-0 left-0 h-8 md:h-12 w-8 md:w-12 rounded-full border-t-4 border-b-4 border-[#78bf45] animate-spin"></div>
+            </div>
+          </div>
+        )}
+        {!loading && !user ? (
           <p className='mt-4 text-center text-3xl font-bold font-jakarta text-neutral-600'>User not Logged In!</p>
-        ) : (
+        ) : !loading && (
           images.length === 0 ? (
             <div className='text-center mt-8'>
               <p className='text-3xl font-bold font-jakarta text-neutral-600'>No collections found</p>
@@ -113,7 +139,7 @@ function Collections() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
               {images.map((image, index) => (
                 <div key={index} className="cursor-pointer transform transition-transform duration-300 hover:scale-105" onClick={() => openImageInNewTab(image.id)}>
-                  <img src={image.url} alt={`Image ${index + 1}`} className=" hex-alt w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:rounded-full hover:rotate-360" />
+                  <img src={image.url} alt={`Image ${index + 1}`} className=" hex-alt w-full h-auto rounded-lg shadow-md transition-all duration-500 ease-in-out hover:scale-105" />
                 </div>
               ))}
             </div>

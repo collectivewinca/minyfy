@@ -1,9 +1,9 @@
 // pages/api/save-image.js
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import { storage } from "@/firebase/config";
 import { v4 as uuidv4 } from 'uuid';
 import puppeteer from 'puppeteer';
+import { supabase } from '@/supabase/config';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -33,22 +33,36 @@ export default async function handler(req, res) {
     // Get the download URL
     const imageUrl = await getDownloadURL(imageRef);
 
-    // Save to Firestore
-    const docRef = await addDoc(collection(db, "mixtapes"), {
-      name,
-      backgroundImage,
-      tracks,
-      date,
-      isFavorite,
-      userDisplayName: user.displayName || 'Anonymous',
-      userEmail: user.email,
-      imageUrl,
-    });
+    // Save to Supabase
+    const { data, error } = await supabase
+      .from('mixtapes')
+      .insert([{
+        name,
+        background_image: backgroundImage,
+        tracks,
+        date,
+        is_favorite: isFavorite,
+        user_display_name: user.displayName || 'Anonymous',
+        user_email: user.email,
+        image_url: imageUrl,
+        created_at: new Date().toISOString(),
+        comment_count: 0,
+        vote_count: 0,
+        user_id: user.id
+      }])
+      .select()
+      .single();
 
-    res.status(200).json({ message: 'Image saved successfully', imageUrl, docId: docRef.id });
+    if (error) throw error;
+
+    res.status(200).json({ 
+      message: 'Image saved successfully', 
+      imageUrl, 
+      docId: data.id 
+    });
   } catch (error) {
     console.error("Error saving image: ", error);
-    res.status(500).json({ message: 'Error saving image', error });
+    res.status(500).json({ message: 'Error saving image', error: error.message });
   }
 }
 

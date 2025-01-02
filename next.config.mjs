@@ -19,6 +19,7 @@ const pwaConfig = {
   dest: 'public', // Output directory for service worker and PWA files
   register: true,
   skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development'
 };
 
 // Export the combined configuration

@@ -14,7 +14,7 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  export const PledgeEmail = ({ name, category, shortenedLink }) => {
+  export const PledgeEmail = ({ name, category, shortened_link }) => {
     const previewText = `Your have taken the MINY  ${category} Pledge!`;
   
     return (
@@ -43,7 +43,7 @@ import {
                 <Text style={paragraph}>
                   We're excited to confirm your pledge as a {category} on the MINY platform. Your commitment helps us build a more engaged and vibrant music community!
                 </Text>
-                <Button style={button} href={shortenedLink}>
+                <Button style={button} href={shortened_link}>
                   View Your Mixtape
                 </Button>
                 <Text style={paragraph}>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TbLogin2, TbLogin } from "react-icons/tb";
 import { useRouter } from 'next/router';
-import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut, getRedirectResult, onAuthStateChanged } from "firebase/auth";
-import { auth } from '@/firebase/config';  // Adjust based on your project structure
+import { supabase } from '@/supabase/config';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,53 +13,52 @@ const Header = () => {
   };
 
   const handleLogin = async () => {
-    const provider = new GoogleAuthProvider();
+    console.log('handleLogin');
     try {
-      await signInWithRedirect(auth, provider);
-      // No need to set user here since it will be handled after redirect
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin
+        }
+      });
+      if (error) throw error;
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during sign-in:", error.message);
     }
   };
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
       setUser(null);
       localStorage.removeItem('user');
     } catch (error) {
-      console.error("Error during sign-out:", error);
+      console.error("Error during sign-out:", error.message);
     }
   };
 
   useEffect(() => {
-    // After redirection, capture the result
-    const fetchRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          setUser(result.user);
-          localStorage.setItem('user', JSON.stringify(result.user));
-        }
-      } catch (error) {
-        console.error("Error after redirect:", error);
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setUser(session.user);
+        localStorage.setItem('user', JSON.stringify(session.user));
       }
-    };
+    });
 
-    fetchRedirectResult();
-
-    // Handle auth state persistence
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        localStorage.setItem('user', JSON.stringify(user));
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setUser(session.user);
+        localStorage.setItem('user', JSON.stringify(session.user));
       } else {
         setUser(null);
         localStorage.removeItem('user');
       }
     });
 
-    return () => unsubscribe();  // Cleanup on unmount
+    return () => subscription.unsubscribe();
   }, []);
 
   useEffect(() => {

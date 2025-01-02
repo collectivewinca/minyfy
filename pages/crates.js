@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Header from '@/components/Header';
-import { db, auth } from '@/firebase/config';
-import { collection, query, getDoc,where, getDocs, doc, updateDoc } from "firebase/firestore";
-import { onAuthStateChanged } from 'firebase/auth';
-import Confetti from 'react-confetti';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
+import { supabase } from '@/supabase/config';
+import Link from 'next/link';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import Confetti from 'react-confetti';
+import Header from '@/components/Header';
 
 function Crates() {
   const [user, setUser] = useState(null);
   const [crates, setCrates] = useState([]);
+  const [publicCrates, setPublicCrates] = useState([]);
   const [showCongrats, setShowCongrats] = useState(false);
   const [isProcessing, setIsProcessing] = useState(true);
   const router = useRouter();
   const { crateId, status } = router.query;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const checkUser = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error checking session:", error.message);
+        return;
+      }
+      const user = session?.user;
+      setUser(user);
       if (user) {
-        setUser(user);
         console.log("Fetching crates for user:", user.email);
         await fetchCrates(user.email);
       } else {
-        setUser(null);
         console.log("Fetching public crates");
         await fetchPublicCrates();
       }
@@ -40,83 +46,124 @@ function Crates() {
           await fetchPublicCrates();
         }
       }
+    };
 
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      const user = session?.user;
+      setUser(user);
+      if (user) {
+        console.log("Fetching crates for user:", user.email);
+        await fetchCrates(user.email);
+      } else {
+        console.log("Fetching public crates");
+        await fetchPublicCrates();
+      }
     });
 
-    return () => unsubscribe();
+    checkUser();
+    return () => subscription?.unsubscribe();
   }, [crateId, status]);
 
-  const fetchCrates = async (email) => {
+  const fetchCrates = async (user_email) => {
     try {
-      const q = query(collection(db, "crates"), where("email", "==", email));
-      const querySnapshot = await getDocs(q);
-      const cratesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      cratesData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-      console.log("Fetched crates:", cratesData);
-      setCrates(cratesData);
+      const { data: userCrates, error } = await supabase
+        .from('crates')
+        .select('*')
+        .eq('user_email', user_email)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setCrates(userCrates);
     } catch (error) {
-      console.error("Error fetching crates:", error);
+      console.error('Error fetching crates:', error);
     }
   };
 
   const fetchPublicCrates = async () => {
     try {
-      const q = query(collection(db, "crates"), where("public", "==", true));
-      const querySnapshot = await getDocs(q);
-      const cratesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      cratesData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-      console.log("Fetched public crates:", cratesData);
-      setCrates(cratesData);
+      const { data: publicCrates, error } = await supabase
+        .from('crates')
+        .select('*')
+        .eq('paymentstatus', 'succeeded')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setPublicCrates(publicCrates);
     } catch (error) {
-      console.error("Error fetching public crates:", error);
+      console.error('Error fetching public crates:', error);
     }
   };
 
   const updateCrateStatus = async (id) => {
-      try {
-        // Fetch the crate document to get email and other details
-        const crateRef = doc(db, "crates", id);
-        const crateDoc = await getDoc(crateRef);
-    
-        if (!crateDoc.exists()) {
-          console.error("Crate not found:", id);
-          return;
-        }
-    
-        const crateData = crateDoc.data();
-    
-        // Update the payment status
-        await updateDoc(crateRef, { paymentStatus: "success" });
-        console.log("Crate status updated for ID:", id);
-    
-        // Prepare data for the email API
-        const emailData = {
-          name: crateData.userName,
-          title: crateData.name,
-          shortenedLink: crateData.shortenedLink || '',
-          email: crateData.email
-        };
-    
-        console.log(`Sending email to: ${emailData.email}`);
-    
-        // Send email using your Next.js API
-        const response = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(emailData),
-        });
-    
-        if (!response.ok) {
-          throw new Error('Failed to send email');
-        }
-    
-        const result = await response.json();
-        console.log('Email sent successfully:', result.message);
-      } catch (error) {
-        console.error("Error updating crate status and sending email:", error);
+    try {
+      // Fetch the crate data
+      const { data: crateData, error: fetchError } = await supabase
+        .from('crates')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (fetchError) throw fetchError;
+      if (!crateData) {
+        console.error("Crate not found:", id);
+        return;
       }
+
+      // Update the payment status
+      const { error: updateError } = await supabase
+        .from('crates')
+        .update({ paymentStatus: "success" })
+        .eq('id', id);
+
+      if (updateError) throw updateError;
+      console.log("Crate status updated for ID:", id);
+
+      // Prepare data for the email API
+      const emailData = {
+        name: crateData.userName,
+        title: crateData.name,
+        shortened_link: crateData.shortened_link || '',
+        email: crateData.email
+      };
+
+      console.log(`Sending email to: ${emailData.email}`);
+
+      // Send email using your Next.js API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      const result = await response.json();
+      console.log('Email sent successfully:', result.message);
+    } catch (error) {
+      console.error("Error updating crate status and sending email:", error);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error during sign-in:", error.message);
+    }
   };
 
   console.log("crates:", crates);
@@ -291,9 +338,13 @@ function Crates() {
               <div key={crate.id} className="bg-white shadow border rounded-lg overflow-hidden flex flex-col sm:flex-row">
                 <div className="sm:w-1/3">
                   <img 
-                    src={crate.backgroundImage || crate.imageUrl} 
+                    src={crate.background_image || crate.image_url || '/default-mixtape.png'}
                     alt={`${crate.name}'s artwork`} 
                     className="w-full h-48 sm:h-full object-cover rounded-t-lg sm:rounded-l-lg sm:rounded-t-none"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/1.png';
+                    }}
                   />
                 </div>
                 <div className="sm:w-2/3 p-4">
@@ -301,16 +352,18 @@ function Crates() {
                   <p className="text-sm text-gray-600 mb-1">Email: {crate.email}</p>
                   <p 
                     className={`text-sm mb-1 ${
-                      crate.paymentStatus === "success" ? "text-lime-600" : "text-gray-600"
+                      crate.paymentstatus === "success" ? "text-lime-600" : "text-gray-600"
                     }`}
                   >
-                    Payment Status: {crate.paymentStatus}
+                    Payment Status: {crate.paymentstatus}
                   </p>
-                  <p className="text-sm text-gray-600 mb-1">Date: {new Date(crate.dateTime).toLocaleString()}</p>
+                  <p className="text-sm text-gray-600 mb-1">
+                    Date: {crate.created_at ? new Date(crate.created_at).toLocaleString() : 'Not available'}
+                  </p>
                   <p className="text-sm text-gray-600 mb-1">Order ID: {crate.id}</p>
-                  {crate.shortenedLink && (
-                    <a href={crate.shortenedLink} target="_blank" rel="noopener noreferrer" className="text-lime-600 font-medium underline text-sm">
-                      {crate.shortenedLink.replace(/^https?:\/\//, '')}
+                  {crate.shortened_link && (
+                    <a href={crate.shortened_link} target="_blank" rel="noopener noreferrer" className="text-lime-600 font-medium underline text-sm">
+                      {crate.shortened_link.replace(/^https?:\/\//, '')}
                     </a>
                   )}
                 </div>

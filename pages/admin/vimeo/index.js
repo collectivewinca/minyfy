@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { db, auth, storage } from "@/firebase/config";
-import { collection, addDoc, updateDoc, doc, getDocs, serverTimestamp } from "firebase/firestore";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { NextSeo } from 'next-seo';
 import axios from 'axios';
@@ -13,6 +11,7 @@ import Header from '@/components/Header';
 import Player from '@vimeo/player';
 import MakeAMinyImages from "@/utils/MakeAMinyImages";
 import mixtapeNames from '@/utils/MixtapeNames';
+import { supabase } from '@/supabase/config';
 
 const ExclusiveMixtape = () => {
   // State management
@@ -37,20 +36,21 @@ const ExclusiveMixtape = () => {
   useEffect(() => {
     const fetchExclusives = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "exclusives"));
-        const exclusivesData = [];
-        querySnapshot.forEach((doc) => {
-          exclusivesData.push({ id: doc.id, ...doc.data() });
-        });
-        setExclusives(exclusivesData);
+        const { data: exclusives, error } = await supabase
+          .from('exclusives')
+          .select('*')
+          .order('createdat', { ascending: false });
+
+        if (error) throw error;
+        setExclusives(exclusives);
       } catch (error) {
-        console.error("Error fetching exclusives:", error);
+        console.error('Error fetching exclusives:', error);
+        setExclusives([]);
       }
     };
 
     fetchExclusives();
   }, []);
-
 
   const handleVimeoLinkChange = (index, value) => {
     const updatedLinks = [...vimeoLinks];
@@ -116,14 +116,20 @@ const ExclusiveMixtape = () => {
 
   // Handle login
   const handleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+      if (error) throw error;
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during sign-in:", error.message);
     }
   };
 
@@ -132,7 +138,6 @@ const ExclusiveMixtape = () => {
   const toSentenceCase = (str) => {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
-
 
   // Handle file upload
   const handleFileUpload = async (event) => {
@@ -378,56 +383,45 @@ const ExclusiveMixtape = () => {
   // Save mixtape
   const saveMixtape = async () => {
     if (!user) {
-      await handleLogin();
-      return;
-    }
-
-    if (!inputValue) {
-      alert('Please enter a mixtape name');
-      return;
-    }
-
-    if (isProcessing || uploadedVideos.some(video => !video.processed)) {
-      alert('Please wait for all videos to process');
-      return;
-    }
-
-    if (!backgroundImage) {
-      alert('Please select a background image');
-      return;
-    }
-
-    if (uploadedVideos.length === 0) {
-      alert('Please upload at least one video');
+      handleLogin();
       return;
     }
 
     setLoading(true);
-
     try {
-      
-      const imageUrl = await uploadImage();
+      const { webpImageUrl } = await uploadImage();
 
-      const docRef = await addDoc(collection(db, "exclusives"), {
+      // Updated field names to match the schema
+      const mixtapeData = {
         name: inputValue.toLowerCase(),
-        backgroundImage,
-        tracks: uploadedVideos,
+        imageurl: webpImageUrl,
+        backgroundimage: backgroundImage,
         date: new Date().toLocaleDateString(),
-        isFavorite,
-        unlockPassword: unlockPassword.trim() !== '' ? unlockPassword : null,
-        userDisplayName: user.displayName || 'Anonymous',
-        userEmail: user.email,
-        imageUrl: imageUrl.webpImageUrl,
-        createdAt: serverTimestamp(),
-        commentCount: 0,
-        voteCount: 0,
-      });
+        createdat: new Date().toISOString(),
+        userdisplayname: user.user_metadata.full_name,
+        useremail: user.email,
+        votecount: 0,
+        commentcount: 0,
+        isfavorite: isFavorite,
+        unlockpassword: unlockPassword,
+        shortenedlink: null,
+        tracks: uploadedVideos || [],
+        comments: []
+      };
 
-      setDocId(docRef.id);
+      const { data: newMixtape, error } = await supabase
+        .from('exclusives')
+        .insert([mixtapeData])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setDocId(newMixtape.id);
       setShowUrlInput(true);
     } catch (error) {
       console.error('Error saving mixtape:', error);
-      setErrorMessage('Error creating mixtape');
+      alert('Error saving mixtape. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -435,25 +429,27 @@ const ExclusiveMixtape = () => {
 
   // Create short URL
   const createShortUrl = async () => {
-    if (customUrl && !/^[a-zA-Z0-9-]+$/.test(customUrl)) {
-      setErrorMessage("Invalid URL. Only alphanumeric characters and dashes allowed.");
+    const trimmedCustomUrl = customUrl.trim();
+  
+    // Validate custom URL if provided
+    if (trimmedCustomUrl && !isValidUrl(trimmedCustomUrl)) {
+      setErrorMessage("Invalid URL. Only alphanumeric characters and dashes are allowed.");
       return;
     }
-
+  
     try {
+      // Send POST request to create short URL
       const response = await fetch('/api/shorten-ex-url', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ docId, customUrl: customUrl.trim() }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ docId, customUrl: trimmedCustomUrl }),
       });
-
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
-
-      const data = await response.json();
-
-      if (data.statusCode === 409) {
+  
+      const json = await response.json();
+  
+      if (response.status === 409) {
         setErrorMessage("Link already exists. Please choose a different custom URL.");
         return;
       } else if (!response.ok) {
@@ -461,18 +457,40 @@ const ExclusiveMixtape = () => {
         console.error('Error creating short URL:', json.message);
         return;
       }
+  
+      // Update Supabase document with the shortened link using correct field name
+      const { error } = await supabase
+        .from('exclusives')
+        .update({ shortenedlink: `https://exclusive.minyvinyl.com/${json.link.slug}` })
+        .eq('id', docId);
 
-      console.log('Short URL created:', data);
-      await updateDoc(doc(db, "exclusives", docId), {
-        shortenedLink: `https://exclusive.minyvinyl.com/${data.link.slug}`
-      });
-
-      router.push(data.link.url);
-    } catch (error) {
-      console.error('Error creating short URL:', error);
-      setErrorMessage('Error creating short URL');
+      if (error) throw error;
+  
+      // Redirect to the shortened URL
+      window.location.href = json.link.url;
+    } catch (err) {
+      console.error('Error creating short URL:', err);
+      setErrorMessage('An unexpected error occurred. Please try again.');
     }
   };
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error checking session:", error.message);
+        return;
+      }
+      setUser(session?.user || null);
+    };
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    checkUser();
+    return () => subscription?.unsubscribe();
+  }, []);
 
   return (
     <>
@@ -766,18 +784,18 @@ const ExclusiveMixtape = () => {
               <tr key={exclusive.id}>
                 <td className="border border-gray-400 px-4 py-2 uppercase">{exclusive.name}</td>
                 <td className="border border-gray-400 px-4 py-2">{exclusive.date}</td>
-                <td className="border border-gray-400 px-4 py-2">{exclusive.userDisplayName}</td>
+                <td className="border border-gray-400 px-4 py-2">{exclusive.userdisplayname}</td>
                 <td className="border border-gray-400 text-blue-600 hover:underline px-4 py-2">
-                  <a href={exclusive.shortenedLink || `exclusives/${exclusive.id}`} target="_blank" rel="noopener noreferrer">
-                    {exclusive.shortenedLink || "View"}
+                  <a href={exclusive.shortenedlink || `exclusives/${exclusive.id}`} target="_blank" rel="noopener noreferrer">
+                    {exclusive.shortenedlink || "View"}
                   </a>
                 </td> {/* Display link */}
                 <td className="border border-gray-400 px-4 text-blue-600 hover:underline py-2">
-                  <a href={exclusive.imageUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={exclusive.imageurl} target="_blank" rel="noopener noreferrer">
                     view
                   </a>
                 </td>
-                <td className="border border-gray-400 px-4 py-2">{exclusive.unlockPassword || 'None'}</td>
+                <td className="border border-gray-400 px-4 py-2">{exclusive.unlockpassword || 'None'}</td>
 
               </tr>
             ))}

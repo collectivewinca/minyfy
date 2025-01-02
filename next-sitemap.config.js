@@ -1,20 +1,4 @@
-const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, getDocs } = require('firebase/firestore');
-
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-};
-
-console.log('Initializing Firebase...');
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-console.log('Firebase initialized');
+const { supabase } = require('@/supabase/config');
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
@@ -35,14 +19,19 @@ const config = {
       { loc: '/lastfm', changefreq: 'daily', priority: 0.6 },
     ];
 
-    // Fetch mixtape IDs from Firestore
+    // Fetch mixtape IDs from Supabase
     try {
-      console.log('Fetching mixtapes from Firestore...');
-      const mixtapesSnapshot = await getDocs(collection(db, 'mixtapes'));
-      console.log(`Fetched ${mixtapesSnapshot.size} mixtapes`);
-      mixtapesSnapshot.forEach(doc => {
+      console.log('Fetching mixtapes from Supabase...');
+      const { data: mixtapes, error } = await supabase
+        .from('mixtapes')
+        .select('id');
+
+      if (error) throw error;
+
+      console.log(`Fetched ${mixtapes.length} mixtapes`);
+      mixtapes.forEach(mixtape => {
         result.push({
-          loc: `/play/${doc.id}`,
+          loc: `/play/${mixtape.id}`,
           changefreq: 'daily',
           priority: 0.6
         });

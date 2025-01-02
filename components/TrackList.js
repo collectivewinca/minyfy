@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PiMusicNoteFill } from "react-icons/pi";
-import { SiLastdotfm, SiSpotify, SiApplemusic, SiSoundcloud } from "react-icons/si";
+import { SiApplemusic } from "react-icons/si";
 import { FaLastfmSquare } from "react-icons/fa";
 import axios from 'axios';
 
@@ -8,17 +8,9 @@ const TracksList = ({ onTracksChange }) => {
   const [selectedCountry, setSelectedCountry] = useState('Worldwide');
   const [tracks, setTracks] = useState([]);
   const [selectedButton, setSelectedButton] = useState('Worldwide');
-  const [selectedService, setSelectedService] = useState('spotify');
+  const [selectedService, setSelectedService] = useState('applemusic');
   const [appleMusicToken, setAppleMusicToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  const countryPlaylistMap = {
-    'Worldwide': '37i9dQZEVXbMDoHDwVN2tF',
-    'United States': '37i9dQZEVXbLRQDuF5jeBp',
-    'Canada': '37i9dQZEVXbKj23U1GF4IR',
-    'France': '37i9dQZEVXbIPWwFssbupI',
-    'India': '37i9dQZEVXbLZ52XmnySJg'
-  };
 
   const appleMusicPlaylistMap = {
     'Worldwide': 'pl.d25f5d1181894928af76c85c967f8f31',
@@ -41,25 +33,6 @@ const TracksList = ({ onTracksChange }) => {
   const handleServiceSelection = (service) => {
     setSelectedService(service);
     fetchTracks(selectedCountry, service);
-  };
-
-  const getSpotifyAccessToken = async () => {
-    const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-    const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
-
-    const tokenResponse = await axios.post(
-      'https://accounts.spotify.com/api/token',
-      new URLSearchParams({
-        grant_type: 'client_credentials'
-      }).toString(),
-      {
-        headers: {
-          'Authorization': `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-    );
-    return tokenResponse.data.access_token;
   };
 
   const fetchAppleMusicToken = async () => {
@@ -102,9 +75,6 @@ const TracksList = ({ onTracksChange }) => {
     }
   };
 
-
-
-
   const fetchTracks = async (country, service) => {
     setIsLoading(true);
     let trackList = [];
@@ -118,24 +88,6 @@ const TracksList = ({ onTracksChange }) => {
       const response = await fetch(url);
       const data = await response.json();
       trackList = data.tracks.track.map(track => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist.name)}`);
-    } else if (service === 'spotify') {
-      const accessToken = await getSpotifyAccessToken();
-      const playlistId = countryPlaylistMap[country];
-      const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
-
-      const response = await axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        },
-        params: {
-          limit: 10,
-          fields: 'items(track(name,artists(name)))'
-        }
-      });
-
-      trackList = response.data.items.map(item => 
-        `${item.track.name} - ${item.track.artists[0].name}`
-      );
     } else if (service === 'applemusic') {
       const playlistId = appleMusicPlaylistMap[country];
       trackList = await fetchAppleMusicTracks(playlistId);
@@ -169,25 +121,18 @@ const TracksList = ({ onTracksChange }) => {
       <div className="flex flex-col md:flex-row  justify-center md:text-2xl text-lg items-center mb-1">
         <div className="font-jakarta mr-4">Choose Your Platform:</div>
         <div>
-        <button
-          onClick={() => handleServiceSelection('spotify')}
-          className={`p-2 ${selectedService === 'spotify' ? 'text-[#1ed760] bg-[#F4EFE6] rounded-full' : 'text-[#1ed760]'}`}
-        >
-          <SiSpotify className='text-3xl' />
-        </button>
-        <button
-          onClick={() => handleServiceSelection('lastfm')}
-          className={`p-2 ${selectedService === 'lastfm' ? 'text-[#ba0000] bg-[#F4EFE6] rounded-full' : 'text-[#ba0000]'}`}
-        >
-          <FaLastfmSquare className='text-3xl'  />
-        </button>
-        <button
-          onClick={() => handleServiceSelection('applemusic')}
-          className={`p-2 ${selectedService === 'applemusic' ? 'text-[#fb3c55] bg-[#F4EFE6] rounded-full' : 'text-[#fb3c55]'}`}
-        >
-          <SiApplemusic className='text-3xl' />
-        </button>
-        
+          <button
+            onClick={() => handleServiceSelection('applemusic')}
+            className={`p-2 ${selectedService === 'applemusic' ? 'text-[#fb3c55] bg-[#F4EFE6] rounded-full' : 'text-[#fb3c55]'}`}
+          >
+            <SiApplemusic className='text-3xl' />
+          </button>
+          <button
+            onClick={() => handleServiceSelection('lastfm')}
+            className={`p-2 ${selectedService === 'lastfm' ? 'text-[#ba0000] bg-[#F4EFE6] rounded-full' : 'text-[#ba0000]'}`}
+          >
+            <FaLastfmSquare className='text-3xl'  />
+          </button>
         </div>
        
       </div>
