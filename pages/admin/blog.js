@@ -7,10 +7,10 @@ import { supabase } from '@/supabase/config';
 function Blog() {
   const [title, setTitle] = useState('50 Essential 21st-Century Arabic Pop Songs: A Celebration of Global Influence and Evolution');
   const [description, setDescription] = useState('From the shores of the Mediterranean to the Arabian Gulf and beyond, Arabic pop music has captivated hearts and moved bodies for decades. This collection of 50 essential tracks showcases the genre\'s incredible evolution and global impact in the 21st century.');
-  const [backgroundImage, setBackgroundImage] = useState('https://miny.subwaymusician.xyz/images/arabbg.jpg');
+  const [backgroundImage, setBackgroundImage] = useState('https://miny.minyvinyl.com/images/arabbg.jpg');
   const [playlists, setPlaylists] = useState([
     {
-      image_url: 'https://miny.subwaymusician.xyz/images/pop.jpg',
+      image_url: 'https://miny.minyvinyl.com/images/pop.jpg',
       link: 'https://go.minyvinyl.com/arabpop',
       heading: '✨ Arab Pop Essentials ✨',
       subheading: 'From chart-toppers to viral sensations, this collection features a mix of essential tracks that define 21st-century Arabic pop. Get ready to discover a diverse range of styles and artists that represent the evolution and global influence of this vibrant genre.'
@@ -1014,7 +1014,7 @@ function Blog() {
             {/* Display upload message */}
             {uploadMessage && (
               <div className={`mb-4 p-3  rounded ${uploadMessage.type === 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
-                <a className="hover:underline cursor-pointer" onClick={() => window.open(`https://miny.subwaymusician.xyz/blog/${uploadMessage.text}`)}>https://miny.subwaymusician.xyz/blog/{uploadMessage.text}</a>
+                <a className="hover:underline cursor-pointer" onClick={() => window.open(`https://miny.minyvinyl.com/blog/${uploadMessage.text}`)}>https://miny.minyvinyl.com/blog/{uploadMessage.text}</a>
                 
               </div>
             )}

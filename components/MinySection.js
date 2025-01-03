@@ -329,7 +329,7 @@ const MinySection = ({
                 textShadow: "2px 3px 3px rgba(0, 0, 0, 0.3)",
               }}
             >
-              <div>MINYVINYL.COM | SUBWAYMUSICIAN.XYZ</div>
+              <div>MINYVINYL.COM | </div>
             </div>
           </div>
         </div>
