@@ -36,7 +36,7 @@ function Footer() {
                   <a href="https://subwaymusician.xyz/" className="hover:underline">Subway Musician</a>
                 </li>
                 <li>
-                  <a href="https://miny.subwaymusician.xyz" className="hover:underline">Rapid Connect</a>
+                  <a href="https://miny.minyvinyl.com" className="hover:underline">Rapid Connect</a>
                 </li>
               </ul>
             </div>
