@@ -12,13 +12,7 @@ import MakeAMinyImages from "@/utils/MakeAMinyImages";
 import mixtapeNames from '@/utils/MixtapeNames';
 import { PiMusicNoteFill } from "react-icons/pi";
 import { AiFillDelete } from "react-icons/ai"; // Import delete icon
-import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/supabase/config';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 function Reddit() {
   const [redditUrl, setRedditUrl] = useState('');
