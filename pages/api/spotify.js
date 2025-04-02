@@ -1,3 +1,4 @@
+/*
 import { Buffer } from 'buffer';
 import crypto from 'crypto';
 import querystring from 'querystring';
@@ -106,3 +107,4 @@ const spotifyAuthHandler = async (req, res) => {
 };
 
 export default spotifyAuthHandler;
+*/

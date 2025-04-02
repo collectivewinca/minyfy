@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IoMdShare } from "react-icons/io";
 
-const PWAShare = ({ title, text, url, image_url }) => {
+const PWAShare = ({ title, text, url, imageUrl }) => {
   const [isPWA, setIsPWA] = useState(false);
   const [shareResult, setShareResult] = useState('');
 
@@ -26,8 +26,8 @@ const PWAShare = ({ title, text, url, image_url }) => {
       try {
         const shareData = { title, text, url };
 
-        if (image_url) {
-          const response = await fetch(image_url);
+        if (imageUrl) {
+          const response = await fetch(imageUrl);
           const blob = await response.blob();
           const file = new File([blob], 'image.jpg', { type: blob.type });
 

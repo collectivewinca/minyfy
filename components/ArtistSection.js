@@ -11,11 +11,9 @@ const ArtistSection = ({ onTracksChange, artist }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
 
-
   useEffect(() => {
     if (artist) {
-
-      // If artistName is provided as a prop, fetch Spotify artist and their top tracks
+      // If artistName is provided as a prop, fetch Last.fm artist and their top tracks
       handleArtistSelection(artist);
       // Fetch the top artists when no artistName prop is passed
       fetchTopArtists();
@@ -38,7 +36,7 @@ const ArtistSection = ({ onTracksChange, artist }) => {
     }
   };
 
-  // Function to get Spotify access token
+  /* Commented out Spotify token function
   const getAccessToken = async () => {
     const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
     const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
@@ -63,8 +61,9 @@ const ArtistSection = ({ onTracksChange, artist }) => {
       return null;
     }
   };
+  */
 
-  // Fetch artists from Spotify
+  /* Commented out Spotify artist search
   const fetchSpotifyArtists = async (artistName) => {
     const token = await getAccessToken();
     if (!token) {
@@ -95,8 +94,9 @@ const ArtistSection = ({ onTracksChange, artist }) => {
       setError('Error fetching artists from Spotify.');
     }
   };
+  */
 
-  // Fetch top tracks for a specific artist ID
+  /* Commented out Spotify top tracks fetch
   const fetchTopTracks = async (artistId) => {
     const token = await getAccessToken();
     if (!token) {
@@ -200,41 +200,34 @@ const ArtistSection = ({ onTracksChange, artist }) => {
       setError('Error fetching tracks from Spotify.');
     }
   };
+  */
 
   // Handle artist selection or artistName prop flow
   const handleArtistSelection = async (artistName) => {
-    
     setSearchedArtist(artistName);
-
-    const token = await getAccessToken();
-    if (!token) {
-      setError('Unable to get Spotify access token.');
-      return;
-    }
-
-    const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(artistName)}&type=artist&limit=1`;
-
+    setSelectedArtist(artistName);
+    
     try {
-      const response = await axios.get(searchUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const artist = response.data.artists.items[0];
-      if (!artist) {
-        setError(`No Spotify artist found for ${artistName}`);
+      // Fetch top tracks from Last.fm
+      const url = `https://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${encodeURIComponent(artistName)}&api_key=913f1b2c2126b54f985407d31d49da12&format=json`;
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.toptracks && data.toptracks.track) {
+        const tracks = data.toptracks.track
+          .slice(0, 50)
+          .map(track => `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist.name)}`);
+        setTopTracks(tracks);
+        onTracksChange(tracks);
+        setError('');
+      } else {
+        setError(`No tracks found for ${artistName}`);
         setTopTracks([]);
-        return;
+        onTracksChange([]);
       }
-
-      const artistId = artist.id;
-      fetchTopTracks(artistId); // Fetch top tracks for the selected artist
-      setSelectedArtist(artistName);
-      setError('');
     } catch (error) {
-      console.error('Error fetching artist from Spotify:', error);
-      setError('Error fetching artist from Spotify.');
+      console.error('Error fetching artist tracks from Last.fm:', error);
+      setError('Error fetching artist tracks.');
     }
   };
 
@@ -251,7 +244,7 @@ const ArtistSection = ({ onTracksChange, artist }) => {
       onTracksChange([]); // Reset tracks if no search query
       return;
     }
-    fetchSpotifyArtists(searchedArtist);
+    handleArtistSelection(searchedArtist);
   };
 
   // Helper function to capitalize words
@@ -259,134 +252,41 @@ const ArtistSection = ({ onTracksChange, artist }) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
-  // Add new function for Last.fm track search
-  const fetchLastFmTracks = async (artistName) => {
-    const url = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${encodeURIComponent(artistName)}&api_key=913f1b2c2126b54f985407d31d49da12&format=json&limit=50`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      
-      if (data.error) {
-        setError('No tracks found on Last.fm');
-        return;
-      }
-
-      const tracks = data.toptracks.track.map(track => 
-        `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist.name)}`
-      );
-      
-      setTopTracks(tracks);
-      onTracksChange(tracks);
-      setError('');
-    } catch (error) {
-      console.error('Error fetching Last.fm tracks:', error);
-      setError('Error fetching tracks from Last.fm');
-    }
-  };
-
   return (
     <div className="my-5 flex flex-col justify-start w-full">
-      {/* Top Artists Section */}
-      <div className="mt-5">
-        <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">
-          Select from this Week&rsquo;s Top Artists
-        </h2>
-        <ul className="grid md:grid-cols-5 grid-cols-2 gap-2">
-          {topArtists.map((artist) => (
-            <li key={artist.name}>
-              <button
-                className="cursor-pointer rounded-full text-sm font-jakarta bg-[#F4EFE6] px-4 text-neutral-700 font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
-                onClick={() => handleArtistSelection(artist.name)}
-              >
-                {artist.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Search for Artist Section */}
-      <div className="mt-5">
-        <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Search for Artist</h2>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center">
-            <input
-              type="text"
-              className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] text-sm md:text-lg rounded-l-xl"
-              placeholder="Enter artist name..."
-              value={searchedArtist}
-              onChange={handleInputChange}
-            />
-            <button
-              className="bg-[#A18249] px-5 py-3 rounded-r-xl text-sm md:text-lg font-medium text-white hover:opacity-80"
-              onClick={handleSearch}
-            >
-              Search
-            </button>
-          </div>
-          <div className="flex gap-2">
-            <button
-              className="bg-[#1DB954] px-5 py-2 rounded-xl text-sm md:text-lg font-medium text-white hover:opacity-80 flex-1"
-              onClick={() => handleArtistSelection(searchedArtist)}
-            >
-              Search Spotify Tracks
-            </button>
-            <button
-              className="bg-[#D51007] px-5 py-2 rounded-xl text-sm md:text-lg font-medium text-white hover:opacity-80 flex-1"
-              onClick={() => fetchLastFmTracks(searchedArtist)}
-            >
-              Search Last.fm Tracks
-            </button>
-          </div>
+      <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Search by Artist</h2>
+      
+      <div className="flex flex-col gap-4 mb-4">
+        <div className="flex items-center">
+          <input
+            type="text"
+            className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] md:text-lg text-sm text-neutral-500 rounded-l-xl"
+            placeholder="Enter artist name..."
+            value={searchedArtist}
+            onChange={handleInputChange}
+          />
+          <button
+            className="bg-[#A18249] px-5 py-3 rounded-r-xl md:text-lg text-sm font-medium text-white hover:opacity-80"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
         </div>
-        {error && <p className="text-red-600 mt-2">{error}</p>}
       </div>
-
-      {/* Artist Search Results Section */}
-      {searchResults.length > 0 && (
-        <div className="mt-5">
-          <h2 className="md:text-xl text-base font-medium mb-4 font-jakarta">Select an Artist</h2>
-          <ul className="grid md:grid-cols-5 grid-cols-2 gap-4">
-            {searchResults.map((artist) => (
-              <li key={artist.id} className="flex flex-col items-center">
-                <div className="w-24 h-24 relative mb-2">
-                  <Image
-                    src={artist.images[0]?.url || '/api/placeholder/200/200'}
-                    alt={artist.name}
-                    layout="fill"
-                    quality={70}
-                    objectFit="cover"
-                    className="rounded-full"
-                  />
-                </div>
-                <button
-                  className="cursor-pointer rounded-full text-sm font-jakarta bg-[#F4EFE6] px-4 text-neutral-700 font-medium tracking-wide py-2 w-full text-center hover:bg-[#f0e6d4] hover:text-black"
-                  onClick={() => handleArtistSelection(artist.name)}
-                >
-                  {artist.name}
-                </button>
-              </li>
+      
+      {error && <p className="text-red-600 mt-2">{error}</p>}
+      
+      {topTracks.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-medium mb-2">Top Tracks:</h3>
+          <div className="space-y-2">
+            {topTracks.map((track, index) => (
+              <div key={index} className="flex items-center gap-2 p-2 bg-[#F4EFE6] rounded-lg">
+                <PiMusicNoteFill className="text-[#A18249]" />
+                <span>{track}</span>
+              </div>
             ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Display Selected Artist's Top Tracks */}
-      {selectedArtist && topTracks.length > 0 && (
-        <div className="mt-5 font-jakarta">
-          <h2 className="md:text-xl text-base font-medium tracking-wider mb-4">{selectedArtist}&rsquo;s Top Tracks</h2>
-          {error && <p className="text-red-600 mb-2">{error}</p>}
-          <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
-            {topTracks.map((track) => (
-              <li key={track} className="flex md:gap-4 gap-2 mb-2 w-full items-center">
-                <div className="p-2 rounded-md bg-[#F4EFE6] font-extrabold text-black">
-                  <PiMusicNoteFill className="md:text-xl text-sm" />
-                </div>
-                <div className="font-base font-jakarta md:text-xl text-sm">{track}</div>
-              </li>
-            ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>

@@ -3,6 +3,8 @@ import Header from '@/components/Header';
 import MinySection from '@/components/MinySection';
 import { FaReddit } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 import { NextSeo } from 'next-seo';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import axios from 'axios';
@@ -13,6 +15,10 @@ import { AiFillDelete } from "react-icons/ai"; // Import delete icon
 import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/supabase/config';
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 function Reddit() {
   const [redditUrl, setRedditUrl] = useState('');
@@ -287,13 +293,10 @@ function Reddit() {
       }
   
   
-      const { error } = await supabase
-        .from('mixtapes')
-        .update({ shortened_link: `https://go.minyvinyl.com/${json.link.slug}` })
-        .eq('id', docId);
-
-      if (error) throw error;
-
+      await updateDoc(doc(db, "mixtapes", docId), {
+        shortenedLink: `https://go.minyvinyl.com/${json.link.slug}` 
+      });
+  
       window.location.href = json.link.url;
     } catch (err) {
       console.error('Error creating short URL:', err);

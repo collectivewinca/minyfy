@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Keep Firebase storage
-import { storage } from '@/firebase/config'; // Keep Firebase storage
-import { FaTrash } from 'react-icons/fa';
+import { collection, query, orderBy, limit, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import storage functions
+import { db, storage } from '@/firebase/config'; // Import Firebase storage
+import { FaTrash } from 'react-icons/fa'; // Import the trash icon from react-icons
 import Header from '@/components/Header';
-import { supabase } from '@/supabase/config';
-import { useRouter } from 'next/router';
 
 export default function Tags() {
   const [mixtapes, setMixtapes] = useState([]);
   const [tagName, setTagName] = useState('');
   const [selectedMixtapes, setSelectedMixtapes] = useState([]);
   const [tags, setTags] = useState([]);
-  const [tagImage, setTagImage] = useState(null);
+  const [tagImage, setTagImage] = useState(null); // State for the uploaded tag image
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [draggingTagIndex, setDraggingTagIndex] = useState(null);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +23,7 @@ export default function Tags() {
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to load data. Please try again.");
+      } finally {
       }
     };
 
@@ -32,133 +31,68 @@ export default function Tags() {
   }, []);
 
   const fetchMixtapes = async () => {
-    try {
-      const { data: mixtapesData, error } = await supabase
-        .from('mixtapes')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(150);
-
-      if (error) throw error;
-      setMixtapes(mixtapesData);
-    } catch (error) {
-      console.error('Error fetching mixtapes:', error);
-      throw error;
-    }
+    const q = query(collection(db, 'mixtapes'), orderBy('createdAt', 'desc'), limit(150));
+    const querySnapshot = await getDocs(q);
+    const mixtapesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setMixtapes(mixtapesData);
   };
 
   const fetchTags = async () => {
-    try {
-      const { data: tagsData, error } = await supabase
-        .from('tags')
-        .select('*')
-        .order('order_num', { ascending: true });
-
-      if (error) throw error;
-      setTags(tagsData);
-    } catch (error) {
-      console.error('Error fetching tags:', error);
-      throw error;
-    }
+    const q = query(collection(db, 'tags'), orderBy('order', 'asc'));
+    const querySnapshot = await getDocs(q);
+    const tagsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setTags(tagsData);
   };
 
   const handleImageUpload = async () => {
     if (!tagImage) return null;
 
-    try {
-      const fileName = `tag-${Date.now()}-${tagImage.name}`;
-      const storageRef = ref(storage, `tag-images/${fileName}`);
-      await uploadBytes(storageRef, tagImage);
-      const imageUrl = await getDownloadURL(storageRef);
-      return imageUrl;
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      throw error;
-    }
+    // Create a reference for the image file in Firebase Storage
+    const storageRef = ref(storage, `tags/${Date.now()}-${tagImage.name}.webp`);
+
+    // Upload the file to Firebase Storage
+    const snapshot = await uploadBytes(storageRef, tagImage);
+    
+    // Get the download URL of the uploaded image
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
   };
 
-  const handleSaveTag = async () => {
-    try {
-      const tagImageUrl = await handleImageUpload();
-      
-      const tagData = {
-        tag_name: tagName,
-        tag_image_url: tagImageUrl,
-        order_num: tags.length,
-        selected_mixtapes: selectedMixtapes.map(mixtape => ({
-          id: mixtape.id,
-          name: mixtape.name,
-          image_url: mixtape.image_url,
-          background_image: mixtape.background_image,
-          shortened_link: mixtape.shortened_link
-        }))
-      };
-
-      const { error } = await supabase
-        .from('tags')
-        .insert([tagData]);
-
-      if (error) throw error;
-
-      alert('Tag saved successfully!');
-      router.push('/admin');
-    } catch (error) {
-      console.error('Error saving tag:', error);
-      alert('Failed to save tag');
-    }
-  };
-
-  const handleDeleteTag = async (tagId) => {
-    try {
-      const { error } = await supabase
-        .from('tags')
-        .delete()
-        .eq('id', tagId);
-
-      if (error) throw error;
-
-      setTags(prevTags => prevTags.filter(tag => tag.id !== tagId));
-    } catch (error) {
-      console.error("Error deleting tag:", error);
-      setError("Failed to delete tag. Please try again.");
-    }
-  };
-
-  const handleDragStart = (index) => {
-    setDraggingTagIndex(index);
-  };
-
-  const handleDragOver = (e) => {
+  const handleTagCreation = async (e) => {
     e.preventDefault();
-  };
+    if (tagName && selectedMixtapes.length > 0) {
+      setLoading(true);
+      try {
+        // Upload the tag image and get the URL
+        const tagImageUrl = await handleImageUpload();
+        if(tagImageUrl === null) {
+          alert('Image Not found. Please try uploading Tag Image again.');
+          return;
+        }
 
-  const handleDrop = async (dropIndex) => {
-    if (draggingTagIndex === null || draggingTagIndex === dropIndex) return;
+        const newTag = {
+          tagName: tagName,
+          selectedMixtapes: selectedMixtapes,
+          tagImageUrl: tagImageUrl, // If image is not uploaded, default to empty string
+          order: tags.length,
+        };
 
-    try {
-      const newTags = [...tags];
-      const [draggedTag] = newTags.splice(draggingTagIndex, 1);
-      newTags.splice(dropIndex, 0, draggedTag);
-
-      // Update order_num for all tags
-      const updates = newTags.map((tag, index) => ({
-        id: tag.id,
-        order_num: index
-      }));
-
-      // Update all tags in a single transaction
-      const { error } = await supabase
-        .from('tags')
-        .upsert(updates);
-
-      if (error) throw error;
-
-      setTags(newTags);
-    } catch (error) {
-      console.error("Error reordering tags:", error);
-      setError("Failed to reorder tags. Please try again.");
-    } finally {
-      setDraggingTagIndex(null);
+        // Add the tag to Firestore
+        await addDoc(collection(db, 'tags'), newTag);
+        
+        alert('Tag created successfully!');
+        setTagName('');
+        setSelectedMixtapes([]);
+        setTagImage(null); // Reset image input after submission
+        await fetchTags();
+      } catch (error) {
+        console.error('Error creating tag:', error);
+        alert('Error creating tag. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert('Please enter a tag name and select at least one mixtape.');
     }
   };
 
@@ -170,20 +104,49 @@ export default function Tags() {
     );
   };
 
-  const handleTagCreation = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await handleSaveTag();
-      setTagName('');
-      setTagImage(null);
-      setSelectedMixtapes([]);
-      await fetchTags();
-    } catch (error) {
-      console.error('Error creating tag:', error);
-      setError('Failed to create tag. Please try again.');
-    } finally {
-      setLoading(false);
+  const handleDragStart = (index) => {
+    setDraggingTagIndex(index);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault(); // Prevent default to allow drop
+  };
+
+  const handleDrop = (index) => {
+    if (draggingTagIndex === null) return;
+
+    const updatedTags = Array.from(tags);
+    const [movedTag] = updatedTags.splice(draggingTagIndex, 1);
+    updatedTags.splice(index, 0, movedTag);
+    setTags(updatedTags);
+    setDraggingTagIndex(null);
+
+    // Update Firestore with new order
+    const updates = updatedTags.map((item, idx) => {
+      return updateDoc(doc(db, 'tags', item.id), {
+        order: idx,
+      });
+    });
+
+    Promise.all(updates)
+      .then(() => console.log('Tags reordered successfully'))
+      .catch(error => {
+        console.error('Error updating tag order:', error);
+        alert('Failed to update tag order. Please try again.');
+        fetchTags(); // Revert to original order if update fails
+      });
+  };
+
+  const handleDeleteTag = async (tagId) => {
+    if (window.confirm('Are you sure you want to delete this tag?')) {
+      try {
+        await deleteDoc(doc(db, 'tags', tagId));
+        alert('Tag deleted successfully!');
+        await fetchTags(); // Refresh the tags after deletion
+      } catch (error) {
+        console.error('Error deleting tag:', error);
+        alert('Error deleting tag. Please try again.');
+      }
     }
   };
 
@@ -226,11 +189,7 @@ export default function Tags() {
                 }`}
                 onClick={() => toggleMixtapeSelection(mixtape)}
               >
-                <img 
-                  src={mixtape.image_url}
-                  alt={mixtape.name} 
-                  className="w-full h-48 mb-2" 
-                />
+                <img src={mixtape.imageUrl} alt={mixtape.name} className="w-full h-40 object-cover mb-2" />
                 <p className="font-semibold">{mixtape.name}</p>
               </div>
             ))}
@@ -250,7 +209,7 @@ export default function Tags() {
                 className={`p-2 bg-gray-100 rounded cursor-move ${draggingTagIndex === index ? 'bg-blue-200' : ''}`}
               >
                 <div className="flex justify-between items-center">
-                  <span>{tag.tag_name}</span>
+                  <span>{tag.tagName}</span>
                   <button
                     onClick={() => handleDeleteTag(tag.id)}
                     className="text-red-500 hover:text-red-700"

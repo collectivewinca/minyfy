@@ -9,6 +9,10 @@ import MinySection from '@/components/MinySection';
 import ImportPlaylist from '@/components/ImportPlaylist';
 import ImportDiscogPlaylist from '@/components/ImportDiscogPlaylist';
 import CustomTrack from '@/components/CustomTrack';
+import { FaArrowUp } from "react-icons/fa6";
+import { updateDoc, doc } from "firebase/firestore";
+import { db, auth, storage } from "@/firebase/config";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { MdModeEdit } from "react-icons/md";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImportAppleMusicPlaylist from '@/components/ImportApplePlaylist';
@@ -17,7 +21,6 @@ import ImportYoutubePlaylist from '@/components/ImportYoutubePlaylist';
 import FetchRedditThread from "@/components/FetchRedditThread"
 import { NextSeo } from 'next-seo';
 import MakeAMinyImages from "@/utils/MakeAMinyImages";
-import { supabase } from '@/supabase/config';
 
 const Custom = () => {
   const [selectedOption, setSelectedOption] = useState('customize');
@@ -55,21 +58,10 @@ const Custom = () => {
   
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error checking session:", error.message);
-        return;
-      }
-      setUser(session?.user || null);
-    };
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
-    });
-
-    checkUser();
-    return () => subscription?.unsubscribe();
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
   }, []);
 
   useEffect(() => {
@@ -131,6 +123,18 @@ const Custom = () => {
     }
   
     try {
+      // Fetch user data from localStorage
+      const userString = localStorage.getItem('user');
+      if (!userString) {
+        setErrorMessage("User data not found. Please log in again.");
+        return;
+      }
+  
+      const userHere = JSON.parse(userString);
+  
+      // Check if it's the user's first login
+      const isFirstLogin = !userHere.lastLoginAt || userHere.lastLoginAt === userHere.createdAt;
+  
       // Send POST request to create short URL
       const response = await fetch('/api/shorten-url', {
         method: 'POST',
@@ -142,7 +146,7 @@ const Custom = () => {
   
       const json = await response.json();
   
-      if (response.status === 409) {
+      if (json.statusCode === 409) {
         setErrorMessage("Link already exists. Please choose a different custom URL.");
         return;
       } else if (!response.ok) {
@@ -152,15 +156,46 @@ const Custom = () => {
       }
   
   
-      // Update Supabase document with the shortened link
-      const { error } = await supabase
-        .from('mixtapes')
-        .update({ shortened_link: `https://go.minyvinyl.com/${json.link.slug}` })
-        .eq('id', docId);
+      // Update Firestore document with the shortened link
+      await updateDoc(doc(db, "mixtapes", docId), {
+        shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`
+      });
+  
+      // Send email with the shortened link
+      // try {
+      //   const emailResponse = await fetch('/api/send-mixtape', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       name: inputValue,
+      //       imageUrl: pngImageUrl,
+      //       shortenedLink: `https://go.minyvinyl.com/${json.link.slug}`,
+      //       email: userHere.email,
+      //       displayName: userHere.displayName,
+      //       isFirstLogin: isFirstLogin
+      //     }),
+      //   });
+  
+      //   const emailJson = await emailResponse.json();
+      //   if (!emailResponse.ok) {
+      //     console.error('Error sending email:', emailJson.error);
+      //     setErrorMessage('Error sending email. Please try again.');
+      //     return;
+      //   }
+  
+      //   // Update user's lastLoginAt in localStorage
+      //   user.lastLoginAt = new Date().getTime().toString();
+      //   localStorage.setItem('user', JSON.stringify(user));
+  
+      //   // Redirect to the shortened URL
+      //   window.location.href = json.link.url;
+      // } catch (emailError) {
+      //   console.error('Error sending email:', emailError);
+      //   setErrorMessage('Error sending email. Please try again.');
+      // }
 
-      if (error) throw error;
-
-      // Redirect to the shortened URL
       window.location.href = json.link.url;
     } catch (err) {
       console.error('Error creating short URL:', err);
@@ -174,20 +209,14 @@ const Custom = () => {
   };
 
   const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
-        }
-      });
-      if (error) throw error;
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
     } catch (error) {
-      console.error("Error during sign-in:", error.message);
+      console.error("Error during sign-in:", error);
     }
   };
 
@@ -256,13 +285,13 @@ const Custom = () => {
     <>
       <NextSeo
         title="Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl"
-        description="Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Spotify, Apple Music, YouTube, Discogs, and more."
+        description="Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Apple Music, YouTube, Discogs, and more."
         canonical="https://minyfy.minyvinyl.com/makeaminy"
         openGraph={{
           url: 'https://minyfy.minyvinyl.com/makeaminy',
           title: 'Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl',
           description:
-            "Customize your mixtape with AI-generated backgrounds, import playlists from Spotify, YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world!",
+            "Customize your mixtape with AI-generated backgrounds, import playlists from YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world!",
           images: [
             {
               url: 'https://minyfy.minyvinyl.com/vinyl.png',
@@ -279,7 +308,7 @@ const Custom = () => {
           cardType: 'summary_large_image',
           title: 'Make A Miny - Craft Your Custom Music Playlist | Miny Vinyl',
           description:
-            "Customize your mixtape with AI-generated backgrounds, import playlists from Spotify, YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world!",
+            "Customize your mixtape with AI-generated backgrounds, import playlists from YouTube, Apple Music, and more. Name your mixtape and share it easily with a personalized link.Share your unique 'Miny' with the world!",
         }}
         additionalJsonLd={[
           {
@@ -287,7 +316,7 @@ const Custom = () => {
             '@type': 'WebPage',
             name: 'Make A Miny - Craft Your Custom Music Playlist',
             description:
-              "Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Spotify, Apple Music, YouTube, Discogs, and more.",
+              "Create your own custom mixtape (MINY) on Miny Vinyl! Design a playlist using AI-generated backgrounds, choose top tracks or artists, and import playlists from Apple Music, YouTube, Discogs, and more.",
             url: 'https://minyfy.minyvinyl.com/makeaminy',
           },
         ]}
@@ -318,11 +347,10 @@ const Custom = () => {
               value={selectedOption}
               onChange={handleSelection}
             >
-              <option value="customize">Create personal MINY 📼
+              <option value="customize">Create personal MINY 📼
               </option>
               <option value="searchArtist">Artists</option>
               <option value="tracks">Top Tracks This Week</option>
-              <option value="import">Import Playlist - Spotify</option>
               <option value="youtube">Import Playlist - YouTube</option>
               <option value="apple">Import Playlist - Apple Music</option>
               <option value="discogs">Import Playlist - Discogs</option>

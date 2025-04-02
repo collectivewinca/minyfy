@@ -1,3 +1,4 @@
+/*
 import { generateRandomString } from '@/utils/generateRandomString';
 
 const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
@@ -18,3 +19,4 @@ export default function handler(req, res) {
 
   res.redirect(spotifyAuthUrl);
 }
+*/

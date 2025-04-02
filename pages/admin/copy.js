@@ -1,30 +1,55 @@
 import { useState, useEffect } from "react";
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  startAfter,
+  getFirestore,
+} from "firebase/firestore";
+import { db } from "@/firebase/config"; // Import the app initialization
 import Image from "next/image";
 import Header from "@/components/Header";
-import { supabase } from '@/supabase/config';
+
 
 const MixtapesCopy = () => {
   const [mixtapes, setMixtapes] = useState([]);
   const [selectedMixtapes, setSelectedMixtapes] = useState([]);
+  const [lastVisible, setLastVisible] = useState(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const fetchMixtapes = async () => {
     setLoading(true);
     try {
-      const { data: newMixtapes, error } = await supabase
-        .from('mixtapes')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .range(mixtapes.length, mixtapes.length + 49);
+      const mixtapesRef = collection(db, "mixtapes");
+      let q;
 
-      if (error) throw error;
+      if (lastVisible) {
+        q = query(
+          mixtapesRef,
+          orderBy("createdAt", "desc"),
+          startAfter(lastVisible),
+          limit(50)
+        );
+      } else {
+        q = query(mixtapesRef, orderBy("createdAt", "desc"), limit(50));
+      }
 
-      setMixtapes(prev => [...prev, ...newMixtapes]);
+      const querySnapshot = await getDocs(q);
+      const newMixtapes = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setMixtapes((prev) => (lastVisible ? [...prev, ...newMixtapes] : newMixtapes));  // Conditionally spread previous mixtapes
+      setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
+
     } catch (error) {
       console.error("Error fetching mixtapes:", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Ensure loading is set to false even if there's an error
     }
   };
 
@@ -47,34 +72,17 @@ const MixtapesCopy = () => {
   };
 
   // Copy selected mixtapes as JSON
-  const handleCopyToClipboard = () => {
-    const selectedData = selectedMixtapes.map(({ name, image_url, shortened_link }) => ({
+  const copySelectedAsJSON = () => {
+    const selectedData = selectedMixtapes.map(({ name, imageUrl, shortenedLink }) => ({
       name,
-      image_url,
-      shortened_link
+      imageUrl,
+      shortenedLink,
     }));
     navigator.clipboard.writeText(JSON.stringify(selectedData, null, 2));
-    alert('Data copied to clipboard!');
-  };
 
-  const handleDownloadCSV = () => {
-    const selectedData = selectedMixtapes.map(({ name, image_url, shortened_link }) => ({
-      name,
-      image_url,
-      shortened_link
-    }));
-    const csvContent = "data:text/csv;charset=utf-8," + 
-      "Name,Image URL,Shortened Link\n" +
-      selectedData.map(row => 
-        `${row.name},${row.image_url},${row.shortened_link}`
-      ).join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "mixtapes.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Set copied state to true, then reset after 3 seconds
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
   };
 
   return (
@@ -92,18 +100,11 @@ const MixtapesCopy = () => {
 
         <div className="flex gap-2">
           <button
-            onClick={handleCopyToClipboard}
+            onClick={copySelectedAsJSON}
             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition disabled:bg-gray-400"
             disabled={selectedMixtapes.length === 0}
           >
             {copied ? "Copied!" : "Copy JSON"}
-          </button>
-          <button
-            onClick={handleDownloadCSV}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition disabled:bg-gray-400"
-            disabled={selectedMixtapes.length === 0}
-          >
-            Download CSV
           </button>
           <button
             onClick={unselectAll}
@@ -129,7 +130,7 @@ const MixtapesCopy = () => {
             >
               <div className="mb-2">
                 <Image
-                  src={mixtape.image_url || '/placeholder-image.jpg'}
+                  src={mixtape.imageUrl}
                   alt={mixtape.name}
                   width={300}
                   height={300}
@@ -160,5 +161,3 @@ const MixtapesCopy = () => {
 };
 
 export default MixtapesCopy;
-
-

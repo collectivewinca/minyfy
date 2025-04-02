@@ -14,7 +14,7 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  export const FirstMixtapeEmail = ({ image_url, name, shortened_link, displayName }) => {
+  export const FirstMixtapeEmail = ({ imageUrl, name, shortenedLink, displayName }) => {
     const previewText = `Enjoy Your Vibe!`;
 
   
@@ -37,7 +37,7 @@ import {
                 Your personalized mixtape is now ready to be shared with the world. Whether it's a collection of your favorite tracks or a musical journey for someone special, your mixtape is a reflection of your unique taste and creativity.
                 </Text>
                 <Link 
-                  href={shortened_link}
+                  href={shortenedLink}
                   style={{
                     backgroundColor: '#f0f0f0',
                     border: '2px solid #ff5722',
@@ -57,12 +57,12 @@ import {
                     color: '#333',
                     wordBreak: 'break-word' // Ensure the link breaks nicely on long URLs
                   }}>
-                    {shortened_link}
+                    {shortenedLink}
                   </span>
                 </Link>
 
-                <Img src={image_url} width="100%" alt="Mixtape Image" style={mixtapeImage} />
-                <Button style={button} href={shortened_link}>
+                <Img src={imageUrl} width="100%" alt="Mixtape Image" style={mixtapeImage} />
+                <Button style={button} href={shortenedLink}>
                   Listen to Your {name} Mixtape
                 </Button>
                 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { db, auth, storage } from '@/firebase/config';
 import { collection, getDocs, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
@@ -34,6 +34,7 @@ const createCanvas = async (node) => {
 
     if (dataUrl.length > cycle[i - 1]) repeat = false;
   }
+  console.log("is safari or chrome:" + isSafariOrChrome + "_repeat_need_" + i);
   return canvas;
 };
 
@@ -57,6 +58,7 @@ function Admin() {
     return str.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
   };
 
+  console.log("Minys:", mixtapes.map(({ tracks, ...rest }) => rest));
 
 
   const handleDelete = async (mixtapeId) => {
@@ -228,42 +230,16 @@ function Admin() {
   return (
     <>
       <Header />
-      <div className="container mx-5 mt-5">
-        <h1 className="text-3xl font-bold mb-3 text-center">Admin Panel</h1>
-        
-        <div className='flex gap-2 justify-center items-center ' >
-          <h1
-            onClick={()=>{router.push('/admin/tags')}}
-            className={`bg-lime-500 flex justify-center cursor-pointer items-center text-center hover:bg-lime-700 text-white font-bold w-44 py-2 px-4 rounded `}
-          >
-            Create Tags
-          </h1>
-          <h1
-            onClick={()=>{router.push('/admin/copy')}}
-            className={`bg-lime-500 flex justify-center cursor-pointer items-center text-center hover:bg-lime-700 text-white font-bold w-44 py-2 px-4 rounded `}
-          >
-            Transfer Mixtapes
-          </h1>
-          <h1
-            onClick={()=>{router.push('/admin/blog')}}
-            className={`bg-lime-500 flex justify-center cursor-pointer items-center text-center hover:bg-lime-700 text-white font-bold w-44 py-2 px-4 rounded `}
-          >
-            Create Blog
-          </h1>
-          <h1
-            onClick={()=>{router.push('/admin/vimeo')}}
-            className={`bg-lime-500 flex justify-center cursor-pointer items-center text-center hover:bg-lime-700 text-white font-bold w-44 py-2 px-4 rounded `}
-          >
-            Create Exclusives
-          </h1>
-        </div>
-        <div className="mt-2">
+      <div className="container mx-5 mt-10">
+        <h1 className="text-3xl font-bold mb-6 text-center">Admin Panel</h1>
+        <h1 className="text-lg font-bold mb-1">Use link like https://minyfy.minyvinyl.com/play/JLoRn9KQkc73B7ELFZCB</h1>
+        <div className="mb-6">
           <input
             type="text"
             placeholder="Enter URL"
             value={docId}
             onChange={(e) => setDocId(e.target.value)}
-            className="border px-4 py-3"
+            className="border px-4 py-2"
           />
           <input
             type="file"
@@ -273,15 +249,13 @@ function Admin() {
           />
           <button
             onClick={handleUrlSubmit}
-            className={`bg-blue-500 hover:bg-blue-700 cursor-pointer  text-white font-bold py-2 px-4 ml-2 rounded ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={uploading}
           >
             {uploading ? 'Uploading...' : 'Upload Image'}
           </button>
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
-        <h1 className="text-xs font-semibold mb-1">Use link like https://minyfy.minyvinyl.com/play/JLoRn9KQkc73B7ELFZCB</h1>
-        
 
         <table className="min-w-full bg-white">
           <thead>

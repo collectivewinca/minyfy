@@ -1,3 +1,4 @@
+/*
 import axios from 'axios';
 
 const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID; // your clientId
@@ -38,10 +39,10 @@ export default async function handler(req, res) {
     //   await getProfile(access_token);
       
 
-
       res.redirect('/#' + new URLSearchParams({ access_token: access_token }).toString());
     } catch (error) {
       res.redirect('/#' + new URLSearchParams({ error: 'invalid_token' }).toString());
     }
   }
 }
+*/

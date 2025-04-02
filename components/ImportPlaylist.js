@@ -1,3 +1,4 @@
+/*
 import React, { useState } from 'react';
 import { PiMusicNoteFill } from "react-icons/pi";
 import axios from 'axios';
@@ -179,51 +180,23 @@ const ImportPlaylist = ({ onTracksChange }) => {
       {error && <p className="text-red-600 mt-2">{error}</p>}
       
       {searchResults.length > 0 && (
-        <div className="mt-5">
-          <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Search Results</h2>
-          <ul className="md:pl-5 pl-2 list-disc text-lg">
+        <div className="mt-4">
+          <h3 className="text-lg font-medium mb-2">Search Results:</h3>
+          <div className="space-y-2">
             {searchResults.map((playlist) => (
-              playlist && (
-                <li key={playlist.id} onClick={() => handlePlaylistSelect(playlist)} className="cursor-pointer flex md:gap-4 gap-2 mb-2 w-full items-center">
-                  <button className="p-2 rounded-md bg-[#F4EFE6] text-black font-extrabold">
-                    <PiMusicNoteFill className='md:text-2xl text-lg' />
-                  </button>
-                  <div className='font-base font-jakarta md:text-xl text-sm'>
-                    {playlist?.name || 'Untitled Playlist'} - {playlist?.owner?.display_name || 'Unknown Artist'}
-                  </div>
-                </li>
-              )
+              <div
+                key={playlist.id}
+                className="flex items-center justify-between p-3 bg-[#F4EFE6] rounded-lg cursor-pointer hover:bg-[#E8E0D5]"
+                onClick={() => handlePlaylistSelect(playlist)}
+              >
+                <div className="flex items-center gap-3">
+                  <PiMusicNoteFill className="text-[#A18249]" />
+                  <span>{playlist.name}</span>
+                </div>
+                <span className="text-sm text-neutral-500">{playlist.tracks.total} tracks</span>
+              </div>
             ))}
-          </ul>
-          <p className="mt-4 text-neutral-600">
-            Can't find your playlist. Get playlist url from {' '}
-            <a 
-              href={`https://open.spotify.com/search/${encodeURIComponent(searchQuery)}/playlists`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#A18249] font-bold underline"
-            >
-              Spotify
-            </a>
-          </p>
-        </div>
-      )}
-      
-
-      
-      {allTracks.length > 0 && (
-        <div className="mt-5">
-          <h2 className="md:text-xl text-base font-medium tracking-wider mb-4 font-jakarta">Playlist Tracks</h2>
-          <ul className="md:pl-5 pl-2 list-disc text-lg uppercase">
-            {allTracks.map((track) => (
-              <li key={track} className="flex md:gap-4 gap-2 mb-2 w-full items-center">
-                <button className="p-2 rounded-md bg-[#F4EFE6] text-black font-extrabold">
-                  <PiMusicNoteFill className='md:text-2xl text-lg' />
-                </button>
-                <div className='font-base font-jakarta md:text-xl text-sm'>{track}</div>
-              </li>
-            ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>
@@ -231,3 +204,4 @@ const ImportPlaylist = ({ onTracksChange }) => {
 };
 
 export default ImportPlaylist;
+*/

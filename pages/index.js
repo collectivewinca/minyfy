@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Link from 'next/link';
-import { FaSpotify } from 'react-icons/fa';
 import ImageGallery from '@/components/Gallery';
 import { IoRocketSharp } from "react-icons/io5";
 import { useRouter } from 'next/router';
@@ -14,12 +13,12 @@ function Home() {
     <>
       <NextSeo
         title="Miny Vinyl - Create and Discover Awesome Music Playlists"
-        description="Create and discover cool music playlists and mixtapes for any artist. Design your own mixtapes/playlist or explore curated collections from Spotify, Discogs, Apple Music, YouTube Music, and more!."
+        description="Create and discover cool music playlists and mixtapes for any artist. Design your own mixtapes/playlist or explore curated collections from Discogs, Apple Music, YouTube Music, and more!."
         canonical="https://minyfy.minyvinyl.com/"
         openGraph={{
           url: 'https://minyfy.minyvinyl.com/',
           title: 'Miny Vinyl - Create and Discover Awesome Music Playlists',
-          description: 'Create and discover cool music playlists and mixtapes for any artist. Design your own mixtapes/playlist or explore curated collections from Spotify, Discogs, Apple Music, YouTube Music, and more!',
+          description: 'Create and discover cool music playlists and mixtapes for any artist. Design your own mixtapes/playlist or explore curated collections from Discogs, Apple Music, YouTube Music, and more!',
           images: [
             {
               url: 'https://minyfy.minyvinyl.com/vinyl.png',
@@ -45,21 +44,37 @@ function Home() {
         ]}
       />
       <Head>
-      <link rel="icon" href="/vinyl.png" type="image/png" /> 
+        <link rel="icon" href="/vinyl.png" type="image/png" /> 
       </Head>
       <Header />
-      <div className="container mx-auto px-4 my-6">
-        <div className="w-full flex justify-center">
-          <div>
-            <div className="btn w-full hex-alt" onClick={() => { router.push("/makeaminy") }}>
-              <i className="animation"></i>
-              <IoRocketSharp className="text-xl" />
-              Create A Mixtape<i className="animation"></i>
-            </div>
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Welcome to Miny Vinyl</h1>
+          <p className="text-xl text-gray-600">Create and discover amazing music playlists</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4">Create Playlists</h2>
+            <p className="text-gray-600">Design your own custom playlists with your favorite tracks</p>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4">Discover Music</h2>
+            <p className="text-gray-600">Explore curated collections from various music platforms</p>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4">Share & Connect</h2>
+            <p className="text-gray-600">Share your playlists with friends and discover new music</p>
           </div>
         </div>
-        <div className="mt-8">
-          <ImageGallery />
+        
+        <div className="mt-12 text-center">
+          <Link href="/create" className="inline-flex items-center bg-[#A18249] text-white px-6 py-3 rounded-full hover:opacity-90">
+            <IoRocketSharp className="mr-2" />
+            Start Creating
+          </Link>
         </div>
       </div>
     </>

@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
+import { db } from '@/firebase/config';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import axios from 'axios';
 import Player from '@vimeo/player';
-import { supabase } from '@/supabase/config';
 
 const Mixtape = () => {
   const router = useRouter();
@@ -20,16 +21,13 @@ const Mixtape = () => {
     if (id) {
       const fetchMixtapeData = async () => {
         try {
-          const { data: mixtape, error } = await supabase
-            .from('mixtapes')
-            .select('*')
-            .eq('id', id)
-            .single();
+          const docRef = doc(db, 'mixtapes', id);
+          const docSnap = await getDoc(docRef);
 
-          if (error) throw error;
-
-          if (mixtape) {
-            setMixtapeData(mixtape);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setMixtapeData(data);
+            console.log('Mixtape Data:', data);
           } else {
             console.log('No such document!');
           }
@@ -68,43 +66,22 @@ const Mixtape = () => {
       });
 
       const status = response.data.transcode.status;
-      updateVideoStatus(videoId, status === 'complete');
+      updateFirestoreVideoStatus(videoId, status === 'complete');
     } catch (error) {
       console.error('Error checking video status:', error);
     }
   };
 
-  const updateVideoStatus = async (videoId, isProcessed) => {
+  const updateFirestoreVideoStatus = async (videoId, isProcessed) => {
     try {
-      // First get current mixtape data
-      const { data: mixtape, error: fetchError } = await supabase
-        .from('mixtapes')
-        .select('vimeo')
-        .eq('id', id)
-        .single();
-
-      if (fetchError) throw fetchError;
-
-      // Update the video status in the vimeo array
-      const updatedVimeo = mixtape.vimeo.map(video => 
-        video.id === videoId ? { ...video, processed: isProcessed } : video
-      );
-
-      // Save back to database
-      const { error: updateError } = await supabase
-        .from('mixtapes')
-        .update({ vimeo: updatedVimeo })
-        .eq('id', id);
-
-      if (updateError) throw updateError;
-
-      // Update local state
-      setMixtapeData(prev => ({
-        ...prev,
-        vimeo: updatedVimeo
-      }));
+      const docRef = doc(db, 'mixtapes', id);
+      await setDoc(docRef, {
+        vimeo: mixtapeData.vimeo.map(video => 
+          video.id === videoId ? { ...video, processed: isProcessed } : video
+        ),
+      }, { merge: true });
     } catch (error) {
-      console.error('Error updating video status:', error);
+      console.error('Error updating Firestore video status:', error);
     }
   };
 
@@ -149,7 +126,7 @@ const Mixtape = () => {
         }
       }
 
-      await saveVideoDetails(videoDetails);
+      await saveVideoDetailsToFirestore(videoDetails);
     } catch (error) {
       console.error('Error uploading videos:', error);
     } finally {
@@ -200,16 +177,14 @@ const Mixtape = () => {
     }
   };
 
-  const saveVideoDetails = async (videoDetails) => {
+  const saveVideoDetailsToFirestore = async (videoDetails) => {
     try {
-      const { error } = await supabase
-        .from('mixtapes')
-        .update({ vimeo: videoDetails })
-        .eq('id', id);
-
-      if (error) throw error;
+      const docRef = doc(db, 'mixtapes', id);
+      await setDoc(docRef, {
+        vimeo: videoDetails,
+      }, { merge: true });
     } catch (error) {
-      console.error('Error saving video details:', error);
+      console.error('Error saving video details to Firestore:', error);
     }
   };
 

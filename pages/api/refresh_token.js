@@ -1,3 +1,4 @@
+/*
 import request from 'request';
 import { Buffer } from 'buffer';
 
@@ -34,3 +35,4 @@ export default function handler(req, res) {
     res.status(405).json({ message: 'Method not allowed' });
   }
 }
+*/

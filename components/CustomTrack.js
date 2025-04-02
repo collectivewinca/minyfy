@@ -25,6 +25,7 @@ const CustomSection = ({ onTracksChange }) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
+  /* Commented out Spotify token function
   const getAccessToken = async () => {
     const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
     const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
@@ -43,7 +44,9 @@ const CustomSection = ({ onTracksChange }) => {
     );
     return tokenResponse.data.access_token;
   };
+  */
 
+  /* Commented out Spotify track search
   const searchTrack = async (query) => {
     const accessToken = await getAccessToken();
     const response = await axios.get(
@@ -56,182 +59,182 @@ const CustomSection = ({ onTracksChange }) => {
     );
     return response.data.tracks.items;
   };
+  */
 
   const handleSearch = async () => {
     if (searchQuery.trim() === '') {
-      alert('Please enter a track name.');
+      setError('Please enter a track name to search.');
       return;
     }
 
+    setLoading(true);
+    setError('');
+
     try {
-      const tracks = await searchTrack(searchQuery);
-      if (tracks.length === 0) {
-        alert('No tracks found.');
-        setSearchResults([]);
-      } else {
-        const formattedResults = tracks.map(track => ({
-          name: capitalizeWords(track.name),
-          artist: capitalizeWords(track.artists[0].name),
-          formattedString: `${capitalizeWords(track.name)} - ${capitalizeWords(track.artists[0].name)}`
+      // Search Last.fm instead of Spotify
+      const url = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${encodeURIComponent(searchQuery)}&api_key=913f1b2c2126b54f985407d31d49da12&format=json&limit=8`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.results && data.results.trackmatches && data.results.trackmatches.track) {
+        const tracks = data.results.trackmatches.track.map(track => ({
+          name: track.name,
+          artist: track.artist
         }));
-        setSearchResults(formattedResults);
-        setError('');
+        setSearchResults(tracks);
+      } else {
+        setError('No tracks found.');
+        setSearchResults([]);
       }
     } catch (error) {
       console.error('Error searching tracks:', error);
-      alert('An error occurred while searching for tracks.');
+      setError('Failed to search tracks. Please try again.');
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const addToTrackList = (track) => {
-    const formattedTrack = `${track.name} - ${track.artist}`;
-    if (!trackList.includes(formattedTrack)) {
-      const updatedTrackList = [...trackList, formattedTrack];
-      setTrackList(updatedTrackList);
-      onTracksChange(updatedTrackList);
-    } else {
-      alert('This track is already in your list.');
+  const handleTrackSelect = (track) => {
+    const trackString = `${capitalizeWords(track.name)} - ${capitalizeWords(track.artist)}`;
+    if (!trackList.includes(trackString)) {
+      setTrackList([...trackList, trackString]);
+      onTracksChange([...trackList, trackString]);
     }
   };
 
-  const removeFromTrackList = (trackToRemove) => {
-    const updatedTrackList = trackList.filter((track) => track !== trackToRemove);
-    setTrackList(updatedTrackList);
-    onTracksChange(updatedTrackList);
+  const handleTrackRemove = (index) => {
+    const newTrackList = trackList.filter((_, i) => i !== index);
+    setTrackList(newTrackList);
+    onTracksChange(newTrackList);
   };
 
-  const handleBulkAdd = async () => {
+  const handleBulkImport = () => {
+    if (bulkInput.trim() === '') {
+      setError('Please enter tracks to import.');
+      return;
+    }
+
     setLoading(true);
+    setError('');
 
-    const tracks = bulkInput
-      .split('\n')
-      .map(line => line.replace(/["']/g, '').trim())
-      .filter(track => track !== '');
+    try {
+      const tracks = bulkInput
+        .split('\n')
+        .map(track => track.trim())
+        .filter(track => track !== '');
 
-    const updatedTrackList = [...trackList];
-    const skippedTracks = [];
-    const invalidTracks = [];
+      const newTracks = [...trackList];
+      let addedCount = 0;
 
-    for (let i = 0; i < tracks.length; i++) {
-      setLoadingProgress(`${i + 1}/${tracks.length}`);
-
-      const track = tracks[i];
-
-      try {
-        const searchResults = await searchTrack(track);
-        if (searchResults.length > 0) {
-          const foundTrack = searchResults[0];
-          const formattedTrack = `${capitalizeWords(foundTrack.name)} - ${capitalizeWords(foundTrack.artists[0].name)}`;
-          if (!updatedTrackList.includes(formattedTrack)) {
-            updatedTrackList.push(formattedTrack);
-          }
-        } else {
-          skippedTracks.push(track);
+      tracks.forEach(track => {
+        if (!newTracks.includes(track)) {
+          newTracks.push(track);
+          addedCount++;
         }
-      } catch (error) {
-        console.error('Error searching track:', error);
-        skippedTracks.push(track);
-      }
-    }
+      });
 
-    setTrackList(updatedTrackList);
-    onTracksChange(updatedTrackList);
-    setBulkInput('');
-    setLoading(false);
-    setLoadingProgress('');
-
-    if (invalidTracks.length > 0) {
-      alert(`The following tracks were in the wrong format and skipped:\n${invalidTracks.join('\n')}\nPlease use the format: trackName - artistName for accurate results.`);
-    }
-
-    if (skippedTracks.length > 0) {
-      alert(`The following tracks were not found and skipped:\n${skippedTracks.join('\n')}`);
+      setTrackList(newTracks);
+      onTracksChange(newTracks);
+      setLoadingProgress(`Added ${addedCount} new tracks.`);
+      setBulkInput('');
+    } catch (error) {
+      console.error('Error importing tracks:', error);
+      setError('Failed to import tracks. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="my-5 flex flex-col justify-start w-full">
-      <div className="mt-5">
-        <h2 className="md:text-xl text-base font-medium mb-4 font-jakarta">Search for Track</h2>
+      <h2 className="md:text-2xl text-base font-medium mb-4 font-jakarta">Add Custom Tracks</h2>
+      
+      <div className="flex flex-col gap-4 mb-4">
         <div className="flex items-center">
           <input
             type="text"
             className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] md:text-lg text-sm text-neutral-500 rounded-l-xl"
-            placeholder="Enter track name..."
+            placeholder="Search for a track..."
             value={searchQuery}
             onChange={handleInputChange}
           />
           <button
             className="bg-[#A18249] px-5 py-3 rounded-r-xl md:text-lg text-sm font-medium text-white hover:opacity-80"
             onClick={handleSearch}
+            disabled={loading}
           >
-            Search
+            {loading ? 'Searching...' : 'Search'}
+          </button>
+        </div>
+
+        <div className="flex items-center">
+          <textarea
+            className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] md:text-lg text-sm text-neutral-500 rounded-l-xl"
+            placeholder="Enter tracks (one per line)..."
+            value={bulkInput}
+            onChange={handleBulkInputChange}
+            rows={3}
+          />
+          <button
+            className="bg-[#A18249] px-5 py-3 rounded-r-xl md:text-lg text-sm font-medium text-white hover:opacity-80"
+            onClick={handleBulkImport}
+            disabled={loading}
+          >
+            Import
           </button>
         </div>
       </div>
-
-      <div className="mt-5">
-        <h2 className="md:text-xl text-base font-medium mb-4 font-jakarta">Search Results</h2>
-        <ul className="md:pl-5 pl-1 list-disc text-lg">
-          {searchResults.map((track, index) => (
-            <li key={index} className="flex justify-between items-center font-jakarta mb-1">
-              <div className='flex gap-2 items-center'>
-                <PiMusicNoteFill className="text-[#A18249] md:text-xl text-sm" />
-                <span><strong className='font-semibold'>{track.name}</strong> by {track.artist}</span>
-              </div>
-              
-              <button
-                className="p-1 rounded-md text-sm font-medium text-black hover:bg-[#A18249]"
-                onClick={() => addToTrackList(track)}
-              >
-                <BsPlusLg className='text-2xl' />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="mt-5">
-        <h2 className="md:text-xl text-base font-medium mb-4 font-jakarta">Multi-Track Search</h2>
-        <p className="text-sm text-gray-600 mb-2">Enter up to 10 tracks (one per line) -  <strong>Use Format : Track Name - Artist Name </strong> </p>
-        <textarea
-          className="px-5 py-3 font-thin font-mono w-full bg-[#F4EFE6] md:text-base text-sm text-neutral-500 rounded-xl mb-2"
-          placeholder={`Dance The Night - Dua Lipa\nWhat Was I Made For? - Billie Eilish\nPaint The Town Red - Doja Cat\n....`}
-          rows="10"
-          value={bulkInput}
-          onChange={handleBulkInputChange}
-        />
-
-        <button
-          className="bg-[#A18249] px-5 py-3 rounded-xl md:text-lg text-sm font-medium text-white hover:opacity-80"
-          onClick={handleBulkAdd}
-          disabled={loading}
-        >
-          {loading ? `Adding Tracks... ${loadingProgress}` : 'Add Tracks'}
-        </button>
-      </div>
-
       
-
-      <div className="mt-5">
-        <h2 className="md:text-2xl text-lg font-medium mb-4 font-jakarta">Track List</h2>
-        <ul className="md:pl-5 pl-1 list-disc text-lg">
-          {trackList.map((track, index) => (
-            <li key={`${track}-${index}`} className="flex font-jakarta justify-between items-center mb-1">
-              <div className='flex gap-2 items-center'>
-                <PiMusicNoteFill className="text-[#A18249] md:text-xl text-sm" />
-                <span>{track}</span>
-              </div>
-              <button
-                className="p-1 rounded-md text-sm font-medium text-black hover:bg-[#A18249]"
-                onClick={() => removeFromTrackList(track)}
+      {error && <p className="text-red-600 mt-2">{error}</p>}
+      {loadingProgress && <p className="text-green-600 mt-2">{loadingProgress}</p>}
+      
+      {searchResults.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-medium mb-2">Search Results:</h3>
+          <div className="space-y-2">
+            {searchResults.map((track, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between p-2 bg-[#F4EFE6] rounded-lg"
               >
-                <MdDelete className='text-2xl' />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+                <div className="flex items-center gap-2">
+                  <PiMusicNoteFill className="text-[#A18249]" />
+                  <span>{capitalizeWords(track.name)} - {capitalizeWords(track.artist)}</span>
+                </div>
+                <button
+                  onClick={() => handleTrackSelect(track)}
+                  className="p-1 hover:bg-[#A18249] rounded-full"
+                >
+                  <BsPlusLg className="text-[#A18249]" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {trackList.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-lg font-medium mb-2">Selected Tracks:</h3>
+          <div className="space-y-2">
+            {trackList.map((track, index) => (
+              <div key={index} className="flex items-center justify-between p-2 bg-[#F4EFE6] rounded-lg">
+                <div className="flex items-center gap-2">
+                  <PiMusicNoteFill className="text-[#A18249]" />
+                  <span>{track}</span>
+                </div>
+                <button
+                  onClick={() => handleTrackRemove(index)}
+                  className="p-1 hover:bg-red-100 rounded-full"
+                >
+                  <MdDelete className="text-red-500" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

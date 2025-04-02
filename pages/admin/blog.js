@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
-import { storage } from '@/firebase/config';
+import { storage, db } from '@/firebase/config';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { supabase } from '@/supabase/config';
+import { collection, doc, getDocs, query, orderBy, limit } from "firebase/firestore";
 
 function Blog() {
   const [title, setTitle] = useState('50 Essential 21st-Century Arabic Pop Songs: A Celebration of Global Influence and Evolution');
@@ -89,15 +89,16 @@ function Blog() {
   useEffect(() => {
     const fetchRecentMixtapes = async () => {
       try {
-        const { data: mixtapes, error } = await supabase
-          .from('mixtapes')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .limit(30);
+        const mixtapesRef = collection(db, 'mixtapes');
+        const q = query(mixtapesRef, orderBy('createdAt', 'desc'), limit(30));
+        const querySnapshot = await getDocs(q);
 
-        if (error) throw error;
+        const mixtapesData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
-        setRecentMixtapes(mixtapes);
+        setRecentMixtapes(mixtapesData);
       } catch (error) {
         console.error("Error fetching mixtapes: ", error);
       }
@@ -126,7 +127,7 @@ function Blog() {
         <title>${metaTitle}</title>
         <meta name="description" content="${metaDescription}" />
         <meta name="keywords" content="${metaKeywords}" />
-        <link rel="icon" type="image/x-icon" href="${playlists[0].image_url}" />
+        <link rel="icon" type="image/x-icon" href="${playlists[0].imageUrl}" />
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style>
@@ -299,7 +300,7 @@ function Blog() {
                     <a href="${playlist.link}" class="relative">
                       <div class="hexagon-container relative">
                         <img
-                          src="${playlist.image_url}"
+                          src="${playlist.imageUrl}"
                           alt="${playlist.heading}"
                           class="hexagon-image"
                         />
@@ -413,7 +414,7 @@ function Blog() {
     const downloadURL = await getDownloadURL(storageRef);
     setPlaylists(prevPlaylists => {
       const updatedPlaylists = [...prevPlaylists];
-      updatedPlaylists[index].image_url = downloadURL;
+      updatedPlaylists[index].imageUrl = downloadURL;
       return updatedPlaylists;
     });
   };
@@ -463,8 +464,8 @@ function Blog() {
     setPlaylists(prevPlaylists => [
         ...prevPlaylists, 
         {
-            image_url: selectedMixtape.image_url,
-            link: selectedMixtape.shortened_link,
+            imageUrl: selectedMixtape.backgroundImage,
+            link: selectedMixtape.shortenedLink,
             heading: `${randomEmoji} ${toSentenceCase(selectedMixtape.name)} ${randomEmoji}`, // Use the same random emoji
             subheading: combined_tracks // You can adjust this if needed
         }
@@ -514,7 +515,7 @@ function Blog() {
         <title>${metaTitle}</title>
         <meta name="description" content="${metaDescription}" />
         <meta name="keywords" content="${metaKeywords}" />
-        <link rel="icon" type="image/x-icon" href="${playlists[0].image_url}" />
+        <link rel="icon" type="image/x-icon" href="${playlists[0].imageUrl}" />
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <style>
@@ -687,7 +688,7 @@ function Blog() {
                     <a href="${playlist.link}" class="relative">
                       <div class="hexagon-container relative">
                         <img
-                          src="${playlist.image_url}"
+                          src="${playlist.imageUrl}"
                           alt="${playlist.heading}"
                           class="hexagon-image"
                         />
@@ -849,8 +850,8 @@ function Blog() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   onChange={(event) => handlePlaylistImageUpload(index, event)}
                 />
-                {playlist.image_url && (
-                  <img src={playlist.image_url} alt="Playlist" style={{ maxWidth: '100px' }} />
+                {playlist.imageUrl && (
+                  <img src={playlist.imageUrl} alt="Playlist" style={{ maxWidth: '100px' }} />
                 )}
               </div>
               <div className="mb-4">
@@ -991,7 +992,7 @@ function Blog() {
                   onClick={() => handleSelectPlaylist(mixtape)}
                 >
                   <img 
-                    src={mixtape.image_url} 
+                    src={mixtape.imageUrl} 
                     alt={mixtape.name} 
                     className="w-full object-cover" 
                   />

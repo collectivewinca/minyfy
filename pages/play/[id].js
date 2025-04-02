@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { db, auth } from '@/firebase/config';
+import { onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { FaShoppingCart, FaPlay, FaStepForward, FaStepBackward, FaHeart, FaComment } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -14,58 +17,44 @@ import PWAShare from '@/components/PWAshare';
 import { NextSeo } from 'next-seo';
 import {TbLogin} from 'react-icons/tb'
 import {IoRocketSharp} from 'react-icons/io5'
-import {IoShareSocialOutline } from 'react-icons/io5'
 import { FaArrowDownLong } from "react-icons/fa6";
 import MixtapeCard from '@/utils/MixtapeCard';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Search, Share } from 'lucide-react';
-import { supabase } from '@/supabase/config';
+import { Play, Pause, SkipBack, SkipForward, Volume2, Search, Share, Share2 } from 'lucide-react';
+import { IoShareSocialOutline } from "react-icons/io5";
 
 
 
 
-export async function getServerSideProps({ params }) {
-  const { id } = params;
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  let docData = null;
+  let docId = null;
+  let initialComments = [];
 
   try {
-    const { data: mixtape, error: fetchError } = await supabase
-      .from('mixtapes')
-      .select('*')
-      .eq('id', id)
-      .single();
+    // Fetch the main document
+    const docRef = doc(db, 'mixtapes', id);
+    const docSnap = await getDoc(docRef);
 
-    if (fetchError || !mixtape) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        }
-      };
+    if (docSnap.exists()) {
+      const { createdAt, votedBy, comments: commentsData = [], ...rest } = docSnap.data(); // Destructure to exclude createdAt and get comments
+      docData = rest; // Assign everything except createdAt to docData
+      initialComments = commentsData; // Default to empty array if comments field is missing
+      docId = id;
+    } else {
+      console.error("No such document!");
     }
-
-    return {
-      props: {
-        docData: {
-          ...mixtape,
-          image_url: mixtape.image_url,
-          png_image_url: mixtape.png_image_url,
-          background_image: mixtape.background_image,
-          user_email: mixtape.user_email,
-          shortened_link: mixtape.shortened_link,
-          user_display_name: mixtape.user_display_name,
-        },
-        docId: id,
-        initialComments: mixtape.comments || []
-      }
-    };
   } catch (error) {
-    console.error('Error fetching mixtape:', error);
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      }
-    };
+    console.error("Error getting document:", error);
   }
+
+  return {
+    props: {
+      docData,
+      docId,
+      initialComments,
+    },
+  };
 }
 
 
@@ -105,70 +94,72 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   
 
   const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin
-        }
-      });
-      if (error) throw error;
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+  
+      // Ensure user is not null before accessing its properties
+      if (user) {
+        setFormData(prevData => ({
+          ...prevData,
+          userName: user.displayName || '',
+          email: user.email || ''
+        }));
+        setDisplayName(user.displayName || '');
+        setAvatarUrl(user.photoURL || '');
+      }
     } catch (error) {
-      console.error("Error during sign-in:", error.message);
+      console.error("Error during sign-in:", error);
     }
   };
 
   const handleLogout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await signOut(auth);
       setUser(null);
       localStorage.removeItem('user');
     } catch (error) {
-      console.error("Error during sign-out:", error.message);
+      console.error("Error during sign-out:", error);
     }
   };
   
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setUser(session.user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        // Update formData with user's name and email
         setFormData(prevData => ({
           ...prevData,
-          userName: session.user.user_metadata.full_name || '',
-          email: session.user.email || ''
+          userName: currentUser.displayName || '',
+          email: currentUser.email || ''
         }));
-        setDisplayName(session.user.user_metadata.full_name || '');
-        setAvatarUrl(session.user.user_metadata.avatar_url || '');
-        localStorage.setItem('user', JSON.stringify(session.user));
+        setDisplayName(currentUser.displayName || '');
+        setAvatarUrl(currentUser.photoURL || '');
       }
     });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        setUser(session.user);
-        setFormData(prevData => ({
-          ...prevData,
-          userName: session.user.user_metadata.full_name || '',
-          email: session.user.email || ''
-        }));
-        setDisplayName(session.user.user_metadata.full_name || '');
-        setAvatarUrl(session.user.user_metadata.avatar_url || '');
-        localStorage.setItem('user', JSON.stringify(session.user));
-      } else {
-        setUser(null);
-        localStorage.removeItem('user');
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  
+    return () => unsubscribe();
+  }, []); // Ensure the dependencies are correct here
   
   
 
+  const areFieldsFilled = () => {
+    return (
+      // formData.street.trim() &&
+      // formData.phone.trim() &&
+      formData.userName.trim() &&
+      formData.email.trim() &&
+      // formData.city.trim() &&
+      // formData.state.trim() &&
+      // formData.postalCode.trim() &&
+      formData.agreeTerms
+      // formData.country.trim()
+    );
+  };
 
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -192,46 +183,21 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
   
       // Get current date and time
       const now = new Date();
+      const dateTime = now.toISOString();
   
-      // Prepare data for Supabase
+      // Prepare data for Firestore
       const crateData = {
-        title: docData.name,
-        name: updatedFormData.userName,
-        street: updatedFormData.street,
-        city: updatedFormData.city,
-        state: updatedFormData.state,
-        country: updatedFormData.country,
-        postalcode: updatedFormData.postalCode,
-        phone: updatedFormData.phone,
-        email: updatedFormData.email,
-        username: updatedFormData.userName,
-        user_email: updatedFormData.email,
-        user_display_name: updatedFormData.userName,
-        category: updatedFormData.category,
-        signed: updatedFormData.signed,
-        agree_terms: updatedFormData.agreeTerms,
-        is_favorite: false,
-        payment_status: "initiated",
-        datetime: now.toISOString(),
-        date: now.toLocaleDateString(),
-        doc_id: docId,
-        image_url: docData.image_url,
-        png_image_url: docData.png_image_url,
-        background_image: docData.background_image,
-        shortened_link: docData.shortened_link,
-        tracks: docData.tracks,
-        created_at: now.toISOString(),
-        updated_at: now.toISOString()
+        ...updatedFormData,
+        ...docData,
+        docId,
+        paymentStatus: "initiated",
+        dateTime,
+        createdAt: serverTimestamp()
       };
   
-      // Save to Supabase
-      const { data: newCrate, error } = await supabase
-        .from('crates')
-        .insert([crateData])
-        .select()
-        .single();
-
-      if (error) throw error;
+      // Save to Firestore
+      const docRef = await addDoc(collection(db, 'crates'), crateData);
+      // console.log("Document written with ID: ", docRef.id);
   
       // Call pledge email API
       const emailResponse = await fetch('/api/send-pledge', {
@@ -242,7 +208,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
         body: JSON.stringify({
           name: updatedFormData.userName,
           category: updatedFormData.category,
-          shortened_link: docData.shortened_link, 
+          shortenedLink: docData.shortenedLink, 
           email: updatedFormData.email
         }),
       });
@@ -261,8 +227,8 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           name: updatedFormData.userName,
           email: updatedFormData.email,
           signed: updatedFormData.signed,
-          doc_id: docId,
-          crate_id: newCrate.id
+          docId: docId,
+          crateId: docRef.id  
         }),
       });
   
@@ -420,7 +386,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
   const handleDownloadImage = async () => {
     try {
-      const response = await fetch(image_url);
+      const response = await fetch(imageUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -449,7 +415,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
 
   
 
-  const { name, tracks, date, image_url, background_image, user_email, shortened_link } = docData;
+  const { name, tracks, date, imageUrl, backgroundImage, userEmail, shortenedLink} = docData;
   const description = `Check out ${toSentenceCase(name)}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`;
   const topValue = 42 - name.length * 0.4;
 
@@ -494,7 +460,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           description: `${toSentenceCase(name)}'s Mixtape Featuring Tracks : ${tracks.map(track => track.track).join(' • ')}  Join the conversation with text comments, stickers, audio responses, and polls. Discover unique tracks, leave feedback, and enjoy the playlist!.`,
           images: [
             {
-              url: background_image,
+              url: backgroundImage,
               alt: `${toSentenceCase(name)}'s Mixtape Cover`,
               width: 1200,
               height: 630,
@@ -509,7 +475,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           cardType: 'summary_large_image',
           title: `${toSentenceCase(name)}'s Mixtape | Miny Vinyl`,
           description: `Listen to and comment on ${toSentenceCase(name)}'s mixtape on Miny Vinyl. Share your thoughts with text, stickers, audio comments, and polls.`,
-          image: background_image, 
+          image: backgroundImage, 
         }}
         additionalJsonLd={[
           {
@@ -520,13 +486,13 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               name
             )}'s custom mixtape on Miny Vinyl. Discover unique tracks, join the conversation, and share your thoughts!`, 
             url: `https://minyfy.minyvinyl.com${router.asPath}`,
-            image: background_image,
+            image: backgroundImage,
           },
         ]}
       />
         <Head>
-          <meta property="og:image" content={background_image} />
-          <link rel="icon" href={background_image} /> 
+          <meta property="og:image" content={backgroundImage} />
+          <link rel="icon" href={backgroundImage} /> 
         </Head>
 
 
@@ -560,7 +526,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
               {showShareOptions && (
                 <div className="absolute right-[-35px] mt-2 bg-zinc-800 rounded-lg shadow-lg p-3 z-50">
                   <SocialShareButtons 
-                    shareUrl={shortened_link || `https://minyfy.minyvinyl.com${router.asPath}`}
+                    shareUrl={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
                     title="Check out my Latest Mixtape on Miny Vinyl"
                   />
                 </div>
@@ -592,7 +558,7 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           
 
           <div className='grid grid-cols-1 '>
-            <MixtapeCard image_url={background_image} />
+            <MixtapeCard imageUrl={backgroundImage} />
           </div>
 
          
@@ -775,8 +741,8 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             </button>
 
             {/* <PinterestShareButton
-              url={shortened_link || `https://minyfy.minyvinyl.com${router.asPath}`}
-              media={image_url}
+              url={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
+              media={imageUrl}
               description="Check out my Latest Mixtape on Miny Vinyl"
             >
               <PinterestIcon size={32} round />
@@ -784,8 +750,8 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
             <PWAShare 
               title="Check out my Latest Mixtape on Miny Vinyl"
               text={`Check out ${toSentenceCase(name)}'s Mixtape featuring some amazing tracks. Enjoy the music and feel the vibe!`}
-              url={shortened_link || `https://minyfy.minyvinyl.com${router.asPath}`}
-              imageUrl={image_url}
+              url={shortenedLink || `https://minyfy.minyvinyl.com${router.asPath}`}
+              imageUrl={imageUrl}
             />
 
             
@@ -812,8 +778,8 @@ const PlaylistPage = ({ docData, docId, initialComments }) => {
           handleFormChange={handleFormChange}
           isPledgeTaken={isPledgeTaken}
           handlePledgeFormClick={handlePledgeFormClick}
-          backgroundImage={background_image}
-          shortenedLink={shortened_link}
+          backgroundImage={backgroundImage}
+          shortenedLink={shortenedLink}
           isProcessing={isProcessing}
         />
       )}

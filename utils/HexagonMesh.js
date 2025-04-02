@@ -3,9 +3,9 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 
-const HexagonMesh = React.memo(({ image_url, isPlaying }) => {
+const HexagonMesh = React.memo(({ imageUrl, isPlaying }) => {
   const meshRef = useRef(null);
-  const texture = useTexture(image_url);
+  const texture = useTexture(imageUrl);
 
   // Memoize shape and geometry creation
   const { shape, geometry } = useMemo(() => {
@@ -81,9 +81,9 @@ export default HexagonMesh;
 // import { useFrame } from '@react-three/fiber';
 // import { useTexture } from '@react-three/drei';
 
-// const HexagonMesh = ({ image_url, isPlaying }) => {
+// const HexagonMesh = ({ imageUrl, isPlaying }) => {
 //   const meshRef = useRef(null);
-//   const texture = useTexture(image_url);
+//   const texture = useTexture(imageUrl);
 
 //   // Configure texture
 //   useEffect(() => {

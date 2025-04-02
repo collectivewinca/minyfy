@@ -5,11 +5,11 @@ import download from 'downloadjs';
 import MinySection from '@/components/MinySection';
 import { FaLastfm } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
+import { updateDoc, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/firebase/config";
+import { db,storage } from "@/firebase/config";
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
-import { supabase } from '@/supabase/config';
 
 function Lastfm() {
   const [username, setUsername] = useState('');
@@ -197,14 +197,11 @@ function Lastfm() {
       }
   
   
-      // Update Supabase document with the shortened link
-      const { error } = await supabase
-        .from('mixtapes')
-        .update({ shortened_link: `https://go.minyvinyl.com/${json.link.slug}` })
-        .eq('id', docId);
-
-      if (error) throw error;
-
+      // Update Firestore document with the shortened link
+      await updateDoc(doc(db, "mixtapes", docId), {
+        shortenedLink: `https://go.minyvinyl.com/${json.link.slug}` 
+      });
+  
       // Send email with the shortened link
       try {
         // const emailResponse = await fetch('/api/send-mixtape', {

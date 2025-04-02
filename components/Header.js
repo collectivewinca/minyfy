@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TbLogin2, TbLogin } from "react-icons/tb";
 import { useRouter } from 'next/router';
-import { supabase } from '@/supabase/config';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from '@/firebase/config';  // Adjust based on your project structure
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,52 +14,39 @@ const Header = () => {
   };
 
   const handleLogin = async () => {
-    console.log('handleLogin');
+    const provider = new GoogleAuthProvider();
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin
-        }
-      });
-      if (error) throw error;
+      const result = await signInWithPopup(auth, provider);
+      setUser(result.user);
+      localStorage.setItem('user', JSON.stringify(result.user));
     } catch (error) {
-      console.error("Error during sign-in:", error.message);
+      console.error("Error during sign-in:", error);
     }
   };
 
   const handleLogout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await signOut(auth);
       setUser(null);
       localStorage.removeItem('user');
     } catch (error) {
-      console.error("Error during sign-out:", error.message);
+      console.error("Error during sign-out:", error);
     }
   };
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setUser(session.user);
-        localStorage.setItem('user', JSON.stringify(session.user));
-      }
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        setUser(session.user);
-        localStorage.setItem('user', JSON.stringify(session.user));
+    // Handle auth state persistence
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
       } else {
         setUser(null);
         localStorage.removeItem('user');
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => unsubscribe();  // Cleanup on unmount
   }, []);
 
   useEffect(() => {

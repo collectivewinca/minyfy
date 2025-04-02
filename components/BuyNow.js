@@ -3,7 +3,7 @@ import { MdClose } from "react-icons/md";
 import { FaArrowLeft,FaShoppingCart } from "react-icons/fa";
 import ImageSlider from '@/components/ImageSlider';
 
-function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProcessing, handlePledgeFormClick, background_image, shortened_link }) {
+function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProcessing, handlePledgeFormClick, backgroundImage, shortenedLink }) {
       const [errors, setErrors] = useState({});
       const validateForm = () => {
         let newErrors = {};
@@ -85,11 +85,11 @@ function BuyNow({ handleClose, formData, handleFormChange, isPledgeTaken, isProc
           <div className="flex flex-col items-center mt-4 md:justify-between w-full md:flex-row gap-6 pb-3">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <div>
-                <img src={background_image} alt="Artwork" className="w-[7rem] hex-alt md:w-[5rem]" />
+                <img src={backgroundImage} alt="Artwork" className="w-[7rem] hex-alt md:w-[5rem]" />
               </div>
               <div className="flex flex-col text-center md:text-start">
                 <div className="text-xl">{formData.title}'s Mixtape</div>
-                <div className="text-lg font-base cursor-pointer underline text-[#00dc04]">{shortened_link.replace(/^https?:\/\//, '')}</div>
+                <div className="text-lg font-base cursor-pointer underline text-[#00dc04]">{shortenedLink.replace(/^https?:\/\//, '')}</div>
               </div>
             </div>
 

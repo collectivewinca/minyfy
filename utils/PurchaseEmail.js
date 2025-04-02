@@ -14,7 +14,7 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  export const PurchaseEmail = ({ name, title, shortened_link }) => {
+  export const PurchaseEmail = ({ name, title, shortenedLink }) => {
     const previewText = `Your MINY Order with ${title}'s Mixtape is confirmed!`;
   
     return (
@@ -46,7 +46,7 @@ import {
                   Mixtape has been confirmed. Get ready for an unforgettable
                   musical journey!
                 </Text>
-                <Button style={button} href={shortened_link}>
+                <Button style={button} href={shortenedLink}>
                   Listen to Your Mixtape
                 </Button>
                 <Text style={paragraph}>
