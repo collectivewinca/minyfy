@@ -1,4 +1,5 @@
-import { supabase } from '@/supabase/config';
+import { db } from '@/firebase/config';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -13,23 +14,17 @@ export default async function handler(req, res) {
 
   try {
     // Get the current mixtape data
-    const { data: mixtape, error: fetchError } = await supabase
-      .from('mixtapes')
-      .select('vimeo')
-      .eq('id', id)
-      .single();
+    const mixtapeRef = doc(db, 'mixtapes', id);
+    const mixtapeDoc = await getDoc(mixtapeRef);
 
-    if (fetchError) throw fetchError;
+    if (!mixtapeDoc.exists()) {
+      throw new Error('Mixtape not found');
+    }
 
     // Update the mixtape with new Vimeo data
-    const { error: updateError } = await supabase
-      .from('mixtapes')
-      .update({
-        vimeo: vimeoData
-      })
-      .eq('id', id);
-
-    if (updateError) throw updateError;
+    await updateDoc(mixtapeRef, {
+      vimeo: vimeoData
+    });
 
     return res.status(200).json({ message: 'Vimeo data updated successfully' });
   } catch (error) {

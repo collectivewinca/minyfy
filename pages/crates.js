@@ -71,25 +71,18 @@ function Crates() {
   const updateCrateStatus = async (id) => {
     try {
       // Fetch the crate data
-      const { data: crateData, error: fetchError } = await supabase
-        .from('crates')
-        .select('*')
-        .eq('id', id)
-        .single();
+      const crateRef = doc(db, 'crates', id);
+      const crateDoc = await getDoc(crateRef);
 
-      if (fetchError) throw fetchError;
-      if (!crateData) {
+      if (!crateDoc.exists()) {
         console.error("Crate not found:", id);
         return;
       }
 
-      // Update the payment status
-      const { error: updateError } = await supabase
-        .from('crates')
-        .update({ paymentStatus: "success" })
-        .eq('id', id);
+      const crateData = crateDoc.data();
 
-      if (updateError) throw updateError;
+      // Update the payment status
+      await updateDoc(crateRef, { paymentStatus: "success" });
       console.log("Crate status updated for ID:", id);
 
       // Prepare data for the email API

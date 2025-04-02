@@ -12,7 +12,6 @@ import MakeAMinyImages from "@/utils/MakeAMinyImages";
 import mixtapeNames from '@/utils/MixtapeNames';
 import { PiMusicNoteFill } from "react-icons/pi";
 import { AiFillDelete } from "react-icons/ai"; // Import delete icon
-import { supabase } from '@/supabase/config';
 
 function Reddit() {
   const [redditUrl, setRedditUrl] = useState('');
