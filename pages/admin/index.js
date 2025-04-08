@@ -78,7 +78,7 @@ function Admin() {
     'hello@collectivewin.ca',
     "alet@myblackbean.ca",
     "subwaymusicianxyz@gmail.com",
-    "divya@collectivewin.ca"
+    "kash@collectivewin.ca"
   ];
 
   useEffect(() => {
